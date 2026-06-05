@@ -1026,7 +1026,7 @@ $(document).ready(function () {
             if (step.trim()) {
                 $stepsList.append(`
                     <li class="d-flex align-items-start mb-3">
-                        <span class="badge rounded-circle bg-warning text-dark me-3 shadow-sm d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px; font-size: 1rem;">${idx + 1}</span>
+                        <span class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 me-3 fw-bold" style="width: 30px; height: 30px; background: rgba(46, 179, 102, 0.1); color: var(--primary); border: 1px solid rgba(46, 179, 102, 0.2); font-size: 0.95rem;">${idx + 1}</span>
                         <span class="text-secondary" style="font-size: 0.95rem; line-height: 1.6;">${escapeHTML(step.trim())}</span>
                     </li>
                 `);
@@ -2537,19 +2537,9 @@ $(document).ready(function () {
     // ==========================================================================
 
     function initLenis() {
-        if (typeof Lenis !== 'undefined') {
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smoothWheel: true
-            });
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-            window.ecoLenis = lenis;
-        }
+        // Đã tắt Lenis vì gây lag cuộn trang và chặn scroll chatbot.
+        // Sử dụng native CSS scroll-behavior: smooth thay thế.
+        document.documentElement.style.scrollBehavior = 'smooth';
     }
 
     function initVanillaTilt() {
@@ -2664,7 +2654,7 @@ $(document).ready(function () {
     // Khởi chạy Phase 2 premium systems
     initLenis();
     initVanillaTilt();
-    initTextScramble();
+    // initTextScramble(); // Đã tắt — không còn phần tử .scramble-text nào
     initScrollProgressBar();
     initStaggerScroll();
     initParallaxSections();

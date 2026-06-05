@@ -700,6 +700,8 @@ body {
 .premium-chat-body {
     flex-grow: 1;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     padding: 20px;
     background: #F8F9FE;
 }
@@ -850,6 +852,36 @@ html.dark-mode .modal-title {
 
 html.dark-mode .text-muted {
     color: var(--text-muted) !important;
+}
+
+html.dark-mode .text-secondary {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .dropdown-item {
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .dropdown-item:hover {
+    background: rgba(46, 179, 102, 0.15) !important;
+    color: var(--primary) !important;
+}
+
+html.dark-mode .form-floating label {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .blockquote {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: var(--primary) !important;
+}
+
+.text-warning.text-darken {
+    color: #b45309 !important;
+}
+
+html.dark-mode .text-warning.text-darken {
+    color: #f59e0b !important;
 }
 
 html.dark-mode .bg-white {
@@ -1056,6 +1088,85 @@ html.dark-mode .quick-reply-btn {
 html.dark-mode .quick-reply-btn:hover {
     background: rgba(16, 185, 129, 0.15) !important;
     color: white !important;
+}
+
+/* Dark mode contrast: section titles, headings, auth modal, herb detail */
+html.dark-mode .section-title,
+html.dark-mode .section-title span {
+    color: var(--text-main) !important;
+}
+html.dark-mode .section-badge {
+    background: rgba(46, 179, 102, 0.15) !important;
+    color: var(--primary-light) !important;
+}
+html.dark-mode .auth-glass-panel {
+    background: var(--bg-light) !important;
+}
+html.dark-mode .auth-glass-panel h3,
+html.dark-mode .auth-glass-panel p,
+html.dark-mode .auth-glass-panel label {
+    color: var(--text-main) !important;
+}
+html.dark-mode .auth-glass-panel .nav-link {
+    color: var(--text-muted) !important;
+}
+html.dark-mode .auth-glass-panel .nav-link.active {
+    color: white !important;
+    background: var(--primary) !important;
+}
+html.dark-mode .auth-glass-panel .form-control {
+    background: var(--bg-white) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+}
+html.dark-mode .auth-glass-panel .text-muted {
+    color: var(--text-muted) !important;
+}
+html.dark-mode .auth-glass-panel .form-check-label {
+    color: var(--text-muted) !important;
+}
+html.dark-mode .health-alert-box {
+    background: rgba(46, 179, 102, 0.08) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+}
+html.dark-mode .health-alert-box p {
+    color: var(--text-muted) !important;
+}
+html.dark-mode #herbDetailModal .modal-body h5 {
+    color: var(--text-main) !important;
+}
+html.dark-mode #herbDetailModal .alert-warning {
+    background: rgba(255, 193, 7, 0.08) !important;
+    color: #fbbf24 !important;
+}
+html.dark-mode #herbDetailModal .alert-warning strong {
+    color: #fcd34d !important;
+}
+html.dark-mode .process-step-premium {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+html.dark-mode .guide-card-premium .card-body a {
+    color: var(--text-main) !important;
+}
+html.dark-mode .param-card-temp,
+html.dark-mode .param-card-humidity,
+html.dark-mode .param-card-uv,
+html.dark-mode .param-card-wind {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+}
+html.dark-mode .param-card-temp h3,
+html.dark-mode .param-card-humidity h3,
+html.dark-mode .param-card-uv h3,
+html.dark-mode .param-card-wind h3 {
+    color: var(--text-main) !important;
+}
+html.dark-mode .dashboard-card {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+}
+html.dark-mode .dashboard-header-bg h4 {
+    color: var(--text-main) !important;
 }
 
 /* ==========================================================================

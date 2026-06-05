@@ -24,8 +24,8 @@
     <!-- Studio Freight Lenis -->
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
 
-    <link rel="stylesheet" href="style.css?v=11.0">
-    <link rel="stylesheet" href="v5-premium.css?v=11.0">
+    <link rel="stylesheet" href="style.css?v=12.0">
+    <link rel="stylesheet" href="v5-premium.css?v=12.0">
     <meta name="theme-color" content="#2eb366">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-offwhite">
@@ -64,35 +64,37 @@
                 </button>
                 <div class="d-none d-lg-flex align-items-center gap-3" id="desktopAuthSection">
                     <button class="btn btn-auth" data-bs-toggle="modal" data-bs-target="#authModal" id="desktopLoginBtn">Đăng nhập</button>
-                    <div class="d-none align-items-center gap-2 dropdown" id="desktopUserAvatar">
+                    <div class="d-none align-items-center gap-2" id="desktopUserAvatar">
                         <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
-                        <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
-                            <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
-                            <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" aria-labelledby="avatarDropdown" style="width: 250px;">
-                            <li class="dropdown-header text-center pb-3 border-bottom mb-2">
-                                <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); font-size: 1.3rem; overflow: hidden;">
-                                    <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
-                                    <span id="avatarInitialsDropdown">U</span>
-                                </div>
-                                <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
-                                <small class="text-muted d-block" id="dropdownUserEmail">email@gmail.com</small>
-                            </li>
-                            <li>
-                                <a class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2" href="profile.html">
-                                    <i class="bi bi-person-circle text-success fs-5"></i>
-                                    <span>Hồ sơ cá nhân</span>
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider opacity-50"></li>
-                            <li>
-                                <button class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2 text-danger w-100 text-start border-0 bg-transparent" id="dropdownLogoutBtn">
-                                    <i class="bi bi-box-arrow-right fs-5"></i>
-                                    <span>Đăng xuất</span>
-                                </button>
-                            </li>
-                        </ul>
+                        <div class="dropdown">
+                            <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
+                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
+                                <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" aria-labelledby="avatarDropdown" style="width: 250px;">
+                                <li class="dropdown-header text-center pb-3 border-bottom mb-2">
+                                    <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); font-size: 1.3rem; overflow: hidden;">
+                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
+                                        <span id="avatarInitialsDropdown">U</span>
+                                    </div>
+                                    <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
+                                    <small class="text-muted d-block" id="dropdownUserEmail">email@gmail.com</small>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2" href="profile.html">
+                                        <i class="bi bi-person-circle text-success fs-5"></i>
+                                        <span>Hồ sơ cá nhân</span>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider opacity-50"></li>
+                                <li>
+                                    <button class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2 text-danger w-100 text-start border-0 bg-transparent" id="dropdownLogoutBtn">
+                                        <i class="bi bi-box-arrow-right fs-5"></i>
+                                        <span>Đăng xuất</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -362,6 +364,49 @@
                             </div>
                         </div>
                     </div>
+    <!-- MODAL ĐỒNG BỘ 2: CHI TIẾT DƯỢC LIỆU DÀNH CHO XEM NHANH -->
+    <div class="modal fade" id="herbDetailModal" tabindex="-1" aria-labelledby="herbDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden position-relative">
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3 p-2 bg-white rounded-circle shadow-lg" style="z-index: 1100; border: 1px solid rgba(0,0,0,0.15);" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-lg-5 d-flex align-items-stretch">
+                            <img src="" id="herbDetailImg" alt="Herb" class="w-100 object-fit-cover" style="min-height: 300px; height: 100%;">
+                        </div>
+                        <div class="col-lg-7 p-4 p-md-5">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill" id="herbDetailCategory">Quý hiếm</span>
+                                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill"><i class="bi bi-clock-history me-1"></i> <span id="herbDetailTime">Thời gian</span></span>
+                            </div>
+                            <h2 class="fw-bold mb-1" id="herbDetailName">Tên Thảo Dược <span id="herbDetailEmoji"></span></h2>
+                            <blockquote class="blockquote border-start border-4 border-success ps-3 my-3 bg-light rounded-end p-2">
+                                <p class="text-muted fst-italic mb-0" id="herbDetailScientific" style="font-size: 1.05rem;">Tên khoa học</p>
+                            </blockquote>
+                            
+                            <h5 class="fw-bold text-success mt-4"><i class="bi bi-magic me-2"></i>Thành phần dược chất</h5>
+                            <p class="text-secondary mb-4" id="herbDetailIngredients" style="line-height: 1.6;">Đang tải...</p>
+
+                            <h5 class="fw-bold text-primary"><i class="bi bi-heart-pulse-fill me-2"></i>Công dụng chính lý học</h5>
+                            <p class="text-secondary mb-4" id="herbDetailEfficacy" style="line-height: 1.6;">Đang tải...</p>
+
+                            <h5 class="fw-bold text-success"><i class="bi bi-award-fill me-2"></i>Lợi ích lâm sàng</h5>
+                            <p class="text-secondary mb-4" id="herbDetailBenefits" style="line-height: 1.6;">Đang tải...</p>
+
+                            <h5 class="fw-bold mt-4" style="color: #b45309;"><i class="bi bi-list-check me-2"></i>Các bước bào chế chuẩn y khoa</h5>
+                            <ul class="list-unstyled mb-4" id="herbDetailSteps">
+                                <!-- Steps will be rendered here dynamically -->
+                            </ul>
+                            
+                            <!-- Hộp cảnh báo y khoa màu vàng cao cấp -->
+                            <div class="alert alert-warning d-flex align-items-start gap-2 border-0 rounded-3 mb-0 shadow-sm" role="alert" style="background: rgba(255, 193, 7, 0.12); color: #664d03;">
+                                <i class="bi bi-exclamation-triangle-fill fs-5 flex-shrink-0 mt-0.5"></i>
+                                <div class="small">
+                                    <strong>Khuyến cáo y khoa:</strong> Mọi thông tin, hướng dẫn bào chế và công dụng của bài thuốc trên đây chỉ mang tính chất tham khảo học thuật. Người bệnh tuyệt đối không tự ý áp dụng khi chưa có sự tư vấn, bắt mạch và chỉ định từ Bác sĩ hoặc Lương y có chuyên môn.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -374,7 +419,7 @@
         </div>
         <div class="badge-pulse"></div>
     </button>
-    <div class="floating-chat-window premium-chat-window" id="floatingChatWindow">
+    <div class="floating-chat-window premium-chat-window" id="floatingChatWindow" data-lenis-prevent>
         <div class="chat-header premium-chat-header d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center gap-3">
                 <div class="ai-avatar-circle">
@@ -440,6 +485,6 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="config.js"></script>
     <script src="data.js"></script>
-    <script src="script.js?v=11.0"></script>
+    <script src="script.js?v=12.0"></script>
 </body>
 </html>
