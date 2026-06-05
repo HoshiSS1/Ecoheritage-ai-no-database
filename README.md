@@ -130,9 +130,7 @@ npx -y http-server -p 8080
 - **Responsive** mobile-first design
 - **Premium typography** (Outfit font)
 
-## 👨‍💻 Tác giả
-
-**Nguyễn Minh Hùng** - Sinh viên VKU (Đại học CNTT & Truyền thông Việt - Hàn)
+## 👨‍💻 Tác giả Xrise
 
 ## 📄 License
 
