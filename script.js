@@ -810,17 +810,23 @@ $(document).ready(function () {
             $uvBadge.text(uvStatusText).removeClass('success warning danger').addClass(uvClass);
         }
 
-        // 3. Phân cấp 3 mức độ Độ ẩm
-        let humidityStatusText = 'Ổn định';
+        // 3. Phân cấp 5 mức Độ ẩm (tham khảo ASHRAE & y học cổ truyền)
+        let humidityStatusText = 'Cân bằng';
         let humidityClass = 'success';
-        if (humidityVal < 40) {
-            humidityStatusText = 'Khô hanh';
+        if (humidityVal < 30) {
+            humidityStatusText = 'Rất khô';
+            humidityClass = 'danger';
+        } else if (humidityVal < 50) {
+            humidityStatusText = 'Hơi khô';
             humidityClass = 'warning';
-        } else if (humidityVal <= 80) {
+        } else if (humidityVal <= 70) {
             humidityStatusText = 'Cân bằng';
             humidityClass = 'success';
+        } else if (humidityVal <= 85) {
+            humidityStatusText = 'Ẩm';
+            humidityClass = 'warning';
         } else {
-            humidityStatusText = 'Ẩm ướt';
+            humidityStatusText = 'Rất ẩm';
             humidityClass = 'danger';
         }
         const $humidityBadge = $('#humidityBadge');
@@ -828,22 +834,32 @@ $(document).ready(function () {
             $humidityBadge.text(humidityStatusText).removeClass('success warning danger').addClass(humidityClass);
         }
 
-        // 4. Phân cấp 3 mức độ Gió
-        let windStatusText = 'Tốt';
+        // 4. Phân cấp 5 mức Gió (theo thang Beaufort đơn giản hóa)
+        let windStatusText = 'Lặng gió';
         let windClass = 'success';
-        if (windVal < 10) {
+        let windDisplayText = '';
+        if (windVal < 5) {
+            windStatusText = 'Lặng gió';
+            windClass = 'success';
+            windDisplayText = `${windVal} km/h`;
+        } else if (windVal < 15) {
             windStatusText = 'Gió nhẹ';
             windClass = 'success';
-            $('#weatherWind').text('Gió nhẹ');
-        } else if (windVal <= 20) {
-            windStatusText = 'Gió mát';
+            windDisplayText = `${windVal} km/h`;
+        } else if (windVal < 30) {
+            windStatusText = 'Gió vừa';
             windClass = 'success';
-            $('#weatherWind').text('Gió mát');
-        } else {
-            windStatusText = 'Gió lớn';
+            windDisplayText = `${windVal} km/h`;
+        } else if (windVal < 50) {
+            windStatusText = 'Gió mạnh';
             windClass = 'warning';
-            $('#weatherWind').text('Gió mạnh');
+            windDisplayText = `${windVal} km/h`;
+        } else {
+            windStatusText = 'Gió rất mạnh';
+            windClass = 'danger';
+            windDisplayText = `${windVal} km/h`;
         }
+        $('#weatherWind').text(windDisplayText);
         const $windBadge = $('#windBadge');
         if ($windBadge.length) {
             $windBadge.text(windStatusText).removeClass('success warning danger').addClass(windClass);
@@ -1136,8 +1152,8 @@ $(document).ready(function () {
         });
     }
     initWeatherDashboard();
-    // Chạy live API cập nhật định kỳ — 60 giây cho trải nghiệm thời gian thực
-    let weatherIntervalId = setInterval(initWeatherDashboard, 60000);
+    // Cập nhật mỗi 15 phút (900 giây) — đủ real-time mà không spam API
+    let weatherIntervalId = setInterval(initWeatherDashboard, 900000);
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
             clearInterval(weatherIntervalId);
@@ -1146,7 +1162,7 @@ $(document).ready(function () {
             // Tab active lại — cập nhật ngay và tiếp tục interval
             initWeatherDashboard();
             if (!weatherIntervalId) {
-                weatherIntervalId = setInterval(initWeatherDashboard, 60000);
+                weatherIntervalId = setInterval(initWeatherDashboard, 900000);
             }
         }
     });
