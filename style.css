@@ -906,8 +906,11 @@ html.dark-mode .navbar {
 html.dark-mode .navbar-nav .nav-link {
     color: var(--text-muted) !important;
 }
-html.dark-mode .navbar-nav .nav-link.active,
-html.dark-mode .navbar-nav .nav-link:hover {
+html.dark-mode .navbar-nav .nav-link.active {
+    color: white !important;
+    background: var(--primary) !important;
+}
+html.dark-mode .navbar-nav .nav-link:hover:not(.active) {
     color: var(--primary) !important;
 }
 
@@ -1432,5 +1435,336 @@ html.dark-mode #darkModeToggle:hover {
         font-size: 1.35rem !important;
     }
 }
+
+/* ==========================================================================
+   CHATBOT ECOBOT PRO v2 — COMPLETE REDESIGN
+   ========================================================================== */
+
+/* Chatbot Status Dot (animated online indicator) */
+.chatbot-status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00e676;
+    border-radius: 50%;
+    display: inline-block;
+    animation: chatbotPulse 2s infinite ease-in-out;
+    box-shadow: 0 0 6px rgba(0, 230, 118, 0.6);
+}
+@keyframes chatbotPulse {
+    0%, 100% { opacity: 0.6; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Header action buttons (trash, close) */
+.chatbot-header-btn {
+    color: rgba(255, 255, 255, 0.7) !important;
+    border: none !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 50% !important;
+    width: 34px !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.9rem !important;
+    transition: all 0.3s ease !important;
+    padding: 0 !important;
+}
+.chatbot-header-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    transform: scale(1.08) !important;
+}
+
+/* Chat Footer v2 */
+.chat-footer-v2 {
+    padding: 10px 16px 12px;
+    background: #ffffff;
+    border-top: 1px solid rgba(16, 185, 129, 0.08);
+}
+
+/* Quick Reply Pills */
+.chatbot-quick-replies {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.chatbot-quick-replies::-webkit-scrollbar {
+    display: none;
+}
+
+.chatbot-quick-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(16, 185, 129, 0.25);
+    background: rgba(16, 185, 129, 0.04);
+    color: #059669;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.chatbot-quick-pill:hover {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: #10b981;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.15);
+}
+.quick-pill-icon {
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+/* Input Wrapper */
+.chatbot-input-wrapper {
+    margin-top: 2px;
+    margin-bottom: 6px;
+}
+.chatbot-input-group {
+    display: flex;
+    align-items: center;
+    background: #f8faf9;
+    border: 1.5px solid rgba(16, 185, 129, 0.15);
+    border-radius: 28px;
+    padding: 4px 6px 4px 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(13, 22, 17, 0.03);
+}
+.chatbot-input-group:focus-within {
+    border-color: #10b981;
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.12);
+    background: #ffffff;
+}
+
+.chatbot-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    color: #1a2e22;
+    outline: none;
+    font-family: 'Outfit', sans-serif;
+}
+.chatbot-input::placeholder {
+    color: #8fa096;
+    opacity: 0.85;
+}
+
+/* Send Button */
+.chatbot-send-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.chatbot-send-btn:hover {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+}
+.chatbot-send-btn:active {
+    transform: scale(0.93);
+}
+
+/* Disclaimer */
+.chatbot-disclaimer {
+    text-align: center;
+    font-size: 0.68rem;
+    line-height: 1.4;
+    color: #ef4444;
+    font-weight: 600;
+    padding: 0 4px;
+}
+
+/* ==========================================================================
+   DARK MODE — COMPREHENSIVE CONTRAST FIXES
+   ========================================================================== */
+
+/* --- Dashboard inner health advice cards (bg-white bg-opacity-75) --- */
+html.dark-mode .health-alert-box .bg-white,
+html.dark-mode .health-alert-box [class*="bg-white"] {
+    background: rgba(22, 32, 25, 0.8) !important;
+}
+html.dark-mode .health-alert-box .text-dark,
+html.dark-mode .health-alert-box .small.text-secondary,
+html.dark-mode .health-alert-box .small.text-dark {
+    color: var(--text-main) !important;
+}
+
+/* --- Tea recommendation (text-dark inside alert-*) --- */
+html.dark-mode [class*="alert-"] .text-dark,
+html.dark-mode [class*="alert-"] .small.text-dark {
+    color: var(--text-main) !important;
+}
+
+/* --- Charts section bg-white panels --- */
+html.dark-mode #analytics-section .bg-white {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+}
+html.dark-mode #analytics-section h5 {
+    color: var(--text-main) !important;
+}
+html.dark-mode #analytics-section .text-muted,
+html.dark-mode #analytics-section small {
+    color: var(--text-muted) !important;
+}
+
+/* --- Process step text visibility --- */
+html.dark-mode .process-step-premium h5 {
+    color: var(--text-main) !important;
+}
+html.dark-mode .process-step-premium .text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* --- Guide cards link text --- */
+html.dark-mode .guide-card-premium .text-dark,
+html.dark-mode .guide-card-premium a.text-dark,
+html.dark-mode .guide-card-premium .card-body h5 a {
+    color: var(--text-main) !important;
+}
+html.dark-mode .guide-card-premium .text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* --- Auth modal Google button --- */
+html.dark-mode #googleLoginBtn {
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.3) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+html.dark-mode #googleLoginBtn:hover {
+    background: rgba(46, 179, 102, 0.12) !important;
+    border-color: var(--primary) !important;
+}
+
+/* --- Dropdown header text-dark --- */
+html.dark-mode .dropdown-header .text-dark,
+html.dark-mode #dropdownUserName {
+    color: var(--text-main) !important;
+}
+
+/* --- Form checkbox visibility --- */
+html.dark-mode .form-check-input {
+    background-color: var(--bg-white) !important;
+    border-color: rgba(46, 179, 102, 0.35) !important;
+}
+html.dark-mode .form-check-input:checked {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+/* --- Chatbot: ai-local-reply in dark mode --- */
+html.dark-mode .ai-local-reply {
+    background: rgba(16, 185, 129, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+}
+html.dark-mode .ai-local-reply p,
+html.dark-mode .ai-local-reply li,
+html.dark-mode .ai-local-reply strong {
+    color: var(--text-main) !important;
+}
+html.dark-mode .ai-local-reply .text-secondary {
+    color: var(--text-muted) !important;
+}
+
+/* --- Chatbot v2: Footer dark mode --- */
+html.dark-mode .chat-footer-v2 {
+    background: rgba(13, 22, 17, 0.92) !important;
+    border-top-color: rgba(16, 185, 129, 0.12) !important;
+}
+html.dark-mode .chatbot-quick-pill {
+    border-color: rgba(16, 185, 129, 0.35) !important;
+    color: #6ee7b7 !important;
+    background: rgba(16, 185, 129, 0.06) !important;
+}
+html.dark-mode .chatbot-quick-pill:hover {
+    background: rgba(16, 185, 129, 0.18) !important;
+    color: white !important;
+}
+html.dark-mode .chatbot-input-group {
+    background: rgba(13, 22, 17, 0.6) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+}
+html.dark-mode .chatbot-input-group:focus-within {
+    background: rgba(13, 22, 17, 0.8) !important;
+    border-color: #10b981 !important;
+}
+html.dark-mode .chatbot-input {
+    color: var(--text-main) !important;
+}
+html.dark-mode .chatbot-input::placeholder {
+    color: rgba(165, 188, 176, 0.6) !important;
+}
+html.dark-mode .chatbot-disclaimer {
+    color: #f87171 !important;
+}
+
+/* --- Message avatar icon color fix --- */
+html.dark-mode .message-avatar i {
+    color: #10b981 !important;
+}
+
+/* --- Misc: Alert warning text fix --- */
+html.dark-mode .alert-warning .text-dark,
+html.dark-mode .alert-warning strong {
+    color: var(--text-main) !important;
+}
+
+/* --- Badge bg-success bg-opacity-10 in dark mode --- */
+html.dark-mode .badge.bg-success.bg-opacity-10 {
+    background: rgba(16, 185, 129, 0.15) !important;
+}
+
+/* --- Herb Detail Modal: text visibility --- */
+html.dark-mode #herbDetailModal .text-secondary {
+    color: var(--text-muted) !important;
+}
+html.dark-mode #herbDetailModal .text-danger {
+    color: #f87171 !important;
+}
+html.dark-mode #herbDetailModal h5.fw-bold {
+    color: var(--text-main) !important;
+}
+
+/* --- Dashboard header bg (gradient is fine, but small/opacity text) --- */
+html.dark-mode .dashboard-header-bg small {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* --- Navbar toggler icon for dark mode --- */
+html.dark-mode .navbar-toggler-icon {
+    filter: invert(1) !important;
+}
+
+/* --- Profile page text fixes --- */
+html.dark-mode .profile-card h5,
+html.dark-mode .profile-card h6 {
+    color: var(--text-main) !important;
+}
+
+/* --- Auth modal tabs in dark mode bg-light --- */
+html.dark-mode .custom-auth-tabs {
+    background: rgba(13, 22, 17, 0.5) !important;
+}
+
 
 

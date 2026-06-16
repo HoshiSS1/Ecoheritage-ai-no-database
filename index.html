@@ -23,8 +23,8 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
 
-    <link rel="stylesheet" href="style.css?v=15.0">
-    <link rel="stylesheet" href="v5-premium.css?v=15.0">
+    <link rel="stylesheet" href="style.css?v=16.0">
+    <link rel="stylesheet" href="v5-premium.css?v=16.0">
     <meta name="theme-color" content="#2eb366">
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">
@@ -180,7 +180,7 @@
                             <i class="bi bi-geo-alt-fill fs-2 text-warning"></i>
                             <div>
                                 <h4 class="fw-bold mb-0">Trạm Khí tượng Sinh học <span id="weatherLocationName">Đà Nẵng</span> <span class="ms-2 badge bg-success bg-opacity-25 text-success border border-success border-opacity-25" id="headerTemp" style="font-size: 0.95rem;">28°C</span></h4>
-                                <small class="opacity-75"><i class="bi bi-clock-history"></i> Cập nhật tự động (Thời gian thực)</small>
+                                <small class="opacity-75"><i class="bi bi-clock-history"></i> Cập nhật lần cuối: <span id="weatherUpdateTime">đang tải...</span></small>
                             </div>
                         </div>
                         <div class="badge-realtime"><i class="bi bi-broadcast"></i> ĐANG PHÁT LIVE DATA</div>
@@ -627,7 +627,7 @@
         </div>
     </div>
 
-    <!-- FLOATING CHATBOT WIDGET (ECOBOT PRO) -->
+    <!-- FLOATING CHATBOT WIDGET (ECOBOT PRO v2) -->
     <button class="floating-chat-btn premium-chat-btn" id="toggleChatBtn" aria-label="Mở chatbot tư vấn Lương y" title="Trò chuyện Lương y số">
         <div class="chat-icon-wrapper">
             <i class="bi bi-chat-right-heart-fill fs-3 text-white"></i>
@@ -635,51 +635,61 @@
         <div class="badge-pulse"></div>
     </button>
     <div class="floating-chat-window premium-chat-window" id="floatingChatWindow" data-lenis-prevent>
-        <div class="chat-header premium-chat-header d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-3">
-                <div class="ai-avatar-circle">
-                    <i class="bi bi-robot"></i>
-                </div>
-                <div>
-                    <strong class="d-block text-white fw-bold" style="font-size: 1rem; line-height: 1.2; letter-spacing: 0.5px;">EcoBot Pro</strong>
-                    <div class="d-flex align-items-center gap-1 mt-1">
-                        <span class="status-dot online" style="width:8px; height:8px; background:#00e676; border-radius:50%; display:inline-block;"></span>
-                        <small class="text-white-50" style="font-size: 0.75rem;">Lương Y Số AI 24/7</small>
+        <!-- Chat Header -->
+        <div class="chat-header premium-chat-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="ai-avatar-circle">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <div>
+                        <strong class="d-block text-white fw-bold" style="font-size: 1.05rem; line-height: 1.2; letter-spacing: 0.3px;">EcoBot Pro</strong>
+                        <div class="d-flex align-items-center gap-2 mt-1">
+                            <span class="chatbot-status-dot"></span>
+                            <small class="text-white" style="font-size: 0.75rem; opacity: 0.8;">Lương Y Số AI 24/7</small>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex align-items-center gap-1">
-                <button class="btn btn-sm p-1" id="clearChatHistoryBtn" title="Xóa lịch sử chat" style="color:rgba(255,255,255,0.7); border:none; background:none;" aria-label="Xóa lịch sử chat">
-                    <i class="bi bi-trash3 fs-6"></i>
-                </button>
-                <button class="btn btn-sm p-1" onclick="$('#floatingChatWindow').removeClass('active')" style="color:white; border:none; background:none;" aria-label="Đóng chatbot">
-                    <i class="bi bi-x-lg fs-5"></i>
-                </button>
+                <div class="d-flex align-items-center gap-1">
+                    <button class="btn chatbot-header-btn" id="clearChatHistoryBtn" title="Xóa lịch sử chat" aria-label="Xóa lịch sử chat">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                    <button class="btn chatbot-header-btn" onclick="$('#floatingChatWindow').removeClass('active')" aria-label="Đóng chatbot">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
             </div>
         </div>
+        <!-- Chat Body -->
         <div class="chat-body-widget premium-chat-body" id="chatBody">
             <div class="chat-message ai-message mt-2">
-                <div class="message-avatar"><i class="bi bi-robot text-primary"></i></div>
+                <div class="message-avatar"><i class="bi bi-robot"></i></div>
                 <div class="message-content">
-                    <div class="message-bubble ai-bubble premium-bubble">
-                        <p class="mb-0">Kính chào quý nhân! Tôi là Lương y số EcoBot. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
+                    <div class="message-bubble ai-bubble">
+                        <p class="mb-0">Kính chào quý nhân! 🙏 Tôi là <strong>Lương y số EcoBot</strong>. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
                     </div>
-                    <span class="message-time" style="font-size: 0.7rem; color: #a5bcb0; margin-left: 10px;">EcoHeritage AI</span>
+                    <span class="message-time d-block" style="font-size: 0.7rem; color: #8fa096; margin-top: 4px; margin-left: 10px;">EcoHeritage AI</span>
                 </div>
             </div>
         </div>
-        <div class="chat-footer p-3 bg-white border-top">
-            <div class="d-flex gap-2 overflow-auto pb-2 mb-2" id="quickReplies">
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">💤 Mất ngủ</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">🦴 Đau khớp</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">😷 Cảm cúm</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">💊 Bổ dưỡng</button>
+        <!-- Chat Footer -->
+        <div class="chat-footer-v2">
+            <div class="chatbot-quick-replies" id="quickReplies">
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💤</span> Mất ngủ</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🦴</span> Đau khớp</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">😷</span> Cảm cúm</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💊</span> Bổ dưỡng</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🌿</span> Thảo dược</button>
             </div>
-            <div class="input-group premium-chat-input-group shadow-sm rounded-pill overflow-hidden border mb-2">
-                <input type="text" class="form-control border-0 px-4 py-3 bg-transparent" id="chatInput" placeholder="Hỏi Lương y về thảo dược, trị bệnh...">
-                <button class="btn btn-primary px-4 bg-gradient-primary border-0" id="chatSend"><i class="bi bi-send-fill fs-5"></i></button>
+            <div class="chatbot-input-wrapper">
+                <div class="chatbot-input-group">
+                    <input type="text" class="chatbot-input" id="chatInput" placeholder="Hỏi Lương y về thảo dược, trị bệnh..." autocomplete="off">
+                    <button class="chatbot-send-btn" id="chatSend" aria-label="Gửi tin nhắn">
+                        <i class="bi bi-send-fill"></i>
+                    </button>
+                </div>
             </div>
-            <div class="text-center text-danger fw-semibold" style="font-size: 0.72rem; line-height: 1.3;">
+            <div class="chatbot-disclaimer">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i> Khuyến cáo: Tham vấn ý kiến bác sĩ trước khi sử dụng hoặc làm theo bất kỳ bài thuốc nào từ chatbot.
             </div>
         </div>
@@ -725,8 +735,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="config.js"></script>
-    <script src="data.js?v=15.0"></script>
-    <script src="script.js?v=15.0"></script>
+    <script src="data.js?v=16.0"></script>
+    <script src="script.js?v=16.0"></script>
 </body>
 </html>
 

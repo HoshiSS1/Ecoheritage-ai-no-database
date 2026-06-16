@@ -1120,12 +1120,16 @@ $(document).ready(function () {
 
         // Cập nhật trạng thái "Live" hay "Simulation" trên badge tiêu đề
         const $badge = $('.badge-realtime');
+        const updateTimeStr = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        if ($('#weatherUpdateTime').length) {
+            $('#weatherUpdateTime').text(updateTimeStr);
+        }
         if ($badge.length) {
             if (isLive) {
-                $badge.html('<span class="status-dot online me-2" style="width:8px; height:8px; background:#00e676; border-radius:50%; display:inline-block;"></span> ĐANG PHÁT LIVE API');
+                $badge.html('<span class="status-dot online me-2" style="width:8px; height:8px; background:#00e676; border-radius:50%; display:inline-block;"></span> LIVE · ' + updateTimeStr);
                 $badge.css('background', 'rgba(46, 179, 102, 0.2)').css('border-color', 'rgba(46, 179, 102, 0.4)');
             } else {
-                $badge.html('<span class="status-dot me-2" style="width:8px; height:8px; background:#ff4757; border-radius:50%; display:inline-block;"></span> DỮ LIỆU OFFLINE');
+                $badge.html('<span class="status-dot me-2" style="width:8px; height:8px; background:#ff4757; border-radius:50%; display:inline-block;"></span> OFFLINE · ' + updateTimeStr);
                 $badge.css('background', 'rgba(255, 71, 87, 0.15)').css('border-color', 'rgba(255, 71, 87, 0.3)');
             }
         }
@@ -1183,9 +1187,8 @@ $(document).ready(function () {
         });
     }
     initWeatherDashboard();
-    // Chạy live API cập nhật định kỳ — lưu ref để có thể clear, chỉ gọi khi tab active
-    // Tối ưu: 120 giây thay vì 30 giây để giảm tải API và tiết kiệm bandwidth
-    let weatherIntervalId = setInterval(initWeatherDashboard, 120000);
+    // Chạy live API cập nhật định kỳ — 60 giây cho trải nghiệm thời gian thực
+    let weatherIntervalId = setInterval(initWeatherDashboard, 60000);
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
             clearInterval(weatherIntervalId);
@@ -1194,7 +1197,7 @@ $(document).ready(function () {
             // Tab active lại — cập nhật ngay và tiếp tục interval
             initWeatherDashboard();
             if (!weatherIntervalId) {
-                weatherIntervalId = setInterval(initWeatherDashboard, 120000);
+                weatherIntervalId = setInterval(initWeatherDashboard, 60000);
             }
         }
     });
@@ -3241,12 +3244,12 @@ $(document).ready(function () {
         if ($chatBody.length) {
             $chatBody.html(`
                 <div class="chat-message ai-message mt-2">
-                    <div class="message-avatar"><i class="bi bi-robot text-primary"></i></div>
+                    <div class="message-avatar"><i class="bi bi-robot"></i></div>
                     <div class="message-content">
-                        <div class="message-bubble ai-bubble premium-bubble">
-                            <p class="mb-0">Kính chào quý nhân! Tôi là Lương y số EcoBot. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
+                        <div class="message-bubble ai-bubble">
+                            <p class="mb-0">Kính chào quý nhân! 🙏 Tôi là <strong>Lương y số EcoBot</strong>. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
                         </div>
-                        <span class="message-time" style="font-size: 0.7rem; color: #a5bcb0; margin-left: 10px;">EcoHeritage AI</span>
+                        <span class="message-time d-block" style="font-size: 0.7rem; color: #8fa096; margin-top: 4px; margin-left: 10px;">EcoHeritage AI</span>
                     </div>
                 </div>
             `);

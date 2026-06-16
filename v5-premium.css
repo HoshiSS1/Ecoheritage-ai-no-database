@@ -685,14 +685,14 @@
 
 /* ─── CHATBOT ECOBOT PRO ULTRA-PREMIUM GLASSMORPHISM ─── */
 .premium-chat-window {
-    background: rgba(255, 255, 255, 0.85) !important;
-    backdrop-filter: blur(25px) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(25px) saturate(190%) !important;
-    border: 1px solid rgba(16, 185, 129, 0.22) !important;
-    box-shadow: 0 20px 60px rgba(13, 22, 17, 0.16), 0 0 35px rgba(16, 185, 129, 0.06) !important;
-    border-radius: var(--radius-lg) !important;
-    width: 380px !important;
-    height: 520px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(30px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+    border: 1px solid rgba(16, 185, 129, 0.18) !important;
+    box-shadow: 0 25px 70px rgba(13, 22, 17, 0.18), 0 0 40px rgba(16, 185, 129, 0.06) !important;
+    border-radius: 24px !important;
+    width: 420px !important;
+    height: 580px !important;
     overflow: hidden !important;
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
@@ -708,11 +708,11 @@
 }
 
 .premium-chat-header {
-    background: linear-gradient(135deg, #0e301c 0%, #059669 100%) !important;
-    padding: 18px 24px !important;
+    background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #10b981 100%) !important;
+    padding: 18px 22px !important;
     border-bottom: 1px solid rgba(16, 185, 129, 0.15) !important;
-    border-top-left-radius: var(--radius-lg) !important;
-    border-top-right-radius: var(--radius-lg) !important;
+    border-top-left-radius: 24px !important;
+    border-top-right-radius: 24px !important;
 }
 
 .ai-avatar-circle {
@@ -737,11 +737,12 @@
 }
 
 .premium-chat-body {
-    background: linear-gradient(to bottom, rgba(248, 249, 254, 0.5), rgba(235, 242, 237, 0.5)) !important;
-    padding: 22px 20px !important;
+    background: linear-gradient(to bottom, rgba(248, 252, 250, 0.6), rgba(236, 248, 241, 0.4)) !important;
+    padding: 20px 18px !important;
     overflow-y: auto !important;
     overscroll-behavior: contain !important;
     -webkit-overflow-scrolling: touch !important;
+    flex: 1 !important;
 }
 
 /* Custom Scrollbar */
@@ -787,11 +788,11 @@
 }
 
 .ai-bubble {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.98) !important;
     color: #1A2E22 !important;
-    border: 1px solid rgba(16, 185, 129, 0.08) !important;
+    border: 1px solid rgba(16, 185, 129, 0.1) !important;
     border-top-left-radius: 4px !important;
-    box-shadow: 0 4px 15px rgba(13, 22, 17, 0.03) !important;
+    box-shadow: 0 4px 16px rgba(13, 22, 17, 0.04) !important;
 }
 
 .user-bubble {
@@ -1952,4 +1953,20 @@ html.dark-mode .auth-close-btn {
 }
 html.dark-mode .auth-close-btn:hover {
     background-color: rgba(255, 255, 255, 0.2) !important;
-}
+}
+
+/* Dark mode: AQI Dashboard section background */
+html.dark-mode #aqi-dashboard {
+    background: linear-gradient(to bottom, var(--bg-offwhite), var(--bg-light) 50%, var(--bg-offwhite) 100%) !important;
+}
+
+/* Dark mode: Chatbot window border-radius fix */
+html.dark-mode .premium-chat-window {
+    border-radius: 24px !important;
+}
+@media (max-width: 768px) {
+    html.dark-mode .premium-chat-window {
+        border-radius: 0 !important;
+    }
+}
+
