@@ -368,6 +368,32 @@ body {
     overflow-wrap: anywhere;
 }
 
+/* Herb card glassmorphism glow on hover */
+.herb-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 50px rgba(46, 179, 102, 0.15), 0 0 20px rgba(46, 179, 102, 0.08);
+    border-color: var(--primary-light);
+}
+
+/* Weather param card subtle gradient backgrounds */
+.param-card-temp {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.04), rgba(255, 193, 7, 0.04)) !important;
+}
+.param-card-humidity {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.04), rgba(23, 162, 184, 0.04)) !important;
+}
+.param-card-uv {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.06), rgba(255, 152, 0, 0.04)) !important;
+}
+.param-card-wind {
+    background: linear-gradient(135deg, rgba(23, 162, 184, 0.04), rgba(46, 179, 102, 0.04)) !important;
+}
+.param-card h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
 /* ─── BẢN ĐỒ DI SẢN & ĐÁNH GIÁ (MAP & REVIEWS) ─────────────── */
 .map-fullscreen-container {
     height: 700px !important;
@@ -603,7 +629,8 @@ body {
     background: linear-gradient(135deg, var(--accent-purple), #8e2de2);
     box-shadow: 0 10px 30px rgba(111, 66, 193, 0.4);
     border: none;
-    z-index: 9999;
+    /* z-index 1031 = trên navbar (1030) nhưng dưới Bootstrap modal (1050+) */
+    z-index: 1031;
     cursor: pointer;
     transition: all var(--transition-bounce);
     display: flex;
@@ -657,7 +684,8 @@ body {
     border: 1px solid rgba(111, 66, 193, 0.15);
     display: flex;
     flex-direction: column;
-    z-index: 10000;
+    /* z-index 1032 = ngay trên chat button nhưng dưới Bootstrap modal overlay */
+    z-index: 1032;
     transform: translateY(30px) scale(0.9);
     opacity: 0;
     pointer-events: none;
@@ -684,6 +712,52 @@ body {
         bottom: 0;
         right: 0;
         border-radius: 0;
+    }
+}
+
+/* ─── RESPONSIVE ≤380px (ULTRA SMALL PHONES) ──────────────── */
+@media (max-width: 380px) {
+    .hero-title {
+        font-size: 1.75rem;
+        letter-spacing: -0.5px;
+    }
+    .hero-section {
+        padding: 70px 0 80px;
+    }
+    .hero-section .d-flex.gap-4 {
+        gap: 0.8rem !important;
+    }
+    .hero-section h3 {
+        font-size: 1.1rem;
+    }
+    .hero-section .lead {
+        font-size: 0.9rem;
+    }
+    .filter-pills {
+        gap: 5px;
+    }
+    .btn-filter {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+    }
+    .section-title {
+        font-size: 1.5rem !important;
+    }
+    .search-box {
+        padding: 5px 8px;
+    }
+    .search-box input {
+        font-size: 0.85rem;
+    }
+    .param-card {
+        padding: 14px;
+    }
+    .param-card h3 {
+        font-size: 1.4rem;
+    }
+    .aqi-circle {
+        width: 90px;
+        height: 90px;
     }
 }
 
@@ -917,7 +991,6 @@ html.dark-mode .list-group-item {
 /* Fix U4: Modal herb detail image constraint and vertical alignment */
 .modal-img-col {
     position: relative;
-    width: 100%;
     min-height: 350px;
     overflow: hidden;
 }
@@ -1228,6 +1301,135 @@ html.dark-mode #darkModeToggle:hover {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* ─── BACK TO TOP BUTTON ────────────────────────────────── */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1029;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 6px 20px rgba(46, 179, 102, 0.35);
+}
+.back-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.back-to-top-btn:hover {
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 10px 30px rgba(46, 179, 102, 0.5);
+}
+@media (max-width: 480px) {
+    .back-to-top-btn {
+        width: 42px;
+        height: 42px;
+        bottom: 20px;
+        left: 20px;
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================================================
+   MULTI-DEVICE RESPONSIVENESS & PREMIUM LAYOUT CORRECTIONS (V6.0)
+   ========================================================================== */
+
+/* 1. Navbar Mobile Layout Optimization */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(20px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+        margin-top: 15px;
+        padding: 20px;
+        border-radius: 18px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(46, 179, 102, 0.05) !important;
+        border: 1px solid rgba(46, 179, 102, 0.12) !important;
+    }
+    
+    html.dark-mode .navbar-collapse {
+        background: rgba(26, 38, 32, 0.96) !important;
+        border-color: rgba(46, 179, 102, 0.22) !important;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(46, 179, 102, 0.1) !important;
+    }
+    
+    .navbar-nav {
+        text-align: center;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .navbar-nav .nav-link {
+        display: inline-block;
+        width: 100%;
+        padding: 10px 0 !important;
+    }
+}
+
+/* 2. Stat Counters Wrapping Border Adjustments on Mobile */
+@media (max-width: 768px) {
+    .hero-section .border-start {
+        border-left: none !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+        padding-left: 0 !important;
+        padding-top: 1.2rem !important;
+        width: 100%;
+        text-align: center;
+    }
+    .hero-section .d-flex.flex-wrap {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* 3. Padding reduction for very large cards on mobile to prevent squishing */
+@media (max-width: 576px) {
+    .auth-glass-panel,
+    .profile-card,
+    #profileLoggedIn .p-5,
+    #profileNotLoggedIn .p-5,
+    #pane-locations .p-5,
+    .admin-dashboard-container .p-5 {
+        padding: 1.5rem !important;
+    }
+
+    .modal-body {
+        padding: 1.25rem !important;
+    }
+}
+
+/* 4. Fix List View on tiny screens under 480px to avoid text truncation */
+@media (max-width: 480px) {
+    .herb-card img {
+        height: 160px !important;
+    }
+
+    .weather-param-card {
+        padding: 12px !important;
+    }
+
+    .card-value-text {
+        font-size: 1.35rem !important;
     }
 }
 

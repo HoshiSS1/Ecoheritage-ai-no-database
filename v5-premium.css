@@ -1861,4 +1861,95 @@ html.dark-mode .status-badge-pill.danger {
 }
 .flash-highlight {
     animation: flashHighlight 1.2s ease-in-out 2;
+}
+
+/* ─── DARK MODE OVERRIDES FOR PREMIUM v5 ───────────────────────── */
+html.dark-mode .admin-header,
+html.dark-mode .admin-card,
+html.dark-mode .auth-premium-container,
+html.dark-mode .guide-card-premium,
+html.dark-mode .achievement-card:not(.locked),
+html.dark-mode .achievement-card:hover {
+    background: var(--bg-light) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .process-step-premium {
+    background: rgba(22, 32, 25, 0.6) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .process-step-premium:hover {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+}
+
+html.dark-mode .premium-chat-input-group {
+    background: var(--bg-white) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+html.dark-mode .premium-chat-input-group input {
+    background: transparent !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .badge-locked-overlay {
+    background: rgba(13, 22, 17, 0.8) !important;
+}
+
+html.dark-mode .btn-outline-dark {
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.3) !important;
+}
+
+html.dark-mode .btn-outline-dark:hover {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+/* Fix table styles in admin page for dark mode */
+html.dark-mode .table {
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .table th,
+html.dark-mode .table td {
+    background-color: transparent !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+    color: var(--text-main) !important;
+}
+
+/* Ensure modals don't have white sections */
+html.dark-mode .modal-body {
+    background-color: var(--bg-offwhite) !important;
+}
+
+html.dark-mode .auth-premium-container .col-lg-7 {
+    background-color: var(--bg-light) !important;
+}
+
+/* Modal close button standard dark filter in dark mode */
+html.dark-mode .btn-close {
+    filter: invert(1) grayscale(1) brightness(2) !important;
+}
+
+/* Custom Auth Close Button with circular backdrop for maximum contrast */
+.auth-close-btn {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border-radius: 50% !important;
+    padding: 10px !important;
+    transition: all 0.3s ease !important;
+}
+.auth-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+}
+html.dark-mode .auth-close-btn {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    filter: invert(1) grayscale(1) brightness(2) !important;
+}
+html.dark-mode .auth-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
 }

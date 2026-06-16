@@ -904,7 +904,7 @@ $(document).ready(function () {
         let aqiAdvices = {};
         if (aqiVal <= 50) {
             aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Chất Lượng Không Khí Tốt (${aqiVal} AQI)`,
+                title: `Chỉ Dẫn Đông Y: Chất lượng Không Khí Tốt (${aqiVal} AQI)`,
                 icon: 'bi-shield-fill-check text-success',
                 yly: 'Chất lượng không khí trong lành, sạch sẽ. Phế khí (phổi) thông suốt, hô hấp tự nhiên, giúp dưỡng sinh đại bổ khí huyết.',
                 baoche: 'Đây là điều kiện thời tiết lý tưởng nhất để thu hoạch các loài thảo dược, đặc biệt là phần lá và hoa vốn cần độ tinh sạch tối đa. Phơi thuốc ngoài trời giúp thu trọn tinh hoa mặt trời mà không sợ nhiễm tạp chất.',
@@ -912,7 +912,7 @@ $(document).ready(function () {
             };
         } else if (aqiVal <= 100) {
             aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Chất Lượng Không Khí Vừa Phải (${aqiVal} AQI)`,
+                title: `Chỉ Dẫn Đông Y: Chất lượng Không Khí Vừa Phải (${aqiVal} AQI)`,
                 icon: 'bi-exclamation-triangle-fill text-warning',
                 yly: 'Chất lượng không khí chấp nhận được, có lượng bụi mịn nhỏ. Táo tà hoặc tà khí nhẹ bắt đầu xuất hiện trong khí quyển, người nhạy cảm dễ hắt hơi, ho nhẹ.',
                 baoche: 'Vẫn thích hợp thu hái dược liệu ở vùng cao thoáng khí. Tuy nhiên, tuyệt đối không phơi dược liệu gần các mặt đường lớn, khu dân cư đông đúc để tránh bụi bám vào dược chất.',
@@ -955,7 +955,7 @@ $(document).ready(function () {
         let uvAdvices = {};
         if (uvNum < 3) {
             uvAdvices = {
-                title: `Chỉ Chỉ Dẫn Đông Y: Chỉ Số UV Thấp (${uvVal} UV)`,
+                title: `Chỉ Dẫn Đông Y: Chỉ Số UV Thấp (${uvVal} UV)`,
                 icon: 'bi-sun-fill text-success',
                 yly: 'Dương quang dịu nhẹ, âm dương hài hòa. Thích hợp cho các hoạt động ngoài trời, rèn luyện thân thể.',
                 baoche: 'Nắng yếu không đủ cường độ để làm khô dược liệu tự nhiên nhanh chóng. Khuyên dùng máy sấy nhiệt độ thấp hoặc phơi kết hợp hong gió lớn để tránh nấm mốc phát triển.',
@@ -1184,7 +1184,8 @@ $(document).ready(function () {
     }
     initWeatherDashboard();
     // Chạy live API cập nhật định kỳ — lưu ref để có thể clear, chỉ gọi khi tab active
-    let weatherIntervalId = setInterval(initWeatherDashboard, 30000);
+    // Tối ưu: 120 giây thay vì 30 giây để giảm tải API và tiết kiệm bandwidth
+    let weatherIntervalId = setInterval(initWeatherDashboard, 120000);
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
             clearInterval(weatherIntervalId);
@@ -1193,7 +1194,7 @@ $(document).ready(function () {
             // Tab active lại — cập nhật ngay và tiếp tục interval
             initWeatherDashboard();
             if (!weatherIntervalId) {
-                weatherIntervalId = setInterval(initWeatherDashboard, 30000);
+                weatherIntervalId = setInterval(initWeatherDashboard, 120000);
             }
         }
     });
@@ -1464,6 +1465,8 @@ $(document).ready(function () {
         $('#herbDetailIngredients').text(herb.ingredients || 'Đang cập nhật hoạt chất...');
         $('#herbDetailEfficacy').text(herb.efficacy || 'Đang cập nhật công dụng y lý...');
         $('#herbDetailBenefits').text(herb.benefits || 'Phục hồi sức khỏe toàn diện.');
+        $('#herbDetailDosage').text(herb.dosage || 'Đang cập nhật liều dùng...');
+        $('#herbDetailContraindications').text(herb.contraindications || 'Không có chống chỉ định đặc biệt, tuy nhiên cần tham khảo ý kiến chuyên gia.');
         
         // Hiển thị nguồn trích dẫn y khoa nếu có
         $('#herbDetailSource').remove();
@@ -2588,7 +2591,7 @@ $(document).ready(function () {
                     <td><strong>${u.name}</strong></td>
                     <td><code>${u.email}</code></td>
                     <td><span class="badge badge-role ${u.role}">${u.role === 'admin' ? 'Quản trị viên' : 'Thành viên'}</span></td>
-                    <td class="small text-muted"><code style="font-size:0.75rem;">${u.password || '******'}</code></td>
+                    <td class="small text-muted"><code style="font-size:0.75rem;">••••••••</code></td>
                     <td class="text-end">
                         <button class="btn btn-outline-secondary btn-sm rounded-pill px-2.5" disabled><i class="bi bi-shield-lock"></i> Vô hiệu hóa</button>
                     </td>
@@ -2690,12 +2693,60 @@ $(document).ready(function () {
     }
 
     // Hàm chuyển đổi Markdown đơn giản sang HTML cho chatbot
+    // Hàm chuyển đổi Markdown đơn giản sang HTML cho chatbot nâng cấp v6.5
     function formatChatMarkdown(text) {
         if (!text) return '';
-        return text
+        
+        let escaped = escapeHTML(text);
+        
+        // Chuyển đổi in đậm và in nghiêng chuẩn Markdown
+        let formatted = escaped
             .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.+?)\*/g, '<em>$1</em>')
-            .replace(/\n/g, '<br>');
+            .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+        // Định dạng block Khuyến cáo y khoa (Màu đỏ/cảnh báo)
+        const khuyenCaoRegex = /(⚠️\s*KHUYẾN CÁO Y KHOA:[^]*?)(?=(🩺|🌿|🗺️|$))/gi;
+        formatted = formatted.replace(khuyenCaoRegex, (match, p1) => {
+            return '<div class="alert alert-danger d-flex align-items-start gap-2 border-0 rounded-3 p-2.5 mb-3 shadow-sm" style="background: rgba(239, 68, 68, 0.08); color: #dc3545; font-size: 0.85rem;">' +
+                '<i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-0.5" style="font-size: 1.1rem;"></i>' +
+                '<div>' + p1.replace(/⚠️\s*KHUYẾN CÁO Y KHOA:/i, '<strong>⚠️ KHUYẾN CÁO Y KHOA:</strong>') + '</div>' +
+            '</div>';
+        });
+
+        // Định dạng block Y Lý Phương Đông (Màu xanh lá nhẹ)
+        const yLyRegex = /(🩺\s*(?:<strong>)?Y Lý Phương Đông(?:<\/strong>)?:[^]*?)(?=(🌿|🗺️|⚠️|$))/gi;
+        formatted = formatted.replace(yLyRegex, (match, p1) => {
+            const cleanText = p1.replace(/🩺\s*(?:<strong>)?Y Lý Phương Đông(?:<\/strong>)?:/i, '').trim();
+            return '<div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(46, 179, 102, 0.05); border-left: 4px solid var(--primary);">' +
+                '<div class="fw-bold mb-2 text-success" style="font-size: 0.95rem;"><i class="bi bi-heart-pulse-fill me-2"></i>🩺 Y Lý Phương Đông</div>' +
+                '<div style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);">' + cleanText + '</div>' +
+            '</div>';
+        });
+
+        // Định dạng block Phương Dược Cổ Truyền (Màu xanh dương nhẹ)
+        const phuongDuocRegex = /(🌿\s*(?:<strong>)?Phương Dược Cổ Truyền(?:<\/strong>)?:[^]*?)(?=(🩺|🗺️|⚠️|$))/gi;
+        formatted = formatted.replace(phuongDuocRegex, (match, p1) => {
+            const cleanText = p1.replace(/🌿\s*(?:<strong>)?Phương Dược Cổ Truyền(?:<\/strong>)?:/i, '').trim();
+            return '<div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(13, 110, 253, 0.05); border-left: 4px solid #0d6efd;">' +
+                '<div class="fw-bold mb-2 text-primary" style="font-size: 0.95rem;"><i class="bi bi-mortar-pestle me-2"></i>🌿 Phương Dược Cổ Truyền</div>' +
+                '<div style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);">' + cleanText + '</div>' +
+            '</div>';
+        });
+
+        // Định dạng block Di Sản Thảo Dược (Màu cam nhẹ)
+        const diSanRegex = /(🗺️\s*(?:<strong>)?Di Sản Thảo Dược(?:<\/strong>)?:[^]*?)(?=(🩺|🌿|⚠️|$))/gi;
+        formatted = formatted.replace(diSanRegex, (match, p1) => {
+            const cleanText = p1.replace(/🗺️\s*(?:<strong>)?Di Sản Thảo Dược(?:<\/strong>)?:/i, '').trim();
+            return '<div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(245, 158, 11, 0.05); border-left: 4px solid #f59e0b;">' +
+                '<div class="fw-bold mb-2" style="font-size: 0.95rem; color: #b45309;"><i class="bi bi-geo-alt-fill me-2"></i>🗺️ Di Sản Thảo Dược</div>' +
+                '<div style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);">' + cleanText + '</div>' +
+            '</div>';
+        });
+
+        // Thay thế các ký tự xuống dòng bằng br
+        formatted = formatted.replace(/\n/g, '<br>');
+        
+        return formatted;
     }
 
     // Gọi Gemini API hoặc fallback nội bộ
@@ -2826,7 +2877,8 @@ $(document).ready(function () {
             let history = readStorage('eco_bot_chats_history', []) || [];
             if (!Array.isArray(history)) history = [];
             history.push({ text: text, isUser: isUser, time: time });
-            if (history.length > 10) {
+            // Giữ lại 30 tin nhắn gần nhất thay vì 10 để trải nghiệm mạch lạc hơn
+            if (history.length > 30) {
                 history.shift();
             }
             writeStorage('eco_bot_chats_history', history);
@@ -2983,13 +3035,31 @@ $(document).ready(function () {
 
         if ($categoryCanvas.length) {
             const ctxCategory = $categoryCanvas[0].getContext('2d');
+            // Tính toán số lượng bài thuốc theo nhóm phân loại từ dữ liệu thực
+            const categoryCounts = {};
+            const categoryColors = {
+                'Chữa bệnh': '#dc3545',
+                'An thần': '#ffc107', 
+                'Bổ dưỡng': '#0d6efd',
+                'Giải độc': '#2eb366',
+                'Làm đẹp': '#e91e8c',
+                'Khác': '#6f42c1'
+            };
+            db.herbs.forEach(h => {
+                const cat = h.category || 'Khác';
+                categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+            });
+            const categoryLabels = Object.keys(categoryCounts);
+            const categoryData = Object.values(categoryCounts);
+            const categoryBgColors = categoryLabels.map(label => categoryColors[label] || '#6f42c1');
+
             new Chart(ctxCategory, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Quý hiếm', 'An thần', 'Bổ dưỡng', 'Giải độc'],
+                    labels: categoryLabels,
                     datasets: [{
-                        data: [5, 5, 5, 5], // 20 bài thuốc chia đều
-                        backgroundColor: ['#dc3545', '#ffc107', '#0d6efd', '#2eb366'],
+                        data: categoryData,
+                        backgroundColor: categoryBgColors,
                         borderWidth: 2
                     }]
                 },
@@ -3139,6 +3209,59 @@ $(document).ready(function () {
             });
         });
     }
+    // ─── 14. NÚT CUỘN LÊN ĐẦU TRANG (BACK TO TOP) ─────────────
+    function initBackToTop() {
+        const $btn = $('#backToTopBtn');
+        if (!$btn.length) return;
+
+        // Hiện/ẩn nút khi cuộn trang — xuất hiện khi scroll > 300px
+        $(window).on('scroll', function() {
+            if ($(window).scrollTop() > 300) {
+                $btn.addClass('visible');
+            } else {
+                $btn.removeClass('visible');
+            }
+        });
+
+        // Click cuộn mượt lên đầu trang
+        $btn.on('click', function() {
+            $('html, body').animate({ scrollTop: 0 }, 600, 'swing');
+        });
+    }
+
+    // ─── 15. XÓA LỊCH SỬ CHATBOT ──────────────────────────────
+    $(document).on('click', '#clearChatHistoryBtn', function() {
+        if (!confirm('Bạn có chắc muốn xóa toàn bộ lịch sử trò chuyện?')) return;
+        
+        // Xóa lịch sử trong LocalStorage
+        localStorage.removeItem('eco_bot_chats_history');
+        
+        // Xóa nội dung chat body, giữ lại tin nhắn chào mừng mặc định
+        const $chatBody = $('#chatBody');
+        if ($chatBody.length) {
+            $chatBody.html(`
+                <div class="chat-message ai-message mt-2">
+                    <div class="message-avatar"><i class="bi bi-robot text-primary"></i></div>
+                    <div class="message-content">
+                        <div class="message-bubble ai-bubble premium-bubble">
+                            <p class="mb-0">Kính chào quý nhân! Tôi là Lương y số EcoBot. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
+                        </div>
+                        <span class="message-time" style="font-size: 0.7rem; color: #a5bcb0; margin-left: 10px;">EcoHeritage AI</span>
+                    </div>
+                </div>
+            `);
+        }
+        
+        showToast('Đã xóa lịch sử trò chuyện thành công! 🗑️', 'success');
+    });
+
+    // ─── 16. HỖ TRỢ TRUY CẬP (ACCESSIBILITY) ───────────────────
+    function initAccessibility() {
+        $('#darkModeToggle').attr('aria-label', 'Chuyển đổi giao diện tối sáng');
+        $('.password-toggle-btn').attr('aria-label', 'Hiển thị mật khẩu');
+        $('.btn-close:not([aria-label])').attr('aria-label', 'Đóng');
+        $('#searchClearBtn').attr('aria-label', 'Xóa từ khóa tìm kiếm');
+    }
 
     // KHỞI CHẠY TỔNG HỢP CÁC TRANG
     initDarkMode();
@@ -3159,4 +3282,7 @@ $(document).ready(function () {
     initScrollProgressBar();
     initStaggerScroll();
     initParallaxSections();
+    initBackToTop(); // Phase 4: Nút cuộn lên đầu trang
+    initAccessibility(); // Tự động hóa aria-label cho Accessibility
+
 });

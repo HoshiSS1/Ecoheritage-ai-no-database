@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Há»‡ thá»‘ng quáº£n trá»‹ ná»™i dung sinh há»c, CRUD bÃ i thuá»‘c Ä‘Ã´ng y vÃ  Ä‘á»‹a Ä‘iá»ƒm di sáº£n táº¡i EcoHeritage AI.">
-    <meta name="keywords" content="admin portal, quáº£n trá»‹ há»‡ thá»‘ng, crud bÃ i thuá»‘c, crud Ä‘á»‹a danh, ecoheritage">
-    <title>Cá»•ng quáº£n trá»‹ Admin - EcoHeritage AI</title>
-    <!-- Open Graph cho chia sáº» máº¡ng xÃ£ há»™i -->
-    <meta property="og:title" content="Cá»•ng quáº£n trá»‹ Admin - EcoHeritage AI">
-    <meta property="og:description" content="Há»‡ thá»‘ng quáº£n trá»‹ ná»™i dung sinh há»c, CRUD bÃ i thuá»‘c Ä‘Ã´ng y vÃ  Ä‘á»‹a Ä‘iá»ƒm di sáº£n táº¡i EcoHeritage AI.">
+    <meta name="description" content="Hệ thống quản trị nội dung sinh học, CRUD bài thuốc đông y và địa điểm di sản tại EcoHeritage AI.">
+    <meta name="keywords" content="admin portal, quản trị hệ thống, crud bài thuốc, crud địa danh, ecoheritage">
+    <title>Cổng quản trị Admin - EcoHeritage AI</title>
+    <!-- Open Graph cho chia sẻ mạng xã hội -->
+    <meta property="og:title" content="Cổng quản trị Admin - EcoHeritage AI">
+    <meta property="og:description" content="Hệ thống quản trị nội dung sinh học, CRUD bài thuốc đông y và địa điểm di sản tại EcoHeritage AI.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://ecoheritage-ai.vercel.app/images/ban_do/son_tra_map.png">
     <link rel="canonical" href="https://ecoheritage-ai.vercel.app/admin.html">
     <link rel="manifest" href="manifest.json">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>ðŸŒ¿</text></svg>" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌿</text></svg>" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -45,29 +45,29 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav gap-2">
-                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-heart me-1"></i>Trang chá»§</a></li>
-                        <li class="nav-item"><a class="nav-link" href="dictionary.html"><i class="bi bi-journal-medical me-1"></i>Tá»« Ä‘iá»ƒn bÃ i thuá»‘c</a></li>
-                        <li class="nav-item"><a class="nav-link" href="map.html"><i class="bi bi-map me-1"></i>Báº£n Ä‘á»“ di sáº£n</a></li>
-                        <li class="nav-item d-none" id="navAdminLink"><a class="nav-link active" href="admin.html"><i class="bi bi-shield-lock me-1"></i>Quáº£n trá»‹</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-heart me-1"></i>Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dictionary.html"><i class="bi bi-journal-medical me-1"></i>Từ điển bài thuốc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="map.html"><i class="bi bi-map me-1"></i>Bản đồ dược liệu</a></li>
+                        <li class="nav-item d-none" id="navAdminLink"><a class="nav-link active" href="admin.html"><i class="bi bi-shield-lock me-1"></i>Quản trị</a></li>
                     </ul>
                     <div class="d-lg-none mt-3 mb-2" id="mobileAuthSection">
-                        <button class="btn btn-auth w-100" data-bs-toggle="modal" data-bs-target="#authModal" id="mobileLoginBtn">ÄÄƒng nháº­p</button>
+                        <button class="btn btn-auth w-100" data-bs-toggle="modal" data-bs-target="#authModal" id="mobileLoginBtn">Đăng nhập</button>
                         <div class="d-none w-100 gap-2" id="mobileUserBtnGroup">
-                            <a href="profile.html" class="btn btn-outline-success w-50 py-2 rounded-pill fw-bold"><i class="bi bi-person-fill"></i> Há»“ sÆ¡</a>
+                            <a href="profile.html" class="btn btn-outline-success w-50 py-2 rounded-pill fw-bold"><i class="bi bi-person-fill"></i> Hồ sơ</a>
                             <button class="btn btn-outline-danger w-50 py-2 rounded-pill fw-bold" id="mobileLogoutBtn"><i class="bi bi-box-arrow-right"></i> Ra</button>
                         </div>
                     </div>
                 </div>
                 <button id="darkModeToggle" class="btn btn-outline-success rounded-circle border-0 p-2 me-2" 
-                        title="Chuyá»ƒn cháº¿ Ä‘á»™ tá»‘i/sÃ¡ng" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;">
+                        title="Chuyển chế độ tối/sáng" aria-label="Chuyển đổi giao diện tối sáng" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;">
                     <i class="bi bi-moon-fill fs-5"></i>
                 </button>
                 <div class="d-none d-lg-flex align-items-center gap-3" id="desktopAuthSection">
-                    <button class="btn btn-auth" data-bs-toggle="modal" data-bs-target="#authModal" id="desktopLoginBtn">ÄÄƒng nháº­p</button>
+                    <button class="btn btn-auth" data-bs-toggle="modal" data-bs-target="#authModal" id="desktopLoginBtn">Đăng nhập</button>
                     <div class="d-none align-items-center gap-2" id="desktopUserAvatar">
-                        <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quáº£n trá»‹ viÃªn</span>
+                        <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
                         <div class="dropdown">
-                            <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="TÃ i khoáº£n cÃ¡ nhÃ¢n" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
+                            <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
                                 <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar" loading="lazy">
                                 <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
                             </a>
@@ -77,20 +77,20 @@
                                         <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar" loading="lazy">
                                         <span id="avatarInitialsDropdown">U</span>
                                     </div>
-                                    <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">TÃªn NgÆ°á»i DÃ¹ng</h6>
+                                    <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
                                     <small class="text-muted d-block" id="dropdownUserEmail">email@gmail.com</small>
                                 </li>
                                 <li>
                                     <a class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2" href="profile.html">
                                         <i class="bi bi-person-circle text-success fs-5"></i>
-                                        <span>Há»“ sÆ¡ cÃ¡ nhÃ¢n</span>
+                                        <span>Hồ sơ cá nhân</span>
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider opacity-50"></li>
                                 <li>
                                     <button class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2 text-danger w-100 text-start border-0 bg-transparent" id="dropdownLogoutBtn">
                                         <i class="bi bi-box-arrow-right fs-5"></i>
-                                        <span>ÄÄƒng xuáº¥t</span>
+                                        <span>Đăng xuất</span>
                                     </button>
                                 </li>
                             </ul>
@@ -102,54 +102,54 @@
     </header>
 
     <main class="flex-grow-1" style="margin-top: 85px;">
-        <!-- KhÃ³a phÃ¢n quyá»n cáº£nh bÃ¡o -->
+        <!-- Khóa phân quyền cảnh báo -->
         <div class="container py-5 d-none" id="adminLockPanel">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
                     <div class="p-5 bg-white rounded-4 shadow-lg border">
                         <i class="bi bi-shield-slash text-danger" style="font-size: 5rem;"></i>
-                        <h3 class="fw-bold text-dark mt-3">Truy Cáº­p Bá»‹ Tá»« Chá»‘i</h3>
-                        <p class="text-muted">Báº¡n khÃ´ng cÃ³ quyá»n quáº£n trá»‹ Ä‘á»ƒ vÃ o trang nÃ y. Há»‡ thá»‘ng sáº½ tá»± Ä‘á»™ng chuyá»ƒn hÆ°á»›ng vá» Trang chá»§ trong giÃ¢y lÃ¡t...</p>
-                        <a href="index.html" class="btn btn-success rounded-pill px-5 mt-2 fw-bold">Vá» trang chá»§</a>
+                        <h3 class="fw-bold text-dark mt-3">Truy Cập Bị Từ Chối</h3>
+                        <p class="text-muted">Bạn không có quyền quản trị để vào trang này. Hệ thống sẽ tự động chuyển hướng về Trang chủ trong giây lát...</p>
+                        <a href="index.html" class="btn btn-success rounded-pill px-5 mt-2 fw-bold">Về trang chủ</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Báº£ng Ä‘iá»u khiá»ƒn Quáº£n trá»‹ Ä‘á»™ng -->
+        <!-- Bảng điều khiển Quản trị động -->
         <div class="container-fluid p-0 d-none" id="adminMainPanel">
             <div class="row g-0">
                 <!-- Sidebar Admin -->
                 <div class="col-md-3 col-lg-2 admin-sidebar">
                     <div class="py-4 text-center border-bottom border-secondary border-opacity-25">
                         <h5 class="fw-bold mb-0 text-white">EcoAdmin CMS</h5>
-                        <small class="text-success fw-semibold">PhiÃªn báº£n v5.0 Active</small>
+                        <small class="text-success fw-semibold">Phiên bản v5.0 Active</small>
                     </div>
                     <div class="nav flex-column mt-3" id="adminTabsList" role="tablist">
-                        <a class="admin-nav-link active" id="tab-dash" data-bs-toggle="tab" href="#pane-dash" role="tab"><i class="bi bi-speedometer2"></i> Tá»•ng quan</a>
-                        <a class="admin-nav-link" id="tab-remedies" data-bs-toggle="tab" href="#pane-remedies" role="tab"><i class="bi bi-journal-plus"></i> BÃ i thuá»‘c CMS</a>
-                        <a class="admin-nav-link" id="tab-locations" data-bs-toggle="tab" href="#pane-locations" role="tab"><i class="bi bi-geo-fill"></i> Äá»‹a Ä‘iá»ƒm CMS</a>
-                        <a class="admin-nav-link" id="tab-users" data-bs-toggle="tab" href="#pane-users" role="tab"><i class="bi bi-people-fill"></i> NgÆ°á»i dÃ¹ng</a>
-                        <a class="admin-nav-link" id="tab-feedback" data-bs-toggle="tab" href="#pane-feedback" role="tab"><i class="bi bi-chat-left-text-fill"></i> ÄÃ¡nh giÃ¡ & Pháº£n há»“i</a>
+                        <a class="admin-nav-link active" id="tab-dash" data-bs-toggle="tab" href="#pane-dash" role="tab"><i class="bi bi-speedometer2"></i> Tổng quan</a>
+                        <a class="admin-nav-link" id="tab-remedies" data-bs-toggle="tab" href="#pane-remedies" role="tab"><i class="bi bi-journal-plus"></i> Bài thuốc CMS</a>
+                        <a class="admin-nav-link" id="tab-locations" data-bs-toggle="tab" href="#pane-locations" role="tab"><i class="bi bi-geo-fill"></i> Địa điểm CMS</a>
+                        <a class="admin-nav-link" id="tab-users" data-bs-toggle="tab" href="#pane-users" role="tab"><i class="bi bi-people-fill"></i> Người dùng</a>
+                        <a class="admin-nav-link" id="tab-feedback" data-bs-toggle="tab" href="#pane-feedback" role="tab"><i class="bi bi-chat-left-text-fill"></i> Đánh giá & Phản hồi</a>
                     </div>
                 </div>
 
-                <!-- Cá»™t ná»™i dung cÃ¡c Tab CMS -->
+                <!-- Cột nội dung các Tab CMS -->
                 <div class="col-md-9 col-lg-10 p-4 p-md-5">
                     <div class="tab-content" id="adminTabContent">
                         
-                        <!-- TAB 1: Tá»”NG QUAN DASHBOARD -->
+                        <!-- TAB 1: TỔNG QUAN DASHBOARD -->
                         <div class="tab-pane fade show active" id="pane-dash" role="tabpanel">
-                            <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-house-door-fill text-success"></i> Thá»‘ng KÃª Tá»•ng Quan Há»‡ Thá»‘ng</h3>
+                            <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-house-door-fill text-success"></i> Thống Kê Tổng Quan Hệ Thống</h3>
                             
-                            <!-- HÃ ng Metrics Cards -->
+                            <!-- Hàng Metrics Cards -->
                             <div class="row g-4 mb-5">
                                 <div class="col-sm-6 col-xl-3">
                                     <div class="metric-card d-flex align-items-center gap-3">
                                         <div class="metric-icon bg-success bg-opacity-10 text-success"><i class="bi bi-journal-medical fs-3"></i></div>
                                         <div>
                                             <h2 class="fw-black mb-0" id="statTotalRemedies">20</h2>
-                                            <span class="text-muted small">Tá»•ng sá»‘ bÃ i thuá»‘c</span>
+                                            <span class="text-muted small">Tổng số bài thuốc</span>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                                         <div class="metric-icon bg-danger bg-opacity-10 text-danger"><i class="bi bi-geo-alt-fill fs-3"></i></div>
                                         <div>
                                             <h2 class="fw-black mb-0" id="statTotalLocations">12</h2>
-                                            <span class="text-muted small">Äá»‹a Ä‘iá»ƒm báº£o tá»“n</span>
+                                            <span class="text-muted small">Địa điểm bảo tồn</span>
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                                         <div class="metric-icon bg-primary bg-opacity-10 text-primary"><i class="bi bi-people-fill fs-3"></i></div>
                                         <div>
                                             <h2 class="fw-black mb-0" id="statTotalUsers">3</h2>
-                                            <span class="text-muted small">TÃ i khoáº£n thÃ nh viÃªn</span>
+                                            <span class="text-muted small">Tài khoản thành viên</span>
                                         </div>
                                     </div>
                                 </div>
@@ -176,26 +176,26 @@
                                         <div class="metric-icon bg-warning bg-opacity-10 text-warning"><i class="bi bi-star-fill fs-3"></i></div>
                                         <div>
                                             <h2 class="fw-black mb-0" id="statTotalReviews">0</h2>
-                                            <span class="text-muted small">ÄÃ¡nh giÃ¡ sao Ä‘á»‹a danh</span>
+                                            <span class="text-muted small">Đánh giá sao địa danh</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Lá»i khuyÃªn váº­n hÃ nh cá»§a AI -->
+                            <!-- Lời khuyên vận hành của AI -->
                             <div class="admin-card">
-                                <h5 class="fw-bold mb-3"><i class="bi bi-cpu text-purple me-2"></i>Trá»£ lÃ½ AI phÃ¢n tÃ­ch dá»¯ liá»‡u:</h5>
-                                <p class="small text-secondary mb-0">Há»‡ sinh thÃ¡i EcoHeritage AI hiá»‡n táº¡i Ä‘ang hoáº¡t Ä‘á»™ng vÃ´ cÃ¹ng á»•n Ä‘á»‹nh. CÆ¡ sá»Ÿ dá»¯ liá»‡u chá»©a Ä‘áº§y Ä‘á»§ 20+ bÃ i thuá»‘c vÃ  12+ khu vÆ°á»n dÆ°á»£c liá»‡u táº¡i ÄÃ  Náºµng. CÃ¡c chá»‰ sá»‘ cháº¥t lÆ°á»£ng khÃ´ng khÃ­ cá»§a tráº¡m quan tráº¯c tá»± Ä‘á»™ng liÃªn tá»¥c cáº­p nháº­t dá»¯ liá»‡u. ChÆ°a phÃ¡t hiá»‡n hÃ nh vi táº¥n cÃ´ng hay spam pháº£n há»“i nÃ o.</p>
+                                <h5 class="fw-bold mb-3"><i class="bi bi-cpu text-purple me-2"></i>Trợ lý AI phân tích dữ liệu:</h5>
+                                <p class="small text-secondary mb-0">Hệ sinh thái EcoHeritage AI hiện tại đang hoạt động vô cùng ổn định. Cơ sở dữ liệu chứa đầy đủ 20+ bài thuốc và 12+ khu vườn dược liệu tại Đà Nẵng. Các chỉ số chất lượng không khí của trạm quan trắc tự động liên tục cập nhật dữ liệu. Chưa phát hiện hành vi tấn công hay spam phản hồi nào.</p>
                             </div>
                         </div>
 
                         <!-- TAB 2: REMEDIES CRUD CMS -->
                         <div class="tab-pane fade" id="pane-remedies" role="tabpanel">
                             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-                                <h3 class="fw-bold mb-0 text-dark"><i class="bi bi-journal-medical text-success"></i> Quáº£n Trá»‹ BÃ i Thuá»‘c DÃ¢n Gian</h3>
+                                <h3 class="fw-bold mb-0 text-dark"><i class="bi bi-journal-medical text-success"></i> Quản Trị Bài Thuốc Dân Gian</h3>
                                 <div class="d-flex gap-2">
-                                    <button class="btn btn-outline-success rounded-pill px-4 fw-bold shadow-sm" id="exportHerbsCSV"><i class="bi bi-download me-1"></i> Xuáº¥t CSV</button>
-                                    <button class="btn btn-success rounded-pill px-4 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#addRemedyModal"><i class="bi bi-plus-circle me-1"></i> ThÃªm BÃ i Thuá»‘c</button>
+                                    <button class="btn btn-outline-success rounded-pill px-4 fw-bold shadow-sm" id="exportHerbsCSV"><i class="bi bi-download me-1"></i> Xuất CSV</button>
+                                    <button class="btn btn-success rounded-pill px-4 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#addRemedyModal"><i class="bi bi-plus-circle me-1"></i> Thêm Bài Thuốc</button>
                                 </div>
                             </div>
                             
@@ -203,11 +203,11 @@
                                 <table class="table admin-table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>DÆ°á»£c liá»‡u</th>
-                                            <th>TÃªn khoa há»c</th>
-                                            <th>PhÃ¢n loáº¡i</th>
-                                            <th>CÃ´ng dá»¥ng váº¯n táº¯t</th>
-                                            <th class="text-end">HÃ nh Ä‘á»™ng</th>
+                                            <th>Dược liệu</th>
+                                            <th>Tên khoa học</th>
+                                            <th>Phân loại</th>
+                                            <th>Công dụng vắn tắt</th>
+                                            <th class="text-end">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody id="adminRemediesTableBody">
@@ -220,19 +220,19 @@
                         <!-- TAB 3: LOCATIONS CRUD CMS -->
                         <div class="tab-pane fade" id="pane-locations" role="tabpanel">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h3 class="fw-bold mb-0 text-dark"><i class="bi bi-map-fill text-danger"></i> Quáº£n LÃ½ Äá»‹a Äiá»ƒm Di Sáº£n VÃ¹ng Trá»“ng</h3>
-                                <button class="btn btn-success rounded-pill px-4 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#addLocationModal"><i class="bi bi-plus-circle me-1"></i> ThÃªm VÃ¹ng Trá»“ng</button>
+                                <h3 class="fw-bold mb-0 text-dark"><i class="bi bi-map-fill text-danger"></i> Quản Lý Địa Điểm Di Sản Vùng Trồng</h3>
+                                <button class="btn btn-success rounded-pill px-4 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#addLocationModal"><i class="bi bi-plus-circle me-1"></i> Thêm Vùng Trồng</button>
                             </div>
 
                             <div class="table-responsive table-responsive-premium">
                                 <table class="table admin-table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>TÃªn Ä‘á»‹a danh</th>
-                                            <th>Äá»‹a chá»‰ / Tá»‰nh thÃ nh</th>
-                                            <th>Tá»a Ä‘á»™ GPS</th>
-                                            <th>DÆ°á»£c liá»‡u Ä‘áº·c trÆ°ng</th>
-                                            <th class="text-end">HÃ nh Ä‘á»™ng</th>
+                                            <th>Tên địa danh</th>
+                                            <th>Địa chỉ / Tỉnh thành</th>
+                                            <th>Tọa độ GPS</th>
+                                            <th>Dược liệu đặc trưng</th>
+                                            <th class="text-end">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody id="adminLocationsTableBody">
@@ -244,17 +244,17 @@
 
                         <!-- TAB 4: USERS MANAGEMENT CMS -->
                         <div class="tab-pane fade" id="pane-users" role="tabpanel">
-                            <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-people-fill text-primary"></i> Quáº£n LÃ½ TÃ i Khoáº£n ThÃ nh ViÃªn</h3>
+                            <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-people-fill text-primary"></i> Quản Lý Tài Khoản Thành Viên</h3>
                             
                             <div class="table-responsive table-responsive-premium">
                                 <table class="table admin-table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Há» vÃ  TÃªn</th>
-                                            <th>Äá»‹a chá»‰ Email</th>
-                                            <th>PhÃ¢n quyá»n</th>
-                                            <th>Máº­t kháº©u mÃ£ hÃ³a</th>
-                                            <th class="text-end">HÃ nh Ä‘á»™ng</th>
+                                            <th>Họ và Tên</th>
+                                            <th>Địa chỉ Email</th>
+                                            <th>Phân quyền</th>
+                                            <th>Mật khẩu mã hóa</th>
+                                            <th class="text-end">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody id="adminUsersTableBody">
@@ -266,17 +266,17 @@
 
                         <!-- TAB 5: FEEDBACK / REVIEWS MODERATION -->
                         <div class="tab-pane fade" id="pane-feedback" role="tabpanel">
-                            <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-chat-left-text-fill text-warning"></i> Kiá»ƒm Duyá»‡t ÄÃ¡nh GiÃ¡ BÃ¬nh Luáº­n</h3>
+                            <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-chat-left-text-fill text-warning"></i> Kiểm Duyệt Đánh Giá Bình Luận</h3>
                             
                             <div class="table-responsive table-responsive-premium">
                                 <table class="table admin-table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Äá»‹a Ä‘iá»ƒm</th>
-                                            <th>ThÃ nh viÃªn</th>
-                                            <th>Sá»‘ sao</th>
-                                            <th>BÃ¬nh luáº­n nháº­n xÃ©t</th>
-                                            <th class="text-end">Kiá»ƒm duyá»‡t</th>
+                                            <th>Địa điểm</th>
+                                            <th>Thành viên</th>
+                                            <th>Số sao</th>
+                                            <th>Bình luận nhận xét</th>
+                                            <th class="text-end">Kiểm duyệt</th>
                                         </tr>
                                     </thead>
                                     <tbody id="adminReviewsTableBody">
@@ -292,7 +292,7 @@
         </div>
     </main>
 
-    <!-- 3. CHÃ‚N TRANG Äá»’NG Bá»˜ CAO Cáº¤P (FOOTER) -->
+    <!-- 3. CHÂN TRANG ĐỒNG BỘ CAO CẤP (FOOTER) -->
     <footer class="site-footer bg-dark-premium text-white py-5 position-relative overflow-hidden mt-auto">
         <div class="footer-wave position-absolute top-0 start-0 w-100" style="transform: translateY(-99%); z-index: 0;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" style="height: 60px;">
@@ -301,36 +301,36 @@
         </div>
         <div class="container position-relative z-1">
             <div class="row g-5 mb-5">
-                <!-- Cá»™t 1: Giá»›i thiá»‡u thÆ°Æ¡ng hiá»‡u -->
+                <!-- Cột 1: Giới thiệu thương hiệu -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
                     <div class="footer-brand mb-4 d-flex align-items-center gap-2">
                         <i class="bi bi-tree-fill text-success fs-2"></i>
                         <span class="fs-3 fw-bold text-white">Eco<span class="text-success">Heritage AI</span></span>
                     </div>
-                    <p class="text-secondary mb-4" style="line-height: 1.8;">Ná»n táº£ng bÃ¡ch khoa toÃ n thÆ° dÆ°á»£c liá»‡u sinh há»c vÃ  báº£n Ä‘á»“ sá»‘ di sáº£n y há»c cá»• truyá»n hÃ ng Ä‘áº§u Viá»‡t Nam. TÃ­ch há»£p AI há»— trá»£ chÄƒm sÃ³c sá»©c khá»e xanh.</p>
+                    <p class="text-secondary mb-4" style="line-height: 1.8;">Nền tảng bách khoa toàn thư dược liệu sinh học và bản đồ số di sản y học cổ truyền hàng đầu Việt Nam. Tích hợp AI hỗ trợ chăm sóc sức khỏe xanh.</p>
                     <div class="d-flex gap-3">
                         <a href="#" class="btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="bi bi-youtube"></i></a>
                         <a href="#" class="btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="bi bi-instagram"></i></a>
                     </div>
                 </div>
-                <!-- Cá»™t 2: ÄÆ°á»ng dáº«n nhanh -->
+                <!-- Cột 2: Đường dẫn nhanh -->
                 <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <h5 class="fw-bold mb-4 text-white">KhÃ¡m phÃ¡</h5>
+                    <h5 class="fw-bold mb-4 text-white">Khám phá</h5>
                     <ul class="list-unstyled text-secondary">
-                        <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none footer-link-hover">Trang chá»§</a></li>
-                        <li class="mb-2"><a href="dictionary.html" class="text-secondary text-decoration-none footer-link-hover">Tá»« Ä‘iá»ƒn Y DÆ°á»£c</a></li>
-                        <li class="mb-2"><a href="map.html" class="text-secondary text-decoration-none footer-link-hover">Báº£n Ä‘á»“ Vá»‡ tinh</a></li>
-                        <li class="mb-2"><a href="profile.html" class="text-secondary text-decoration-none footer-link-hover">Há»“ sÆ¡ cÃ¡ nhÃ¢n</a></li>
+                        <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none footer-link-hover">Trang chủ</a></li>
+                        <li class="mb-2"><a href="dictionary.html" class="text-secondary text-decoration-none footer-link-hover">Từ điển Y Dược</a></li>
+                        <li class="mb-2"><a href="map.html" class="text-secondary text-decoration-none footer-link-hover">Bản đồ Vệ tinh</a></li>
+                        <li class="mb-2"><a href="profile.html" class="text-secondary text-decoration-none footer-link-hover">Hồ sơ cá nhân</a></li>
                     </ul>
                 </div>
-                <!-- Cá»™t 3: LiÃªn há»‡ -->
+                <!-- Cột 3: Liên hệ -->
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <h5 class="fw-bold mb-4 text-white">LiÃªn há»‡ khoa y</h5>
+                    <h5 class="fw-bold mb-4 text-white">Liên hệ khoa y</h5>
                     <ul class="list-unstyled text-secondary">
                         <li class="mb-3 d-flex gap-3 align-items-start">
                             <i class="bi bi-geo-alt-fill text-success mt-1"></i>
-                            <span>123 TÃ´n Äá»©c Tháº¯ng, LiÃªn Chiá»ƒu, ÄÃ  Náºµng, Viá»‡t Nam</span>
+                            <span>123 Tôn Đức Thắng, Liên Chiểu, Đà Nẵng, Việt Nam</span>
                         </li>
                         <li class="mb-3 d-flex gap-3 align-items-center">
                             <i class="bi bi-envelope-fill text-success"></i>
@@ -342,121 +342,121 @@
                         </li>
                     </ul>
                 </div>
-                <!-- Cá»™t 4: Newsletter -->
+                <!-- Cột 4: Newsletter -->
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <h5 class="fw-bold mb-4 text-white">Nháº­n tin sá»©c khá»e</h5>
-                    <p class="text-secondary mb-4">ÄÄƒng kÃ½ Ä‘á»ƒ nháº­n nhá»¯ng lá»i khuyÃªn y dÆ°á»£c, máº¹o bÃ o cháº¿ sá»›m nháº¥t tá»« LÆ°Æ¡ng y cá»§a EcoHeritage.</p>
+                    <h5 class="fw-bold mb-4 text-white">Nhận tin sức khỏe</h5>
+                    <p class="text-secondary mb-4">Đăng ký để nhận những lời khuyên y dược, mẹo bào chế sớm nhất từ Lương y của EcoHeritage.</p>
                     <div class="input-group newsletter-group shadow">
-                        <input type="email" class="form-control border-0 px-4 bg-white bg-opacity-10 text-white" placeholder="Email cá»§a báº¡n...">
+                        <input type="email" class="form-control border-0 px-4 bg-white bg-opacity-10 text-white" placeholder="Email của bạn...">
                         <button class="btn btn-success px-4"><i class="bi bi-send-fill"></i></button>
                     </div>
                 </div>
             </div>
             <hr style="border-color: rgba(255,255,255,0.1);">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-4">
-                <small class="text-secondary">&copy; 2026 EcoHeritage AI. All rights reserved. Äá»“ Ã¡n mÃ´n há»c Web CK - BestStudent VKU.</small>
+                <small class="text-secondary">&copy; 2026 EcoHeritage AI. All rights reserved. Đồ án môn học Web CK - BestStudent VKU.</small>
                 <div class="d-flex gap-3 mt-3 mt-md-0">
-                    <a href="#" class="text-secondary text-decoration-none small footer-link-hover">ChÃ­nh sÃ¡ch báº£o máº­t</a>
-                    <a href="#" class="text-secondary text-decoration-none small footer-link-hover">Äiá»u khoáº£n sá»­ dá»¥ng</a>
+                    <a href="#" class="text-secondary text-decoration-none small footer-link-hover">Chính sách bảo mật</a>
+                    <a href="#" class="text-secondary text-decoration-none small footer-link-hover">Điều khoản sử dụng</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- ADMIN CHUYÃŠN Dá»¤NG MODALS -->
+    <!-- ADMIN CHUYÊN DỤNG MODALS -->
 
-    <!-- MODAL A: THÃŠM BÃ€I THUá»C Má»šI -->
+    <!-- MODAL A: THÊM BÀI THUỐC MỚI -->
     <div class="modal fade" id="addRemedyModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content border-0 shadow-lg rounded-4">
                 <div class="modal-header bg-success text-white">
-                    <h5 class="fw-bold mb-0">ThÃªm BÃ i Thuá»‘c DÆ°á»£c Liá»‡u Má»›i</h5>
+                    <h5 class="fw-bold mb-0">Thêm Bài Thuốc Dược Liệu Mới</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
                     <form id="addRemedyForm">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">TÃªn bÃ i thuá»‘c / Tháº£o dÆ°á»£c</label>
+                                <label class="form-label small fw-bold">Tên bài thuốc / Thảo dược</label>
                                 <input type="text" class="form-control" id="addRemedyName" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">TÃªn khoa há»c (Scientific Name)</label>
+                                <label class="form-label small fw-bold">Tên khoa học (Scientific Name)</label>
                                 <input type="text" class="form-control" id="addRemedyScientific" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">PhÃ¢n loáº¡i danh má»¥c</label>
+                                <label class="form-label small fw-bold">Phân loại danh mục</label>
                                 <select class="form-select" id="addRemedyCategory" required>
-                                    <option value="QuÃ½ hiáº¿m">QuÃ½ hiáº¿m</option>
-                                    <option value="An tháº§n">An tháº§n</option>
-                                    <option value="Bá»• dÆ°á»¡ng">Bá»• dÆ°á»¡ng</option>
-                                    <option value="Giáº£i Ä‘á»™c">Giáº£i Ä‘á»™c</option>
+                                    <option value="Quý hiếm">Quý hiếm</option>
+                                    <option value="An thần">An thần</option>
+                                    <option value="Bổ dưỡng">Bổ dưỡng</option>
+                                    <option value="Giải độc">Giải độc</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Biá»ƒu tÆ°á»£ng Emoji</label>
-                                <input type="text" class="form-control" id="addRemedyEmoji" placeholder="ðŸŒ¿" required>
+                                <label class="form-label small fw-bold">Biểu tượng Emoji</label>
+                                <input type="text" class="form-control" id="addRemedyEmoji" placeholder="🌿" required>
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-bold">Duong dan anh bai thuoc</label>
                                 <input type="text" class="form-control" id="addRemedyImage" placeholder="./images/ten_anh.png hoac https://...">
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">MÃ´ táº£ tÃ³m táº¯t</label>
+                                <label class="form-label small fw-bold">Mô tả tóm tắt</label>
                                 <textarea class="form-control" id="addRemedyUsage" rows="2" required></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">ThÃ nh pháº§n dÆ°á»£c cháº¥t hÃ³a há»c</label>
+                                <label class="form-label small fw-bold">Thành phần dược chất hóa học</label>
                                 <input type="text" class="form-control" id="addRemedyIngredients" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">TÃ¡c dá»¥ng dÆ°á»£c lÃ½ chi tiáº¿t</label>
+                                <label class="form-label small fw-bold">Tác dụng dược lý chi tiết</label>
                                 <input type="text" class="form-control" id="addRemedyEfficacy" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Thá»i gian bÃ o cháº¿ Ä‘un sáº¯c</label>
-                                <input type="text" class="form-control" id="addRemedyTime" placeholder="Chuáº©n bá»‹: 5 phÃºt | Sáº¯c Ä‘un: 20 phÃºt" required>
+                                <label class="form-label small fw-bold">Thời gian bào chế đun sắc</label>
+                                <input type="text" class="form-control" id="addRemedyTime" placeholder="Chuẩn bị: 5 phút | Sắc đun: 20 phút" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Lá»£i Ã­ch sá»©c khá»e chÃ­nh</label>
+                                <label class="form-label small fw-bold">Lợi ích sức khỏe chính</label>
                                 <input type="text" class="form-control" id="addRemedyBenefits" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">CÃ¡c bÆ°á»›c thá»±c hiá»‡n bÃ o cháº¿ sáº¯c thuá»‘c (PhÃ¢n cÃ¡ch báº±ng dáº¥u cháº¥m pháº©y ';')</label>
-                                <textarea class="form-control" id="addRemedySteps" rows="3" placeholder="BÆ°á»›c 1...; BÆ°á»›c 2...; BÆ°á»›c 3..." required></textarea>
+                                <label class="form-label small fw-bold">Các bước thực hiện bào chế sắc thuốc (Phân cách bằng dấu chấm phẩy ';')</label>
+                                <textarea class="form-control" id="addRemedySteps" rows="3" placeholder="Bước 1...; Bước 2...; Bước 3..." required></textarea>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Keywords tÃ¬m kiáº¿m nhanh (PhÃ¢n cÃ¡ch dáº¥u pháº©y)</label>
+                                <label class="form-label small fw-bold">Keywords tìm kiếm nhanh (Phân cách dấu phẩy)</label>
                                 <input type="text" class="form-control" id="addRemedyKeywords" placeholder="sam, bo duong, stress" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Nguá»“n gá»‘c trÃ­ch dáº«n y vÄƒn cá»• truyá»n (vÃ­ dá»¥: Nam DÆ°á»£c Tháº§n Hiá»‡u)</label>
-                                <input type="text" class="form-control" id="addRemedySource" placeholder="TÃªn tÃ¡c pháº©m cá»• hoáº·c thá»i ká»³ (vÃ­ dá»¥: Tháº§n NÃ´ng Báº£n Tháº£o Kinh)">
+                                <label class="form-label small fw-bold">Nguồn gốc trích dẫn y văn cổ truyền (ví dụ: Nam Dược Thần Hiệu)</label>
+                                <input type="text" class="form-control" id="addRemedySource" placeholder="Tên tác phẩm cổ hoặc thời kỳ (ví dụ: Thần Nông Bản Thảo Kinh)">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success w-100 rounded-pill py-2.5 fw-bold mt-4 shadow-sm">LÆ°u Dá»¯ Liá»‡u BÃ i Thuá»‘c <i class="bi bi-save"></i></button>
+                        <button type="submit" class="btn btn-success w-100 rounded-pill py-2.5 fw-bold mt-4 shadow-sm">Lưu Dữ Liệu Bài Thuốc <i class="bi bi-save"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL B: THÃŠM Äá»ŠA ÄIá»‚M Má»šI -->
+    <!-- MODAL B: THÊM ĐỊA ĐIỂM MỚI -->
     <div class="modal fade" id="addLocationModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4">
                 <div class="modal-header bg-success text-white">
-                    <h5 class="fw-bold mb-0">ThÃªm Äá»‹a Danh VÃ¹ng Trá»“ng GPS Má»›i</h5>
+                    <h5 class="fw-bold mb-0">Thêm Địa Danh Vùng Trồng GPS Mới</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
                     <form id="addLocationForm">
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">TÃªn Ä‘á»‹a Ä‘iá»ƒm di sáº£n</label>
+                            <label class="form-label small fw-bold">Tên địa điểm di sản</label>
                             <input type="text" class="form-control" id="addLocName" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">Äá»‹a chá»‰ chi tiáº¿t (ÄÃ  Náºµng)</label>
+                            <label class="form-label small fw-bold">Địa chỉ chi tiết (Đà Nẵng)</label>
                             <input type="text" class="form-control" id="addLocAddress" required>
                         </div>
                         <div class="mb-3">
@@ -471,35 +471,35 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
-                                <label class="form-label small fw-bold">VÄ© Ä‘á»™ (Latitude)</label>
+                                <label class="form-label small fw-bold">Vĩ độ (Latitude)</label>
                                 <input type="number" step="0.000001" class="form-control" id="addLocLat" placeholder="16.0544" required>
                             </div>
                             <div class="col-6">
-                                <label class="form-label small fw-bold">Kinh Ä‘á»™ (Longitude)</label>
+                                <label class="form-label small fw-bold">Kinh độ (Longitude)</label>
                                 <input type="number" step="0.000001" class="form-control" id="addLocLon" placeholder="108.2022" required>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">DÆ°á»£c liá»‡u Ä‘áº·c trÆ°ng (PhÃ¢n cÃ¡ch báº±ng dáº¥u pháº©y)</label>
-                            <input type="text" class="form-control" id="addLocHerbs" placeholder="SÃ¢m Ngá»c Linh, Cam tháº£o" required>
+                            <label class="form-label small fw-bold">Dược liệu đặc trưng (Phân cách bằng dấu phẩy)</label>
+                            <input type="text" class="form-control" id="addLocHerbs" placeholder="Sâm Ngọc Linh, Cam thảo" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">MÃ´ táº£ chi tiáº¿t vÃ¹ng sinh váº­t</label>
+                            <label class="form-label small fw-bold">Mô tả chi tiết vùng sinh vật</label>
                             <textarea class="form-control" id="addLocDesc" rows="3" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success w-100 rounded-pill py-2.5 fw-bold shadow-sm">LÆ°u Äá»‹a Äiá»ƒm Báº£n Äá»“ <i class="bi bi-save"></i></button>
+                        <button type="submit" class="btn btn-success w-100 rounded-pill py-2.5 fw-bold shadow-sm">Lưu Địa Điểm Bản Đồ <i class="bi bi-save"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL C: Sá»¬A BÃ€I THUá»C -->
+    <!-- MODAL C: SỬA BÀI THUỐC -->
     <div class="modal fade" id="editRemedyModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content border-0 shadow-lg rounded-4">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="fw-bold mb-0">Chá»‰nh Sá»­a BÃ i Thuá»‘c DÆ°á»£c Liá»‡u</h5>
+                    <h5 class="fw-bold mb-0">Chỉnh Sửa Bài Thuốc Dược Liệu</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
@@ -507,24 +507,24 @@
                         <input type="hidden" id="editRemedyId">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">TÃªn bÃ i thuá»‘c / Tháº£o dÆ°á»£c</label>
+                                <label class="form-label small fw-bold">Tên bài thuốc / Thảo dược</label>
                                 <input type="text" class="form-control" id="editRemedyName" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">TÃªn khoa há»c (Scientific Name)</label>
+                                <label class="form-label small fw-bold">Tên khoa học (Scientific Name)</label>
                                 <input type="text" class="form-control" id="editRemedyScientific" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">PhÃ¢n loáº¡i danh má»¥c</label>
+                                <label class="form-label small fw-bold">Phân loại danh mục</label>
                                 <select class="form-select" id="editRemedyCategory" required>
-                                    <option value="QuÃ½ hiáº¿m">QuÃ½ hiáº¿m</option>
-                                    <option value="An tháº§n">An tháº§n</option>
-                                    <option value="Bá»• dÆ°á»¡ng">Bá»• dÆ°á»¡ng</option>
-                                    <option value="Giáº£i Ä‘á»™c">Giáº£i Ä‘á»™c</option>
+                                    <option value="Quý hiếm">Quý hiếm</option>
+                                    <option value="An thần">An thần</option>
+                                    <option value="Bổ dưỡng">Bổ dưỡng</option>
+                                    <option value="Giải độc">Giải độc</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Biá»ƒu tÆ°á»£ng Emoji</label>
+                                <label class="form-label small fw-bold">Biểu tượng Emoji</label>
                                 <input type="text" class="form-control" id="editRemedyEmoji" required>
                             </div>
                             <div class="col-12">
@@ -532,62 +532,62 @@
                                 <input type="text" class="form-control" id="editRemedyImage" placeholder="./images/ten_anh.png hoac https://...">
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">MÃ´ táº£ tÃ³m táº¯t</label>
+                                <label class="form-label small fw-bold">Mô tả tóm tắt</label>
                                 <textarea class="form-control" id="editRemedyUsage" rows="2" required></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">ThÃ nh pháº§n dÆ°á»£c cháº¥t hÃ³a há»c</label>
+                                <label class="form-label small fw-bold">Thành phần dược chất hóa học</label>
                                 <input type="text" class="form-control" id="editRemedyIngredients" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">TÃ¡c dá»¥ng dÆ°á»£c lÃ½ chi tiáº¿t</label>
+                                <label class="form-label small fw-bold">Tác dụng dược lý chi tiết</label>
                                 <input type="text" class="form-control" id="editRemedyEfficacy" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Thá»i gian bÃ o cháº¿ Ä‘un sáº¯c</label>
+                                <label class="form-label small fw-bold">Thời gian bào chế đun sắc</label>
                                 <input type="text" class="form-control" id="editRemedyTime" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Lá»£i Ã­ch sá»©c khá»e chÃ­nh</label>
+                                <label class="form-label small fw-bold">Lợi ích sức khỏe chính</label>
                                 <input type="text" class="form-control" id="editRemedyBenefits" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">CÃ¡c bÆ°á»›c thá»±c hiá»‡n bÃ o cháº¿ sáº¯c thuá»‘c (PhÃ¢n cÃ¡ch báº±ng dáº¥u cháº¥m pháº©y ';')</label>
+                                <label class="form-label small fw-bold">Các bước thực hiện bào chế sắc thuốc (Phân cách bằng dấu chấm phẩy ';')</label>
                                 <textarea class="form-control" id="editRemedySteps" rows="3" required></textarea>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Keywords tÃ¬m kiáº¿m nhanh (PhÃ¢n cÃ¡ch dáº¥u pháº©y)</label>
+                                <label class="form-label small fw-bold">Keywords tìm kiếm nhanh (Phân cách dấu phẩy)</label>
                                 <input type="text" class="form-control" id="editRemedyKeywords" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Nguá»“n gá»‘c trÃ­ch dáº«n y vÄƒn cá»• truyá»n (vÃ­ dá»¥: Nam DÆ°á»£c Tháº§n Hiá»‡u)</label>
-                                <input type="text" class="form-control" id="editRemedySource" placeholder="TÃªn tÃ¡c pháº©m cá»• hoáº·c thá»i ká»³ (vÃ­ dá»¥: Tháº§n NÃ´ng Báº£n Tháº£o Kinh)">
+                                <label class="form-label small fw-bold">Nguồn gốc trích dẫn y văn cổ truyền (ví dụ: Nam Dược Thần Hiệu)</label>
+                                <input type="text" class="form-control" id="editRemedySource" placeholder="Tên tác phẩm cổ hoặc thời kỳ (ví dụ: Thần Nông Bản Thảo Kinh)">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2.5 fw-bold mt-4 shadow-sm">Cáº­p Nháº­t BÃ i Thuá»‘c <i class="bi bi-check-circle"></i></button>
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2.5 fw-bold mt-4 shadow-sm">Cập Nhật Bài Thuốc <i class="bi bi-check-circle"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL D: Sá»¬A Äá»ŠA ÄIá»‚M -->
+    <!-- MODAL D: SỬA ĐỊA ĐIỂM -->
     <div class="modal fade" id="editLocationModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="fw-bold mb-0">Chá»‰nh Sá»­a Äá»‹a Danh Báº£n Äá»“</h5>
+                    <h5 class="fw-bold mb-0">Chỉnh Sửa Địa Danh Bản Đồ</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
                     <form id="editLocationForm">
                         <input type="hidden" id="editLocId">
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">TÃªn Ä‘á»‹a Ä‘iá»ƒm di sáº£n</label>
+                            <label class="form-label small fw-bold">Tên địa điểm di sản</label>
                             <input type="text" class="form-control" id="editLocName" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">Äá»‹a chá»‰ chi tiáº¿t (ÄÃ  Náºµng)</label>
+                            <label class="form-label small fw-bold">Địa chỉ chi tiết (Đà Nẵng)</label>
                             <input type="text" class="form-control" id="editLocAddress" required>
                         </div>
                         <div class="mb-3">
@@ -602,23 +602,23 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
-                                <label class="form-label small fw-bold">VÄ© Ä‘á»™ (Latitude)</label>
+                                <label class="form-label small fw-bold">Vĩ độ (Latitude)</label>
                                 <input type="number" step="0.000001" class="form-control" id="editLocLat" required>
                             </div>
                             <div class="col-6">
-                                <label class="form-label small fw-bold">Kinh Ä‘á»™ (Longitude)</label>
+                                <label class="form-label small fw-bold">Kinh độ (Longitude)</label>
                                 <input type="number" step="0.000001" class="form-control" id="editLocLon" required>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">DÆ°á»£c liá»‡u Ä‘áº·c trÆ°ng (PhÃ¢n cÃ¡ch báº±ng dáº¥u pháº©y)</label>
+                            <label class="form-label small fw-bold">Dược liệu đặc trưng (Phân cách bằng dấu phẩy)</label>
                             <input type="text" class="form-control" id="editLocHerbs" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">MÃ´ táº£ chi tiáº¿t vÃ¹ng sinh váº­t</label>
+                            <label class="form-label small fw-bold">Mô tả chi tiết vùng sinh vật</label>
                             <textarea class="form-control" id="editLocDesc" rows="3" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2.5 fw-bold shadow-sm">Cáº­p Nháº­t Äá»‹a Äiá»ƒm <i class="bi bi-check-circle"></i></button>
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2.5 fw-bold shadow-sm">Cập Nhật Địa Điểm <i class="bi bi-check-circle"></i></button>
                     </form>
                 </div>
             </div>
@@ -630,15 +630,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow-lg p-4 bg-white text-dark">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-exclamation-triangle-fill"></i> XÃ¡c nháº­n xÃ³a bÃ i thuá»‘c</h5>
+                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Xác nhận xóa bài thuốc</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-3 text-start">
-                    <p class="mb-0 text-secondary">Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a bÃ i thuá»‘c nÃ y? HÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c.</p>
+                    <p class="mb-0 text-secondary">Bạn có chắc chắn muốn xóa bài thuốc này? Hành động này không thể hoàn tác.</p>
                 </div>
                 <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Há»§y</button>
-                    <button type="button" class="btn btn-danger rounded-pill px-4" id="btnConfirmDeleteRemedy">XÃ³a bÃ i thuá»‘c</button>
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4" id="btnConfirmDeleteRemedy">Xóa bài thuốc</button>
                 </div>
             </div>
         </div>
@@ -649,101 +649,101 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow-lg p-4 bg-white text-dark">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-exclamation-triangle-fill"></i> XÃ¡c nháº­n xÃ³a Ä‘á»‹a Ä‘iá»ƒm</h5>
+                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Xác nhận xóa địa điểm</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-3 text-start">
-                    <p class="mb-0 text-secondary">Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a Ä‘á»‹a Ä‘iá»ƒm nÃ y? HÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c.</p>
+                    <p class="mb-0 text-secondary">Bạn có chắc chắn muốn xóa địa điểm này? Hành động này không thể hoàn tác.</p>
                 </div>
                 <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Há»§y</button>
-                    <button type="button" class="btn btn-danger rounded-pill px-4" id="btnConfirmDeleteLocation">XÃ³a Ä‘á»‹a Ä‘iá»ƒm</button>
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4" id="btnConfirmDeleteLocation">Xóa địa điểm</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL Äá»’NG Bá»˜ 1: ÄÄ‚NG NHáº¬P & ÄÄ‚NG KÃ (AUTH SPLIT MODAL) -->
+    <!-- MODAL ĐỒNG BỘ 1: ĐĂNG NHẬP & ĐĂNG KÝ (AUTH SPLIT MODAL) -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content border-0 shadow-lg overflow-hidden bg-transparent">
-                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-4" style="z-index: 20;" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close auth-close-btn position-absolute top-0 end-0 m-4" style="z-index: 20;" data-bs-dismiss="modal" aria-label="Đóng"></button>
                 <div class="row g-0 auth-premium-container position-relative rounded-4 overflow-hidden">
-                    <!-- TrÃ¡i: Äá»“ há»a áº£nh ná»n do AI táº¡o -->
+                    <!-- Trái: Đồ họa ảnh nền do AI tạo -->
                     <div class="col-lg-5 d-none d-lg-block position-relative">
                         <img src="./images/login_bg.png" class="w-100 h-100 object-fit-cover" alt="EcoHeritage AI Login" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800'">
                         <div class="position-absolute top-0 start-0 w-100 h-100 login-gradient-overlay"></div>
                         <div class="position-absolute bottom-0 start-0 p-5 text-white z-1">
                             <h2 class="fw-bold mb-3">Eco<span class="text-warning">Heritage AI</span></h2>
-                            <p class="fs-6 opacity-75">Ná»n táº£ng tra cá»©u tháº£o dÆ°á»£c vÃ  Ä‘á»‹nh vá»‹ vÃ¹ng báº£o tá»“n sinh há»c ÄÃ  Náºµng káº¿t há»£p AI.</p>
+                            <p class="fs-6 opacity-75">Nền tảng tra cứu thảo dược và định vị vùng bảo tồn sinh học Đà Nẵng kết hợp AI.</p>
                         </div>
                     </div>
-                    <!-- Pháº£i: Form xÃ¡c thá»±c -->
+                    <!-- Phải: Form xác thực -->
                     <div class="col-lg-7 bg-white p-5 auth-glass-panel d-flex flex-column justify-content-center">
                         <div class="auth-form-wrapper mx-auto w-100" style="max-width: 450px;">
                             <div class="text-center mb-4">
-                                <h3 class="fw-black text-dark mb-2">ChÃ o má»«ng trá»Ÿ láº¡i! ðŸ‘‹</h3>
-                                <p class="text-muted small">ÄÄƒng nháº­p Ä‘á»ƒ xem tá»§ sÃ¡ch tháº£o dÆ°á»£c vÃ  Ä‘Ã³ng gÃ³p Ã½ kiáº¿n.</p>
+                                <h3 class="fw-black text-dark mb-2">Chào mừng trở lại! 👋</h3>
+                                <p class="text-muted small">Đăng nhập để xem tủ sách thảo dược và đóng góp ý kiến.</p>
                             </div>
                             
                             <ul class="nav nav-pills custom-auth-tabs mb-4 justify-content-center p-1 bg-light rounded-pill shadow-sm" id="authTabs">
-                                <li class="nav-item flex-fill text-center"><button class="nav-link active w-100 rounded-pill fw-bold" data-bs-toggle="tab" data-bs-target="#login-pane">ÄÄƒng nháº­p</button></li>
-                                <li class="nav-item flex-fill text-center"><button class="nav-link w-100 rounded-pill fw-bold" data-bs-toggle="tab" data-bs-target="#register-pane">ÄÄƒng kÃ½ má»›i</button></li>
+                                <li class="nav-item flex-fill text-center"><button class="nav-link active w-100 rounded-pill fw-bold" data-bs-toggle="tab" data-bs-target="#login-pane">Đăng nhập</button></li>
+                                <li class="nav-item flex-fill text-center"><button class="nav-link w-100 rounded-pill fw-bold" data-bs-toggle="tab" data-bs-target="#register-pane">Đăng ký mới</button></li>
                             </ul>
                             
                             <div class="tab-content">
-                                <!-- Tab ÄÄƒng nháº­p -->
+                                <!-- Tab Đăng nhập -->
                                 <div class="tab-pane fade show active" id="login-pane">
                                     <form id="loginForm" class="needs-validation" novalidate>
                                         <div class="form-floating mb-3 position-relative">
                                             <input type="email" class="form-control premium-input" id="loginEmail" placeholder="Email" required>
-                                            <label for="loginEmail"><i class="bi bi-envelope me-2 text-muted"></i>Email cá»§a báº¡n</label>
+                                            <label for="loginEmail"><i class="bi bi-envelope me-2 text-muted"></i>Email của bạn</label>
                                         </div>
                                         <div class="form-floating mb-3 position-relative">
                                             <input type="password" class="form-control premium-input" id="loginPassword" placeholder="Pass" required minlength="6">
-                                            <label for="loginPassword"><i class="bi bi-shield-lock me-2 text-muted"></i>Máº­t kháº©u</label>
+                                            <label for="loginPassword"><i class="bi bi-shield-lock me-2 text-muted"></i>Mật khẩu</label>
                                             <button type="button" class="password-toggle-btn" data-target="loginPassword" tabindex="-1"><i class="bi bi-eye"></i></button>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <div class="form-check">
                                                 <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe" checked>
-                                                <label class="form-check-label text-muted small" for="rememberMe">Ghi nhá»› tÃ i khoáº£n</label>
+                                                <label class="form-check-label text-muted small" for="rememberMe">Ghi nhớ tài khoản</label>
                                             </div>
-                                            <a href="#" id="forgotPasswordLink" class="text-success text-decoration-none small fw-semibold">QuÃªn máº­t kháº©u?</a>
+                                            <a href="#" id="forgotPasswordLink" class="text-success text-decoration-none small fw-semibold">Quên mật khẩu?</a>
                                         </div>
-                                        <button type="submit" class="btn btn-premium-success w-100 py-3 rounded-pill fw-bold shadow-lg mb-3">TIáº¾P Tá»¤C <i class="bi bi-arrow-right ms-2"></i></button>
+                                        <button type="submit" class="btn btn-premium-success w-100 py-3 rounded-pill fw-bold shadow-lg mb-3">TIẾP TỤC <i class="bi bi-arrow-right ms-2"></i></button>
                                         
                                         <div class="position-relative text-center my-3">
                                             <hr class="text-muted opacity-25">
-                                            <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoáº·c Ä‘Äƒng nháº­p nhanh</span>
+                                            <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoặc đăng nhập nhanh</span>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger"></i> Google (Demo)</button>
+                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger"></i> Google</button>
                                         </div>
                                     </form>
                                 </div>
-                                <!-- Tab ÄÄƒng kÃ½ -->
+                                <!-- Tab Đăng ký -->
                                 <div class="tab-pane fade" id="register-pane">
                                     <form id="registerForm" class="needs-validation" novalidate>
                                         <div class="form-floating mb-3 position-relative">
-                                            <input type="text" class="form-control premium-input" id="registerName" placeholder="TÃªn" required>
-                                            <label for="registerName"><i class="bi bi-person me-2 text-muted"></i>Há» vÃ  TÃªn</label>
+                                            <input type="text" class="form-control premium-input" id="registerName" placeholder="Tên" required>
+                                            <label for="registerName"><i class="bi bi-person me-2 text-muted"></i>Họ và Tên</label>
                                         </div>
                                         <div class="form-floating mb-3 position-relative">
                                             <input type="email" class="form-control premium-input" id="registerEmail" placeholder="Email" required>
-                                            <label for="registerEmail"><i class="bi bi-envelope me-2 text-muted"></i>Email Ä‘Äƒng kÃ½</label>
+                                            <label for="registerEmail"><i class="bi bi-envelope me-2 text-muted"></i>Email đăng ký</label>
                                         </div>
                                         <div class="form-floating mb-3 position-relative">
                                             <input type="password" class="form-control premium-input" id="registerPassword" placeholder="Pass" required minlength="6">
-                                            <label for="registerPassword"><i class="bi bi-shield-lock me-2 text-muted"></i>Máº­t kháº©u (tá»‘i thiá»ƒu 6 kÃ½ tá»±)</label>
+                                            <label for="registerPassword"><i class="bi bi-shield-lock me-2 text-muted"></i>Mật khẩu (tối thiểu 6 ký tự)</label>
                                             <button type="button" class="password-toggle-btn" data-target="registerPassword" tabindex="-1"><i class="bi bi-eye"></i></button>
                                         </div>
                                         <div class="form-floating mb-3 position-relative">
                                             <input type="password" class="form-control premium-input" id="registerPasswordConfirm" placeholder="Confirm" required minlength="6">
-                                            <label for="registerPasswordConfirm"><i class="bi bi-shield-check me-2 text-muted"></i>XÃ¡c nháº­n máº­t kháº©u</label>
+                                            <label for="registerPasswordConfirm"><i class="bi bi-shield-check me-2 text-muted"></i>Xác nhận mật khẩu</label>
                                             <button type="button" class="password-toggle-btn" data-target="registerPasswordConfirm" tabindex="-1"><i class="bi bi-eye"></i></button>
                                         </div>
-                                        <button type="submit" class="btn btn-premium-primary w-100 py-3 rounded-pill fw-bold shadow-lg mt-2">ÄÄ‚NG KÃ TÃ€I KHOáº¢N <i class="bi bi-person-plus ms-2"></i></button>
+                                        <button type="submit" class="btn btn-premium-primary w-100 py-3 rounded-pill fw-bold shadow-lg mt-2">ĐĂNG KÝ TÀI KHOẢN <i class="bi bi-person-plus ms-2"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -754,7 +754,7 @@
         </div>
     </div>
 
-    <!-- Há»™p thÃ´ng bÃ¡o ná»•i (Toast) -->
+    <!-- Hộp thông báo nổi (Toast) -->
     <div class="auth-toast" id="authToast"></div>
 
     <!-- SCRIPTS -->
