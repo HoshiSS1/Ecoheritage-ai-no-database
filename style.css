@@ -623,11 +623,11 @@ body {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 65px;
-    height: 65px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-purple), #8e2de2);
-    box-shadow: 0 10px 30px rgba(111, 66, 193, 0.4);
+    background: linear-gradient(135deg, #059669, #10b981);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
     border: none;
     /* z-index 1031 = trên navbar (1030) nhưng dưới Bootstrap modal (1050+) */
     z-index: 1031;
@@ -639,14 +639,14 @@ body {
 }
 .premium-chat-btn:hover {
     transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 15px 40px rgba(111, 66, 193, 0.6);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.55);
 }
 
 /* Responsive chat button for small screens */
 @media (max-width: 480px) {
     .premium-chat-btn {
-        width: 55px;
-        height: 55px;
+        width: 48px;
+        height: 48px;
         bottom: 20px;
         right: 20px;
     }
@@ -674,14 +674,14 @@ body {
 
 .premium-chat-window {
     position: fixed;
-    bottom: 110px;
+    bottom: 100px;
     right: 30px;
-    width: 360px;
-    height: 480px;
+    width: 370px;
+    height: 500px;
     background: white;
-    border-radius: var(--radius-lg);
+    border-radius: 22px;
     box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(111, 66, 193, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.15);
     display: flex;
     flex-direction: column;
     /* z-index 1032 = ngay trên chat button nhưng dưới Bootstrap modal overlay */
@@ -767,8 +767,8 @@ body {
     pointer-events: auto;
 }
 .premium-chat-header {
-    background: linear-gradient(135deg, var(--accent-purple), #8e2de2);
-    padding: 20px 24px;
+    background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #10b981 100%);
+    padding: 14px 18px;
     color: white;
 }
 
@@ -789,14 +789,14 @@ body {
     justify-content: flex-end;
 }
 .message-avatar {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: var(--bg-light);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     flex-shrink: 0;
 }
 .message-bubble {

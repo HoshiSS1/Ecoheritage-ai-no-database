@@ -652,6 +652,12 @@ $(document).ready(function () {
         });
     });
 
+    // ─── 7. DASHBOARD MÔI TRƯỜNG — TỌA ĐỘ CỐ ĐỊNH ĐÀ NẴNG ─────
+    // Luôn sử dụng tọa độ Đà Nẵng cố định cho API thời tiết
+    function getUserLocation() {
+        return { lat: 16.0678, lon: 108.2208, name: 'Đà Nẵng' };
+    }
+
     // Sự kiện Đăng xuất
     $(document).on('click', '#logoutBtn, #profileLogoutBtnMain, #mobileLogoutBtn, #dropdownLogoutBtn', function () {
         localStorage.removeItem('gh_user');
@@ -660,58 +666,6 @@ $(document).ready(function () {
         setTimeout(() => { window.location.href = 'index.html'; }, 1000);
     });
 
-
-    // ─── 7. DASHBOARD MÔI TRƯỜNG ĐỊNH VỊ REAL-TIME & GỢI Ý ĐÔNG Y ─────
-    let cachedLocation = null;
-    async function getUserLocation() {
-        if (cachedLocation) return cachedLocation;
-        
-        // Kiểm tra cache trong sessionStorage để tránh xin quyền liên tục
-        const saved = sessionStorage.getItem('user_geo_location');
-        if (saved) {
-            try {
-                cachedLocation = JSON.parse(saved);
-                return cachedLocation;
-            } catch (e) {}
-        }
-
-        return new Promise((resolve) => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        let name = 'Đà Nẵng'; // mặc định nếu geocode lỗi
-                        
-                        try {
-                            // Gọi Nominatim reverse geocoding để dịch tọa độ sang địa danh tiếng Việt
-                            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=vi`).then(r => r.json());
-                            if (res && res.address) {
-                                name = res.address.city || res.address.town || res.address.village || res.address.county || res.address.state || 'Đà Nẵng';
-                                // Rút gọn các tiền tố để hiển thị gọn đẹp
-                                name = name.replace('Thành phố ', '').replace('Tỉnh ', '').replace('Thành Phố ', '').replace('Quận ', '').replace('Huyện ', '');
-                            }
-                        } catch (err) {
-                            console.warn('Lỗi reverse geocoding:', err);
-                        }
-
-                        cachedLocation = { lat, lon, name };
-                        sessionStorage.setItem('user_geo_location', JSON.stringify(cachedLocation));
-                        resolve(cachedLocation);
-                    },
-                    (error) => {
-                        console.warn('Từ chối định vị GPS hoặc lỗi. Sử dụng Đà Nẵng làm mặc định.', error);
-                        cachedLocation = { lat: 16.0678, lon: 108.2208, name: 'Đà Nẵng' };
-                        resolve(cachedLocation);
-                    },
-                    { timeout: 5000 }
-                );
-            } else {
-                cachedLocation = { lat: 16.0678, lon: 108.2208, name: 'Đà Nẵng' };
-                resolve(cachedLocation);
-            }
-        });
-    }
 
     async function initWeatherDashboard() {
         if (!$('#aqi-dashboard').length) return;
