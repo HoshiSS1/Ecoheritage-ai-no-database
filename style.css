@@ -362,6 +362,7 @@ body {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    line-clamp: 3;
     overflow: hidden;
     word-break: break-word;
     overflow-wrap: anywhere;
@@ -1199,6 +1200,16 @@ html.dark-mode #darkModeToggle:hover {
     color: #0d1611 !important;
     transform: rotate(45deg) scale(1.08) !important;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.4) !important;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 

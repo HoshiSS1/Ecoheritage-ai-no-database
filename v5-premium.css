@@ -1707,4 +1707,21 @@ html.dark-mode .wave-divider-top .shape-fill {
 .custom-toast .toast-body {
     color: #E8F5E9 !important;
     font-weight: 500;
+}
+
+/* Fix unlocked achievement card badge-locked-overlay override */
+.achievement-card.unlocked .badge-locked-overlay {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

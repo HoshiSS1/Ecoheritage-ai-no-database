@@ -10,8 +10,9 @@
     <meta property="og:title" content="Từ điển Bài thuốc Đông Y - EcoHeritage AI">
     <meta property="og:description" content="Tra cứu bách khoa toàn thư 20+ bài thuốc đông y cổ truyền Việt Nam, rễ thảo dược sinh học tại EcoHeritage AI.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="./images/ban_do/son_tra_map.png">
-    <link rel="canonical" href="dictionary.html">
+    <meta property="og:image" content="https://hoshiss1.github.io/Ecoheritage-ai-no-database/images/ban_do/son_tra_map.png">
+    <link rel="canonical" href="https://ecoheritage-ai.vercel.app/dictionary.html">
+    <link rel="manifest" href="manifest.json">
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌿</text></svg>" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +21,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <!-- Studio Freight Lenis -->
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
+
 
     <link rel="stylesheet" href="style.css?v=12.0">
     <link rel="stylesheet" href="v5-premium.css?v=12.0">
@@ -69,13 +69,13 @@
                         <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
                         <div class="dropdown">
                             <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
-                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
+                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar" loading="lazy">
                                 <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" aria-labelledby="avatarDropdown" style="width: 250px;">
                                 <li class="dropdown-header text-center pb-3 border-bottom mb-2">
                                     <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); font-size: 1.3rem; overflow: hidden;">
-                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
+                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar" loading="lazy">
                                         <span id="avatarInitialsDropdown">U</span>
                                     </div>
                                     <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
@@ -245,7 +245,7 @@
                 <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-4" style="z-index: 20;" data-bs-dismiss="modal"></button>
                 <div class="row g-0 auth-premium-container position-relative rounded-4 overflow-hidden">
                     <div class="col-lg-5 d-none d-lg-block position-relative">
-                        <img src="./images/login_bg.png" class="w-100 h-100 object-fit-cover" alt="EcoHeritage AI Login" onerror="this.src='https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800'">
+                        <img src="./images/login_bg.png" class="w-100 h-100 object-fit-cover" alt="EcoHeritage AI Login" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800'">
                         <div class="position-absolute top-0 start-0 w-100 h-100 login-gradient-overlay"></div>
                         <div class="position-absolute bottom-0 start-0 p-5 text-white z-1">
                             <h2 class="fw-bold mb-3">Eco<span class="text-warning">Heritage AI</span></h2>
@@ -290,7 +290,7 @@
                                             <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoặc đăng nhập nhanh</span>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold"><i class="bi bi-google text-danger me-2"></i> Đăng nhập bằng Google</button>
+                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold"><i class="bi bi-google text-danger me-2"></i> Google (Demo)</button>
                                         </div>
                                     </form>
                                 </div>
@@ -334,7 +334,7 @@
                 <div class="modal-body p-0">
                     <div class="row g-0">
                         <div class="col-lg-5 d-flex align-items-stretch">
-                            <img src="" id="herbDetailImg" alt="Herb" class="w-100 object-fit-cover" style="min-height: 300px; height: 100%;">
+                            <img src="" id="herbDetailImg" alt="Herb" class="w-100 object-fit-cover" style="min-height: 300px; height: 100%;" loading="lazy">
                         </div>
                         <div class="col-lg-7 p-4 p-md-5">
                             <div class="d-flex align-items-center gap-2 mb-2">

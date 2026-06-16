@@ -1,0 +1,21 @@
+{
+  "name": "EcoHeritage AI",
+  "short_name": "EcoHeritage",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F4F7F5",
+  "theme_color": "#2eb366",
+  "description": "Nền tảng tra cứu thảo dược và bản đồ di sản y học cổ truyền Đà Nẵng",
+  "icons": [
+    {
+      "src": "./images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

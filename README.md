@@ -1,6 +1,6 @@
 # 🌿 EcoHeritage AI - Trợ lý Sức khỏe & Di sản Y học Việt Nam
 
-![EcoHeritage AI](https://img.shields.io/badge/EcoHeritage-AI%20v5.0-2eb366?style=for-the-badge&logo=leaf&logoColor=white)
+![EcoHeritage AI](https://img.shields.io/badge/EcoHeritage-AI%20v7.0-2eb366?style=for-the-badge&logo=leaf&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -99,6 +99,8 @@ Web CK/
 ├── v5-premium.css     # Premium UI overrides
 ├── data.js            # Dữ liệu mặc định (herbs + regions)
 ├── config.js          # API key configuration
+├── manifest.json      # PWA Manifest
+├── Rule.md            # Ràng buộc dự án
 ├── images/            # Ảnh bài thuốc & assets
 └── README.md          # Tài liệu dự án
 ```

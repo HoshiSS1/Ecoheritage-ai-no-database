@@ -58,7 +58,8 @@ $(document).ready(function () {
             role: user?.role || 'user',
             avatar: user?.avatar || '',
             saved: Array.isArray(user?.saved) ? user.saved : [],
-            rated: Array.isArray(user?.rated) ? user.rated : []
+            rated: Array.isArray(user?.rated) ? user.rated : [],
+            lastLoginTime: user?.lastLoginTime || null
         };
     }
 
@@ -162,8 +163,16 @@ $(document).ready(function () {
         return prefix + (maxId + 1);
     }
 
-    let db = normalizeDB(readStorage('eco_heritage_db_v7', null));
-    writeStorage('eco_heritage_db_v7', db);
+    let db;
+    const existingDB = readStorage('eco_heritage_db_v7', null);
+    if (existingDB && Array.isArray(existingDB.herbs) && existingDB.herbs.length > 0) {
+        // DB đã tồn tại và có dữ liệu — chỉ normalize mà KHÔNG ghi đè
+        db = normalizeDB(existingDB);
+    } else {
+        // Lần đầu hoặc DB rỗng — khởi tạo từ data.js và ghi lưu
+        db = normalizeDB(null);
+        writeStorage('eco_heritage_db_v7', db);
+    }
 
     // Khởi tạo danh sách tài khoản người dùng toàn cục và tự động mã hóa mật khẩu
     (async function initPasswordsAndAccounts() {
@@ -311,7 +320,7 @@ $(document).ready(function () {
         $('[data-counter]').each(function() {
             const $el = $(this);
             const target = parseInt($el.data('counter'), 10);
-            const suffix = $el.text().includes('%') ? '%' : '+';
+            const suffix = $el.data('suffix') || ($el.text().includes('%') ? '%' : '+');
             $({ count: 0 }).animate({ count: target }, {
                 duration: 1500,
                 step: function() {
@@ -497,12 +506,17 @@ $(document).ready(function () {
         
         // Mock tài khoản Admin mặc định
         if (email.toLowerCase() === 'admin@gmail.com' && hashedPassword === adminHashed) {
-            const adminUser = normalizeUser({ name: 'Administrator', email: 'admin@gmail.com', password: hashedPassword, role: 'admin', saved: [], rated: [], lastLoginTime: Date.now() });
             let adminList = readStorage('eco_heritage_users', []) || [];
-            if (!adminList.some(u => u.email.toLowerCase() === adminUser.email.toLowerCase())) {
+            let adminUser = adminList.find(u => u.email.toLowerCase() === 'admin@gmail.com');
+            if (!adminUser) {
+                adminUser = normalizeUser({ name: 'Administrator', email: 'admin@gmail.com', password: hashedPassword, role: 'admin', saved: [], rated: [], lastLoginTime: Date.now() });
                 adminList.unshift(adminUser);
-                writeStorage('eco_heritage_users', adminList);
+            } else {
+                adminUser.lastLoginTime = Date.now();
+                adminUser.password = hashedPassword;
+                adminUser = normalizeUser(adminUser);
             }
+            writeStorage('eco_heritage_users', adminList);
             writeStorage('gh_user', adminUser);
             showToast('Đăng nhập quản trị thành công! 👑', 'success');
             $('#authModal').modal('hide');
@@ -556,7 +570,7 @@ $(document).ready(function () {
         
         googleUser.lastLoginTime = Date.now();
         writeStorage('gh_user', googleUser);
-        showToast('Đăng nhập bằng Google thành công! 🎉', 'success');
+        showToast('Đăng nhập Google (Demo) thành công! 🎉', 'success');
         $('#authModal').modal('hide');
         checkAuthStatus();
         setTimeout(() => { location.reload(); }, 1000);
@@ -664,15 +678,15 @@ $(document).ready(function () {
                 isLive = true;
             }
         } catch (error) {
-            console.warn('Không thể tải dữ liệu thời tiết live API, chuyển sang chế độ mô phỏng.', error);
+            console.warn('Không thể tải dữ liệu thời tiết live API, chuyển sang chế độ offline.', error);
         }
 
-        // Nếu API lỗi hoặc thiếu dữ liệu, dùng mô phỏng thông minh
-        if (aqiVal === undefined) aqiVal = 42 + Math.floor(Math.random() * 15);
-        if (tempVal === undefined) tempVal = 26 + Math.floor(Math.random() * 5);
-        if (humidityVal === undefined) humidityVal = 70 + Math.floor(Math.random() * 10);
-        if (uvVal === undefined) uvVal = (2.5 + Math.random() * 3).toFixed(1);
-        if (windVal === undefined) windVal = 10 + Math.floor(Math.random() * 8);
+        // Nếu API lỗi hoặc thiếu dữ liệu, dùng trị số tĩnh trung bình lịch sử Đà Nẵng
+        if (aqiVal === undefined) aqiVal = 45; 
+        if (tempVal === undefined) tempVal = 28;
+        if (humidityVal === undefined) humidityVal = 78;
+        if (uvVal === undefined) uvVal = "3.5";
+        if (windVal === undefined) windVal = 12;
 
         // Ghi lên giao diện
         $('#aqiValue').text(aqiVal);
@@ -731,14 +745,26 @@ $(document).ready(function () {
                 $badge.html('<span class="status-dot online me-2" style="width:8px; height:8px; background:#00e676; border-radius:50%; display:inline-block;"></span> ĐANG PHÁT LIVE API');
                 $badge.css('background', 'rgba(46, 179, 102, 0.2)').css('border-color', 'rgba(46, 179, 102, 0.4)');
             } else {
-                $badge.html('<span class="status-dot me-2" style="width:8px; height:8px; background:#ff4757; border-radius:50%; display:inline-block;"></span> DỮ LIỆU MÔ PHỎNG');
+                $badge.html('<span class="status-dot me-2" style="width:8px; height:8px; background:#ff4757; border-radius:50%; display:inline-block;"></span> DỮ LIỆU OFFLINE');
                 $badge.css('background', 'rgba(255, 71, 87, 0.15)').css('border-color', 'rgba(255, 71, 87, 0.3)');
             }
         }
     }
     initWeatherDashboard();
-    // Chạy live API cập nhật định kỳ mỗi 30 giây để tối ưu băng thông
-    setInterval(initWeatherDashboard, 30000);
+    // Chạy live API cập nhật định kỳ — lưu ref để có thể clear, chỉ gọi khi tab active
+    let weatherIntervalId = setInterval(initWeatherDashboard, 30000);
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(weatherIntervalId);
+            weatherIntervalId = null;
+        } else {
+            // Tab active lại — cập nhật ngay và tiếp tục interval
+            initWeatherDashboard();
+            if (!weatherIntervalId) {
+                weatherIntervalId = setInterval(initWeatherDashboard, 30000);
+            }
+        }
+    });
 
 
     // ─── 8. KHO TỪ ĐIỂN 20+ BÀI THUỐC ĐÔNG Y (DICTIONARY) ──────
@@ -1006,6 +1032,16 @@ $(document).ready(function () {
         $('#herbDetailIngredients').text(herb.ingredients || 'Đang cập nhật hoạt chất...');
         $('#herbDetailEfficacy').text(herb.efficacy || 'Đang cập nhật công dụng y lý...');
         $('#herbDetailBenefits').text(herb.benefits || 'Phục hồi sức khỏe toàn diện.');
+        
+        // Hiển thị nguồn trích dẫn y khoa nếu có
+        $('#herbDetailSource').remove();
+        if (herb.source) {
+            $('#herbDetailBenefits').after(`
+                <div id="herbDetailSource" class="mb-4 small text-muted">
+                    <i class="bi bi-bookmark-star-fill text-success"></i> <strong>Nguồn trích dẫn:</strong> <em>${escapeHTML(herb.source)}</em>
+                </div>
+            `);
+        }
         
         $('#herbDetailImg').attr('src', herb.image).off('error').on('error', function() {
             $(this).attr('src', herb.fallbackImage || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600');
@@ -1497,7 +1533,7 @@ $(document).ready(function () {
         const savedCount = user.saved ? user.saved.length : 0;
         const reviewCount = user.rated ? user.rated.length : 0;
         
-        const chatCount = parseInt(localStorage.getItem('eco_bot_chats') || 0);
+        const chatCount = parseInt(localStorage.getItem('eco_bot_chats_' + (user.email || '')) || localStorage.getItem('eco_bot_chats') || 0);
         let unlockedBadges = 0;
         if (savedCount >= 1) unlockedBadges++;
         if (savedCount >= 5) unlockedBadges++;
@@ -1720,6 +1756,7 @@ $(document).ready(function () {
 
     // Logic Đánh giá và mở khóa Huy chương Thành tựu
     function evaluateAchievements(user) {
+        $('.achievement-card').addClass('locked').removeClass('unlocked');
         if (!user) return;
 
         const saved = Array.isArray(user.saved) ? user.saved : [];
@@ -1730,7 +1767,7 @@ $(document).ready(function () {
         // 2. Thảo dược sư
         if (saved.length >= 5) unlockAchievement('badge-expert');
         // 3. Thần y hộ mệnh (Chatbot chat)
-        const chatCount = parseInt(localStorage.getItem('eco_bot_chats') || 0);
+        const chatCount = parseInt(localStorage.getItem('eco_bot_chats_' + (user.email || '')) || localStorage.getItem('eco_bot_chats') || 0);
         if (chatCount >= 3) unlockAchievement('badge-bot-chat');
         // 4. Nhà thám hiểm (Đã review 1 địa danh)
         if (rated.length >= 1) unlockAchievement('badge-map-review');
@@ -1744,7 +1781,7 @@ $(document).ready(function () {
     function unlockAchievement(badgeId) {
         const $badge = $('#' + badgeId);
         if ($badge.length) {
-            $badge.addClass('unlocked');
+            $badge.addClass('unlocked').removeClass('locked');
         }
     }
 
@@ -2190,6 +2227,9 @@ $(document).ready(function () {
     // Premium Local Fallback Generator for Robust Offline/Timeout experience
     function getLocalPremiumFallback(query) {
         const q = query.toLowerCase();
+        const warningPrefix = `<div class="alert alert-warning p-3 small mb-3 text-start" style="font-size:0.75rem; border-radius:var(--radius-sm); background: rgba(255, 193, 7, 0.12); color: #664d03; border: 1px solid rgba(255, 193, 7, 0.2); line-height: 1.4;"><i class="bi bi-exclamation-triangle-fill text-warning me-1"></i> <strong>KHUYẾN CÁO Y KHOA:</strong> Mọi thông tin tư vấn ngoại tuyến chỉ mang tính chất tham khảo học thuật. Quý nhân tuyệt đối không tự ý áp dụng khi chưa có sự tư vấn, bắt mạch và chỉ định từ Bác sĩ hoặc Lương y có chuyên môn.</div>`;
+        
+        let text = '';
         
         if (q.includes('ngủ') || q.includes('lo âu') || q.includes('hồi hộp') || q.includes('mất ngủ') || q.includes('tâm thần')) {
             return `🩺 **Y Lý Phương Đông**: Mất ngủ, tâm thần bất an theo y lý cổ truyền chủ yếu do **Tâm Tỳ Lưỡng Hư** hoặc **Âm Hư Hỏa Vượng**. Khi lo nghĩ quá độ làm hao tổn tâm huyết, tỳ khí suy nhược khiến huyết không dưỡng được tâm, thần không có nơi trú ngụ khí thần bất ổn.<br><br>🌿 **Phương Dược Cổ Truyền**: Lương y khuyên dùng bài thuốc cổ phương **Quy Tỳ Thang** để dưỡng tâm, kiện tỳ, an thần bồi bổ khí huyết.<br>- **Thành phần**: Nhân sâm (12g), Bạch truật (12g), Phục linh (12g), Hoàng kỳ (12g), Toan táo nhân (12g), Long nhãn (12g), Đương quy (12g), Viễn chí (6g), Mộc hương (6g), Cam thảo (3g).<br>- **Cách dùng**: Sắc với 3 lát gừng và 2 quả táo tàu. Sắc ngày 1 thang, chia 2 lần uống ấm sau ăn.<br><br>🗺️ **Di Sản Thảo Dược**: Các thảo dược hỗ trợ an thần tự nhiên như Toan táo nhân và Phục linh hiện đang được trồng bảo tồn hữu cơ sạch tại khu bảo tồn thảo dược **đỉnh Bà Nà** (Đà Nẵng), nơi có khí hậu mát mẻ lý tưởng giúp cây tích lũy tối đa hoạt chất an thần tinh khiết.`;
@@ -2211,7 +2251,7 @@ $(document).ready(function () {
             return `🩺 **Y Lý Phương Đông**: Đau dạ dày, viêm loét đường tiêu hóa hoặc trào ngược tỳ vị phát sinh do **Can Khí Phạm Vị** hoặc **Tỳ Vị Hư Hàn**. Tâm lý uất ức lo nghĩ (thuộc Can) kết hợp ăn uống thiếu khoa học làm tỳ vị mất vận hóa khí, khí nghịch gây đau tức nóng rát.<br><br>🌿 **Phương Dược Cổ Truyền**: Lương y khuyên dùng bài thuốc **Tứ Quân Tử Thang** để kiện tỳ vị, ích khí, hòa trung tiêu giảm trào ngược.<br>- **Thành phần**: Đảng sâm (12g), Bạch truật (12g), Phục linh (12g), Cam thảo chích (6g), Sa nhân (6g), Trần bì (6g).<br>- **Cách dùng**: Sắc uống ấm nóng trước bữa ăn 30 phút, ngày 1 thang.<br><br>🗺️ **Di Sản Thảo Dược**: Tinh bột nghệ đỏ bản địa Sơn Trà cùng Phục linh hữu cơ được bảo tồn tại **Hòa Phú** (Đà Nẵng) chứa chất curcumin tự nhiên cùng các saponin giúp kháng viêm dạ dày cực tốt, xoa dịu các vết loét tỳ vị thần tốc.`;
         }
         
-        return `🩺 **Y Lý Phương Đông**: Theo y học cổ truyền Đông y, sức khỏe và bệnh tật của con người nằm ở sự mất cân bằng giữa **Âm và Dương**, sự tắc nghẽn kinh lạc hoặc suy giảm chức năng **Tạng Phủ**. Cơ thể là một khối thống nhất, cần điều hòa từ gốc thay vì chỉ chữa ngọn.<br><br>🌿 **Phương Dược Cổ Truyền**: Để nâng cao sức khỏe căn bản và thanh lọc tạng phủ hằng ngày, lương y khuyên dưỡng sinh:<br>- **Dưỡng sinh Tỳ Vị**: Ăn uống đúng giờ, tránh xa đồ chiên rán cay nóng. Uống trà bồ công anh hoặc trà hoa cúc mỗi sáng.<br>- **Dưỡng Thận - Cân bằng Âm Dương**: Ngâm chân nước ấm với gừng + muối hạt 15 phút trước khi ngủ.<br>- **Thông Kinh Hoạt Lạc**: Tập dưỡng sinh Thái Cực Quyền hoặc đi bộ sáng sớm 30 phút.<br><br>🗺️ **Di Sản Thảo Dược**: Mời quý nhân trải nghiệm cẩm nang 20+ bài thuốc cổ phương Đông y và bản đồ vườn thảo dược bảo tồn xanh Đà Nẵng ngay trên hệ thống EcoHeritage AI.`;
+        return text ? (warningPrefix + text) : (warningPrefix + `🩺 **Y Lý Phương Đông**: Theo y học cổ truyền Đông y, sức khỏe và bệnh tật của con người nằm ở sự mất cân bằng giữa **Âm và Dương**, sự tắc nghẽn kinh lạc hoặc suy giảm chức năng **Tạng Phủ**. Cơ thể là một khối thống nhất, cần điều hòa từ gốc thay vì chỉ chữa ngọn.<br><br>🌿 **Phương Dược Cổ Truyền**: Để nâng cao sức khỏe căn bản và thanh lọc tạng phủ hằng ngày, lương y khuyên dưỡng sinh:<br>- **Dưỡng sinh Tỳ Vị**: Ăn uống đúng giờ, tránh xa đồ chiên rán cay nóng. Uống trà bồ công anh hoặc trà hoa cúc mỗi sáng.<br>- **Dưỡng Thận - Cân bằng Âm Dương**: Ngâm chân nước ấm với gừng + muối hạt 15 phút trước khi ngủ.<br>- **Thông Kinh Hoạt Lạc**: Tập dưỡng sinh Thái Cực Quyền hoặc đi bộ sáng sớm 30 phút.<br><br>🗺️ **Di Sản Thảo Dược**: Mời quý nhân trải nghiệm cẩm nang 20+ bài thuốc cổ phương Đông y và bản đồ vườn thảo dược bảo tồn xanh Đà Nẵng ngay trên hệ thống EcoHeritage AI.`);
     }
 
     // Hàm chuyển đổi Markdown đơn giản sang HTML cho chatbot
@@ -2225,13 +2265,31 @@ $(document).ready(function () {
 
     // Gọi Gemini API hoặc fallback nội bộ
     async function fetchGeminiResponse(query) {
+        const systemPrompt = `Bạn là Lương Y số EcoBot - một chuyên gia y học cổ truyền Đông y Việt Nam. Bạn tư vấn bài thuốc cổ phương, thảo dược, dược tính, y lý Đông y. Luôn trả lời bằng tiếng Việt và gắn liền với hệ sinh thái bảo tồn thảo dược Đà Nẵng. BẮT BUỘC đầu câu trả lời phải có câu khuyến cáo viết hoa nổi bật: "⚠️ KHUYẾN CÁO Y KHOA: Mọi thông tin tư vấn từ chatbot chỉ mang tính tham khảo, không thay thế việc bắt mạch và chỉ định từ bác sĩ y học cổ truyền." Nội dung trả lời phải có 3 phần rõ ràng: 🩺 Y Lý Phương Đông, 🌿 Phương Dược Cổ Truyền (kèm thành phần + liều lượng + cách dùng), 🗺️ Di Sản Thảo Dược (liên kết với các vùng bảo tồn Đà Nẵng).`;
+
+        // 1. Thử gọi qua Vercel API Proxy trước (để ẩn API key)
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query, systemPrompt })
+            });
+            if (response.ok) {
+                const data = await response.json();
+                if (data.text) return data.text;
+            } else {
+                console.warn('Vercel Proxy chat lỗi, chuyển sang gọi trực tiếp từ client...');
+            }
+        } catch (error) {
+            console.log('Không tìm thấy API Proxy hoặc chạy offline, gọi trực tiếp từ client...');
+        }
+
+        // 2. Fallback gọi trực tiếp từ client-side nếu có config.js apiKey
         if (!apiKey) {
             return getLocalPremiumFallback(query);
         }
 
         try {
-            const systemPrompt = `Bạn là Lương Y số EcoBot - một chuyên gia y học cổ truyền Đông y Việt Nam. Bạn tư vấn bài thuốc cổ phương, thảo dược, dược tính, y lý Đông y. Luôn trả lời bằng tiếng Việt và gắn liền với hệ sinh thái bảo tồn thảo dược Đà Nẵng. Nội dung trả lời phải có 3 phần: 🩺 Y Lý Phương Đông, 🌿 Phương Dược Cổ Truyền (kèm thành phần + liều lượng + cách dùng), 🗺️ Di Sản Thảo Dược (liên kết với các vùng bảo tồn Đà Nẵng). Luôn thêm khuyến cáo: bài thuốc chỉ mang tính tham khảo học thuật.`;
-
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -2383,9 +2441,17 @@ $(document).ready(function () {
         $chatBody.animate({ scrollTop: $chatBody[0].scrollHeight }, 300);
 
         // Lưu lượt chat vào LocalStorage phục vụ thành tựu
-        let chatCount = parseInt(localStorage.getItem('eco_bot_chats') || 0);
-        chatCount++;
-        localStorage.setItem('eco_bot_chats', chatCount);
+        const currentUserForChat = readStorage('gh_user', null);
+        if (currentUserForChat && currentUserForChat.email) {
+            let chatCount = parseInt(localStorage.getItem('eco_bot_chats_' + currentUserForChat.email) || 0);
+            chatCount++;
+            localStorage.setItem('eco_bot_chats_' + currentUserForChat.email, chatCount);
+            localStorage.setItem('eco_bot_chats', chatCount);
+        } else {
+            let chatCount = parseInt(localStorage.getItem('eco_bot_chats') || 0);
+            chatCount++;
+            localStorage.setItem('eco_bot_chats', chatCount);
+        }
 
         const lowerQuery = query.toLowerCase();
         

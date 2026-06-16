@@ -159,6 +159,7 @@ const EcoHeritageDefaultData = {
     herbs: [
         {
             id: 'h1',
+            source: 'Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)',
             name: 'Thập Toàn Đại Bổ Thang',
             scientific: 'Thái Bình Huệ Dân Hòa Tễ Cục Phương',
             category: 'Bổ dưỡng',
@@ -180,6 +181,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h2',
+            source: 'Tiểu Nhi Dược Chứng Trực Quyết - Tiền Ất (Thời Tống)',
             name: 'Lục Vị Địa Hoàng Hoàn',
             scientific: 'Tiểu Nhi Dược Chứng Trực Quyết',
             category: 'Bổ dưỡng',
@@ -200,6 +202,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h3',
+            source: 'Tế Sinh Phương - Nghiêm Dụng Hòa (Thời Tống)',
             name: 'Quy Tỳ Thang',
             scientific: 'Tế Sinh Phương',
             category: 'An thần',
@@ -221,6 +224,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h4',
+            source: 'Ôn Bệnh Điều Biện - Ngô Cúc Thông (Thời Thanh)',
             name: 'Ngân Kiều Tán',
             scientific: 'Ôn Bệnh Điều Biện',
             category: 'Giải độc',
@@ -242,6 +246,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h5',
+            source: 'Bị Cấp Thiên Kim Yếu Phương - Tôn Tư Mạo (Thời Đường)',
             name: 'Độc Hoạt Tang Ký Sinh Thang',
             scientific: 'Thiên Kim Phương',
             category: 'Chữa bệnh',
@@ -263,6 +268,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h6',
+            source: 'Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)',
             name: 'Tứ Quân Tử Thang',
             scientific: 'Hòa Tễ Cục Phương',
             category: 'Bổ dưỡng',
@@ -284,6 +290,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h7',
+            source: 'Chính Thể Loại Yếu - Tiết Kỷ (Thời Minh)',
             name: 'Bát Trân Thang',
             scientific: 'Chính Thể Loại Yếu',
             category: 'Bổ dưỡng',
@@ -300,6 +307,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h8',
+            source: 'Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)',
             name: 'Bình Vị Tán',
             scientific: 'Hòa Tễ Cục Phương',
             category: 'Chữa bệnh',
@@ -316,6 +324,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h9',
+            source: 'Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)',
             name: 'Tiêu Dao Tán',
             scientific: 'Hòa Tễ Cục Phương',
             category: 'Chữa bệnh',
@@ -332,6 +341,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h10',
+            source: 'Tỳ Vị Luận - Lý Đông Viên (Thời Kim - Nguyên)',
             name: 'Bổ Trung Ích Khí Thang',
             scientific: 'Tỳ Vị Luận',
             category: 'Bổ dưỡng',
@@ -348,6 +358,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h11',
+            source: 'Nội Ngoại Thương Biện Hoặc Luận - Lý Đông Viên (Thời Kim - Nguyên)',
             name: 'Sinh Mạch Tán',
             scientific: 'Nội Ngoại Thương Biện Hoặc Luận',
             category: 'Bổ dưỡng',
@@ -364,6 +375,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h12',
+            source: 'Nhiếp Sinh Bí Phẫu - Hồng Cơ (Thời Minh)',
             name: 'Thiên Vương Bổ Tâm Đan',
             scientific: 'Nhiếp Sinh Bí Phẫu',
             category: 'An thần',
@@ -380,6 +392,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h13',
+            source: 'Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)',
             name: 'Nhị Trần Thang',
             scientific: 'Hòa Tễ Cục Phương',
             category: 'Giải độc',
@@ -396,6 +409,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h14',
+            source: 'Thương Hàn Luận - Trương Trọng Cảnh (Thời Đông Hán)',
             name: 'Bạch Hổ Thang',
             scientific: 'Thương Hàn Luận',
             category: 'Giải độc',
@@ -412,6 +426,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h15',
+            source: 'Bị Cấp Thiên Kim Yếu Phương - Tôn Tư Mạo (Thời Đường)',
             name: 'Ôn Đởm Thang',
             scientific: 'Thiên Kim Phương',
             category: 'Chữa bệnh',
@@ -428,6 +443,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h16',
+            source: 'Ôn Bệnh Điều Biện - Ngô Cúc Thông (Thời Thanh)',
             name: 'Tang Cúc Ẩm',
             scientific: 'Ôn Bệnh Điều Biện',
             category: 'Giải độc',
@@ -444,6 +460,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h17',
+            source: 'Y Lâm Cải Lỗi - Vương Thanh Nhậm (Thời Thanh)',
             name: 'Huyết Phủ Trục Ứ Thang',
             scientific: 'Y Lâm Cải Lỗi',
             category: 'Chữa bệnh',
@@ -460,6 +477,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h18',
+            source: 'Thương Hàn Trực Cách - Lưu Hoàn Tố (Thời Kim - Nguyên)',
             name: 'Lục Nhất Tán',
             scientific: 'Thương Hàn Trực Cách',
             category: 'Giải độc',
@@ -476,6 +494,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h19',
+            source: 'Đan Khê Tâm Pháp - Chu Đan Khê (Thời Nguyên)',
             name: 'Việt Cúc Hoàn',
             scientific: 'Đan Khê Tâm Pháp',
             category: 'Chữa bệnh',
@@ -492,6 +511,7 @@ const EcoHeritageDefaultData = {
         },
         {
             id: 'h20',
+            source: 'Ôn Bệnh Điều Biện - Ngô Cúc Thông (Thời Thanh)',
             name: 'Thanh Dinh Thang',
             scientific: 'Ôn Bệnh Điều Biện',
             category: 'Chữa bệnh',
