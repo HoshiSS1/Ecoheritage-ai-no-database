@@ -680,7 +680,7 @@ $(document).ready(function () {
 
         try {
             const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,uv_index&timezone=Asia/Bangkok`;
-            const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi`;
+            const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,pm2_5`;
 
             const [weatherRes, aqiRes] = await Promise.all([
                 fetch(weatherUrl).then(res => { if (!res.ok) throw new Error('Weather API error'); return res.json(); }),
@@ -696,7 +696,7 @@ $(document).ready(function () {
             }
 
             if (aqiRes && aqiRes.current) {
-                aqiVal = Math.round(aqiRes.current.us_aqi);
+                aqiVal = Math.round(aqiRes.current.european_aqi);
                 isLive = true;
             }
         } catch (error) {
@@ -704,7 +704,7 @@ $(document).ready(function () {
         }
 
         // Nếu API lỗi hoặc thiếu dữ liệu, dùng trị số tĩnh trung bình của Đà Nẵng làm fallback
-        if (aqiVal === undefined) aqiVal = 45; 
+        if (aqiVal === undefined) aqiVal = 25; // fallback EU AQI trung bình
         if (tempVal === undefined) tempVal = 28;
         if (humidityVal === undefined) humidityVal = 78;
         if (uvVal === undefined) uvVal = 3.5;
@@ -719,62 +719,62 @@ $(document).ready(function () {
         $('#weatherUV').text(uvVal);
         $('#weatherHumidity').text(`${humidityVal}%`);
         
-        // 1. Phân cấp 6 mức độ AQI (theo chuẩn EPA)
+        // 1. Phân cấp 5 mức AQI (theo chuẩn European AQI — thang 0-100+)
         let aqiStatusText = 'Tốt';
         let aqiClass = 'success';
         let aqiAdviceText = 'Không khí sạch trong lành. Thích hợp gieo trồng và hái dược liệu.';
         let dynamicAqiTitle = 'KHÔNG KHÍ TỐT';
-        let dynamicAqiDesc = `Chỉ số chất lượng không khí US AQI hiện tại là ${aqiVal} (Tốt). Thích hợp tối đa cho các hoạt động ngoài trời và thu hoạch dược liệu sạch.`;
+        let dynamicAqiDesc = `Chỉ số EAQI hiện tại là ${aqiVal} (Tốt). Thích hợp cho các hoạt động ngoài trời và thu hoạch dược liệu sạch.`;
         let dynamicAqiBorder = 'rgba(16, 185, 129, 0.4)';
         let dynamicAqiIconColor = '#10b981';
         let dynamicAqiIcon = 'bi-shield-fill-check';
         
-        if (aqiVal <= 50) {
+        if (aqiVal <= 20) {
             aqiStatusText = 'Tốt';
             aqiClass = 'success';
             aqiAdviceText = 'Không khí trong lành, sạch sẽ. Phế khí thông suốt, hô hấp tự nhiên.';
-        } else if (aqiVal <= 100) {
-            aqiStatusText = 'Vừa phải';
+        } else if (aqiVal <= 40) {
+            aqiStatusText = 'Khá';
+            aqiClass = 'success';
+            aqiAdviceText = 'Chất lượng khá tốt. Không khí chấp nhận được cho mọi hoạt động.';
+            dynamicAqiTitle = 'KHÔNG KHÍ KHÁ';
+            dynamicAqiDesc = `Chỉ số EAQI là ${aqiVal} (Khá). Chất lượng không khí chấp nhận được cho hầu hết mọi người.`;
+            dynamicAqiBorder = 'rgba(16, 185, 129, 0.3)';
+            dynamicAqiIconColor = '#10b981';
+            dynamicAqiIcon = 'bi-shield-fill-check';
+        } else if (aqiVal <= 60) {
+            aqiStatusText = 'Trung bình';
             aqiClass = 'warning';
-            aqiAdviceText = 'Chất lượng vừa phải. Tà khí nhẹ xuất hiện, người nhạy cảm nên lưu ý.';
-            dynamicAqiTitle = 'KHÔNG KHÍ VỪA PHẢI';
-            dynamicAqiDesc = `Chỉ số US AQI hiện tại là ${aqiVal} (Chấp nhận được). Người nhạy cảm với bụi mịn PM2.5 nên lưu ý khi di chuyển bên ngoài.`;
+            aqiAdviceText = 'Chất lượng trung bình. Tà khí nhẹ xuất hiện, người nhạy cảm nên lưu ý.';
+            dynamicAqiTitle = 'KHÔNG KHÍ TRUNG BÌNH';
+            dynamicAqiDesc = `Chỉ số EAQI là ${aqiVal}. Người nhạy cảm với bụi mịn PM2.5 nên lưu ý khi hoạt động ngoài trời lâu.`;
             dynamicAqiBorder = 'rgba(245, 158, 11, 0.4)';
             dynamicAqiIconColor = '#f59e0b';
             dynamicAqiIcon = 'bi-exclamation-triangle-fill';
-        } else if (aqiVal <= 150) {
-            aqiStatusText = 'Kém (Nhạy cảm)';
+        } else if (aqiVal <= 80) {
+            aqiStatusText = 'Kém';
             aqiClass = 'warning';
-            aqiAdviceText = 'Kém cho nhóm nhạy cảm. Phong trần làm tổn thương phế âm, ngứa họng.';
-            dynamicAqiTitle = 'KHÔNG KHÍ KÉM CHO NHÓM NHẠY CẢM';
-            dynamicAqiDesc = `Chỉ số US AQI là ${aqiVal}. Nhóm người nhạy cảm (hen suyễn, người già) nên giảm bớt hoạt động mạnh ngoài trời.`;
+            aqiAdviceText = 'Kém cho nhóm nhạy cảm. Bụi mịn tích tụ, phong trần tổn thương phế âm.';
+            dynamicAqiTitle = 'KHÔNG KHÍ KÉM';
+            dynamicAqiDesc = `Chỉ số EAQI là ${aqiVal}. Nhóm nhạy cảm (hen suyễn, người già) nên giảm hoạt động ngoài trời.`;
             dynamicAqiBorder = 'rgba(249, 115, 22, 0.4)';
             dynamicAqiIconColor = '#f97316';
             dynamicAqiIcon = 'bi-exclamation-octagon-fill';
-        } else if (aqiVal <= 200) {
-            aqiStatusText = 'Xấu';
+        } else if (aqiVal <= 100) {
+            aqiStatusText = 'Rất kém';
             aqiClass = 'danger';
-            aqiAdviceText = 'Không khí xấu, ô nhiễm. Mật độ PM2.5 cao, tà độc tích tụ phổi dễ gây ho.';
-            dynamicAqiTitle = 'CẢNH BÁO KHÔNG KHÍ KÉM / XẤU';
-            dynamicAqiDesc = `Chỉ số US AQI là ${aqiVal} (Không tốt cho sức khỏe). Khuyến nghị mọi người nên mang khẩu trang khi ra ngoài.`;
+            aqiAdviceText = 'Ô nhiễm nghiêm trọng. Táo độc tà xâm nhập phế phủ, hạn chế ra ngoài.';
+            dynamicAqiTitle = 'CẢNH BÁO KHÔNG KHÍ RẤT KÉM';
+            dynamicAqiDesc = `Chỉ số EAQI cao ${aqiVal}. Khuyến nghị mọi người mang khẩu trang khi ra ngoài.`;
             dynamicAqiBorder = 'rgba(239, 68, 68, 0.5)';
             dynamicAqiIconColor = '#ef4444';
             dynamicAqiIcon = 'bi-shield-fill-exclamation';
-        } else if (aqiVal <= 300) {
-            aqiStatusText = 'Rất xấu';
-            aqiClass = 'danger';
-            aqiAdviceText = 'Ô nhiễm rất nghiêm trọng. Táo độc tà xâm nhập sâu phế phủ, hạn chế ra ngoài.';
-            dynamicAqiTitle = 'CẢNH BÁO KHÔNG KHÍ RẤT XẤU';
-            dynamicAqiDesc = `Chỉ số US AQI cực cao ${aqiVal}. Cảnh báo sức khỏe khẩn cấp, người dân nên ở nhà và đóng kín các cửa sổ hướng gió bụi.`;
-            dynamicAqiBorder = 'rgba(168, 85, 247, 0.6)';
-            dynamicAqiIconColor = '#a855f7';
-            dynamicAqiIcon = 'bi-x-octagon-fill';
         } else {
             aqiStatusText = 'Nguy hại';
             aqiClass = 'danger';
-            aqiAdviceText = 'Mức ô nhiễm khẩn cấp nguy hại. Phế âm hư tổn nặng, tà độc tàn phá cơ thể.';
+            aqiAdviceText = 'Mức ô nhiễm khẩn cấp. Phế âm hư tổn nặng, tà độc tàn phá cơ thể.';
             dynamicAqiTitle = 'TÌNH TRẠNG KHÔNG KHÍ NGUY HẠI';
-            dynamicAqiDesc = `Chỉ số US AQI nguy hại ${aqiVal}. Tuyệt đối không tập thể dục ngoài trời, sử dụng máy lọc khí tối đa.`;
+            dynamicAqiDesc = `Chỉ số EAQI nguy hại ${aqiVal}. Tuyệt đối không tập thể dục ngoài trời.`;
             dynamicAqiBorder = 'rgba(120, 113, 108, 0.8)';
             dynamicAqiIconColor = '#78716c';
             dynamicAqiIcon = 'bi-skull';
@@ -867,53 +867,53 @@ $(document).ready(function () {
 
         // 5. Cẩm nang Gợi ý sức khỏe Đông y ứng với từng chỉ số (đáp ứng click thời gian thực)
         let aqiAdvices = {};
-        if (aqiVal <= 50) {
+        if (aqiVal <= 20) {
             aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Chất lượng Không Khí Tốt (${aqiVal} AQI)`,
+                title: `Chỉ Dẫn Đông Y: Không Khí Tốt (EAQI ${aqiVal})`,
                 icon: 'bi-shield-fill-check text-success',
-                yly: 'Chất lượng không khí trong lành, sạch sẽ. Phế khí (phổi) thông suốt, hô hấp tự nhiên, giúp dưỡng sinh đại bổ khí huyết.',
-                baoche: 'Đây là điều kiện thời tiết lý tưởng nhất để thu hoạch các loài thảo dược, đặc biệt là phần lá và hoa vốn cần độ tinh sạch tối đa. Phơi thuốc ngoài trời giúp thu trọn tinh hoa mặt trời mà không sợ nhiễm tạp chất.',
+                yly: 'Chất lượng không khí trong lành, sạch sẽ. Phế khí thông suốt, hô hấp tự nhiên, dưỡng sinh đại bổ khí huyết.',
+                baoche: 'Điều kiện lý tưởng để thu hoạch thảo dược. Phơi thuốc ngoài trời giúp thu trọn tinh hoa mà không sợ nhiễm tạp chất.',
                 tra: 'Trà hoa cúc mật ong giúp nhuận phế dưỡng gan, thanh lọc nhẹ nhàng.'
+            };
+        } else if (aqiVal <= 40) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Không Khí Khá (EAQI ${aqiVal})`,
+                icon: 'bi-shield-fill-check text-success',
+                yly: 'Chất lượng không khí chấp nhận được. Phế khí thông suốt, thích hợp các hoạt động ngoài trời bình thường.',
+                baoche: 'Vẫn thích hợp thu hái dược liệu. Không phơi gần mặt đường lớn để tránh bụi bám vào dược chất.',
+                tra: 'Trà tía tô gừng ấm giúp phát tán phong hàn, bảo vệ phế vị.'
+            };
+        } else if (aqiVal <= 60) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Không Khí Trung Bình (EAQI ${aqiVal})`,
+                icon: 'bi-exclamation-triangle-fill text-warning',
+                yly: 'Bụi mịn tích tụ nhẹ. Tà khí kết hợp phong trần dễ kích ứng niêm mạc mũi họng, khô da.',
+                baoche: 'Nên che vải mùng mỏng khi phơi dược liệu ngoài trời. Kiểm tra kỹ tạp chất trước khi sơ chế.',
+                tra: 'Trà mạch môn đông và sinh địa giúp dưỡng âm thanh phế, sinh tân dịch.'
+            };
+        } else if (aqiVal <= 80) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Không Khí Kém (EAQI ${aqiVal})`,
+                icon: 'bi-exclamation-octagon-fill text-warning',
+                yly: 'Mật độ bụi mịn PM2.5 tăng cao. Nhiệt độc tích tụ phế quản, dễ sinh đờm, ngứa họng.',
+                baoche: 'Tạm ngừng thu hoạch thảo dược ngoài trời. Dược liệu đang phơi nên đem vào phòng sấy bảo toàn dược tính.',
+                tra: 'Trà sâm cát cánh cam thảo giúp tuyên phế, hóa đờm, lợi hầu họng.'
             };
         } else if (aqiVal <= 100) {
             aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Chất lượng Không Khí Vừa Phải (${aqiVal} AQI)`,
-                icon: 'bi-exclamation-triangle-fill text-warning',
-                yly: 'Chất lượng không khí chấp nhận được, có lượng bụi mịn nhỏ. Táo tà hoặc tà khí nhẹ bắt đầu xuất hiện trong khí quyển, người nhạy cảm dễ hắt hơi, ho nhẹ.',
-                baoche: 'Vẫn thích hợp thu hái dược liệu ở vùng cao thoáng khí. Tuy nhiên, tuyệt đối không phơi dược liệu gần các mặt đường lớn, khu dân cư đông đúc để tránh bụi bám vào dược chất.',
-                tra: 'Trà tía tô gừng ấm giúp phát tán phong hàn, bảo vệ phế vị.'
-            };
-        } else if (aqiVal <= 150) {
-            aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Không Khí Kém Cho Nhóm Nhạy Cảm (${aqiVal} AQI)`,
-                icon: 'bi-exclamation-octagon-fill text-warning',
-                yly: 'Bụi mịn tích tụ nhẹ. Táo tà kết hợp phong trần dễ làm tổn thương phế âm, gây kích ứng niêm mạc mũi họng, khô da và khó chịu đường hô hấp.',
-                baoche: 'Khi phơi dược liệu ngoài trời, nên che một lớp vải mùng mỏng để ngăn bụi mịn bám trực tiếp lên bề mặt lá. Kiểm tra kỹ tạp chất trước khi tiến hành sơ chế.',
-                tra: 'Trà mạch môn đông và sinh địa giúp dưỡng âm thanh phế, sinh tân dịch cực hiệu quả.'
-            };
-        } else if (aqiVal <= 200) {
-            aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Không Khí Xấu / Kém (${aqiVal} AQI)`,
+                title: `Chỉ Dẫn Đông Y: Không Khí Rất Kém (EAQI ${aqiVal})`,
                 icon: 'bi-shield-fill-exclamation text-danger',
-                yly: 'Mật độ bụi mịn PM2.5 cao. Nhiệt độc tích tụ trong phế quản, dễ sinh đờm vàng, ngứa họng, suy giảm đề kháng hô hấp.',
-                baoche: 'Khuyến nghị tạm ngừng các hoạt động thu hoạch thảo dược ngoài trời. Dược liệu đang phơi nên được đem vào phòng sấy hoặc nơi kín gió để bảo toàn dược tính.',
-                tra: 'Trà sâm cát cánh cam thảo sắc uống ấm giúp tuyên phế, hóa đờm, lợi hầu họng.'
-            };
-        } else if (aqiVal <= 300) {
-            aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Không Khí Rất Xấu (${aqiVal} AQI)`,
-                icon: 'bi-x-octagon-fill text-danger',
-                yly: 'Không khí ô nhiễm nghiêm trọng. Táo độc tà xâm nhập sâu vào phế phủ, dễ gây khó thở, ảnh hưởng nghiêm trọng đến cả tim mạch và hô hấp.',
-                baoche: 'Tuyệt đối không phơi dược liệu ngoài trời. Cất giữ dược liệu khô vào hũ thủy tinh đậy kín có gói hút ẩm để ngăn chặn ô nhiễm chéo từ không khí bên ngoài.',
+                yly: 'Ô nhiễm nghiêm trọng. Táo độc tà xâm nhập phế phủ, dễ gây khó thở, ảnh hưởng tim mạch và hô hấp.',
+                baoche: 'Tuyệt đối không phơi dược liệu ngoài trời. Cất giữ vào hũ thủy tinh đậy kín có gói hút ẩm.',
                 tra: 'Trà sa sâm mạch môn nhuận phế, thanh nhiệt lọc bụi phổi và bảo dưỡng cơ thể.'
             };
         } else {
             aqiAdvices = {
-                title: `Chỉ Dẫn Đông Y: Không Khí Nguy Hại Khẩn Cấp (${aqiVal} AQI)`,
+                title: `Chỉ Dẫn Đông Y: Không Khí Nguy Hại (EAQI ${aqiVal})`,
                 icon: 'bi-skull text-danger',
-                yly: 'Mức ô nhiễm khẩn cấp. Phế âm bị tổn thương nặng nề, tà độc công phá cơ thể. Cần ở trong nhà đóng kín cửa và bật máy lọc không khí.',
-                baoche: 'Ngừng mọi hoạt động chế biến, phơi sấy hay thu hái ngoài trời. Đóng chặt cửa kho dược liệu để tránh khói bụi ô nhiễm làm suy giảm chất lượng các vị thuốc.',
-                tra: 'Sử dụng bài thuốc sắc Thanh phế Giải độc thang (Mạch môn 12g, Sa sâm 12g, Bách hợp 8g, Cát cánh 6g) sắc uống ấm.'
+                yly: 'Mức ô nhiễm khẩn cấp. Phế âm bị tổn thương nặng, cần ở trong nhà đóng kín cửa.',
+                baoche: 'Ngừng mọi hoạt động chế biến, phơi sấy ngoài trời. Đóng chặt cửa kho dược liệu.',
+                tra: 'Bài thuốc Thanh phế Giải độc thang (Mạch môn 12g, Sa sâm 12g, Bách hợp 8g, Cát cánh 6g) sắc uống ấm.'
             };
         }
 
