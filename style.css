@@ -914,19 +914,38 @@ html.dark-mode .list-group-item {
     border-color: rgba(46, 179, 102, 0.1) !important;
 }
 
-/* Fix U4: Modal herb detail image constraint */
+/* Fix U4: Modal herb detail image constraint and vertical alignment */
+.modal-img-col {
+    position: relative;
+    width: 100%;
+    min-height: 350px;
+    overflow: hidden;
+}
+
 #herbDetailImg {
-    max-height: 300px !important;
-    min-height: unset !important;
-    object-fit: cover !important;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100% !important;
-    border-radius: var(--radius-md) !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 24px 24px 0 0 !important; /* Rounded top on mobile */
+    transition: transform 0.5s ease;
+}
+
+@media (min-width: 992px) {
+    .modal-img-col {
+        min-height: 100%;
+        height: auto;
+    }
+    #herbDetailImg {
+        border-radius: 24px 0 0 24px !important; /* Rounded left on desktop */
+    }
 }
 
 @media (max-width: 576px) {
-    #herbDetailImg {
-        max-height: 250px !important;
-        min-height: unset !important;
+    .modal-img-col {
+        min-height: 250px;
     }
 }
 

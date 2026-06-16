@@ -661,16 +661,72 @@ $(document).ready(function () {
     });
 
 
-    // ─── 7. DASHBOARD MÔI TRƯỜNG ĐÀ NẴNG (AQI INDEX DÒNG ĐỘNG) ─────
+    // ─── 7. DASHBOARD MÔI TRƯỜNG ĐỊNH VỊ REAL-TIME & GỢI Ý ĐÔNG Y ─────
+    let cachedLocation = null;
+    async function getUserLocation() {
+        if (cachedLocation) return cachedLocation;
+        
+        // Kiểm tra cache trong sessionStorage để tránh xin quyền liên tục
+        const saved = sessionStorage.getItem('user_geo_location');
+        if (saved) {
+            try {
+                cachedLocation = JSON.parse(saved);
+                return cachedLocation;
+            } catch (e) {}
+        }
+
+        return new Promise((resolve) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        let name = 'Đà Nẵng'; // mặc định nếu geocode lỗi
+                        
+                        try {
+                            // Gọi Nominatim reverse geocoding để dịch tọa độ sang địa danh tiếng Việt
+                            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=vi`).then(r => r.json());
+                            if (res && res.address) {
+                                name = res.address.city || res.address.town || res.address.village || res.address.county || res.address.state || 'Đà Nẵng';
+                                // Rút gọn các tiền tố để hiển thị gọn đẹp
+                                name = name.replace('Thành phố ', '').replace('Tỉnh ', '').replace('Thành Phố ', '').replace('Quận ', '').replace('Huyện ', '');
+                            }
+                        } catch (err) {
+                            console.warn('Lỗi reverse geocoding:', err);
+                        }
+
+                        cachedLocation = { lat, lon, name };
+                        sessionStorage.setItem('user_geo_location', JSON.stringify(cachedLocation));
+                        resolve(cachedLocation);
+                    },
+                    (error) => {
+                        console.warn('Từ chối định vị GPS hoặc lỗi. Sử dụng Đà Nẵng làm mặc định.', error);
+                        cachedLocation = { lat: 16.0678, lon: 108.2208, name: 'Đà Nẵng' };
+                        resolve(cachedLocation);
+                    },
+                    { timeout: 5000 }
+                );
+            } else {
+                cachedLocation = { lat: 16.0678, lon: 108.2208, name: 'Đà Nẵng' };
+                resolve(cachedLocation);
+            }
+        });
+    }
+
     async function initWeatherDashboard() {
         if (!$('#aqi-dashboard').length) return;
 
         let aqiVal, tempVal, humidityVal, uvVal, windVal;
         let isLive = false;
 
+        const coords = await getUserLocation();
+        const lat = coords.lat;
+        const lon = coords.lon;
+        const locationName = coords.name;
+
         try {
-            const weatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=16.0678&longitude=108.2208&current=temperature_2m,relative_humidity_2m,wind_speed_10m&daily=uv_index_max&timezone=Asia/Bangkok';
-            const aqiUrl = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=16.0678&longitude=108.2208&current=us_aqi';
+            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&daily=uv_index_max&timezone=Asia/Bangkok`;
+            const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi`;
 
             const [weatherRes, aqiRes] = await Promise.all([
                 fetch(weatherUrl).then(res => { if (!res.ok) throw new Error('Weather API error'); return res.json(); }),
@@ -695,26 +751,29 @@ $(document).ready(function () {
                 isLive = true;
             }
         } catch (error) {
-            console.warn('Không thể tải dữ liệu thời tiết live API, chuyển sang chế độ offline.', error);
+            console.warn('Không thể tải dữ liệu thời tiết live API, chuyển sang dữ liệu lịch sử.', error);
         }
 
-        // Nếu API lỗi hoặc thiếu dữ liệu, dùng trị số tĩnh trung bình lịch sử Đà Nẵng
+        // Nếu API lỗi hoặc thiếu dữ liệu, dùng trị số tĩnh trung bình của Đà Nẵng làm fallback
         if (aqiVal === undefined) aqiVal = 45; 
         if (tempVal === undefined) tempVal = 28;
         if (humidityVal === undefined) humidityVal = 78;
-        if (uvVal === undefined) uvVal = "3.5";
+        if (uvVal === undefined) uvVal = 3.5;
         if (windVal === undefined) windVal = 12;
 
-        // Ghi lên giao diện
+        // Cập nhật tên địa phương lên tiêu đề trạm
+        if ($('#weatherLocationName').length) {
+            $('#weatherLocationName').text(locationName);
+        }
         $('#headerTemp').text(`${tempVal}°C`);
         $('#aqiValue').text(aqiVal);
         $('#weatherUV').text(uvVal);
         $('#weatherHumidity').text(`${humidityVal}%`);
         
-        // Tính toán & Cập nhật nhãn đánh giá AQI
+        // 1. Phân cấp 6 mức độ AQI (theo chuẩn EPA)
         let aqiStatusText = 'Tốt';
         let aqiClass = 'success';
-        let aqiAdviceText = 'Không khí sạch trong lành. Thích hợp để leo rừng thu hái thảo dược quý tại Sơn Trà.';
+        let aqiAdviceText = 'Không khí sạch trong lành. Thích hợp gieo trồng và hái dược liệu.';
         let dynamicAqiTitle = 'KHÔNG KHÍ TỐT';
         let dynamicAqiDesc = `Chỉ số chất lượng không khí US AQI hiện tại là ${aqiVal} (Tốt). Thích hợp tối đa cho các hoạt động ngoài trời và thu hoạch dược liệu sạch.`;
         let dynamicAqiBorder = 'rgba(16, 185, 129, 0.4)';
@@ -724,47 +783,77 @@ $(document).ready(function () {
         if (aqiVal <= 50) {
             aqiStatusText = 'Tốt';
             aqiClass = 'success';
-            aqiAdviceText = 'Không khí sạch trong lành. Thích hợp gieo trồng và hái dược liệu ở Sơn Trà.';
+            aqiAdviceText = 'Không khí trong lành, sạch sẽ. Phế khí thông suốt, hô hấp tự nhiên.';
         } else if (aqiVal <= 100) {
             aqiStatusText = 'Vừa phải';
             aqiClass = 'warning';
-            aqiAdviceText = 'Chất lượng vừa phải. Nhạy cảm nên chú ý khi làm việc lâu ngoài trời.';
+            aqiAdviceText = 'Chất lượng vừa phải. Tà khí nhẹ xuất hiện, người nhạy cảm nên lưu ý.';
             dynamicAqiTitle = 'KHÔNG KHÍ VỪA PHẢI';
             dynamicAqiDesc = `Chỉ số US AQI hiện tại là ${aqiVal} (Chấp nhận được). Người nhạy cảm với bụi mịn PM2.5 nên lưu ý khi di chuyển bên ngoài.`;
             dynamicAqiBorder = 'rgba(245, 158, 11, 0.4)';
             dynamicAqiIconColor = '#f59e0b';
             dynamicAqiIcon = 'bi-exclamation-triangle-fill';
-        } else {
-            aqiStatusText = 'Kém';
+        } else if (aqiVal <= 150) {
+            aqiStatusText = 'Kém (Nhạy cảm)';
+            aqiClass = 'warning';
+            aqiAdviceText = 'Kém cho nhóm nhạy cảm. Phong trần làm tổn thương phế âm, ngứa họng.';
+            dynamicAqiTitle = 'KHÔNG KHÍ KÉM CHO NHÓM NHẠY CẢM';
+            dynamicAqiDesc = `Chỉ số US AQI là ${aqiVal}. Nhóm người nhạy cảm (hen suyễn, người già) nên giảm bớt hoạt động mạnh ngoài trời.`;
+            dynamicAqiBorder = 'rgba(249, 115, 22, 0.4)';
+            dynamicAqiIconColor = '#f97316';
+            dynamicAqiIcon = 'bi-exclamation-octagon-fill';
+        } else if (aqiVal <= 200) {
+            aqiStatusText = 'Xấu';
             aqiClass = 'danger';
-            aqiAdviceText = 'Hạn chế đi lại rừng núi ban trưa thu hái do khói bụi tăng nhẹ.';
-            dynamicAqiTitle = 'CẢNH BÁO KHÔNG KHÍ KÉM';
-            dynamicAqiDesc = `Chỉ số US AQI là ${aqiVal} (Ảnh hưởng tới sức khỏe). Nồng độ bụi mịn PM2.5 cao. Khuyến nghị hạn chế vận động mạnh ngoài trời.`;
+            aqiAdviceText = 'Không khí xấu, ô nhiễm. Mật độ PM2.5 cao, tà độc tích tụ phổi dễ gây ho.';
+            dynamicAqiTitle = 'CẢNH BÁO KHÔNG KHÍ KÉM / XẤU';
+            dynamicAqiDesc = `Chỉ số US AQI là ${aqiVal} (Không tốt cho sức khỏe). Khuyến nghị mọi người nên mang khẩu trang khi ra ngoài.`;
             dynamicAqiBorder = 'rgba(239, 68, 68, 0.5)';
             dynamicAqiIconColor = '#ef4444';
             dynamicAqiIcon = 'bi-shield-fill-exclamation';
+        } else if (aqiVal <= 300) {
+            aqiStatusText = 'Rất xấu';
+            aqiClass = 'danger';
+            aqiAdviceText = 'Ô nhiễm rất nghiêm trọng. Táo độc tà xâm nhập sâu phế phủ, hạn chế ra ngoài.';
+            dynamicAqiTitle = 'CẢNH BÁO KHÔNG KHÍ RẤT XẤU';
+            dynamicAqiDesc = `Chỉ số US AQI cực cao ${aqiVal}. Cảnh báo sức khỏe khẩn cấp, người dân nên ở nhà và đóng kín các cửa sổ hướng gió bụi.`;
+            dynamicAqiBorder = 'rgba(168, 85, 247, 0.6)';
+            dynamicAqiIconColor = '#a855f7';
+            dynamicAqiIcon = 'bi-x-octagon-fill';
+        } else {
+            aqiStatusText = 'Nguy hại';
+            aqiClass = 'danger';
+            aqiAdviceText = 'Mức ô nhiễm khẩn cấp nguy hại. Phế âm hư tổn nặng, tà độc tàn phá cơ thể.';
+            dynamicAqiTitle = 'TÌNH TRẠNG KHÔNG KHÍ NGUY HẠI';
+            dynamicAqiDesc = `Chỉ số US AQI nguy hại ${aqiVal}. Tuyệt đối không tập thể dục ngoài trời, sử dụng máy lọc khí tối đa.`;
+            dynamicAqiBorder = 'rgba(120, 113, 108, 0.8)';
+            dynamicAqiIconColor = '#78716c';
+            dynamicAqiIcon = 'bi-skull';
         }
 
         const $aqiBadge = $('#aqiBadge');
         if ($aqiBadge.length) {
-            $aqiBadge.text(aqiStatusText).removeClass('success warning danger').addClass(aqiClass);
+            $aqiBadge.text(aqiStatusText).removeClass('success warning danger').addClass(aqiClass === 'success' ? 'success' : (aqiClass === 'warning' ? 'warning' : 'danger'));
         }
 
-        // Tính toán & Cập nhật nhãn đánh giá UV
+        // 2. Phân cấp 5 mức độ UV (theo chuẩn WHO)
         const uvNum = parseFloat(uvVal);
         let uvStatusText = 'An toàn';
         let uvClass = 'success';
         if (uvNum < 3) {
-            uvStatusText = 'An toàn';
+            uvStatusText = 'Thấp';
             uvClass = 'success';
         } else if (uvNum < 6) {
-            uvStatusText = 'Khá ổn';
+            uvStatusText = 'Trung bình';
             uvClass = 'success';
         } else if (uvNum < 8) {
-            uvStatusText = 'Khá cao';
+            uvStatusText = 'Cao';
             uvClass = 'warning';
+        } else if (uvNum < 11) {
+            uvStatusText = 'Rất cao';
+            uvClass = 'danger';
         } else {
-            uvStatusText = 'Cực cao';
+            uvStatusText = 'Cực nguy hại';
             uvClass = 'danger';
         }
         const $uvBadge = $('#uvBadge');
@@ -772,14 +861,14 @@ $(document).ready(function () {
             $uvBadge.text(uvStatusText).removeClass('success warning danger').addClass(uvClass);
         }
 
-        // Tính toán & Cập nhật nhãn đánh giá Độ ẩm
+        // 3. Phân cấp 3 mức độ Độ ẩm
         let humidityStatusText = 'Ổn định';
         let humidityClass = 'success';
         if (humidityVal < 40) {
-            humidityStatusText = 'Khô ráo';
+            humidityStatusText = 'Khô hanh';
             humidityClass = 'warning';
         } else if (humidityVal <= 80) {
-            humidityStatusText = 'Ổn định';
+            humidityStatusText = 'Cân bằng';
             humidityClass = 'success';
         } else {
             humidityStatusText = 'Ẩm ướt';
@@ -790,40 +879,242 @@ $(document).ready(function () {
             $humidityBadge.text(humidityStatusText).removeClass('success warning danger').addClass(humidityClass);
         }
 
-        // Tính toán & Cập nhật nhãn đánh giá Gió
+        // 4. Phân cấp 3 mức độ Gió
         let windStatusText = 'Tốt';
         let windClass = 'success';
         if (windVal < 10) {
-            windStatusText = 'Nhẹ';
+            windStatusText = 'Gió nhẹ';
             windClass = 'success';
             $('#weatherWind').text('Gió nhẹ');
         } else if (windVal <= 20) {
-            windStatusText = 'Tốt';
+            windStatusText = 'Gió mát';
             windClass = 'success';
-            $('#weatherWind').text('Mát mẻ');
+            $('#weatherWind').text('Gió mát');
         } else {
-            windStatusText = 'Mạnh';
+            windStatusText = 'Gió lớn';
             windClass = 'warning';
-            $('#weatherWind').text('Gió lớn');
+            $('#weatherWind').text('Gió mạnh');
         }
         const $windBadge = $('#windBadge');
         if ($windBadge.length) {
             $windBadge.text(windStatusText).removeClass('success warning danger').addClass(windClass);
         }
 
-        // Cập nhật Đông y Cảnh báo Y học
-        let $healthAlert = $('#healthAlertCard');
-        let $healthText = $('#healthAlertText');
-        if ($healthAlert.length && $healthText.length) {
-            if (aqiVal <= 50) {
-                $healthAlert.removeClass('warning danger').addClass('success');
-                $healthText.text('Thời tiết tuyệt vời! Thích hợp tối đa để thu hoạch thảo dược sấy khô, sao vàng hạ thổ ngải cứu, đinh lăng mà không lo mốc.');
-            } else if (aqiVal <= 100) {
-                $healthAlert.removeClass('success danger').addClass('warning');
-                $healthText.text('Độ ẩm hơi tăng nhẹ hoặc chất lượng không khí vừa phải. Chú ý che đậy kỹ bình ngâm ba kích và phơi xạ đen trong bóng râm thoáng mát.');
-            } else {
-                $healthAlert.removeClass('success warning').addClass('danger');
-                $healthText.text('Chất lượng không khí kém & nắng gắt. Hạn chế phơi thuốc ngoài đường lộ bụi bẩn. Nên đun hãm trà tâm sen uống giải nhiệt mát gan phế ở nhà.');
+        // 5. Cẩm nang Gợi ý sức khỏe Đông y ứng với từng chỉ số (đáp ứng click thời gian thực)
+        let aqiAdvices = {};
+        if (aqiVal <= 50) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Chất Lượng Không Khí Tốt (${aqiVal} AQI)`,
+                icon: 'bi-shield-fill-check text-success',
+                yly: 'Chất lượng không khí trong lành, sạch sẽ. Phế khí (phổi) thông suốt, hô hấp tự nhiên, giúp dưỡng sinh đại bổ khí huyết.',
+                baoche: 'Đây là điều kiện thời tiết lý tưởng nhất để thu hoạch các loài thảo dược, đặc biệt là phần lá và hoa vốn cần độ tinh sạch tối đa. Phơi thuốc ngoài trời giúp thu trọn tinh hoa mặt trời mà không sợ nhiễm tạp chất.',
+                tra: 'Trà hoa cúc mật ong giúp nhuận phế dưỡng gan, thanh lọc nhẹ nhàng.'
+            };
+        } else if (aqiVal <= 100) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Chất Lượng Không Khí Vừa Phải (${aqiVal} AQI)`,
+                icon: 'bi-exclamation-triangle-fill text-warning',
+                yly: 'Chất lượng không khí chấp nhận được, có lượng bụi mịn nhỏ. Táo tà hoặc tà khí nhẹ bắt đầu xuất hiện trong khí quyển, người nhạy cảm dễ hắt hơi, ho nhẹ.',
+                baoche: 'Vẫn thích hợp thu hái dược liệu ở vùng cao thoáng khí. Tuy nhiên, tuyệt đối không phơi dược liệu gần các mặt đường lớn, khu dân cư đông đúc để tránh bụi bám vào dược chất.',
+                tra: 'Trà tía tô gừng ấm giúp phát tán phong hàn, bảo vệ phế vị.'
+            };
+        } else if (aqiVal <= 150) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Không Khí Kém Cho Nhóm Nhạy Cảm (${aqiVal} AQI)`,
+                icon: 'bi-exclamation-octagon-fill text-warning',
+                yly: 'Bụi mịn tích tụ nhẹ. Táo tà kết hợp phong trần dễ làm tổn thương phế âm, gây kích ứng niêm mạc mũi họng, khô da và khó chịu đường hô hấp.',
+                baoche: 'Khi phơi dược liệu ngoài trời, nên che một lớp vải mùng mỏng để ngăn bụi mịn bám trực tiếp lên bề mặt lá. Kiểm tra kỹ tạp chất trước khi tiến hành sơ chế.',
+                tra: 'Trà mạch môn đông và sinh địa giúp dưỡng âm thanh phế, sinh tân dịch cực hiệu quả.'
+            };
+        } else if (aqiVal <= 200) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Không Khí Xấu / Kém (${aqiVal} AQI)`,
+                icon: 'bi-shield-fill-exclamation text-danger',
+                yly: 'Mật độ bụi mịn PM2.5 cao. Nhiệt độc tích tụ trong phế quản, dễ sinh đờm vàng, ngứa họng, suy giảm đề kháng hô hấp.',
+                baoche: 'Khuyến nghị tạm ngừng các hoạt động thu hoạch thảo dược ngoài trời. Dược liệu đang phơi nên được đem vào phòng sấy hoặc nơi kín gió để bảo toàn dược tính.',
+                tra: 'Trà sâm cát cánh cam thảo sắc uống ấm giúp tuyên phế, hóa đờm, lợi hầu họng.'
+            };
+        } else if (aqiVal <= 300) {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Không Khí Rất Xấu (${aqiVal} AQI)`,
+                icon: 'bi-x-octagon-fill text-danger',
+                yly: 'Không khí ô nhiễm nghiêm trọng. Táo độc tà xâm nhập sâu vào phế phủ, dễ gây khó thở, ảnh hưởng nghiêm trọng đến cả tim mạch và hô hấp.',
+                baoche: 'Tuyệt đối không phơi dược liệu ngoài trời. Cất giữ dược liệu khô vào hũ thủy tinh đậy kín có gói hút ẩm để ngăn chặn ô nhiễm chéo từ không khí bên ngoài.',
+                tra: 'Trà sa sâm mạch môn nhuận phế, thanh nhiệt lọc bụi phổi và bảo dưỡng cơ thể.'
+            };
+        } else {
+            aqiAdvices = {
+                title: `Chỉ Dẫn Đông Y: Không Khí Nguy Hại Khẩn Cấp (${aqiVal} AQI)`,
+                icon: 'bi-skull text-danger',
+                yly: 'Mức ô nhiễm khẩn cấp. Phế âm bị tổn thương nặng nề, tà độc công phá cơ thể. Cần ở trong nhà đóng kín cửa và bật máy lọc không khí.',
+                baoche: 'Ngừng mọi hoạt động chế biến, phơi sấy hay thu hái ngoài trời. Đóng chặt cửa kho dược liệu để tránh khói bụi ô nhiễm làm suy giảm chất lượng các vị thuốc.',
+                tra: 'Sử dụng bài thuốc sắc Thanh phế Giải độc thang (Mạch môn 12g, Sa sâm 12g, Bách hợp 8g, Cát cánh 6g) sắc uống ấm.'
+            };
+        }
+
+        let uvAdvices = {};
+        if (uvNum < 3) {
+            uvAdvices = {
+                title: `Chỉ Chỉ Dẫn Đông Y: Chỉ Số UV Thấp (${uvVal} UV)`,
+                icon: 'bi-sun-fill text-success',
+                yly: 'Dương quang dịu nhẹ, âm dương hài hòa. Thích hợp cho các hoạt động ngoài trời, rèn luyện thân thể.',
+                baoche: 'Nắng yếu không đủ cường độ để làm khô dược liệu tự nhiên nhanh chóng. Khuyên dùng máy sấy nhiệt độ thấp hoặc phơi kết hợp hong gió lớn để tránh nấm mốc phát triển.',
+                tra: 'Trà kỷ tử hồng táo bổ khí huyết, làm ấm cơ thể nhẹ nhàng.'
+            };
+        } else if (uvNum < 6) {
+            uvAdvices = {
+                title: `Chỉ Dẫn Đông Y: Chỉ Số UV Trung Bình (${uvVal} UV)`,
+                icon: 'bi-sun-fill text-success',
+                yly: 'Nắng ấm vừa phải, thúc đẩy dương khí lưu thông, kích thích cơ thể tổng hợp vitamin D tự nhiên tốt cho gân xương.',
+                baoche: 'Thời điểm tốt nhất để áp dụng phương pháp "Phơi âm can" (phơi dược liệu nhiều tinh dầu như ngải cứu, bạc hà, bồ công anh dưới bóng râm thoáng gió) giúp giữ hoạt chất tối đa.',
+                tra: 'Trà sâm bí đao hoa cúc thanh mát, làm mát da dẻ và hạ nhiệt cơ thể.'
+            };
+        } else if (uvNum < 8) {
+            uvAdvices = {
+                title: `Chỉ Dẫn Đông Y: Chỉ Số UV Cao (${uvVal} UV)`,
+                icon: 'bi-sun-fill text-warning',
+                yly: 'Dương hỏa vượng, dễ tổn hao tân dịch (nước trong cơ thể) qua mồ hôi. Đi nắng nhiều dễ sạm da, nóng trong người.',
+                baoche: 'Thích hợp phơi khô nhanh các vị thuốc thân gỗ cứng hoặc rễ củ nhiều nước (như đinh lăng cắt lát, ba kích, hoài sơn). Đội nón bảo hộ khi chăm sóc vườn dược liệu.',
+                tra: 'Trà hoa cúc bạc hà thanh nhiệt thử, làm mát phế âm và dịu cơn khát.'
+            };
+        } else if (uvNum < 11) {
+            uvAdvices = {
+                title: `Chỉ Dẫn Đông Y: Chỉ Số UV Rất Cao (${uvVal} UV)`,
+                icon: 'bi-exclamation-triangle-fill text-danger',
+                yly: 'Thử độc thịnh hành, dễ gây say nắng (trúng thử), kiệt sức do mất nước. Tránh ra nắng trực tiếp quá 20 phút.',
+                baoche: 'Tránh đi rừng hái thuốc vào khung giờ 11h - 15h. Cần tưới nước giữ ẩm đầy đủ cho vườn ươm thuốc non và che lưới đen lan cản nắng bớt.',
+                tra: 'Nước đậu đen xanh lòng rang giúp thanh thử nhiệt, giải độc và bù nước cho cơ thể nhanh chóng.'
+            };
+        } else {
+            uvAdvices = {
+                title: `Chỉ Dẫn Đông Y: Chỉ Số UV Cực Độ Nguy Hại (${uvVal} UV)`,
+                icon: 'bi-shield-fill-x text-danger',
+                yly: 'Hỏa độc cực độ thiêu đốt tế bào. Nguy cơ bỏng da, say nắng nặng. Tuyệt đối không ra ngoài nắng gắt.',
+                baoche: 'Thu dọn ngay dược liệu đã phơi khô vào kho mát bảo quản kẻo nắng gắt phân hủy cấu trúc tinh dầu thảo dược. Che chắn kín cho các cây thuốc ưa bóng râm.',
+                tra: 'Nước sâm lục vị hoặc chè dưỡng nhan tuyết yến làm mát tế bào, sinh tân dịch.'
+            };
+        }
+
+        let humidityAdvices = {};
+        if (humidityVal < 40) {
+            humidityAdvices = {
+                title: `Chỉ Dẫn Đông Y: Độ Ẩm Khô Hanh (${humidityVal}%)`,
+                icon: 'bi-droplet-half text-warning',
+                yly: 'Táo tà làm khô ráo quá mức niêm mạc hô hấp, dễ gây khô cổ họng, nứt nẻ môi và khô da.',
+                baoche: 'Độ ẩm không khí rất thấp giúp dược liệu khô cực nhanh, không lo ẩm mốc. Đây là điều kiện vàng để đóng gói bảo quan thuốc đông y vào bình kín hút chân không.',
+                tra: 'Trà hoa hồng khô mật ong hoặc trà râu ngô sinh địa giúp dưỡng ẩm nhuận phế.'
+            };
+        } else if (humidityVal <= 80) {
+            humidityAdvices = {
+                title: `Chỉ Dẫn Đông Y: Độ Ẩm Cân Bằng (${humidityVal}%)`,
+                icon: 'bi-droplet-fill text-success',
+                yly: 'Khí hậu ôn hòa, cơ thể dễ dàng cân bằng nước và năng lượng. Tinh thần phấn chấn.',
+                baoche: 'Cây thảo dược sinh trưởng tốt. Đây là thời điểm thích hợp nhất để cắt cành nhân giống, tỉa bớt lá sâu và chăm bón đất hữu cơ cho cây thuốc.',
+                tra: 'Trà tâm sen hoa lài giúp định tâm an thần, thư thái đầu óc.'
+            };
+        } else {
+            humidityAdvices = {
+                title: `Chỉ Dẫn Đông Y: Độ Ẩm Quá Cao - Nồm Ẩm (${humidityVal}%)`,
+                icon: 'bi-cloud-rain-fill text-danger',
+                yly: 'Thấp tà ngưng trệ khiến tỳ vị kém tiêu hóa, gây nặng nề cơ thể, người có bệnh khớp dễ bị đau nhức ê ẩm.',
+                baoche: 'Nguy cơ nấm mốc cực cao cho dược liệu bảo quản. Tuyệt đối không phơi thuốc. Cần bật máy hút ẩm kho bảo quản hoặc đem dược liệu sấy điện khô ngay.',
+                tra: 'Trà ngải cứu khô hoặc trà lá lốt gừng tươi ấm giúp phát tán phong thấp, giảm đau khớp xương.'
+            };
+        }
+
+        let windAdvices = {};
+        if (windVal < 10) {
+            windAdvices = {
+                title: `Chỉ Dẫn Đông Y: Tốc Độ Gió Nhẹ (${windVal} km/h)`,
+                icon: 'bi-wind text-success',
+                yly: 'Không khí yên ả, ít lưu chuyển tà khí phong trần. Phù hợp thư giãn trong nhà.',
+                baoche: 'Không khí đọng nhẹ giữ đất vườn dược liệu không bị khô hanh quá nhanh, rất tốt để gieo hạt giống thảo dược và tưới phun sương nhẹ.',
+                tra: 'Trà gừng mật ong sảng khoái phế khí và giữ ấm lồng ngực.'
+            };
+        } else if (windVal <= 20) {
+            windAdvices = {
+                title: `Chỉ Dẫn Đông Y: Tốc Độ Gió Mát Lý Tưởng (${windVal} km/h)`,
+                icon: 'bi-wind text-success',
+                yly: 'Phong khí hài hòa giúp điều hòa thân nhiệt, thổi bay chướng khí, tạo cảm giác thư thái dễ chịu.',
+                baoche: 'Gió thông thoáng hỗ trợ rất tốt cho việc hong khô sơ bộ thảo dược mới rửa sạch dưới bóng râm, giảm tích tụ ẩm mốc đầu vào.',
+                tra: 'Trà bạc hà chanh tươi giúp sảng khoái phế quản, tỉnh táo trí óc.'
+            };
+        } else {
+            windAdvices = {
+                title: `Chỉ Dẫn Đông Y: Tốc Độ Gió Mạnh (${windVal} km/h)`,
+                icon: 'bi-wind text-warning',
+                yly: 'Phong tà kết hợp lạnh dễ gây cảm mạo phong hàn, đau vai gáy, trúng gió. Tránh ngồi trực tiếp hướng gió lùa.',
+                baoche: 'Sức gió lớn có thể làm gãy đổ các giàn leo dược liệu mềm (dây thìa canh, thiên môn). Tránh phơi dược liệu nhẹ ngoài sân trống kẻo bị gió cuốn bay mất.',
+                tra: 'Trà gừng tươi sắc nóng ấm giúp cản phong hàn cứu biểu cực kỳ hiệu quả.'
+            };
+        }
+
+        const healthAdvices = {
+            aqi: aqiAdvices,
+            uv: uvAdvices,
+            humidity: humidityAdvices,
+            wind: windAdvices
+        };
+
+        // Thiết lập Gợi ý mặc định ban đầu hiển thị theo Chất lượng không khí (AQI)
+        updateHealthAlertPanel('aqi');
+
+        function updateHealthAlertPanel(paramKey) {
+            const advice = healthAdvices[paramKey];
+            if (advice && $('#healthAlertCard').length) {
+                $('#healthAlertTitle span').text(advice.title);
+                $('#healthAlertIcon').removeClass().addClass(`bi ${advice.icon} fs-5`);
+                
+                // Đồng thời cập nhật màu sắc khung cảnh báo theo mức độ nguy cơ
+                let alertClass = 'success';
+                if (paramKey === 'aqi') {
+                    alertClass = aqiVal <= 50 ? 'success' : (aqiVal <= 150 ? 'warning' : 'danger');
+                } else if (paramKey === 'uv') {
+                    alertClass = uvNum < 6 ? 'success' : (uvNum < 8 ? 'warning' : 'danger');
+                } else if (paramKey === 'humidity') {
+                    alertClass = (humidityVal >= 40 && humidityVal <= 80) ? 'success' : (humidityVal < 40 ? 'warning' : 'danger');
+                } else if (paramKey === 'wind') {
+                    alertClass = windVal <= 20 ? 'success' : 'warning';
+                }
+                
+                // Xây dựng giao diện chỉ dẫn y học Đông y chuyên nghiệp nâng cấp
+                const detailHtml = `
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-white bg-opacity-75 rounded-3 border border-${alertClass} border-opacity-20 h-100 shadow-sm transition-all" style="backdrop-filter: blur(5px);">
+                                <h6 class="fw-bold text-${alertClass === 'success' ? 'success' : (alertClass === 'warning' ? 'warning' : 'danger')} mb-2" style="font-size:0.95rem;">
+                                    <i class="bi bi-heart-pulse-fill me-2"></i>Chỉ dẫn Sức khỏe & Y lý
+                                </h6>
+                                <div class="small text-secondary" style="line-height:1.6; font-size:0.88rem;">
+                                    <strong>Trạng thế môi trường:</strong> ${advice.yly.split('. ')[0]}<br>
+                                    <strong>Lời khuyên y học cổ truyền:</strong> ${advice.yly.split('. ').slice(1).join('. ')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-white bg-opacity-75 rounded-3 border border-${alertClass} border-opacity-20 h-100 shadow-sm transition-all" style="backdrop-filter: blur(5px);">
+                                <h6 class="fw-bold text-${alertClass === 'success' ? 'success' : (alertClass === 'warning' ? 'warning' : 'danger')} mb-2" style="font-size:0.95rem;">
+                                    <i class="bi bi-mortar-pestle me-2"></i>Thu hái & Bào chế Đông y
+                                </h6>
+                                <div class="small text-secondary" style="line-height:1.6; font-size:0.88rem;">
+                                    ${advice.baoche}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3 alert-${alertClass} rounded-3 border border-${alertClass} border-opacity-30 d-flex align-items-center gap-3 shadow-sm">
+                                <i class="bi bi-cup-hot-fill fs-4 text-${alertClass === 'success' ? 'success' : (alertClass === 'warning' ? 'warning' : 'danger')} flex-shrink-0"></i>
+                                <div class="small text-dark">
+                                    <strong>Trà thảo dược đề nghị:</strong> <span class="fw-medium">${advice.tra}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                $('#healthAlertText').html(detailHtml);
+                $('#healthAlertCard').removeClass('alert-success alert-warning alert-danger border-success border-warning border-danger')
+                                     .addClass(`alert-${alertClass} border-${alertClass}`);
             }
         }
 
@@ -862,9 +1153,22 @@ $(document).ready(function () {
             }
         }
 
-        // Gắn sự kiện cuộn mượt khi nhấn "Xem gợi ý sức khỏe"
+        // Gắn sự kiện cuộn mượt khi nhấn "Xem gợi ý sức khỏe" và cập nhật chỉ dẫn theo thẻ tương ứng
         $('.card-action-link').off('click').on('click', function(e) {
             e.preventDefault();
+            
+            // Tìm xem click thuộc thẻ nào: aqi, uv, humidity, wind
+            let paramKey = 'aqi';
+            const $card = $(this).closest('.weather-param-card');
+            if ($card.find('.aqi-icon').length) paramKey = 'aqi';
+            else if ($card.find('.uv-icon').length) paramKey = 'uv';
+            else if ($card.find('.humidity-icon').length) paramKey = 'humidity';
+            else if ($card.find('.wind-icon').length) paramKey = 'wind';
+            
+            // Cập nhật nội dung tương ứng cho khung chỉ dẫn Đông y
+            updateHealthAlertPanel(paramKey);
+            
+            // Cuộn mượt
             const $target = $('#healthAlertCard');
             if ($target.length) {
                 $('html, body').animate({
