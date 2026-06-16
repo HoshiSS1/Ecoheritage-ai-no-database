@@ -689,109 +689,128 @@ $(document).ready(function () {
         if (windVal === undefined) windVal = 12;
 
         // Ghi lên giao diện
+        $('#headerTemp').text(`${tempVal}°C`);
         $('#aqiValue').text(aqiVal);
-        $('#weatherTemp').html(`${tempVal}°C`);
-        $('#weatherHumidity').text(`${humidityVal}%`);
         $('#weatherUV').text(uvVal);
-        $('#weatherWind').html(`${windVal} km/h`);
-
-        // Cập nhật nhãn trạng thái Nhiệt độ động
-        const $tempStatus = $('#tempStatus');
-        if ($tempStatus.length) {
-            if (tempVal < 22) {
-                $tempStatus.html('<i class="bi bi-snow"></i> Lạnh').removeClass('text-success text-warning text-danger').addClass('text-info');
-            } else if (tempVal <= 28) {
-                $tempStatus.html('<i class="bi bi-cloud-sun"></i> Mát mẻ').removeClass('text-info text-warning text-danger').addClass('text-success');
-            } else if (tempVal <= 32) {
-                $tempStatus.html('<i class="bi bi-brightness-high"></i> Ấm áp').removeClass('text-info text-success text-danger').addClass('text-warning');
-            } else {
-                $tempStatus.html('<i class="bi bi-thermometer-high"></i> Nắng nóng').removeClass('text-info text-success text-warning').addClass('text-danger');
-            }
-        }
-
-        // Cập nhật nhãn trạng thái Độ ẩm động
-        const $humidityAdvice = $('#humidityAdvice');
-        if ($humidityAdvice.length) {
-            if (humidityVal < 40) {
-                $humidityAdvice.text('Khô ráo').removeClass('text-secondary text-danger text-success').addClass('text-warning');
-            } else if (humidityVal <= 70) {
-                $humidityAdvice.text('Ổn định').removeClass('text-secondary text-warning text-danger').addClass('text-success');
-            } else {
-                $humidityAdvice.text('Ẩm ướt').removeClass('text-secondary text-warning text-success').addClass('text-danger');
-            }
-        }
-
-        // Cập nhật nhãn trạng thái UV động
-        const $uvStatus = $('#uvStatus');
-        if ($uvStatus.length) {
-            const uvNum = parseFloat(uvVal);
-            if (uvNum < 3) {
-                $uvStatus.text('An toàn').removeClass('text-warning text-danger').addClass('text-success');
-            } else if (uvNum < 6) {
-                $uvStatus.text('Trung bình').removeClass('text-success text-danger').addClass('text-warning');
-            } else if (uvNum < 8) {
-                $uvStatus.text('Khá cao').removeClass('text-success text-warning').addClass('text-danger');
-            } else {
-                $uvStatus.text('Nguy hại / Cực cao').removeClass('text-success text-warning').addClass('text-danger');
-            }
-        }
-
-        // Cập nhật nhãn trạng thái Gió động
-        const $windStatus = $('#windStatus');
-        if ($windStatus.length) {
-            if (windVal < 10) {
-                $windStatus.text('Gió nhẹ').removeClass('text-warning text-danger').addClass('text-success');
-            } else if (windVal <= 20) {
-                $windStatus.text('Gió mát').removeClass('text-warning text-danger').addClass('text-success');
-            } else {
-                $windStatus.text('Gió lớn').removeClass('text-success text-danger').addClass('text-warning');
-            }
-        }
-
-        // Cập nhật vòng quay AQI SVG Gauge
-        const $gauge = $('#aqiGaugePath');
-        if ($gauge.length) {
-            const circumference = 377; // 2 * PI * 60 (bán kính r=60)
-            const percentage = Math.min(Math.max(aqiVal, 0), 200) / 200;
-            const strokeDashoffset = circumference - (percentage * circumference);
-            $gauge.css('stroke-dashoffset', strokeDashoffset);
-            
-            // Cập nhật màu sắc viền gauge động
-            if (aqiVal <= 50) {
-                $gauge.css('stroke', '#10b981'); // Emerald Green
-            } else if (aqiVal <= 100) {
-                $gauge.css('stroke', '#f59e0b'); // Amber Orange
-            } else {
-                $gauge.css('stroke', '#ef4444'); // Crimson Red
-            }
-        }
-
-        // Đánh giá chỉ số AQI và cập nhật màu sắc / khuyên dùng
-        let $aqiPanel = $('#aqiPanel');
-        let $healthAlert = $('#healthAlertCard');
-        let $healthText = $('#healthAlertText');
+        $('#weatherHumidity').text(`${humidityVal}%`);
+        
+        // Tính toán & Cập nhật nhãn đánh giá AQI
+        let aqiStatusText = 'Tốt';
+        let aqiClass = 'success';
+        let aqiAdviceText = 'Không khí sạch trong lành. Thích hợp để leo rừng thu hái thảo dược quý tại Sơn Trà.';
+        let dynamicAqiTitle = 'KHÔNG KHÍ TỐT';
+        let dynamicAqiDesc = `Chỉ số chất lượng không khí US AQI hiện tại là ${aqiVal} (Tốt). Thích hợp tối đa cho các hoạt động ngoài trời và thu hoạch dược liệu sạch.`;
+        let dynamicAqiBorder = 'rgba(16, 185, 129, 0.4)';
+        let dynamicAqiIconColor = '#10b981';
+        let dynamicAqiIcon = 'bi-shield-fill-check';
         
         if (aqiVal <= 50) {
-            $('#aqiStatus').text('Tốt');
-            $aqiPanel.css('background', 'linear-gradient(135deg, #198754, #157347)');
-            $('#aqiAdvice').text('Không khí sạch trong lành. Thích hợp gieo trồng và hái dược liệu ở Sơn Trà.');
-            $healthAlert.removeClass('warning danger').addClass('success');
-            $healthText.text('Thời tiết tuyệt vời! Thích hợp tối đa để thu hoạch thảo dược sấy khô, sao vàng hạ thổ ngải cứu, đinh lăng mà không lo mốc.');
+            aqiStatusText = 'Tốt';
+            aqiClass = 'success';
+            aqiAdviceText = 'Không khí sạch trong lành. Thích hợp gieo trồng và hái dược liệu ở Sơn Trà.';
         } else if (aqiVal <= 100) {
-            $('#aqiStatus').text('Vừa phải');
-            $aqiPanel.css('background', 'linear-gradient(135deg, #ffc107, #d39e00)');
-            $('#aqiAdvice').text('Chất lượng vừa phải. Nhạy cảm nên chú ý khi làm việc lâu ngoài trời.');
-            $healthAlert.removeClass('success danger').addClass('warning');
-            $healthText.text('Độ ẩm hơi tăng nhẹ. Chú ý che đậy kỹ bình ngâm ba kích và phơi xạ đen trong bóng râm thoáng mát.');
+            aqiStatusText = 'Vừa phải';
+            aqiClass = 'warning';
+            aqiAdviceText = 'Chất lượng vừa phải. Nhạy cảm nên chú ý khi làm việc lâu ngoài trời.';
+            dynamicAqiTitle = 'KHÔNG KHÍ VỪA PHẢI';
+            dynamicAqiDesc = `Chỉ số US AQI hiện tại là ${aqiVal} (Chấp nhận được). Người nhạy cảm với bụi mịn PM2.5 nên lưu ý khi di chuyển bên ngoài.`;
+            dynamicAqiBorder = 'rgba(245, 158, 11, 0.4)';
+            dynamicAqiIconColor = '#f59e0b';
+            dynamicAqiIcon = 'bi-exclamation-triangle-fill';
         } else {
-            $('#aqiStatus').text('Kém');
-            $aqiPanel.css('background', 'linear-gradient(135deg, #dc3545, #bd2130)');
-            $('#aqiAdvice').text('Hạn chế đi lại rừng núi ban trưa thu hái do khói bụi tăng nhẹ.');
-            $healthAlert.removeClass('success warning').addClass('danger');
-            $healthText.text('Không khí kém & nắng gắt. Hạn chế phơi thuốc ngoài đường lộ bụi bẩn. Nên đun hãm trà tâm sen uống giải nhiệt mát gan phế ở nhà.');
+            aqiStatusText = 'Kém';
+            aqiClass = 'danger';
+            aqiAdviceText = 'Hạn chế đi lại rừng núi ban trưa thu hái do khói bụi tăng nhẹ.';
+            dynamicAqiTitle = 'CẢNH BÁO KHÔNG KHÍ KÉM';
+            dynamicAqiDesc = `Chỉ số US AQI là ${aqiVal} (Ảnh hưởng tới sức khỏe). Nồng độ bụi mịn PM2.5 cao. Khuyến nghị hạn chế vận động mạnh ngoài trời.`;
+            dynamicAqiBorder = 'rgba(239, 68, 68, 0.5)';
+            dynamicAqiIconColor = '#ef4444';
+            dynamicAqiIcon = 'bi-shield-fill-exclamation';
         }
 
-        // Cập nhật trạng thái "Live" hay "Simulation" trên badge
+        const $aqiBadge = $('#aqiBadge');
+        if ($aqiBadge.length) {
+            $aqiBadge.text(aqiStatusText).removeClass('success warning danger').addClass(aqiClass);
+        }
+
+        // Tính toán & Cập nhật nhãn đánh giá UV
+        const uvNum = parseFloat(uvVal);
+        let uvStatusText = 'An toàn';
+        let uvClass = 'success';
+        if (uvNum < 3) {
+            uvStatusText = 'An toàn';
+            uvClass = 'success';
+        } else if (uvNum < 6) {
+            uvStatusText = 'Khá ổn';
+            uvClass = 'success';
+        } else if (uvNum < 8) {
+            uvStatusText = 'Khá cao';
+            uvClass = 'warning';
+        } else {
+            uvStatusText = 'Cực cao';
+            uvClass = 'danger';
+        }
+        const $uvBadge = $('#uvBadge');
+        if ($uvBadge.length) {
+            $uvBadge.text(uvStatusText).removeClass('success warning danger').addClass(uvClass);
+        }
+
+        // Tính toán & Cập nhật nhãn đánh giá Độ ẩm
+        let humidityStatusText = 'Ổn định';
+        let humidityClass = 'success';
+        if (humidityVal < 40) {
+            humidityStatusText = 'Khô ráo';
+            humidityClass = 'warning';
+        } else if (humidityVal <= 80) {
+            humidityStatusText = 'Ổn định';
+            humidityClass = 'success';
+        } else {
+            humidityStatusText = 'Ẩm ướt';
+            humidityClass = 'danger';
+        }
+        const $humidityBadge = $('#humidityBadge');
+        if ($humidityBadge.length) {
+            $humidityBadge.text(humidityStatusText).removeClass('success warning danger').addClass(humidityClass);
+        }
+
+        // Tính toán & Cập nhật nhãn đánh giá Gió
+        let windStatusText = 'Tốt';
+        let windClass = 'success';
+        if (windVal < 10) {
+            windStatusText = 'Nhẹ';
+            windClass = 'success';
+            $('#weatherWind').text('Gió nhẹ');
+        } else if (windVal <= 20) {
+            windStatusText = 'Tốt';
+            windClass = 'success';
+            $('#weatherWind').text('Mát mẻ');
+        } else {
+            windStatusText = 'Mạnh';
+            windClass = 'warning';
+            $('#weatherWind').text('Gió lớn');
+        }
+        const $windBadge = $('#windBadge');
+        if ($windBadge.length) {
+            $windBadge.text(windStatusText).removeClass('success warning danger').addClass(windClass);
+        }
+
+        // Cập nhật Đông y Cảnh báo Y học
+        let $healthAlert = $('#healthAlertCard');
+        let $healthText = $('#healthAlertText');
+        if ($healthAlert.length && $healthText.length) {
+            if (aqiVal <= 50) {
+                $healthAlert.removeClass('warning danger').addClass('success');
+                $healthText.text('Thời tiết tuyệt vời! Thích hợp tối đa để thu hoạch thảo dược sấy khô, sao vàng hạ thổ ngải cứu, đinh lăng mà không lo mốc.');
+            } else if (aqiVal <= 100) {
+                $healthAlert.removeClass('success danger').addClass('warning');
+                $healthText.text('Độ ẩm hơi tăng nhẹ hoặc chất lượng không khí vừa phải. Chú ý che đậy kỹ bình ngâm ba kích và phơi xạ đen trong bóng râm thoáng mát.');
+            } else {
+                $healthAlert.removeClass('success warning').addClass('danger');
+                $healthText.text('Chất lượng không khí kém & nắng gắt. Hạn chế phơi thuốc ngoài đường lộ bụi bẩn. Nên đun hãm trà tâm sen uống giải nhiệt mát gan phế ở nhà.');
+            }
+        }
+
+        // Cập nhật trạng thái "Live" hay "Simulation" trên badge tiêu đề
         const $badge = $('.badge-realtime');
         if ($badge.length) {
             if (isLive) {
@@ -802,6 +821,45 @@ $(document).ready(function () {
                 $badge.css('background', 'rgba(255, 71, 87, 0.15)').css('border-color', 'rgba(255, 71, 87, 0.3)');
             }
         }
+
+        // Cập nhật và hiển thị Floating AQI Warning Toast
+        const $floatingAqiToast = $('#floatingAqiToast');
+        if ($floatingAqiToast.length) {
+            $('#floatingAqiTitle').text(dynamicAqiTitle);
+            $('#floatingAqiDesc').text(dynamicAqiDesc);
+            $floatingAqiToast.css('border-color', dynamicAqiBorder);
+            $('#floatingAqiIconWrapper').css('color', dynamicAqiIconColor);
+            $('#floatingAqiIcon').removeClass().addClass(`bi ${dynamicAqiIcon} fs-3`);
+            
+            // Xử lý nút đóng toast
+            $('#closeAqiToastBtn').off('click').on('click', function() {
+                $floatingAqiToast.addClass('d-none');
+                sessionStorage.setItem('aqi_toast_closed', 'true');
+            });
+            
+            // Tự động hiện sau 1.5 giây nếu chưa bị đóng thủ công trong phiên này
+            if (!sessionStorage.getItem('aqi_toast_closed')) {
+                setTimeout(() => {
+                    $floatingAqiToast.removeClass('d-none');
+                }, 1500);
+            }
+        }
+
+        // Gắn sự kiện cuộn mượt khi nhấn "Xem gợi ý sức khỏe"
+        $('.card-action-link').off('click').on('click', function(e) {
+            e.preventDefault();
+            const $target = $('#healthAlertCard');
+            if ($target.length) {
+                $('html, body').animate({
+                    scrollTop: $target.offset().top - 120
+                }, 600, function() {
+                    $target.addClass('flash-highlight');
+                    setTimeout(() => {
+                        $target.removeClass('flash-highlight');
+                    }, 2400);
+                });
+            }
+        });
     }
     initWeatherDashboard();
     // Chạy live API cập nhật định kỳ — lưu ref để có thể clear, chỉ gọi khi tab active

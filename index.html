@@ -179,7 +179,7 @@
                         <div class="d-flex align-items-center gap-3">
                             <i class="bi bi-geo-alt-fill fs-2 text-warning"></i>
                             <div>
-                                <h4 class="fw-bold mb-0">Trạm Khí tượng Sinh học Đà Nẵng</h4>
+                                <h4 class="fw-bold mb-0">Trạm Khí tượng Sinh học Đà Nẵng <span class="ms-2 badge bg-success bg-opacity-25 text-success border border-success border-opacity-25" id="headerTemp" style="font-size: 0.95rem;">28°C</span></h4>
                                 <small class="opacity-75"><i class="bi bi-clock-history"></i> Cập nhật tự động (Mỗi 5 phút)</small>
                             </div>
                         </div>
@@ -187,80 +187,77 @@
                     </div>
                     
                     <div class="p-4 p-md-5">
-                        <div class="row g-4 align-items-center stagger-container">
-                            <!-- AQI SVG Gauge Card -->
-                            <div class="col-lg-4 stagger-item">
-                                <div class="p-4 rounded-4 text-white text-center d-flex flex-column align-items-center justify-content-center h-100" id="aqiPanel">
-                                    <h5 class="fw-bold mb-3"><i class="bi bi-wind"></i> Chất Lượng Không Khí (AQI)</h5>
-                                    <div class="aqi-gauge-container mb-3 position-relative" style="width: 150px; height: 150px; margin: 0 auto;">
-                                        <svg width="150" height="150" viewBox="0 0 150 150" class="aqi-gauge-svg">
-                                            <defs>
-                                                <linearGradient id="aqiGaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                    <stop offset="0%" stop-color="#70c994" />
-                                                    <stop offset="100%" stop-color="#2eb366" />
-                                                </linearGradient>
-                                            </defs>
-                                            <!-- Track -->
-                                            <circle cx="75" cy="75" r="60" fill="transparent" stroke="rgba(255, 255, 255, 0.15)" stroke-width="8"></circle>
-                                            <!-- Progress Indicator -->
-                                            <circle id="aqiGaugePath" cx="75" cy="75" r="60" fill="transparent" stroke="url(#aqiGaugeGradient)" stroke-width="8" stroke-dasharray="377" stroke-dashoffset="377" transform="rotate(-90 75 75)" style="transition: stroke-dashoffset 1s ease-in-out, stroke 1s ease;"></circle>
-                                        </svg>
-                                        <div class="aqi-gauge-content position-absolute top-50 start-50 translate-middle text-center w-100">
-                                            <h2 class="fw-bold mb-0 text-white" id="aqiValue" style="font-size: 2.2rem; line-height: 1;">45</h2>
-                                            <span class="badge rounded-pill bg-white text-success px-2.5 py-1 small fw-bold mt-1 shadow-sm" id="aqiStatus" style="font-size: 0.75rem;">Tốt</span>
+                        <div class="row g-4 stagger-container">
+                            <!-- Card 1: AQI -->
+                            <div class="col-md-6 col-xl-3 stagger-item">
+                                <div class="weather-param-card text-start position-relative">
+                                    <div class="card-header-row d-flex justify-content-between align-items-center mb-3">
+                                        <div class="icon-wrapper aqi-icon">
+                                            <i class="bi bi-cloud-haze2-fill fs-2"></i>
                                         </div>
+                                        <div class="status-badge-pill" id="aqiBadge">TỐT</div>
                                     </div>
-                                    <p class="small mb-0 opacity-90" id="aqiAdvice">Không khí sạch trong lành. Thích hợp để leo rừng thu hái thảo dược quý tại Sơn Trà.</p>
+                                    <span class="card-label-text">CHẤT LƯỢNG KHÔNG KHÍ (AQI)</span>
+                                    <h2 class="card-value-text my-2" id="aqiValue">45</h2>
+                                    <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
+                                        Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Card 2: UV -->
+                            <div class="col-md-6 col-xl-3 stagger-item">
+                                <div class="weather-param-card text-start position-relative">
+                                    <div class="card-header-row d-flex justify-content-between align-items-center mb-3">
+                                        <div class="icon-wrapper uv-icon">
+                                            <i class="bi bi-sun-fill fs-2"></i>
+                                        </div>
+                                        <div class="status-badge-pill" id="uvBadge">AN TOÀN</div>
+                                    </div>
+                                    <span class="card-label-text">UV CỰC ĐẠI HÔM NAY</span>
+                                    <h2 class="card-value-text my-2" id="weatherUV">3.5</h2>
+                                    <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
+                                        Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Card 3: Humidity -->
+                            <div class="col-md-6 col-xl-3 stagger-item">
+                                <div class="weather-param-card text-start position-relative">
+                                    <div class="card-header-row d-flex justify-content-between align-items-center mb-3">
+                                        <div class="icon-wrapper humidity-icon">
+                                            <i class="bi bi-droplet-fill fs-2"></i>
+                                        </div>
+                                        <div class="status-badge-pill" id="humidityBadge">TỐT</div>
+                                    </div>
+                                    <span class="card-label-text">ĐỘ ẨM KHÔNG KHÍ</span>
+                                    <h2 class="card-value-text my-2" id="weatherHumidity">78%</h2>
+                                    <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
+                                        Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Card 4: Wind -->
+                            <div class="col-md-6 col-xl-3 stagger-item">
+                                <div class="weather-param-card text-start position-relative">
+                                    <div class="card-header-row d-flex justify-content-between align-items-center mb-3">
+                                        <div class="icon-wrapper wind-icon">
+                                            <i class="bi bi-wind fs-2"></i>
+                                        </div>
+                                        <div class="status-badge-pill" id="windBadge">TỐT</div>
+                                    </div>
+                                    <span class="card-label-text">CHẤT LƯỢNG GIÓ</span>
+                                    <h2 class="card-value-text my-2" id="weatherWind">Tốt</h2>
+                                    <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
+                                        Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                             
-                            <!-- Parameters Grid -->
-                            <div class="col-lg-8 stagger-item">
-                                <div class="row g-3">
-                                    <!-- Temp -->
-                                    <div class="col-md-6 col-xl-3">
-                                        <div class="param-card-temp text-center tilt-card">
-                                            <i class="bi bi-thermometer-half text-danger fs-1 mb-2 d-block"></i>
-                                            <span class="text-muted small fw-bold uppercase">Nhiệt độ</span>
-                                            <h3 class="fw-black my-1" id="weatherTemp">28°C</h3>
-                                            <span class="text-success small" id="tempStatus"><i class="bi bi-arrow-down-short"></i> Mát mẻ</span>
-                                        </div>
-                                    </div>
-                                    <!-- Humidity -->
-                                    <div class="col-md-6 col-xl-3">
-                                        <div class="param-card-humidity text-center tilt-card">
-                                            <i class="bi bi-droplet-half text-info fs-1 mb-2 d-block"></i>
-                                            <span class="text-muted small fw-bold uppercase">Độ Ẩm Khí</span>
-                                            <h3 class="fw-black my-1" id="weatherHumidity">75%</h3>
-                                            <span class="text-secondary small" id="humidityAdvice">Ổn định</span>
-                                        </div>
-                                    </div>
-                                    <!-- UV -->
-                                    <div class="col-md-6 col-xl-3">
-                                        <div class="param-card-uv text-center tilt-card">
-                                            <i class="bi bi-sun-fill text-warning fs-1 mb-2 d-block"></i>
-                                            <span class="text-muted small fw-bold uppercase">Chỉ số UV</span>
-                                            <h3 class="fw-black my-1" id="weatherUV">3.2</h3>
-                                            <span class="text-success small" id="uvStatus">An toàn</span>
-                                        </div>
-                                    </div>
-                                    <!-- Wind -->
-                                    <div class="col-md-6 col-xl-3">
-                                        <div class="param-card-wind text-center tilt-card">
-                                            <i class="bi bi-moisture text-primary fs-1 mb-2 d-block"></i>
-                                            <span class="text-muted small fw-bold uppercase">Gió / Tốc độ</span>
-                                            <h3 class="fw-black my-1" id="weatherWind">12 km/h</h3>
-                                            <span class="text-success small" id="windStatus">Gió hướng Nam</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Đông y Cảnh báo Y học -->
-                                <div class="mt-4">
-                                    <div class="health-alert-box p-4 rounded-4 shadow-sm" id="healthAlertCard" style="border: 2px dashed rgba(46,179,102,0.3) !important; background: rgba(46,179,102,0.03) !important; backdrop-filter: blur(10px) !important;">
-                                        <h6 class="fw-bold text-success mb-2 d-flex align-items-center gap-2" style="font-size: 1.02rem;"><i class="bi bi-shield-check-fill text-success fs-5"></i> Chỉ Dẫn Y Học Cổ Truyền Hằng Ngày:</h6>
-                                        <p class="small text-secondary mb-0 fw-semibold" id="healthAlertText" style="line-height: 1.6; font-size: 0.9rem;">Hôm nay thời tiết Đà Nẵng vô cùng mát dịu, độ ẩm ổn định dưới 80%. Đây là thời gian vàng để phơi nắng sao khô rễ đinh lăng, lá ngải cứu, tránh ẩm mốc.</p>
-                                    </div>
+                            <!-- Đông y Cảnh báo Y học -->
+                            <div class="col-12 mt-4 stagger-item">
+                                <div class="health-alert-box p-4 rounded-4 shadow-sm" id="healthAlertCard" style="border: 2px dashed rgba(46,179,102,0.3) !important; background: rgba(46,179,102,0.03) !important; backdrop-filter: blur(10px) !important;">
+                                    <h6 class="fw-bold text-success mb-2 d-flex align-items-center gap-2" style="font-size: 1.02rem;"><i class="bi bi-shield-check-fill text-success fs-5"></i> Chỉ Dẫn Y Học Cổ Truyền Hằng Ngày:</h6>
+                                    <p class="small text-secondary mb-0 fw-semibold" id="healthAlertText" style="line-height: 1.6; font-size: 0.9rem;">Hôm nay thời tiết Đà Nẵng vô cùng mát dịu, độ ẩm ổn định dưới 80%. Đây là thời gian vàng để phơi nắng sao khô rễ đinh lăng, lá ngải cứu, tránh ẩm mốc.</p>
                                 </div>
                             </div>
                         </div>
@@ -686,6 +683,22 @@
             </div>
         </div>
     </div>
+    <!-- Popup Cảnh báo AQI nổi (Floating AQI Toast) -->
+    <div class="floating-aqi-toast p-4 rounded-4 shadow-lg position-fixed d-none" id="floatingAqiToast" style="bottom: 24px; right: 24px; z-index: 1050; width: 360px; max-width: calc(100vw - 48px); background: rgba(10, 25, 17, 0.9); backdrop-filter: blur(15px); border: 1.5px solid rgba(239, 68, 68, 0.4); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); transition: all 0.4s ease;">
+        <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" id="closeAqiToastBtn" style="font-size: 0.75rem; opacity: 0.8;"></button>
+        <div class="d-flex align-items-start gap-3">
+            <div class="toast-alert-icon-wrapper" id="floatingAqiIconWrapper" style="color: #ef4444;">
+                <i class="bi bi-shield-fill-exclamation fs-3" id="floatingAqiIcon"></i>
+            </div>
+            <div style="flex: 1;">
+                <h6 class="fw-bold mb-1 text-white uppercase" id="floatingAqiTitle" style="font-size: 0.82rem; letter-spacing: 1.2px; line-height: 1.2;">CẢNH BÁO KHÔNG KHÍ</h6>
+                <p class="small text-white opacity-90 mb-0" id="floatingAqiDesc" style="line-height: 1.5; font-size: 0.8rem; font-weight: 500;">
+                    Chỉ số US AQI hiện đang tải...
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
