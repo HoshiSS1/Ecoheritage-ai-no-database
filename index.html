@@ -199,6 +199,9 @@
                                     </div>
                                     <span class="card-label-text">CHẤT LƯỢNG KHÔNG KHÍ (EAQI)</span>
                                     <h2 class="card-value-text my-2" id="aqiValue">45</h2>
+                                    <div class="progress-bar-level mb-3" style="height: 6px; background: rgba(0,0,0,0.06); border-radius: 3px; overflow: hidden;">
+                                        <div id="aqiLevelBar" style="height: 100%; width: 0%; background: #10b981; transition: width 0.8s ease, background-color 0.8s ease;"></div>
+                                    </div>
                                     <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
                                         Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
                                     </a>
@@ -215,6 +218,9 @@
                                     </div>
                                     <span class="card-label-text">CHỈ SỐ UV HIỆN TẠI</span>
                                     <h2 class="card-value-text my-2" id="weatherUV">3.5</h2>
+                                    <div class="progress-bar-level mb-3" style="height: 6px; background: rgba(0,0,0,0.06); border-radius: 3px; overflow: hidden;">
+                                        <div id="uvLevelBar" style="height: 100%; width: 0%; background: #10b981; transition: width 0.8s ease, background-color 0.8s ease;"></div>
+                                    </div>
                                     <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
                                         Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
                                     </a>
@@ -231,6 +237,9 @@
                                     </div>
                                     <span class="card-label-text">ĐỘ ẨM KHÔNG KHÍ</span>
                                     <h2 class="card-value-text my-2" id="weatherHumidity">78%</h2>
+                                    <div class="progress-bar-level mb-3" style="height: 6px; background: rgba(0,0,0,0.06); border-radius: 3px; overflow: hidden;">
+                                        <div id="humidityLevelBar" style="height: 100%; width: 0%; background: #10b981; transition: width 0.8s ease, background-color 0.8s ease;"></div>
+                                    </div>
                                     <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
                                         Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
                                     </a>
@@ -247,12 +256,33 @@
                                     </div>
                                     <span class="card-label-text">CHẤT lượng GIÓ</span>
                                     <h2 class="card-value-text my-2" id="weatherWind">Tốt</h2>
+                                    <div class="progress-bar-level mb-3" style="height: 6px; background: rgba(0,0,0,0.06); border-radius: 3px; overflow: hidden;">
+                                        <div id="windLevelBar" style="height: 100%; width: 0%; background: #10b981; transition: width 0.8s ease, background-color 0.8s ease;"></div>
+                                    </div>
                                     <a href="javascript:void(0)" class="card-action-link mt-3 d-inline-flex align-items-center gap-1">
                                         Xem gợi ý sức khỏe <i class="bi bi-arrow-right"></i>
                                     </a>
                                 </div>
                             </div>
                             
+                            <!-- Lời khuyên Đông y Thích ứng Thời tiết -->
+                            <div class="col-12 mt-4 stagger-item">
+                                <div class="p-4 rounded-4 shadow-sm border position-relative overflow-hidden" id="weatherAdaptiveCard" style="background: linear-gradient(135deg, rgba(46,179,102,0.08) 0%, rgba(59,130,246,0.08) 100%); border: 1.5px solid rgba(46, 179, 102, 0.25) !important;">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="rounded-circle bg-success bg-opacity-20 p-2 text-success d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
+                                            <i class="bi bi-magic fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-bold mb-1 text-success" style="font-size: 1.1rem;">Chỉ định Đông Y Thích ứng Thời tiết</h5>
+                                            <p class="text-secondary small mb-3" style="line-height: 1.6; font-size: 0.92rem;" id="weatherAdaptiveAdvice">Đang phân tích thời tiết Đà Nẵng để đề xuất bài thuốc thích hợp...</p>
+                                            <div id="weatherAdaptiveRecipeBtn" class="d-none">
+                                                <button class="btn btn-sm btn-success rounded-pill px-3 py-1.5 fw-semibold" id="btnGoToRecipe"><i class="bi bi-journal-medical me-1"></i> Xem chi tiết bài thuốc</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Đông y Cảnh báo Y học -->
                             <div class="col-12 mt-4 stagger-item">
                                 <div class="health-alert-box p-4 rounded-4 shadow-sm" id="healthAlertCard" style="border: 2px dashed rgba(46,179,102,0.3) !important; background: rgba(46,179,102,0.03) !important; backdrop-filter: blur(10px) !important; transition: all 0.4s ease;">
@@ -363,6 +393,78 @@
                             <div>
                                 <h5 class="fw-bold mb-1">Sao Vàng Hạ Thổ / Đun Sắc</h5>
                                 <p class="text-muted mb-0 small">Sao vàng rực thơm thảo dược trên lửa nhỏ để triệt ngái khí độc tự nhiên, sắc bằng nồi đất nung trong lửa nhỏ 30-40 phút và uống ấm.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION: TIMELINE LỊCH SỬ Y HỌC CỔ TRUYỀN -->
+        <section class="py-5 bg-white position-relative z-1" id="timeline-section" style="border-top: 1px solid rgba(0,0,0,0.02); border-bottom: 1px solid rgba(0,0,0,0.02);">
+            <div class="container py-4">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <span class="section-badge">Di Sản Thời Gian</span>
+                    <h2 class="section-title">Lịch Sử <span class="gradient-text-green">Y Học Cổ Truyền Việt Nam</span></h2>
+                    <p class="text-muted mx-auto" style="max-width: 600px;">Hành trình phát triển từ ngàn xưa của nền Nam y dân tộc, bảo tồn tinh hoa thảo dược và chuyển đổi số thời đại mới.</p>
+                </div>
+                
+                <div class="timeline-wrapper position-relative" style="max-width: 900px; margin: 0 auto;">
+                    <!-- Vertical line in center -->
+                    <div class="timeline-line" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(46,179,102,0.15); transform: translateX(-50%); z-index: 1;"></div>
+                    
+                    <!-- Item 1 -->
+                    <div class="row g-4 align-items-center timeline-item position-relative mb-5" style="z-index: 2;" data-aos="fade-right">
+                        <div class="col-md-6 text-md-end pe-md-5 timeline-content-wrapper">
+                            <span class="badge bg-success bg-opacity-10 text-success mb-2 px-3 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">Thời Cổ Đại</span>
+                            <h4 class="fw-bold text-dark mb-2">Thần Nông Bản Thảo Kinh</h4>
+                            <p class="text-muted small mb-0">Cơ sở lý luận thảo dược đầu tiên của Đông y. Ghi chép và phân loại 365 vị thuốc thảo mộc tự nhiên chính tông, đặt nền móng phát triển cho y học cổ truyền Phương Đông.</p>
+                        </div>
+                        <div class="col-md-6 ps-md-5 timeline-marker-wrapper d-none d-md-block">
+                            <div class="timeline-marker bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; border: 4px solid #fff; box-shadow: 0 0 15px rgba(25,135,84,0.3); transform: translateX(-69%);">
+                                <i class="bi bi-book-half text-white fs-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="row g-4 align-items-center timeline-item flex-row-reverse position-relative mb-5" style="z-index: 2;" data-aos="fade-left">
+                        <div class="col-md-6 text-md-start ps-md-5 timeline-content-wrapper">
+                            <span class="badge bg-primary bg-opacity-10 text-primary mb-2 px-3 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">Thế Kỷ XIII (Nhà Trần)</span>
+                            <h4 class="fw-bold text-dark mb-2">Thầy Thuốc Tuệ Tĩnh</h4>
+                            <p class="text-muted small mb-0">Ông tổ ngành Nam y với tôn chỉ bất hủ "Nam dược trị Nam nhân" (Thuốc Nam chữa người Nam). Khai mở con đường bảo tồn, trồng trọt và bào chế thảo dược nội địa nước Việt.</p>
+                        </div>
+                        <div class="col-md-6 pe-md-5 text-md-end timeline-marker-wrapper d-none d-md-block">
+                            <div class="timeline-marker bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; border: 4px solid #fff; box-shadow: 0 0 15px rgba(13,110,253,0.3); transform: translateX(69%); float: right;">
+                                <i class="bi bi-tree text-white fs-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="row g-4 align-items-center timeline-item position-relative mb-5" style="z-index: 2;" data-aos="fade-right">
+                        <div class="col-md-6 text-md-end pe-md-5 timeline-content-wrapper">
+                            <span class="badge bg-warning bg-opacity-25 text-warning text-darken mb-2 px-3 py-1 rounded-pill fw-bold" style="font-size: 0.8rem; color: #b45309 !important;">Thế Kỷ XVIII (Nhà Lê)</span>
+                            <h4 class="fw-bold text-dark mb-2">Hải Thượng Lãn Ông</h4>
+                            <p class="text-muted small mb-0">Danh y Lê Hữu Trác hoàn thành bộ đại thư "Y tông tâm lĩnh" gồm 66 quyển - tập hợp tinh hoa lý luận sâu sắc nhất về chẩn đoán, trị bệnh và đạo đức ngành y học dân tộc.</p>
+                        </div>
+                        <div class="col-md-6 ps-md-5 timeline-marker-wrapper d-none d-md-block">
+                            <div class="timeline-marker bg-warning rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; border: 4px solid #fff; box-shadow: 0 0 15px rgba(255,193,7,0.3); transform: translateX(-69%);">
+                                <i class="bi bi-pen-fill text-dark fs-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 4 -->
+                    <div class="row g-4 align-items-center timeline-item flex-row-reverse position-relative" style="z-index: 2;" data-aos="fade-left">
+                        <div class="col-md-6 text-md-start ps-md-5 timeline-content-wrapper">
+                            <span class="badge bg-danger bg-opacity-10 text-danger mb-2 px-3 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">Thế Kỷ XXI (Hiện Đại)</span>
+                            <h4 class="fw-bold text-dark mb-2">EcoHeritage AI</h4>
+                            <p class="text-muted small mb-0">Chuyển đổi số toàn diện kho báu Y học cổ truyền nước nhà. Tích hợp định vị vùng sinh học Đà Nẵng, tư vấn sức khỏe cá nhân hóa qua Trí tuệ nhân tạo (AI).</p>
+                        </div>
+                        <div class="col-md-6 pe-md-5 text-md-end timeline-marker-wrapper d-none d-md-block">
+                            <div class="timeline-marker bg-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; border: 4px solid #fff; box-shadow: 0 0 15px rgba(220,53,69,0.3); transform: translateX(69%); float: right;">
+                                <i class="bi bi-cpu-fill text-white fs-5"></i>
                             </div>
                         </div>
                     </div>

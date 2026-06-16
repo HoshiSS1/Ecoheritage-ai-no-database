@@ -1969,4 +1969,370 @@ html.dark-mode .premium-chat-window {
         border-radius: 0 !important;
     }
 }
+
+/* ─── ENHANCED HERO BG DRIFT MESH ──────────────────────────── */
+.hero-premium-bg {
+    overflow: hidden;
+    position: relative;
+}
+.hero-premium-bg::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(46, 179, 102, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 90% 80%, rgba(0, 230, 118, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 50% 15%, rgba(13, 110, 253, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 75% 35%, rgba(142, 45, 226, 0.12) 0%, transparent 40%);
+    z-index: 0;
+    animation: driftMesh 25s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+@keyframes driftMesh {
+    0% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
+    50% { transform: scale(1.15) translate(20px, -15px) rotate(2deg); }
+    100% { transform: scale(1.05) translate(-10px, 15px) rotate(-1deg); }
+}
+
+/* ─── WEATHER ADAPTIVE CARD ────────────────────────────────── */
+#weatherAdaptiveCard {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 30px rgba(46, 179, 102, 0.04) !important;
+}
+#weatherAdaptiveCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(46, 179, 102, 0.15) !important;
+    border-color: rgba(46, 179, 102, 0.45) !important;
+}
+html.dark-mode #weatherAdaptiveCard {
+    background: linear-gradient(135deg, rgba(46, 179, 102, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%) !important;
+    border-color: rgba(46, 179, 102, 0.35) !important;
+}
+html.dark-mode #weatherAdaptiveCard p {
+    color: var(--text-light) !important;
+}
+
+/* ─── HISTORY TIMELINE ─────────────────────────────────────── */
+#timeline-section {
+    position: relative;
+    overflow: hidden;
+}
+.timeline-wrapper {
+    position: relative;
+    padding: 20px 0;
+}
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(46, 179, 102, 0.15);
+    transform: translateX(-50%);
+    z-index: 1;
+}
+.timeline-item {
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+.timeline-content-wrapper {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding: 15px;
+    border-radius: 16px;
+}
+.timeline-item:hover .timeline-content-wrapper {
+    transform: translateY(-8px);
+    background: rgba(46, 179, 102, 0.03);
+}
+html.dark-mode .timeline-item:hover .timeline-content-wrapper {
+    background: rgba(255, 255, 255, 0.02);
+}
+.timeline-marker {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 3;
+}
+html.dark-mode .timeline-marker {
+    border-color: var(--bg-dark-premium) !important;
+}
+.timeline-item:hover .timeline-marker {
+    transform: scale(1.2) !important;
+    box-shadow: 0 0 25px var(--primary-glow) !important;
+}
+
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 25px !important;
+        transform: none !important;
+    }
+    .timeline-item {
+        margin-bottom: 2.5rem !important;
+    }
+    .timeline-content-wrapper {
+        text-align: left !important;
+        padding-left: 60px !important;
+        width: 100% !important;
+    }
+    .timeline-marker-wrapper {
+        display: none !important;
+    }
+}
+
+/* ─── CUSTOM PULSING MAP MARKERS ───────────────────────────── */
+@keyframes markerPulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* ─── REMEDY COMPARISON STYLING ────────────────────────────── */
+.comparison-drawer {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-top: 2px solid rgba(46, 179, 102, 0.3) !important;
+    backdrop-filter: blur(20px) saturate(160%) !important;
+}
+html.dark-mode .comparison-drawer {
+    background: rgba(21, 36, 28, 0.92) !important;
+    border-top: 2px solid rgba(0, 230, 118, 0.25) !important;
+    color: var(--text-light) !important;
+}
+
+#compareItemsList .badge {
+    transition: all 0.3s ease;
+    border-radius: 30px !important;
+    border: 1px solid rgba(46, 179, 102, 0.15) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+html.dark-mode #compareItemsList .badge {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: var(--text-main) !important;
+}
+#compareItemsList .badge i:hover {
+    color: #ef4444 !important;
+    transform: scale(1.15);
+}
+
+.compare-table th {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+    background-color: rgba(46, 179, 102, 0.05) !important;
+    color: #1b5e20 !important;
+    border-bottom: 2px solid rgba(46, 179, 102, 0.2) !important;
+}
+html.dark-mode .compare-table th {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    color: #00e676 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+}
+.compare-table td {
+    padding: 1rem 1.25rem !important;
+    line-height: 1.6;
+}
+
+/* ─── VIRTUAL MEDICINE CABINET (APOTHECARY STYLE) ──────────── */
+#profileSavedHerbsList {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+}
+
+.apothecary-drawer {
+    perspective: 1000px;
+    height: 140px;
+    border-radius: 12px;
+    position: relative;
+    background: linear-gradient(135deg, #422006, #1d0f03); /* Rich wood grain tone */
+    border: 3px solid #6b3e11;
+    box-shadow: 
+        inset 0 0 15px rgba(0, 0, 0, 0.6),
+        0 8px 16px rgba(0, 0, 0, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+.apothecary-drawer:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 
+        inset 0 0 10px rgba(0, 0, 0, 0.5),
+        0 15px 30px rgba(0, 0, 0, 0.45),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: #8c521a;
+}
+
+.drawer-face {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+    transform: translateZ(10px);
+}
+
+/* Gold Pull Ring Handle */
+.drawer-handle-ring {
+    width: 32px;
+    height: 32px;
+    border: 3.5px solid #d97706; /* Golden handle */
+    border-radius: 50%;
+    margin-bottom: 0.75rem;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.drawer-handle-ring::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 8px;
+    background: #b45309;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.apothecary-drawer:hover .drawer-handle-ring {
+    transform: scale(1.1) rotate(5deg);
+    border-color: #fbbf24;
+}
+
+/* Classical Chinese Medicine label container */
+.drawer-label {
+    background: #fef3c7; /* Pale aged parchment tag */
+    border: 2px solid #b45309;
+    border-radius: 4px;
+    padding: 4px 12px;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.apothecary-drawer:hover .drawer-label {
+    background: #fff;
+    border-color: #d97706;
+}
+
+.drawer-emoji {
+    font-size: 1.1rem;
+}
+
+.drawer-title {
+    font-weight: 800;
+    color: #78350f;
+    font-size: 0.85rem;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.2px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ─── PARCHMENT RECIPE SCROLL THEME ────────────────────────── */
+.scroll-paper-theme {
+    background: #fdfaf2 !important; /* Parchment cream */
+    border: 8px solid #b45309 !important;
+    border-image: linear-gradient(135deg, #b45309, #d97706, #78350f) 8 !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+}
+
+.scroll-paper-theme .modal-header {
+    background: #fdf6e2 !important;
+    border-bottom: 2px dashed #b45309 !important;
+}
+
+.scroll-paper-theme .modal-body {
+    background: #fdfaf2 !important;
+    color: #451a03 !important;
+}
+
+.text-serif {
+    font-family: 'Outfit', serif;
+}
+
+.bg-amber-gradient {
+    background: linear-gradient(90deg, #d97706 0%, #b45309 100%) !important;
+}
+
+.btn-outline-amber {
+    color: #b45309 !important;
+    border-color: #b45309 !important;
+    transition: all 0.3s ease;
+}
+.btn-outline-amber:hover {
+    background: #b45309 !important;
+    color: #fff !important;
+}
+
+.btn-amber {
+    background: #b45309 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(180, 83, 9, 0.3);
+    transition: all 0.3s ease;
+}
+.btn-amber:hover {
+    background: #78350f !important;
+    box-shadow: 0 6px 15px rgba(120, 53, 15, 0.4);
+}
+
+/* Classical brewing checklist items */
+.brewing-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: rgba(180, 83, 9, 0.03);
+    border: 1px solid rgba(180, 83, 9, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.brewing-step-item:hover {
+    background: rgba(180, 83, 9, 0.06);
+    border-color: rgba(180, 83, 9, 0.18);
+}
+
+.brewing-step-item.completed {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16, 185, 129, 0.2);
+    text-decoration: line-through;
+    color: #6b7280;
+}
+
+.brewing-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    border-radius: 4px;
+    border: 2px solid #b45309;
+    accent-color: #b45309;
+    cursor: pointer;
+}
 
