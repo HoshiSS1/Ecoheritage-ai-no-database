@@ -168,6 +168,23 @@ $(document).ready(function () {
     if (existingDB && Array.isArray(existingDB.herbs) && existingDB.herbs.length > 0) {
         // DB đã tồn tại và có dữ liệu — chỉ normalize mà KHÔNG ghi đè
         db = normalizeDB(existingDB);
+        
+        // Di trú (Upgrade) CSDL trong LocalStorage nếu thiếu trường source
+        const needsUpgrade = db.herbs.some(h => {
+            const defaultHerb = EcoHeritageDefaultData.herbs.find(dh => dh.id === h.id);
+            return defaultHerb && defaultHerb.source && !h.source;
+        });
+        
+        if (needsUpgrade) {
+            db.herbs = db.herbs.map(h => {
+                const defaultHerb = EcoHeritageDefaultData.herbs.find(dh => dh.id === h.id);
+                if (defaultHerb && defaultHerb.source && !h.source) {
+                    h.source = defaultHerb.source;
+                }
+                return h;
+            });
+            writeStorage('eco_heritage_db_v7', db);
+        }
     } else {
         // Lần đầu hoặc DB rỗng — khởi tạo từ data.js và ghi lưu
         db = normalizeDB(null);
@@ -2016,6 +2033,7 @@ $(document).ready(function () {
         }
         $('#editRemedySteps').val(stepsStr);
         $('#editRemedyKeywords').val(herb.keywords || '');
+        $('#editRemedySource').val(herb.source || '');
 
         $('#editRemedyModal').modal('show');
     });
@@ -2042,6 +2060,7 @@ $(document).ready(function () {
         const stepsVal = $('#editRemedySteps').val().trim();
         herb.steps = stepsVal.split(';').map(s => s.trim()).filter(s => s.length > 0);
         herb.keywords = $('#editRemedyKeywords').val().trim();
+        herb.source = $('#editRemedySource').val().trim();
 
         saveDB();
         showToast('Cập nhật thông tin bài thuốc thành công! 🌿', 'success');
@@ -2065,12 +2084,13 @@ $(document).ready(function () {
         const benefits = $('#addRemedyBenefits').val().trim();
         const steps = $('#addRemedySteps').val().trim();
         const keywords = $('#addRemedyKeywords').val().trim();
+        const source = $('#addRemedySource').val().trim();
         const image = $('#addRemedyImage').val().trim() || DEFAULT_HERB_IMAGE;
 
         const newId = getNextId(db.herbs, 'h');
         const newHerb = {
             id: newId,
-            name, scientific, category, emoji, usage, ingredients, efficacy, time, benefits,
+            name, scientific, category, emoji, usage, ingredients, efficacy, time, benefits, source,
             steps: steps.split(';').map(s => s.trim()).filter(s => s.length > 0),
             keywords,
             image,
