@@ -679,7 +679,7 @@ $(document).ready(function () {
         const locationName = coords.name;
 
         try {
-            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&daily=uv_index_max&timezone=Asia/Bangkok`;
+            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,uv_index&timezone=Asia/Bangkok`;
             const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi`;
 
             const [weatherRes, aqiRes] = await Promise.all([
@@ -691,12 +691,7 @@ $(document).ready(function () {
                 tempVal = Math.round(weatherRes.current.temperature_2m);
                 humidityVal = Math.round(weatherRes.current.relative_humidity_2m);
                 windVal = Math.round(weatherRes.current.wind_speed_10m);
-                
-                if (weatherRes.daily && Array.isArray(weatherRes.daily.uv_index_max) && weatherRes.daily.uv_index_max.length > 0) {
-                    uvVal = weatherRes.daily.uv_index_max[0];
-                } else {
-                    uvVal = 3.5;
-                }
+                uvVal = weatherRes.current.uv_index !== undefined ? parseFloat(weatherRes.current.uv_index.toFixed(1)) : 0;
                 isLive = true;
             }
 
