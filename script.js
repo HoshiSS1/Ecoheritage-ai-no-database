@@ -695,6 +695,59 @@ $(document).ready(function () {
         $('#weatherUV').text(uvVal);
         $('#weatherWind').html(`${windVal} km/h`);
 
+        // Cập nhật nhãn trạng thái Nhiệt độ động
+        const $tempStatus = $('#tempStatus');
+        if ($tempStatus.length) {
+            if (tempVal < 22) {
+                $tempStatus.html('<i class="bi bi-snow"></i> Lạnh').removeClass('text-success text-warning text-danger').addClass('text-info');
+            } else if (tempVal <= 28) {
+                $tempStatus.html('<i class="bi bi-cloud-sun"></i> Mát mẻ').removeClass('text-info text-warning text-danger').addClass('text-success');
+            } else if (tempVal <= 32) {
+                $tempStatus.html('<i class="bi bi-brightness-high"></i> Ấm áp').removeClass('text-info text-success text-danger').addClass('text-warning');
+            } else {
+                $tempStatus.html('<i class="bi bi-thermometer-high"></i> Nắng nóng').removeClass('text-info text-success text-warning').addClass('text-danger');
+            }
+        }
+
+        // Cập nhật nhãn trạng thái Độ ẩm động
+        const $humidityAdvice = $('#humidityAdvice');
+        if ($humidityAdvice.length) {
+            if (humidityVal < 40) {
+                $humidityAdvice.text('Khô ráo').removeClass('text-secondary text-danger text-success').addClass('text-warning');
+            } else if (humidityVal <= 70) {
+                $humidityAdvice.text('Ổn định').removeClass('text-secondary text-warning text-danger').addClass('text-success');
+            } else {
+                $humidityAdvice.text('Ẩm ướt').removeClass('text-secondary text-warning text-success').addClass('text-danger');
+            }
+        }
+
+        // Cập nhật nhãn trạng thái UV động
+        const $uvStatus = $('#uvStatus');
+        if ($uvStatus.length) {
+            const uvNum = parseFloat(uvVal);
+            if (uvNum < 3) {
+                $uvStatus.text('An toàn').removeClass('text-warning text-danger').addClass('text-success');
+            } else if (uvNum < 6) {
+                $uvStatus.text('Trung bình').removeClass('text-success text-danger').addClass('text-warning');
+            } else if (uvNum < 8) {
+                $uvStatus.text('Khá cao').removeClass('text-success text-warning').addClass('text-danger');
+            } else {
+                $uvStatus.text('Nguy hại / Cực cao').removeClass('text-success text-warning').addClass('text-danger');
+            }
+        }
+
+        // Cập nhật nhãn trạng thái Gió động
+        const $windStatus = $('#windStatus');
+        if ($windStatus.length) {
+            if (windVal < 10) {
+                $windStatus.text('Gió nhẹ').removeClass('text-warning text-danger').addClass('text-success');
+            } else if (windVal <= 20) {
+                $windStatus.text('Gió mát').removeClass('text-warning text-danger').addClass('text-success');
+            } else {
+                $windStatus.text('Gió lớn').removeClass('text-success text-danger').addClass('text-warning');
+            }
+        }
+
         // Cập nhật vòng quay AQI SVG Gauge
         const $gauge = $('#aqiGaugePath');
         if ($gauge.length) {
