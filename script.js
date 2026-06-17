@@ -868,6 +868,28 @@ $(document).ready(function () {
             $windBadge.text(windStatusText).removeClass('success warning danger').addClass(windClass);
         }
 
+        // Cập nhật độ rộng và màu sắc cho các thanh LevelBar (AQI, UV, Humidity, Wind)
+        let aqiBarColor = '#10b981'; // success
+        if (aqiVal > 80) aqiBarColor = '#ef4444'; // danger
+        else if (aqiVal > 40) aqiBarColor = '#f59e0b'; // warning
+        
+        let uvBarColor = '#10b981'; // success
+        if (uvVal >= 8) uvBarColor = '#ef4444'; // danger
+        else if (uvVal >= 3) uvBarColor = '#f59e0b'; // warning
+        
+        let humBarColor = '#10b981'; // success
+        if (humidityVal < 30 || humidityVal > 85) humBarColor = '#ef4444'; // danger
+        else if (humidityVal < 50 || humidityVal > 70) humBarColor = '#f59e0b'; // warning
+        
+        let windBarColor = '#10b981'; // success
+        if (windVal >= 30) windBarColor = '#ef4444'; // danger
+        else if (windVal >= 15) windBarColor = '#f59e0b'; // warning
+
+        $('#aqiLevelBar').css({ 'width': Math.min(100, (aqiVal / 150) * 100) + '%', 'background-color': aqiBarColor });
+        $('#uvLevelBar').css({ 'width': Math.min(100, (uvVal / 12) * 100) + '%', 'background-color': uvBarColor });
+        $('#humidityLevelBar').css({ 'width': humidityVal + '%', 'background-color': humBarColor });
+        $('#windLevelBar').css({ 'width': Math.min(100, (windVal / 40) * 100) + '%', 'background-color': windBarColor });
+
         // 5. Cẩm nang Gợi ý sức khỏe Đông y ứng với từng chỉ số (đáp ứng click thời gian thực)
         let aqiAdvices = {};
         if (aqiVal <= 20) {
@@ -4286,11 +4308,27 @@ $(document).ready(function () {
             $('#weatherHumidity').text(`${hum}%`);
             $('#weatherWind').text(`${wind} km/h`);
 
-            // Cập nhật độ rộng các thanh Progress bar
-            $('#aqiLevelBar').css('width', Math.min(100, (aqi / 150) * 100) + '%');
-            $('#uvLevelBar').css('width', Math.min(100, (uv / 12) * 100) + '%');
-            $('#humidityLevelBar').css('width', hum + '%');
-            $('#windLevelBar').css('width', Math.min(100, (wind / 40) * 100) + '%');
+            // Cập nhật độ rộng và màu sắc cho các thanh LevelBar (AQI, UV, Humidity, Wind)
+            let aqiBarColor = '#10b981'; // success
+            if (aqi > 80) aqiBarColor = '#ef4444'; // danger
+            else if (aqi > 40) aqiBarColor = '#f59e0b'; // warning
+            
+            let uvBarColor = '#10b981'; // success
+            if (uv >= 8) uvBarColor = '#ef4444'; // danger
+            else if (uv >= 3) uvBarColor = '#f59e0b'; // warning
+            
+            let humBarColor = '#10b981'; // success
+            if (hum < 30 || hum > 85) humBarColor = '#ef4444'; // danger
+            else if (hum < 50 || hum > 70) humBarColor = '#f59e0b'; // warning
+            
+            let windBarColor = '#10b981'; // success
+            if (wind >= 30) windBarColor = '#ef4444'; // danger
+            else if (wind >= 15) windBarColor = '#f59e0b'; // warning
+
+            $('#aqiLevelBar').css({ 'width': Math.min(100, (aqi / 150) * 100) + '%', 'background-color': aqiBarColor });
+            $('#uvLevelBar').css({ 'width': Math.min(100, (uv / 12) * 100) + '%', 'background-color': uvBarColor });
+            $('#humidityLevelBar').css({ 'width': hum + '%', 'background-color': humBarColor });
+            $('#windLevelBar').css({ 'width': Math.min(100, (wind / 40) * 100) + '%', 'background-color': windBarColor });
 
             // Cập nhật Badges trạng thái
             let aqiClass = 'success';
