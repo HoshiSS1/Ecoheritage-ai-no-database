@@ -1766,8 +1766,10 @@ $(document).ready(function () {
             minZoom: 9,
             maxBounds: daNangBounds,
             maxBoundsViscosity: 0.9,
-            layers: [osm]
+            layers: [osm],
+            zoomControl: false // Tắt mặc định
         });
+        L.control.zoom({ position: 'topright' }).addTo(map);
 
         const baseLayers = {
             "Bản đồ OpenStreetMap": osm,
@@ -3206,7 +3208,7 @@ $(document).ready(function () {
         let processedText = text;
         if (!isUser && !text.includes('<div class="ai-local-reply">')) {
             processedText = formatChatMarkdown(text) +
-                `<br><small class="text-danger d-block fw-semibold mt-2" style="font-size: 0.72rem; line-height: 1.3;"><i class="bi bi-exclamation-triangle-fill me-1"></i> Khuyến cáo: Mọi tư vấn và bài thuốc chỉ mang tính chất tham khảo học thuật, vui lòng bắt mạch bốc thuốc trực tiếp tại cơ sở y tế y học cổ truyền trước khi áp dụng.</small>`;
+                `<div class="medical-disclaimer-box mt-2"><i class="bi bi-exclamation-triangle-fill"></i> Khuyến cáo: Thông tin mang tính tham khảo. Quý khách cần tham vấn bác sĩ Y học cổ truyền trước khi sử dụng.</div>`;
         }
         
         const html = isUser ? `
@@ -3338,7 +3340,7 @@ $(document).ready(function () {
                         <button class="btn btn-sm btn-success w-100 py-2 fw-bold btn-view-detail" data-id="${localMatch.id}">
                             <i class="bi bi-eye"></i> Xem quy trình bào chế sắc thuốc chi tiết
                         </button>
-                        <small class="text-danger d-block fw-semibold mt-2" style="font-size: 0.72rem; line-height: 1.3;"><i class="bi bi-exclamation-triangle-fill me-1"></i> Khuyến cáo: Mọi tư vấn và bài thuốc chỉ mang tính chất tham khảo học thuật, vui lòng bắt mạch bốc thuốc trực tiếp tại cơ sở y tế y học cổ truyền trước khi áp dụng.</small>
+                        <div class="medical-disclaimer-box mt-2"><i class="bi bi-exclamation-triangle-fill"></i> Khuyến cáo: Thông tin mang tính tham khảo. Quý khách cần tham vấn bác sĩ Y học cổ truyền trước khi sử dụng.</div>
                     </div>
                 `;
                 addChatMessage(localHtml, false);
