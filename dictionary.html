@@ -23,8 +23,8 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="style.css?v=15.0">
-    <link rel="stylesheet" href="v5-premium.css?v=15.0">
+    <link rel="stylesheet" href="style.css?v=19.0">
+    <link rel="stylesheet" href="v5-premium.css?v=19.0">
     <meta name="theme-color" content="#2eb366">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-offwhite">
@@ -123,12 +123,14 @@
             
             <!-- Hộp tìm kiếm thông minh -->
             <div class="row justify-content-center mb-5" data-aos="fade-up" data-aos-delay="100">
-                <div class="col-lg-8">
+                <div class="col-lg-8 position-relative">
                     <div class="input-group input-group-lg shadow-md rounded-pill overflow-hidden position-relative border bg-white" style="padding: 5px;">
                         <span class="input-group-text bg-transparent border-0 ps-4"><i class="bi bi-search text-success fs-4"></i></span>
-                        <input type="text" class="form-control border-0 shadow-none py-3" id="searchHerbInput" placeholder="Nhập tên thảo dược, tên khoa học hoặc công năng (VD: Mất ngủ, Ba kích, Gừng)..." style="font-size: 1.05rem;">
+                        <input type="text" class="form-control border-0 shadow-none py-3" id="searchHerbInput" placeholder="Nhập tên thảo dược, tên khoa học hoặc công năng (VD: Mất ngủ, Ba kích, Gừng)..." style="font-size: 1.05rem;" autocomplete="off">
                         <button type="button" class="search-clear-btn" id="searchClearBtn" title="Xóa từ khóa"><i class="bi bi-x-circle fs-4"></i></button>
                     </div>
+                    <!-- Autocomplete gợi ý nhanh -->
+                    <div class="autocomplete-suggestions d-none" id="searchSuggestions"></div>
                 </div>
             </div>
 
@@ -144,6 +146,7 @@
                             <option value="category">Phân loại</option>
                         </select>
                     </div>
+
                     <!-- Chế độ xem Grid/List -->
                     <div class="btn-group shadow-sm rounded-pill overflow-hidden border bg-white p-0.5" role="group">
                         <button type="button" class="btn btn-sm btn-light px-3 py-1.5 active" id="btnGridView" title="Xem dạng lưới"><i class="bi bi-grid-3x3-gap-fill text-success"></i></button>
@@ -388,9 +391,10 @@
                             <p class="text-danger mb-4" id="herbDetailContraindications" style="line-height: 1.6; font-weight: 500;">Đang tải...</p>
 
                             <h5 class="fw-bold text-warning text-darken mt-4"><i class="bi bi-list-check me-2"></i>Các bước bào chế chuẩn y khoa</h5>
-                            <ul class="list-unstyled mb-4" id="herbDetailSteps">
+                            <ul class="list-unstyled mb-3" id="herbDetailSteps">
                                 <!-- Steps will be rendered here dynamically -->
                             </ul>
+                            <button class="btn btn-outline-warning w-100 rounded-pill py-2.5 fw-bold mb-4 d-flex align-items-center justify-content-center gap-2" id="btnOpenBrewingSim" style="border-color: #d97706; color: #d97706;"><i class="bi bi-fire"></i> SẮC THUỐC GIẢ LẬP (TÍNH ĐIỂM DƯỢC TÍNH)</button>
                             
                             <!-- Hộp cảnh báo y khoa màu vàng cao cấp -->
                             <div class="alert alert-warning d-flex align-items-start gap-2 border-0 rounded-3 mb-0 shadow-sm" role="alert" style="background: rgba(255, 193, 7, 0.12); color: #664d03;">
@@ -482,14 +486,14 @@
     </div>
 
     <!-- COMPARISON MODAL -->
-    <div class="modal fade" id="comparisonModal" tabindex="-1" aria-hidden="true" style="z-index: 1050;">
+    <div class="modal fade" id="comparisonModal" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
                 <div class="modal-header bg-success text-white py-3">
                     <h5 class="modal-title fw-bold"><i class="bi bi-arrow-left-right me-2"></i> Bảng So Sánh Chi Tiết Bài Thuốc Đông Y</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-0" style="max-height: 70vh;">
+                <div class="modal-body p-0" style="max-height: 70vh; overflow-y: auto;">
                     <div class="table-responsive">
                         <table class="table table-bordered mb-0 align-middle text-start compare-table" style="font-size:0.9rem;">
                             <thead class="table-light">
@@ -529,14 +533,51 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <!-- MODAL: TRÌNH GIẢ LẬP SẮC THUỐC ĐÔNG Y -->
+    <div class="modal fade" id="brewingSimModal" tabindex="-1" aria-hidden="true" style="z-index: 1070;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg bg-dark text-white rounded-4 overflow-hidden" style="border: 1px solid rgba(255,255,255,0.15) !important;">
+                <div class="modal-header border-bottom border-secondary py-3">
+                    <h5 class="modal-title fw-bold text-success"><i class="bi bi-fire me-1"></i> Sắc Thuốc Đông Y Giả Lập</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <div class="brewing-container">
+                        <div class="brewing-pot-area">
+                            <div class="brewing-pot-shadow"></div>
+                            <div class="brewing-fire" id="brewingFireGraphic"></div>
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23854d0e'><ellipse cx='50' cy='60' rx='35' ry='25'/><rect x='45' y='20' width='10' height='20'/><circle cx='50' cy='15' r='8'/></svg>" class="brewing-pot-img" id="brewingPotGraphic" alt="Brewing Pot">
+                            <!-- Steam bubbles container -->
+                            <div id="steamBubblesContainer"></div>
+                        </div>
+                        
+                        <div id="brewingGameConsole" style="min-height: 80px;" class="mb-4 text-center">
+                           <h6 class="fw-bold text-warning mb-1" id="simStepTitle">Bước 1: Chọn Ấm Sắc Thuốc</h6>
+                           <p class="text-secondary small" id="simStepText">Lựa chọn chất liệu ấm đun để sắc bài thuốc này.</p>
+                       </div>
+                       
+                       <!-- Choice Controls -->
+                       <div class="d-flex justify-content-center gap-2 mb-3" id="brewingChoicesArea">
+                           <!-- Rendered dynamically -->
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
     <script src="config.js"></script>
-    <script src="data.js?v=15.0"></script>
-    <script src="script.js?v=15.0"></script>
+    <script src="data.js?v=19.0"></script>
+    <script src="script.js?v=19.0"></script>
 </body>
 </html>
 

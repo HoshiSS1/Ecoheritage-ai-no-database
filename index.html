@@ -23,8 +23,8 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
 
-    <link rel="stylesheet" href="style.css?v=16.0">
-    <link rel="stylesheet" href="v5-premium.css?v=16.0">
+    <link rel="stylesheet" href="style.css?v=19.0">
+    <link rel="stylesheet" href="v5-premium.css?v=19.0">
     <meta name="theme-color" content="#2eb366">
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">
@@ -47,6 +47,8 @@
     <div id="scrollProgressBar" class="premium-scroll-progress-bar"></div>
     <!-- Hạt sinh học trôi nổi nền -->
     <div class="particles-container" id="particles"></div>
+    <!-- Lá thảo dược trôi nổi phong cách v6.0 -->
+    <div id="floating-particles-leaves" class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style="pointer-events:none; z-index:1;"></div>
 
     <!-- 1. THANH ĐIỀU HƯỚNG CHUNG (NAVBAR) -->
     <header>
@@ -187,6 +189,18 @@
                     </div>
                     
                     <div class="p-4 p-md-5">
+                        <!-- Preset Thời tiết Đà Nẵng tương tác v6.0 -->
+                        <div class="mb-4 text-center">
+                            <span class="small fw-bold text-secondary d-block mb-2"><i class="bi bi-sliders"></i> THỬ NGHIỆM ĐỀ XUẤT THEO PRESETS THỜI TIẾT ĐÀ NẴNG:</span>
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-1.5 text-nowrap weather-preset-btn active" data-preset="live" style="font-size: 0.8rem; font-weight: 600;"><i class="bi bi-broadcast"></i> Live API Đà Nẵng</button>
+                                <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-1.5 text-nowrap weather-preset-btn" data-preset="hot" style="font-size: 0.8rem; font-weight: 600;"><i class="bi bi-sun-fill"></i> Nắng Nóng (36°C, UV 10.2)</button>
+                                <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-1.5 text-nowrap weather-preset-btn" data-preset="cold" style="font-size: 0.8rem; font-weight: 600;"><i class="bi bi-snow"></i> Đông Lạnh (16°C, Ẩm 45%)</button>
+                                <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-1.5 text-nowrap weather-preset-btn" data-preset="humid" style="font-size: 0.8rem; font-weight: 600;"><i class="bi bi-cloud-rain-heavy-fill"></i> Mưa Nồm (22°C, Ẩm 98%)</button>
+                                <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-1.5 text-nowrap weather-preset-btn" data-preset="polluted" style="font-size: 0.8rem; font-weight: 600;"><i class="bi bi-cloud-haze2-fill"></i> Ô Nhiễm Bụi (AQI 155, Khói)</button>
+                            </div>
+                        </div>
+
                         <div class="row g-4 stagger-container">
                             <!-- Card 1: AQI -->
                             <div class="col-md-6 col-xl-3 stagger-item">
@@ -306,6 +320,91 @@
                                     </div>
                                     <div class="mt-1" style="font-size: 0.72rem; opacity: 0.6;">
                                         Tọa độ cố định: 16.0678°N, 108.2208°E (Đà Nẵng, Việt Nam)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION: TRỢ LÝ Y KHOA ĐÔNG Y AI -->
+        <section class="py-5 position-relative z-1" id="ai-doctor-section" style="background: rgba(46,179,102,0.02); border-top: 1px solid rgba(0,0,0,0.03);">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <span class="section-badge shadow-sm">Công Nghệ Tương Lai</span>
+                    <h2 class="section-title fw-bolder mt-3">Chẩn Đoán Sức Khỏe <span class="gradient-text-green">Trí Tuệ Nhân Tạo AI</span></h2>
+                    <p class="text-muted mx-auto fs-6" style="max-width: 600px;">Nhập hoặc tích chọn triệu chứng để hệ thống AI phân tích và đề xuất thang thuốc Đông Y gia giảm cá nhân hóa phù hợp.</p>
+                </div>
+                
+                <div class="row justify-content-center">
+                    <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-white p-4 p-md-5 rounded-4 shadow-md border" style="border-color: rgba(46,179,102,0.15) !important;">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <h5 class="fw-bold mb-3 text-success" style="font-size: 1.1rem;"><i class="bi bi-heart-pulse-fill"></i> Tích chọn triệu chứng sức khỏe:</h5>
+                                    <div class="d-flex flex-wrap gap-2 mb-4" id="aiDiagnosisSymptomContainer">
+                                        <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-2 text-start symptom-pill-btn d-flex align-items-center gap-2" data-symptom="mất ngủ" style="font-size: 0.85rem; font-weight: 600;">
+                                            <span>💤</span> Mất ngủ, ngủ kém
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-2 text-start symptom-pill-btn d-flex align-items-center gap-2" data-symptom="suy nhược" style="font-size: 0.85rem; font-weight: 600;">
+                                            <span>💪</span> Mệt mỏi, suy nhược
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-2 text-start symptom-pill-btn d-flex align-items-center gap-2" data-symptom="ho" style="font-size: 0.85rem; font-weight: 600;">
+                                            <span>😷</span> Ho khan, ngứa họng
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-2 text-start symptom-pill-btn d-flex align-items-center gap-2" data-symptom="khớp" style="font-size: 0.85rem; font-weight: 600;">
+                                            <span>🦴</span> Đau nhức xương khớp
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-2 text-start symptom-pill-btn d-flex align-items-center gap-2" data-symptom="tiêu hóa" style="font-size: 0.85rem; font-weight: 600;">
+                                            <span>🏺</span> Đầy bụng, khó tiêu
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success rounded-pill px-3 py-2 text-start symptom-pill-btn d-flex align-items-center gap-2" data-symptom="giải độc" style="font-size: 0.85rem; font-weight: 600;">
+                                            <span>🛡️</span> Nóng trong, mụn nhọt
+                                        </button>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label small fw-bold text-secondary">Hoặc mô tả chi tiết thể trạng (tùy chọn):</label>
+                                        <textarea class="form-control rounded-3 shadow-none border" id="aiDiagnosisCustomText" rows="3" placeholder="Ví dụ: Tôi thường xuyên thức khuya, mắt khô và hay bị đau mỏi thắt lưng..." style="font-size: 0.88rem; border-color: rgba(46,179,102,0.15);"></textarea>
+                                    </div>
+                                    <button class="btn btn-success w-100 rounded-pill py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2 shadow-sm" id="btnPerformAiDiagnosis">
+                                        <i class="bi bi-cpu-fill"></i> CHẠY CHẨN ĐOÁN & BỐC THUỐC AI
+                                    </button>
+                                </div>
+                                
+                                <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-start border-md-0 pt-4 pt-md-0" style="min-height: 320px;" id="aiDiagnosisResultArea">
+                                    <!-- Default Placeholder -->
+                                    <div class="text-center text-muted px-4" id="aiDiagnosisPlaceholder">
+                                        <i class="bi bi-robot text-success fs-1 mb-3 d-block" style="animation: floatingHero 4s ease-in-out infinite;"></i>
+                                        <h6 class="fw-bold text-dark mb-2">Trợ Lý Thần Y AI Sẵn Sàng</h6>
+                                        <p class="small mb-0 text-secondary">Tích chọn các triệu chứng ở cột bên trái và nhấn chạy chẩn đoán để nhận đơn thuốc khuyên dùng.</p>
+                                    </div>
+                                    
+                                    <!-- Scanning Loading State -->
+                                    <div class="text-center d-none w-100 px-4" id="aiDiagnosisLoading">
+                                        <div class="spinner-grow text-success mb-3" role="status" style="width: 2.5rem; height: 2.5rem;"></div>
+                                        <h6 class="fw-bold text-success mb-3" id="aiDiagnosisProgressText">Đang khởi tạo Trí tuệ nhân tạo...</h6>
+                                        <div class="progress mx-auto" style="height: 6px; background: rgba(0,0,0,0.06); max-width: 250px; border-radius: 3px;">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="aiDiagnosisProgressBar" style="width: 10%;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Result Scroll Paper -->
+                                    <div class="parchment-scroll w-100 d-none text-start" id="aiDiagnosisResultScroll">
+                                        <div class="stamp-red-seal"><span>ĐÔNG Y</span>ECO HERITAGE</div>
+                                        <h5 class="fw-bold text-center border-bottom pb-2 border-warning border-opacity-50 mb-3" style="color:#78350f !important; font-size:1.15rem;"><i class="bi bi-file-earmark-medical"></i> ĐƠN THUỐC CỔ PHƯƠNG AI</h5>
+                                        <div class="scroll-content small" style="line-height: 1.6; color:#451a03 !important;">
+                                            <div class="mb-2"><strong>Chẩn đoán thể trạng:</strong> <span id="resDiagnosis">Thiếu máu, suy nhược thần kinh</span></div>
+                                            <div class="mb-2"><strong>Phương thuốc chỉ định:</strong> <span class="fw-bold text-success" id="resRemedyName">Quy Tỳ Thang</span> <span id="resRemedyEmoji">🍵</span></div>
+                                            <div class="mb-2"><strong>Dược chất chủ trị:</strong> <span id="resIngredients">Nhân sâm, Táo nhân, Đương quy...</span></div>
+                                            <div class="mb-2"><strong>Gia giảm Lương y:</strong> <span class="text-danger fw-semibold" id="resAdjustments">Gia thêm 3 lát gừng tươi...</span></div>
+                                            <div class="mb-2"><strong>Liều lượng sắc:</strong> <span id="resUsage">Ngày uống 1 thang chia làm 2 lần...</span></div>
+                                            <div class="mb-0"><strong>Kiêng kỵ sinh hoạt:</strong> <span class="text-muted" id="resContra">Tránh lo âu quá độ...</span></div>
+                                        </div>
+                                        <div class="text-center mt-3 pt-2 border-top border-warning border-opacity-25">
+                                            <button class="btn btn-xs btn-amber rounded-pill px-3 py-1.5 small fw-bold" id="btnResGoToRecipe" style="font-size: 0.75rem;"><i class="bi bi-arrow-right-circle"></i> Xem quy trình sắc chi tiết</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -852,8 +951,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="config.js"></script>
-    <script src="data.js?v=16.0"></script>
-    <script src="script.js?v=16.0"></script>
+    <script src="data.js?v=19.0"></script>
+    <script src="script.js?v=19.0"></script>
 </body>
 </html>
 

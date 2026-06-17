@@ -719,6 +719,9 @@ $(document).ready(function () {
         $('#weatherUV').text(uvVal);
         $('#weatherHumidity').text(`${humidityVal}%`);
         
+        // Đề xuất bài thuốc thích ứng thời tiết v6.0
+        updateWeatherAdaptiveRecommendation(tempVal, humidityVal, aqiVal);
+        
         // 1. Phân cấp 5 mức AQI (theo chuẩn European AQI — thang 0-100+)
         let aqiStatusText = 'Tốt';
         let aqiClass = 'success';
@@ -1549,8 +1552,17 @@ $(document).ready(function () {
         renderCompareRow('Liều lượng khuyến nghị', 'bi-egg-fill', 'dosage');
         renderCompareRow('Tài liệu nguồn tham chiếu', 'bi-info-circle-fill', 'referenceDetail');
 
-        // Mở Modal
-        $('#comparisonModal').modal('show');
+        // Mở Modal so sánh (z-index: 1065 via CSS, backdrop đẩy xuống 1055)
+        var compModal = document.getElementById('comparisonModal');
+        var bsModal = bootstrap.Modal.getOrCreateInstance(compModal);
+        compModal.addEventListener('shown.bs.modal', function onShown() {
+            // Đẩy backdrop xuống dưới modal để đảm bảo nút đóng hoạt động
+            document.querySelectorAll('.modal-backdrop').forEach(function(bd) {
+                bd.style.zIndex = '1055';
+            });
+            compModal.removeEventListener('shown.bs.modal', onShown);
+        });
+        bsModal.show();
     });
 
     // Sắp xếp bài thuốc
@@ -1600,8 +1612,7 @@ $(document).ready(function () {
     }
 
     // MỞ MODAL XEM CHI TIẾT BÀI THUỐC
-    $(document).on('click', '.btn-view-detail', function() {
-        const id = $(this).data('id');
+    function showHerbDetails(id) {
         const herb = db.herbs.find(h => h.id === id);
         if (!herb) return;
 
@@ -1640,7 +1651,7 @@ $(document).ready(function () {
         } else if (typeof herb.steps === 'string') {
             stepsArr = herb.steps.split(';');
         }
-
+        
         stepsArr.forEach((step, idx) => {
             if (step.trim()) {
                 $stepsList.append(`
@@ -1654,6 +1665,12 @@ $(document).ready(function () {
 
         $('#herbDetailModal').modal('show');
         $('#floatingChatWindow').removeClass('active'); // Đóng chatbot cho thoáng
+    }
+    window.showHerbDetails = showHerbDetails;
+
+    $(document).on('click', '.btn-view-detail', function() {
+        const id = $(this).data('id');
+        showHerbDetails(id);
     });
 
     // THẢ TIM LƯU SỔ TAY BÀI THUỐC
@@ -1742,6 +1759,8 @@ $(document).ready(function () {
         $('.map-fullscreen-container').addClass('mobile-list-active');
 
         renderMapSidebarAndMarkers();
+
+        initSoilHeatmapAndEcology(map);
 
         // Fix: invalidate size sửa lỗi gray tiles - tăng timeout từ 350ms → 800ms
         setTimeout(() => { map.invalidateSize(); }, 800);
@@ -1963,6 +1982,53 @@ $(document).ready(function () {
         $('#activeLocationName').text(reg.name);
         $('#activeLocationRatingText').text(`${(reg.rating || 5.0).toFixed(1)} / 5.0`);
         $('#activeLocationReviewCount').html(`<i class="bi bi-chat-text-fill me-1"></i> ${reg.reviewsCount || 0} nhận xét`);
+        
+        // Cập nhật thông tin vùng sinh thái dược lý v6.0
+        if ($('#regionDetailArea').length) {
+            $('#regionDetailDesc').text(reg.desc || 'Khu bảo tồn dược liệu sinh thái sạch.');
+            const $herbsList = $('#regionDetailHerbs');
+            $herbsList.empty();
+            if (reg.herbs && reg.herbs.length > 0) {
+                reg.herbs.forEach(h => {
+                    $herbsList.append(`<span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 px-2.5 py-1.5 rounded-pill small">${h}</span>`);
+                });
+            } else {
+                $herbsList.append('<span class="small text-muted">Chưa cập nhật dữ liệu dược chất.</span>');
+            }
+
+            // Mock chỉ số sinh thái tự nhiên
+            let ph = 6.2, alt = '120m', temp = '26.8°C', adapt = '90%';
+            if (reg.id === 'r1') {
+                ph = 6.5; alt = '350m'; temp = '25.5°C'; adapt = '88%';
+            } else if (reg.id === 'r2') {
+                ph = 5.2; alt = '1487m'; temp = '18.2°C'; adapt = '96%';
+            } else if (reg.id === 'r3') {
+                ph = 7.2; alt = '45m'; temp = '27.4°C'; adapt = '82%';
+            } else if (reg.id === 'r4') {
+                ph = 6.0; alt = '80m'; temp = '26.2°C'; adapt = '92%';
+            } else if (reg.id === 'r5') {
+                ph = 6.3; alt = '110m'; temp = '25.8°C'; adapt = '90%';
+            } else {
+                ph = 6.1; alt = '90m'; temp = '26.0°C'; adapt = '91%';
+            }
+
+            $('#ecoSoilPH').text(ph);
+            $('#ecoAltitude').text(alt.includes('m') ? alt : alt + 'm');
+            $('#ecoTemp').text(temp.includes('°C') ? temp : temp + '°C');
+            $('#ecoDensity').text(adapt.includes('%') ? adapt : adapt + '%');
+
+            const phPercent = (ph / 10) * 100;
+            const altPercent = Math.min(100, (parseInt(alt, 10) / 1500) * 100);
+            const tempPercent = (parseFloat(temp) / 40) * 100;
+            const adaptPercent = parseInt(adapt, 10);
+
+            $('#ecoSoilPHBar').css('width', phPercent + '%');
+            $('#ecoAltitudeBar').css('width', altPercent + '%');
+            $('#ecoTempBar').css('width', tempPercent + '%');
+            $('#ecoDensityBar').css('width', adaptPercent + '%');
+
+            $('#regionDetailArea').show();
+        }
         
         // Vẽ sao trung bình
         const $stars = $('#activeLocationStars');
@@ -3531,6 +3597,738 @@ $(document).ready(function () {
         showToast('Đã xóa lịch sử trò chuyện thành công! 🗑️', 'success');
     });
 
+    // ─── 17. CHỨC NĂNG PHIÊN BẢN v6.0 PREMIUM ULTRA ────────────
+    
+    // A. Hạt lá thảo dược trôi nổi nền
+    function initFloatingLeaves() {
+        const $container = $('#floating-particles-leaves');
+        if (!$container.length) return;
+        const leafEmojis = ['🌿', '🌱', '🍃', '🍀', '🍵', '🌸'];
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+                const $leaf = $('<div class="floating-particle-leaf"></div>')
+                    .text(leafEmojis[Math.floor(Math.random() * leafEmojis.length)])
+                    .css({
+                        left: Math.random() * 95 + '%',
+                        animationDelay: Math.random() * 10 + 's',
+                        fontSize: (Math.random() * 1.0 + 0.8) + 'rem'
+                    });
+                $container.append($leaf);
+            }, i * 300);
+        }
+    }
+
+    // B. Đề xuất bài thuốc thích ứng thời tiết
+    function updateWeatherAdaptiveRecommendation(tempVal, humidityVal, aqiVal) {
+        if (!$('#weatherAdaptiveCard').length) return;
+        
+        let adviceText = '';
+        let targetHerbId = 'h3'; // Quy Tỳ Thang làm mặc định
+        
+        if (tempVal >= 32) {
+            adviceText = `Nhiệt độ Đà Nẵng đang khá cao (${tempVal}°C), nắng nóng dễ làm hao tán dương dịch. AI đề xuất dùng <strong>Lục Vị Địa Hoàng Hoàn</strong> để tư âm bổ can thận, làm mát cơ thể tự nhiên.`;
+            targetHerbId = 'h2';
+        } else if (tempVal <= 22) {
+            adviceText = `Thời tiết Đà Nẵng đang lạnh ấm (${tempVal}°C), dương khí suy giảm dễ nhiễm lạnh. AI khuyên dùng <strong>Thập Toàn Đại Bổ Thang</strong> giúp ôn bổ khí huyết, tăng sức đề kháng.`;
+            targetHerbId = 'h1';
+        } else if (aqiVal > 60) {
+            adviceText = `Chất lượng không khí (EAQI) Đà Nẵng kém (${aqiVal}), nhiều khói bụi mịn gây rát họng. AI khuyên dùng bài thuốc <strong>Ngân Kiều Tán</strong> để sơ phong thanh nhiệt, bảo vệ hầu họng và phổi.`;
+            targetHerbId = 'h6';
+        } else if (humidityVal > 85) {
+            adviceText = `Độ ẩm Đà Nẵng quá cao (${humidityVal}%), thấp khí tụ dễ đau mỏi khớp xương. AI khuyên sắc uống <strong>Độc Hoạt Tang Ký Sinh</strong> để trừ phong thấp, giảm nhức mỏi tê bì cốt tủy.`;
+            targetHerbId = 'h5';
+        } else {
+            adviceText = `Thời tiết Đà Nẵng ôn hòa lý tưởng (${tempVal}°C, ẩm ${humidityVal}%). Điều kiện lý tưởng kiện tỳ vị, AI khuyên dùng <strong>Quy Tỳ Thang</strong> giúp kiện tỳ dưỡng tâm, định thần ngủ sâu giấc.`;
+            targetHerbId = 'h3';
+        }
+
+        $('#weatherAdaptiveAdvice').html(adviceText);
+        $('#weatherAdaptiveRecipeBtn').removeClass('d-none');
+        
+        // Gắn sự kiện xem chi tiết bài thuốc đề nghị
+        $('#btnGoToRecipe').off('click').on('click', function() {
+            showHerbDetails(targetHerbId);
+        });
+    }
+
+    // C. Tìm kiếm gợi ý nhanh Autocomplete
+    function initAutocompleteSearch() {
+        const $input = $('#searchHerbInput');
+        const $suggestions = $('#searchSuggestions');
+        if (!$input.length || !$suggestions.length) return;
+
+        $input.on('input', function() {
+            const val = $(this).val().trim().toLowerCase();
+            if (val.length < 1) {
+                $suggestions.addClass('d-none').empty();
+                return;
+            }
+
+            const matches = db.herbs.filter(h => 
+                h.name.toLowerCase().includes(val) || 
+                h.scientific.toLowerCase().includes(val) || 
+                h.keywords.toLowerCase().includes(val)
+            ).slice(0, 5);
+
+            if (matches.length === 0) {
+                $suggestions.addClass('d-none').empty();
+                return;
+            }
+
+            $suggestions.empty();
+            matches.forEach(h => {
+                const imgHtml = h.image ? `<img src="${h.image}" class="suggestion-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot; fill=&quot;%23a5d6a7&quot;><rect width=&quot;100&quot; height=&quot;100&quot;/></svg>'">` : `<span class="fs-4">${h.emoji || '🌿'}</span>`;
+                const $item = $(`
+                    <div class="suggestion-item">
+                        ${imgHtml}
+                        <div class="text-start">
+                            <div class="fw-bold">${h.name}</div>
+                            <small class="text-muted italic" style="font-size:0.75rem;">${h.scientific}</small>
+                        </div>
+                    </div>
+                `);
+                $item.on('click', function() {
+                    $input.val(h.name);
+                    $suggestions.addClass('d-none').empty();
+                    renderHerbs();
+                });
+                $suggestions.append($item);
+            });
+            $suggestions.removeClass('d-none');
+        });
+
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('#searchHerbInput, #searchSuggestions').length) {
+                $suggestions.addClass('d-none');
+            }
+        });
+    }
+
+    // D. Trợ Lý Khám Bệnh & Chẩn Đoán Đa Triệu Chứng AI
+    function initAiDiagnostics() {
+        const selectedSymptoms = [];
+        
+        $(document).on('click', '.symptom-pill-btn', function() {
+            $(this).toggleClass('active btn-outline-success btn-success text-white');
+            const sym = $(this).data('symptom');
+            const idx = selectedSymptoms.indexOf(sym);
+            if (idx > -1) {
+                selectedSymptoms.splice(idx, 1);
+            } else {
+                selectedSymptoms.push(sym);
+            }
+        });
+
+        $('#btnPerformAiDiagnosis').on('click', function() {
+            const customText = $('#aiDiagnosisCustomText').val().trim();
+            if (selectedSymptoms.length === 0 && !customText) {
+                showToast('Vui lòng chọn ít nhất một triệu chứng hoặc điền mô tả thể trạng!', 'warning');
+                return;
+            }
+
+            $('#aiDiagnosisPlaceholder').addClass('d-none');
+            $('#aiDiagnosisResultScroll').addClass('d-none');
+            $('#aiDiagnosisLoading').removeClass('d-none');
+
+            const stepsText = [
+                'Đang thiết lập mạng nơ-ron y học...',
+                'Đang đối chiếu âm dương ngũ hành, hàn nhiệt...',
+                'Đang phân tích 20+ bài thuốc Nam dược Đà Nẵng...',
+                'Đang tính toán liều lượng thảo mộc thích ứng...',
+                'Đang đóng dấu hoàn tất đơn thuốc cổ phương...'
+            ];
+
+            let percent = 0;
+            let stepIdx = 0;
+            $('#aiDiagnosisProgressBar').css('width', '10%');
+            $('#aiDiagnosisProgressText').text(stepsText[0]);
+
+            const interval = setInterval(() => {
+                percent += 20;
+                if (percent >= 100) {
+                    percent = 100;
+                    clearInterval(interval);
+                    setTimeout(showDiagnosisResult, 400);
+                }
+                $('#aiDiagnosisProgressBar').css('width', percent + '%');
+                if (percent > 20 && percent <= 40) stepIdx = 1;
+                if (percent > 40 && percent <= 65) stepIdx = 2;
+                if (percent > 65 && percent <= 85) stepIdx = 3;
+                if (percent > 85) stepIdx = 4;
+                $('#aiDiagnosisProgressText').text(stepsText[stepIdx]);
+            }, 300);
+
+            function showDiagnosisResult() {
+                $('#aiDiagnosisLoading').addClass('d-none');
+                
+                // Thuật toán đối chiếu tìm kiếm bài thuốc phù hợp nhất
+                let matchedHerb = db.herbs[0]; // fallback
+                let maxMatches = 0;
+                const searchStr = (selectedSymptoms.join(' ') + ' ' + customText).toLowerCase();
+                
+                db.herbs.forEach(h => {
+                    let matches = 0;
+                    selectedSymptoms.forEach(sym => {
+                        if (h.keywords.toLowerCase().includes(sym) || h.usage.toLowerCase().includes(sym) || h.efficacy.toLowerCase().includes(sym)) {
+                            matches++;
+                        }
+                    });
+                    if (customText) {
+                        const kw = h.keywords.split(', ');
+                        kw.forEach(k => {
+                            if (searchStr.includes(k.toLowerCase())) matches += 2;
+                        });
+                    }
+                    if (matches > maxMatches) {
+                        maxMatches = matches;
+                        matchedHerb = h;
+                    }
+                });
+
+                // Tự động gia giảm vị thuốc tùy biến theo bệnh cảnh
+                let adjustments = 'Không cần gia giảm thêm. Đun nhỏ lửa chia ấm uống ngày 2 lần.';
+                let diagnosisTitle = 'Khí huyết lưỡng hư nhẹ';
+
+                if (selectedSymptoms.includes('mất ngủ') || searchStr.includes('khó ngủ') || searchStr.includes('chập chờn')) {
+                    adjustments = 'Gia thêm Táo Nhân sao vàng 12g, Long nhãn 10g giúp dưỡng tâm an thần ích trí.';
+                    diagnosisTitle = 'Tâm tỳ vị lưỡng hư gây mất ngủ';
+                } else if (selectedSymptoms.includes('suy nhược') || searchStr.includes('mệt mỏi') || searchStr.includes('yếu')) {
+                    adjustments = 'Gia thêm Đinh Lăng rễ 15g giúp đại bổ nguyên khí, tăng lực chống nhọc mệt.';
+                    diagnosisTitle = 'Khí huyết hư nhược thể trạng yếu';
+                } else if (selectedSymptoms.includes('ho') || searchStr.includes('ngứa họng') || searchStr.includes('viêm phế quản')) {
+                    adjustments = 'Gia thêm Kim Ngân Hoa 10g, Cam Thảo 6g sắc ấm giúp thanh phế chỉ khái tiêu viêm.';
+                    diagnosisTitle = 'Phế nhiệt ho đờm phong nhiệt';
+                } else if (selectedSymptoms.includes('khớp') || searchStr.includes('nhức khớp') || searchStr.includes('mỏi lưng')) {
+                    adjustments = 'Gia thêm Độc hoạt 10g, Tang ký sinh 12g đun kỹ trừ phong thấp giảm nhức xương.';
+                    diagnosisTitle = 'Phong hàn thấp tí cốt khớp';
+                } else if (selectedSymptoms.includes('tiêu hóa') || searchStr.includes('khó tiêu') || searchStr.includes('chướng bụng')) {
+                    adjustments = 'Gia thêm Mộc Hương 6g, Trần Bì sao 5g giúp ôn ấm tỳ vị hành khí tiêu trướng.';
+                    diagnosisTitle = 'Tỳ vị hư hàn bất hòa khí trệ';
+                } else if (selectedSymptoms.includes('giải độc') || searchStr.includes('nóng trong') || searchStr.includes('mụn nhọt')) {
+                    adjustments = 'Gia thêm Sài Đất 12g, Nhân Trần 10g đun uống mát để lợi mật thanh can gan.';
+                    diagnosisTitle = 'Can đởm uất nhiệt nóng trong';
+                }
+
+                // Điền thông tin đơn giấy da cuộn parchment
+                $('#resDiagnosis').text(diagnosisTitle);
+                $('#resRemedyName').text(matchedHerb.name);
+                $('#resRemedyEmoji').text(matchedHerb.emoji || '🍵');
+                
+                const ing = matchedHerb.ingredients.length > 60 ? matchedHerb.ingredients.slice(0, 60) + '...' : matchedHerb.ingredients;
+                $('#resIngredients').text(ing);
+                $('#resAdjustments').text(adjustments);
+                $('#resUsage').text(matchedHerb.time + '. Sắc uống ấm chia 2 lần trong ngày.');
+                $('#resContra').text(matchedHerb.contraindications || 'Không có chống chỉ định đặc biệt.');
+
+                // Nút chuyển hướng/xem chi tiết bài thuốc
+                $('#btnResGoToRecipe').off('click').on('click', function() {
+                    showHerbDetails(matchedHerb.id);
+                });
+
+                $('#aiDiagnosisResultScroll').removeClass('d-none').hide().fadeIn(600);
+            }
+        });
+    }
+
+
+
+
+    // E. Quet anh nhan dien thao duoc AI
+    function initAiScanner() {
+        const $upload = $('#arImageUpload, #arUploadInput, #aiScannerUpload').first();
+        const $img = $('#arPreviewImage, #arPreviewImg, #aiScannerPreview').first();
+        const $startBtn = $('#btnStartArScan, #arStartScanBtn, #btnAiScannerStart').first();
+        const $overlay = $('#arScanOverlay, #aiScannerOverlay').first();
+
+        if (!$upload.length || !$img.length || !$startBtn.length) return;
+
+        $upload.on('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    $img.attr('src', evt.target.result);
+                    $startBtn.prop('disabled', false);
+                    
+                    // Reset kết quả
+                    $('#arResultPlaceholder').removeClass('d-none');
+                    $('#arProgressArea').addClass('d-none');
+                    $('#arResultCard').addClass('d-none');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $startBtn.on('click', function() {
+            $(this).prop('disabled', true);
+            $overlay.show();
+
+            $('#arResultPlaceholder').addClass('d-none');
+            $('#arResultCard').addClass('d-none');
+            $('#arProgressArea').removeClass('d-none').css('display', 'flex');
+
+            const steps = [
+                'Đang dò biên dạng hình thái học gân lá...',
+                'Đang phân tích mật độ phân bố diệp lục...',
+                'Đang đối chiếu dữ liệu bách khoa thảo dược...',
+                'Đang tính toán độ phù hợp sinh học...',
+                'Đang xuất kết quả định danh thảo dược...'
+            ];
+
+            let percent = 0;
+            let stepIdx = 0;
+            $('#arProgressBar').css('width', '10%');
+            $('#arProgressStep').text(steps[0]);
+
+            const scanInterval = setInterval(() => {
+                percent += 20;
+                if (percent >= 100) {
+                    percent = 100;
+                    clearInterval(scanInterval);
+                    setTimeout(showScanResult, 500);
+                }
+                $('#arProgressBar').css('width', percent + '%');
+                if (percent > 20 && percent <= 40) stepIdx = 1;
+                if (percent > 40 && percent <= 60) stepIdx = 2;
+                if (percent > 60 && percent <= 85) stepIdx = 3;
+                if (percent > 85) stepIdx = 4;
+                $('#arProgressStep').text(steps[stepIdx]);
+            }, 350);
+
+            function showScanResult() {
+                $overlay.hide();
+                $startBtn.prop('disabled', false);
+                $('#arProgressArea').addClass('d-none');
+
+                // Chọn ngẫu nhiên dược chất từ database để mock quét khớp
+                const idx = Math.floor(Math.random() * Math.min(6, db.herbs.length));
+                const h = db.herbs[idx];
+
+                $('#arResultEmoji').text(h.emoji || '🌿');
+                $('#arResultName').text(h.name);
+                $('#arResultScientific').text(h.scientific);
+                
+                const conf = (95 + Math.random() * 4.9).toFixed(1);
+                $('#arResultConfidence').text(`${conf}% Khớp`);
+                $('#arResultEfficacy').text(h.efficacy || h.usage);
+                
+                const dists = db.regions.filter(r => r.herbs.includes(h.name)).map(r => r.name);
+                $('#arResultDistribution').text(dists.length > 0 ? dists.join(', ') : 'Đang nuôi cấy ươm tạo tại Hòa Vang, Đà Nẵng.');
+
+                $('#btnArGoToRemedy').off('click').on('click', function() {
+                    $('#aiScannerModal').modal('hide');
+                    setTimeout(() => {
+                        showHerbDetails(h.id);
+                    }, 300);
+                });
+
+                $('#arResultCard').removeClass('d-none').hide().fadeIn(500);
+            }
+        });
+    }
+
+
+    // F. Sach co 3D tuong tac
+    function initAntiqueBook() {
+        let currentPage = 1;
+        const $book = $('#antiqueBook3D');
+        if (!$book.length) return;
+
+        // Bấm trang 1 lật sang trang 2
+        $('#bookPage1').on('click', function() {
+            $(this).toggleClass('flipped');
+            if ($(this).hasClass('flipped')) {
+                currentPage = 2;
+                $(this).css('z-index', '5');
+                $('#bookPage2').css('z-index', '9');
+            } else {
+                currentPage = 1;
+                $(this).css('z-index', '9');
+                $('#bookPage2').css('z-index', '8');
+            }
+        });
+
+        // Bấm trang 2 lật sang kết thúc
+        $('#bookPage2').on('click', function(e) {
+            if ($(e.target).closest('#btnRewindBook').length) return;
+
+            $(this).toggleClass('flipped');
+            if ($(this).hasClass('flipped')) {
+                currentPage = 3;
+                $(this).css('z-index', '4');
+            } else {
+                currentPage = 2;
+                $(this).css('z-index', '9');
+                $('#bookPage1').css('z-index', '5');
+            }
+        });
+
+        $('#btnNextPage').on('click', function() {
+            if (currentPage === 1) {
+                $('#bookPage1').addClass('flipped').css('z-index', '5');
+                $('#bookPage2').css('z-index', '9');
+                currentPage = 2;
+            } else if (currentPage === 2) {
+                $('#bookPage2').addClass('flipped').css('z-index', '4');
+                currentPage = 3;
+            }
+        });
+
+        $('#btnPrevPage').on('click', function() {
+            if (currentPage === 3) {
+                $('#bookPage2').removeClass('flipped').css('z-index', '9');
+                currentPage = 2;
+            } else if (currentPage === 2) {
+                $('#bookPage1').removeClass('flipped').css('z-index', '9');
+                $('#bookPage2').css('z-index', '8');
+                currentPage = 1;
+            }
+        });
+
+        $('#btnRewindBook').on('click', function() {
+            $('#bookPage2').removeClass('flipped').css('z-index', '8');
+            $('#bookPage1').removeClass('flipped').css('z-index', '9');
+            currentPage = 1;
+        });
+    }
+
+    // G. Bản đồ nhiệt Leaflet thổ nhưỡng & khí hậu tương tác
+    let soilHeatmapLayers = [];
+    let heatmapActive = false;
+    let heatmapLegendControl = null;
+
+    function initSoilHeatmapAndEcology(mapInstance) {
+        const $toggleBtn = $('#btnToggleHeatmap');
+        if (!$toggleBtn.length || !mapInstance) return;
+
+        // Vùng phân bố mật độ thảo dược Đà Nẵng
+        const heatZones = [
+            { coords: [16.1264, 108.2863], radius: 2400, color: '#10b981', desc: 'Thổ nhưỡng kiềm nhẹ Sơn Trà - Rất thích hợp Kim Ngân Hoa, Trà xanh' },
+            { coords: [15.9961, 107.9866], radius: 4800, color: '#ef4444', desc: 'Cao độ >1200m Bà Nà sương mù - Rất thích hợp Sâm Ngọc Linh, Nấm Lim Xanh' },
+            { coords: [16.0041, 108.2635], radius: 2000, color: '#fbbf24', desc: 'Đất cát ven biển Ngũ Hành Sơn - Thích hợp Đinh Lăng, Diếp Cá ôn ấm' },
+            { coords: [16.0718, 108.1565], radius: 3000, color: '#10b981', desc: 'Thổ nhưỡng feralit rừng Hải Vân - Thích hợp Xạ Đen, Chè Xuể rừng hoang dã' }
+        ];
+
+        $toggleBtn.on('click', function() {
+            heatmapActive = !heatmapActive;
+            $(this).toggleClass('active btn-outline-danger btn-danger text-white');
+
+            if (heatmapActive) {
+                // Vẽ các vòng tròn biểu diễn sinh thái học thảo dược
+                heatZones.forEach(z => {
+                    const circle = L.circle(z.coords, {
+                        radius: z.radius,
+                        fillColor: z.color,
+                        fillOpacity: 0.22,
+                        stroke: true,
+                        color: z.color,
+                        weight: 1.5
+                    }).addTo(mapInstance);
+                    circle.bindTooltip(z.desc);
+                    soilHeatmapLayers.push(circle);
+                });
+
+                // Thêm bảng chú giải map legend
+                const legend = L.control({ position: 'bottomleft' });
+                legend.onAdd = function() {
+                    const div = L.DomUtil.create('div', 'leaflet-heatmap-legend');
+                    div.innerHTML = `
+                        <div class="fw-bold mb-1.5" style="font-size:0.82rem;"><i class="bi bi-fire text-danger"></i> Bản đồ nhiệt thích nghi</div>
+                        <div><span class="legend-color-box" style="background:rgba(16,185,129,0.5)"></span> Thổ nhưỡng feralit biển Sơn Trà</div>
+                        <div><span class="legend-color-box" style="background:rgba(239,68,68,0.5)"></span> Cao ôn đới Bà Nà sương mù</div>
+                        <div><span class="legend-color-box" style="background:rgba(251,191,36,0.5)"></span> Đất cát pha vôi Ngũ Hành Sơn</div>
+                    `;
+                    return div;
+                };
+                legend.addTo(mapInstance);
+                heatmapLegendControl = legend;
+                showToast('Đã kích hoạt Bản đồ nhiệt thích nghi thổ nhưỡng Đà Nẵng! 🔥', 'success');
+            } else {
+                // Xóa lớp phủ bản đồ nhiệt
+                soilHeatmapLayers.forEach(l => mapInstance.removeLayer(l));
+                soilHeatmapLayers = [];
+                if (heatmapLegendControl) {
+                    heatmapLegendControl.remove();
+                    heatmapLegendControl = null;
+                }
+                showToast('Đã tắt lớp phủ bản đồ nhiệt.', 'info');
+            }
+        });
+    }
+
+    // H. Trình giả lập & Mini-game sắc thuốc tương tác
+    function initBrewingSimulator() {
+        let currentHerbId = null;
+        let currentStep = 1; // 1: Pot, 2: Water, 3: Fire, 4: Time, 5: Done
+        let selectedPot = null;
+        let selectedWater = null;
+        let selectedFire = null;
+        let selectedTime = null;
+
+        $(document).on('click', '#btnOpenBrewingSim', function() {
+            const nameStr = $('#herbDetailName').text().replace(/[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD00-\uDFFF]/g, '').trim();
+            const herb = db.herbs.find(h => h.name.toLowerCase().includes(nameStr.toLowerCase()));
+            
+            if (herb) {
+                currentHerbId = herb.id;
+                // Đóng modal chi tiết to
+                const detailEl = document.getElementById('herbDetailModal');
+                bootstrap.Modal.getInstance(detailEl)?.hide();
+                
+                setTimeout(() => {
+                    $('#brewingSimModal').modal('show');
+                    startSimGame();
+                }, 400);
+            } else {
+                showToast('Không tìm thấy dữ liệu thang sắc dược liệu!', 'error');
+            }
+        });
+
+        function startSimGame() {
+            currentStep = 1;
+            selectedPot = null;
+            selectedWater = null;
+            selectedFire = null;
+            selectedTime = null;
+            
+            $('#brewingFireGraphic').removeClass('fire-high fire-low');
+            $('#brewingPotGraphic').removeClass('cooking');
+            $('#steamBubblesContainer').empty();
+            renderSimStep();
+        }
+
+        function renderSimStep() {
+            const $title = $('#simStepTitle');
+            const $text = $('#simStepText');
+            const $choices = $('#brewingChoicesArea');
+            $choices.empty();
+
+            if (currentStep === 1) {
+                $title.text('Bước 1: Lựa chọn Ấm Sắc thuốc');
+                $text.text('Chất liệu nồi sắc thuốc truyền dẫn nhiệt tốt và tránh oxi hóa dược chất.');
+                
+                const choices = [
+                    { id: 'clay', name: '🏺 Ấm đất nung', score: 100, feedback: 'Hoàn hảo! Ấm đất giữ nhiệt cực lâu và không gây phản ứng hóa học.' },
+                    { id: 'glass', name: '🧪 Ấm thủy tinh', score: 80, feedback: 'Khá tốt, không phai hoạt chất nhưng truyền dẫn giữ nhiệt trung bình.' },
+                    { id: 'metal', name: '🍳 Ấm kim loại', score: 40, feedback: 'Rất kém! Kim loại dễ oxi hóa phá hủy cấu trúc flavonoid của lá lốt, kim ngân.' }
+                ];
+                choices.forEach(c => {
+                    const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
+                    $b.on('click', function() {
+                        selectedPot = c;
+                        showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
+                        currentStep = 2;
+                        renderSimStep();
+                    });
+                    $choices.append($b);
+                });
+            }
+            else if (currentStep === 2) {
+                $title.text('Bước 2: Cân đo lượng nước đun');
+                $text.text('Tỷ lệ nước quyết định nồng độ tinh dầu và độ ngấm của bài thuốc sắc.');
+                
+                const choices = [
+                    { id: '3cups', name: '💧 3 Bát nước', score: 100, feedback: 'Đạt chuẩn! 3 bát nước sắc cô đặc còn 1 bát uống ấm dưỡng vị.' },
+                    { id: '5cups', name: '🌊 5 Bát nước', score: 65, feedback: 'Quá nhiều nước! Thang sắc loãng khó cô đọng hoạt chất.' },
+                    { id: '1cup', name: '🔥 1 Bát nước', score: 30, feedback: 'Cảnh báo! Quá ít nước đun sẽ cạn cháy niêu trước khi thuốc phai.' }
+                ];
+                choices.forEach(c => {
+                    const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
+                    $b.on('click', function() {
+                        selectedWater = c;
+                        showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
+                        currentStep = 3;
+                        renderSimStep();
+                    });
+                    $choices.append($b);
+                });
+            }
+            else if (currentStep === 3) {
+                $title.text('Bước 3: Điều khiển Hỏa hầu (Ngọn lửa)');
+                $text.text('Chuẩn Đông y sắc: Vũ hỏa (lửa to đun sôi) ban đầu dực thịnh, sau hạ Văn hỏa (riu riu).');
+                
+                const choices = [
+                    { id: 'mix', name: '🔥 Lửa to rồi nhỏ riu riu', score: 100, feedback: 'Hoàn hảo! Đun sôi nhanh rồi giữ lửa nhỏ âm ỉ giữ hoạt chất.' },
+                    { id: 'high', name: '🌋 Lửa to liên tục', score: 50, feedback: 'Quá nhiệt! Bay hơi sạch tinh dầu quý của thảo mộc thơm.' },
+                    { id: 'low', name: '🕯️ Lửa riu riu từ đầu', score: 75, feedback: 'Chấp nhận được nhưng tốn thời gian gia nhiệt đun ban đầu.' }
+                ];
+                choices.forEach(c => {
+                    const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
+                    $b.on('click', function() {
+                        selectedFire = c;
+                        showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
+                        
+                        // Kích hoạt đồ họa lửa đun sắc
+                        if (c.id === 'high' || c.id === 'mix') {
+                            $('#brewingFireGraphic').addClass('fire-high');
+                        } else {
+                            $('#brewingFireGraphic').addClass('fire-low');
+                        }
+                        $('#brewingPotGraphic').addClass('cooking');
+                        
+                        // Steam bubbles animation
+                        const $bubbles = $('#steamBubblesContainer');
+                        for (let i = 0; i < 5; i++) {
+                            setTimeout(() => {
+                                const $bb = $('<div class="steam-bubble"></div>').css({
+                                    left: (35 + Math.random() * 30) + '%',
+                                    animationDelay: (Math.random() * 0.4) + 's'
+                                });
+                                $bubbles.append($bb);
+                            }, i * 200);
+                        }
+
+                        currentStep = 4;
+                        setTimeout(renderSimStep, 1000);
+                    });
+                    $choices.append($b);
+                });
+            }
+            else if (currentStep === 4) {
+                // Tắt lửa to, chuyển hạ nhiệt riu riu
+                if (selectedFire && selectedFire.id === 'mix') {
+                    $('#brewingFireGraphic').removeClass('fire-high').addClass('fire-low');
+                }
+
+                $title.text('Bước 4: Thời gian chưng cất');
+                $text.text('Độ dài đun chiết xuất hoạt tính sinh học của rễ củ cây thuốc.');
+                
+                const choices = [
+                    { id: '60m', name: '⏱️ 60 Phút', score: 100, feedback: 'Chuẩn Đông y! Đủ thời gian tiết hoạt chất ra nước sắc.' },
+                    { id: '20m', name: '⚡ 20 Phút', score: 40, feedback: 'Quá ngắn! Dược chất chưa tan kịp hết trong nước đun.' },
+                    { id: '120m', name: '⏳ 120 Phút', score: 65, feedback: 'Quá lâu! Hoạt chất nhiệt nhạy bị phân hủy phân rã.' }
+                ];
+                choices.forEach(c => {
+                    const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
+                    $b.on('click', function() {
+                        selectedTime = c;
+                        showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
+                        currentStep = 5;
+                        renderSimStep();
+                    });
+                    $choices.append($b);
+                });
+            }
+            else if (currentStep === 5) {
+                // Tính toán điểm chưng cất bào chế cuối cùng
+                $('#brewingFireGraphic').removeClass('fire-high fire-low');
+                $('#brewingPotGraphic').removeClass('cooking');
+                $('#steamBubblesContainer').empty();
+
+                const totalScore = Math.round((selectedPot.score + selectedWater.score + selectedFire.score + selectedTime.score) / 4);
+                let verdict = 'THẦN DƯỢC THƯỢNG HẠNG! Giữ được 98% hoạt chất lâm sàng.';
+                let colorClass = 'text-success';
+                let emo = '🏆';
+                if (totalScore < 60) {
+                    verdict = 'THUỐC THẤT BẠI! Sắc sai cách làm bay hơi hoạt chất quý.';
+                    colorClass = 'text-danger';
+                    emo = '⚠️';
+                } else if (totalScore < 85) {
+                    verdict = 'THUỐC ĐẠT CHUẨN TRUNG BÌNH! Dược lý phát huy nhẹ.';
+                    colorClass = 'text-warning';
+                    emo = '👍';
+                }
+
+                $title.text('KẾT QUẢ ĐUN SẮC THÀNH CÔNG');
+                $text.html(`
+                    <div class="mb-3 fs-3">${emo}</div>
+                    <div class="fw-bold fs-5 ${colorClass} mb-2">Chất Lượng Thang Sắc: ${totalScore}%</div>
+                    <p class="text-secondary small mb-3">${verdict}</p>
+                    <div class="text-start bg-secondary bg-opacity-10 p-3 rounded border border-secondary border-opacity-35 mb-3 small" style="line-height:1.6; font-size:0.78rem; color:#d1d5db;">
+                        <strong>Báo cáo Lương y:</strong><br>
+                        • Ấm sắc: ${selectedPot.name} (Điểm: ${selectedPot.score})<br>
+                        • Nước đun: ${selectedWater.name} (Điểm: ${selectedWater.score})<br>
+                        • Hỏa hầu: ${selectedFire.name} (Điểm: ${selectedFire.score})<br>
+                        • Thời gian: ${selectedTime.name} (Điểm: ${selectedTime.score})
+                    </div>
+                `);
+
+                const $btnBack = $('<button class="btn btn-success rounded-pill px-4 py-2 fw-bold"><i class="bi bi-arrow-counterclockwise"></i> Xem Lại Cổ Phương</button>');
+                $btnBack.on('click', function() {
+                    $('#brewingSimModal').modal('hide');
+                    setTimeout(() => {
+                        $('#herbDetailModal').modal('show');
+                    }, 400);
+                });
+                $choices.append($btnBack);
+            }
+        }
+    }
+
+    // I. Bắt sự kiện Preset thời tiết ở Trang chủ
+    function initWeatherPresets() {
+        $(document).on('click', '.weather-preset-btn', function() {
+            $('.weather-preset-btn').removeClass('active');
+            $(this).addClass('active');
+
+            const preset = $(this).data('preset');
+            let temp, hum, aqi, uv, wind;
+
+            if (preset === 'live') {
+                // Gọi lại API thực tế để khôi phục
+                initWeatherDashboard();
+                showToast('Đã khôi phục dữ liệu thời tiết live API!', 'success');
+                return;
+            } else if (preset === 'hot') {
+                temp = 36; hum = 52; aqi = 32; uv = 10.2; wind = 8;
+            } else if (preset === 'cold') {
+                temp = 16; hum = 45; aqi = 18; uv = 1.5; wind = 22;
+            } else if (preset === 'humid') {
+                temp = 22; hum = 98; aqi = 48; uv = 2.0; wind = 5;
+            } else if (preset === 'polluted') {
+                temp = 29; hum = 60; aqi = 155; uv = 6.8; wind = 4;
+            }
+
+            // Cập nhật giá trị hiển thị trên UI
+            $('#headerTemp').text(`${temp}°C`);
+            $('#aqiValue').text(aqi);
+            $('#weatherUV').text(uv);
+            $('#weatherHumidity').text(`${hum}%`);
+            $('#weatherWind').text(`${wind} km/h`);
+
+            // Cập nhật độ rộng các thanh Progress bar
+            $('#aqiLevelBar').css('width', Math.min(100, (aqi / 150) * 100) + '%');
+            $('#uvLevelBar').css('width', Math.min(100, (uv / 12) * 100) + '%');
+            $('#humidityLevelBar').css('width', hum + '%');
+            $('#windLevelBar').css('width', Math.min(100, (wind / 40) * 100) + '%');
+
+            // Cập nhật Badges trạng thái
+            let aqiClass = 'success';
+            let aqiText = 'Tốt';
+            if (aqi > 150) { aqiClass = 'danger'; aqiText = 'Nguy hại'; }
+            else if (aqi > 100) { aqiClass = 'danger'; aqiText = 'Rất kém'; }
+            else if (aqi > 60) { aqiClass = 'warning'; aqiText = 'Kém'; }
+            else if (aqi > 40) { aqiClass = 'warning'; aqiText = 'Trung bình'; }
+            $('#aqiBadge').text(aqiText).removeClass('success warning danger').addClass(aqiClass);
+
+            let uvClass = 'success';
+            let uvText = 'An toàn';
+            if (uv > 8) { uvClass = 'danger'; uvText = 'Cực nguy hại'; }
+            else if (uv > 6) { uvClass = 'danger'; uvText = 'Rất cao'; }
+            else if (uv > 4) { uvClass = 'warning'; uvText = 'Cao'; }
+            $('#uvBadge').text(uvText).removeClass('success warning danger').addClass(uvClass);
+
+            let humClass = 'success';
+            let humText = 'Cân bằng';
+            if (hum > 85) { humClass = 'danger'; humText = 'Rất ẩm'; }
+            else if (hum < 40) { humClass = 'warning'; humText = 'Khô'; }
+            $('#humidityBadge').text(humText).removeClass('success warning danger').addClass(humClass);
+
+            // Cập nhật lời khuyên Đông y và Nút bài thuốc thích ứng thời tiết
+            updateWeatherAdaptiveRecommendation(temp, hum, aqi);
+
+            showToast(`Đã mô phỏng Preset: ${$(this).text()}`, 'info');
+        });
+    }
+
+    // Gắn sự kiện click marker popup
+    $(document).on('click', '.select-region-btn', function(e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        $(`.map-item-premium[data-id="${id}"]`).click();
+    });
+
+
     // ─── 16. HỖ TRỢ TRUY CẬP (ACCESSIBILITY) ───────────────────
     function initAccessibility() {
         $('#darkModeToggle').attr('aria-label', 'Chuyển đổi giao diện tối sáng');
@@ -3550,6 +4348,15 @@ $(document).ready(function () {
     initProfilePage();
     initAdminPage();
     loadChatHistory();
+
+    // Khởi chạy v6.0 Premium Ultra systems
+    initFloatingLeaves();
+    initAutocompleteSearch();
+    initAiDiagnostics();
+    initAiScanner();
+    initAntiqueBook();
+    initBrewingSimulator();
+    initWeatherPresets();
 
     // Khởi chạy Phase 2 premium systems
     initLenis();
