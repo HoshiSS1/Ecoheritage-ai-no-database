@@ -164,7 +164,7 @@ $(document).ready(function () {
     }
 
     let db;
-    const existingDB = readStorage('eco_heritage_db_v7', null);
+    const existingDB = readStorage('eco_heritage_db_v8', null);
     if (existingDB && Array.isArray(existingDB.herbs) && existingDB.herbs.length > 0) {
         // DB đã tồn tại và có dữ liệu — chỉ normalize mà KHÔNG ghi đè
         db = normalizeDB(existingDB);
@@ -183,12 +183,12 @@ $(document).ready(function () {
                 }
                 return h;
             });
-            writeStorage('eco_heritage_db_v7', db);
+            writeStorage('eco_heritage_db_v8', db);
         }
     } else {
         // Lần đầu hoặc DB rỗng — khởi tạo từ data.js và ghi lưu
         db = normalizeDB(null);
-        writeStorage('eco_heritage_db_v7', db);
+        writeStorage('eco_heritage_db_v8', db);
     }
 
     // Khởi tạo danh sách tài khoản người dùng toàn cục và tự động mã hóa mật khẩu
@@ -237,7 +237,7 @@ $(document).ready(function () {
     })();
 
     function saveDB() {
-        writeStorage('eco_heritage_db_v7', db);
+        writeStorage('eco_heritage_db_v8', db);
     }
 
     // Hàm helper đồng bộ hóa tài khoản đang đăng nhập với danh sách toàn cục
