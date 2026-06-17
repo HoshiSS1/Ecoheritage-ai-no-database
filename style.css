@@ -884,13 +884,13 @@ body {
    DARK MODE & ADDITIONAL PREMIUM OVERRIDES
    ========================================================================== */
 html.dark-mode {
-    --bg-white: #0D1611;
-    --bg-offwhite: #111A14;
-    --bg-light: #162019;
-    --text-main: #E8F5E9;
-    --text-muted: #A5BCB0;
-    --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --bg-white: #070D0A;
+    --bg-offwhite: #0A120E;
+    --bg-light: #0F1A14;
+    --text-main: #E2F0E5;
+    --text-muted: #8AA395;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.6);
 }
 
 html.dark-mode body {
