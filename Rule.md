@@ -1,4 +1,4 @@
-﻿# 🌿 EcoHeritage AI — Bộ Ràng Buộc & Kế Hoạch Nâng Cấp Toàn Diện
+# 🌿 EcoHeritage AI — Bộ Ràng Buộc & Kế Hoạch Nâng Cấp Toàn Diện
 > **Phiên bản:** v7.0 | **Ngày cập nhật:** 2026 | **Áp dụng cho:** HTML5 · CSS3 · Bootstrap 5.3 · jQuery 3.7 · Vanilla JS
 > **Mục tiêu:** Bộ quy tắc bắt buộc AI / lập trình viên phải tuân thủ khi code, test, sửa lỗi dự án EcoHeritage AI
 
@@ -573,11 +573,11 @@ Thêm vào `<head>` của `index.html`:
 | BUG-10 | `style.css` | `#herbDetailImg` bị kéo dài trên mobile | 🟢 Thấp | ✅ Đã sửa |
 | BUG-11 | `script.js` | `setInterval` không lưu reference | 🟡 TB | ✅ Đã sửa |
 | BUG-12 | `index.html` | Counter thứ 3 hiện `100+` thay vì `100%` | 🟢 Thấp | ✅ Đã sửa — dùng suffix từ originalText |
-| **TODO-01** | Tất cả HTML | Thiếu `loading="lazy"` trên ảnh | 🟡 TB | ⏳ Chưa làm |
-| **TODO-02** | CSS | Thiếu `prefers-reduced-motion` | 🟡 TB | ⏳ Chưa làm |
-| **TODO-03** | 4 file HTML | Thiếu Open Graph tags | 🟢 Thấp | ⏳ Chưa làm |
-| **TODO-04** | Tất cả HTML | Canonical URL dùng relative path | 🟢 Thấp | ⏳ Chưa làm |
-| **TODO-05** | `index.html` | Nút Google Login không có label "(Demo)" | 🟢 Thấp | ⏳ Chưa làm |
+| **TODO-01** | Tất cả HTML | Thiếu `loading="lazy"` trên ảnh | 🟡 TB | ✅ Đã sửa |
+| **TODO-02** | CSS | Thiếu `prefers-reduced-motion` | 🟡 TB | ✅ Đã sửa |
+| **TODO-03** | 4 file HTML | Thiếu Open Graph tags | 🟢 Thấp | ✅ Đã sửa |
+| **TODO-04** | Tất cả HTML | Canonical URL dùng relative path | 🟢 Thấp | ✅ Đã sửa |
+| **TODO-05** | `index.html` | Nút Google Login không có label "(Demo)" | 🟢 Thấp | ✅ Đã sửa |
 
 ---
 

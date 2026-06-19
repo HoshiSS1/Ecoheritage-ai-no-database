@@ -13,16 +13,65 @@ $(document).ready(function () {
         history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
-    $(window).on('beforeunload', function() {
+    $(window).on('beforeunload', function () {
         $(window).scrollTop(0);
     });
     // Hỗ trợ thêm cho các trình duyệt chậm tải
-    setTimeout(function() {
+    setTimeout(function () {
         window.scrollTo(0, 0);
     }, 100);
 
     // ─── 1. KHỞI TẠO CSDL TRÊN LOCALSTORAGE (DATABASE SYNC & UPGRADE) ────
     const DEFAULT_HERB_IMAGE = './images/hero_vector.png';
+
+    // Dữ liệu cẩm nang bài viết y học cổ truyền
+    const ARTICLES_DATA = {
+        "a1": {
+            title: "Cách phân biệt Sâm Ngọc Linh rừng tự nhiên thật và giả chính xác nhất",
+            badge: "Bảo Tồn Dược Liệu",
+            image: "./images/bai_thuoc/sam_ngoc_linh.png",
+            intro: "Sâm Ngọc Linh là loại sâm quý đặc hữu của Việt Nam, chứa hàm lượng saponin vượt trội so với sâm Hàn Quốc và sâm Mỹ. Do giá trị kinh tế rất lớn, sâm Ngọc Linh rừng thường xuyên bị giả mạo bằng củ Tam Thất hoang hoặc các củ có hình dáng tương tự.",
+            pharmacology: "Sâm Ngọc Linh chứa tới 52 hợp chất saponin, trong đó đặc biệt là Majonoside-R2 (MR2) - hoạt chất chiếm tỷ lệ lớn giúp giảm căng thẳng, chống trầm cảm và ức chế sự phát triển của tế bào ung thư mà các loại sâm khác không có. Rễ sâm thật có vân đốt rõ, mỗi năm chỉ sinh ra 1 mắt xéo đối xứng rích rắc.",
+            usage: "Thái lát ngậm tan trực tiếp hoặc ngâm với mật ong rừng nguyên chất (tỷ lệ 10g sâm/100ml mật). Mỗi ngày dùng 1-2 lát sâm ngậm hoặc hòa nước ấm uống sáng sớm. Tránh dùng vào chiều tối vì có thể gây tỉnh táo, khó ngủ.",
+            source: "Dược điển Việt Nam V & Công trình Nghiên cứu Khoa học của Viện Dược liệu Bộ Y tế."
+        },
+        "a2": {
+            title: "Uống tâm sen sao vàng giải quyết chứng mất ngủ kinh niên tại nhà",
+            badge: "An thần dưỡng tâm",
+            image: "./images/bai_thuoc/tam_sen.png",
+            intro: "Tâm sen (Liên tâm) từ lâu đã là vị thuốc Nam kinh điển trị chứng mất ngủ. Tuy nhiên, dùng tâm sen tươi hoặc sai cách có thể phản tác dụng, gây suy giảm trí nhớ, mệt mỏi tim mạch và tích tụ độc tính nhẹ.",
+            pharmacology: "Tâm sen chứa các alkaloid như liensinine, isoliensinine, neferine giúp hạ huyết áp nhẹ, ổn định nhịp tim và gây ngủ ngon giấc. Tâm sen tươi chứa nhiều độc tính alkaloid tự do gây ngái, đau đầu và mệt tim. Việc sao vàng hạ thổ giúp bẻ gãy mạch độc tố này, chuyển hóa alkaloid về dạng dược tính dịu nhẹ, an toàn cho tim.",
+            usage: "Dùng 3-5g tâm sen đã sao vàng hạ thổ, hãm với 200ml nước sôi trong bình kín từ 15-20 phút. Uống trà tâm sen ấm vào buổi chiều hoặc trước khi đi ngủ 1-2 tiếng. Không sử dụng liên tục quá 1 tháng để tránh tích tụ độc tính.",
+            source: "Sách 'Những cây thuốc và vị thuốc Việt Nam' - GS. Đỗ Tất Lợi."
+        },
+        "a3": {
+            title: "Cà gai leo: Giải pháp số 1 đào thải men gan cao từ cồn bia rượu",
+            badge: "Giải độc mát gan",
+            image: "./images/bai_thuoc/ca_gai_leo.png",
+            intro: "Cà gai leo (Solanum procumbens) là cây thuốc Nam hiếm hoi được y học hiện đại nghiên cứu lâm sàng bài bản và chứng minh có tác dụng bảo vệ tế bào gan, hạ men gan và ngăn ngừa xơ gan cực kỳ hiệu quả.",
+            pharmacology: "Hoạt chất glycoalcaloid trong cà gai leo có khả năng ức chế mạnh sự sao chép của virus viêm gan B, đồng thời thúc đẩy quá trình tái tạo tế bào gan, hạ các chỉ số men gan AST và ALT nhanh chóng. Nó giúp tăng cường khả năng chuyển hóa acetaldehyde (độc tố từ rượu) thành chất không độc, bảo vệ lá gan khỏi bia rượu.",
+            usage: "Dùng 30g thân lá cà gai leo khô, rửa sạch, sắc với 1 lít nước, đun sôi nhỏ lửa còn 300ml. Uống thay nước lọc hằng ngày, đặc biệt tốt khi uống ấm trước hoặc sau khi uống rượu bia 30 phút để giải độc nhanh.",
+            source: "Đề tài nghiên cứu cấp Nhà nước - Viện Dược liệu Trung ương."
+        }
+    };
+
+    // Sự kiện mở xem chi tiết bài viết cẩm nang
+    $(document).on('click', '.btn-read-article', function (e) {
+        e.preventDefault();
+        const articleId = $(this).data('article-id');
+        const article = ARTICLES_DATA[articleId];
+        if (!article) return;
+
+        $('#articleModalTitle').html(`<i class="bi bi-journal-text me-2"></i> ${article.title}`);
+        $('#articleModalImg').attr('src', article.image);
+        $('#articleModalBadge').text(article.badge);
+        $('#articleModalIntro').text(article.intro);
+        $('#articleModalPharmacology').text(article.pharmacology);
+        $('#articleModalUsage').text(article.usage);
+        $('#articleModalSource').text(article.source);
+
+        $('#articleDetailModal').modal('show');
+    });
 
     function readStorage(key, fallback) {
         try {
@@ -164,17 +213,17 @@ $(document).ready(function () {
     }
 
     let db;
-    const existingDB = readStorage('eco_heritage_db_v8', null);
+    const existingDB = readStorage('eco_heritage_db_v11', null);
     if (existingDB && Array.isArray(existingDB.herbs) && existingDB.herbs.length > 0) {
         // DB đã tồn tại và có dữ liệu — chỉ normalize mà KHÔNG ghi đè
         db = normalizeDB(existingDB);
-        
+
         // Di trú (Upgrade) CSDL trong LocalStorage nếu thiếu trường source
         const needsUpgrade = db.herbs.some(h => {
             const defaultHerb = EcoHeritageDefaultData.herbs.find(dh => dh.id === h.id);
             return defaultHerb && defaultHerb.source && !h.source;
         });
-        
+
         if (needsUpgrade) {
             db.herbs = db.herbs.map(h => {
                 const defaultHerb = EcoHeritageDefaultData.herbs.find(dh => dh.id === h.id);
@@ -183,12 +232,12 @@ $(document).ready(function () {
                 }
                 return h;
             });
-            writeStorage('eco_heritage_db_v8', db);
+            writeStorage('eco_heritage_db_v11', db);
         }
     } else {
         // Lần đầu hoặc DB rỗng — khởi tạo từ data.js và ghi lưu
         db = normalizeDB(null);
-        writeStorage('eco_heritage_db_v8', db);
+        writeStorage('eco_heritage_db_v11', db);
     }
 
     // Khởi tạo danh sách tài khoản người dùng toàn cục và tự động mã hóa mật khẩu
@@ -202,7 +251,7 @@ $(document).ready(function () {
             ];
         }
         let listChanged = false;
-        
+
         // Loại bỏ tài khoản trùng lặp theo email (không phân biệt hoa thường)
         const uniqueAccounts = [];
         const seenEmails = new Set();
@@ -227,7 +276,7 @@ $(document).ready(function () {
         if (listChanged || !localStorage.getItem('eco_heritage_users')) {
             writeStorage('eco_heritage_users', accountsList);
         }
-        
+
         let currentUser = readStorage('gh_user', null);
         if (currentUser && currentUser.password && !/^[0-9a-fA-F]{64}$/.test(currentUser.password)) {
             currentUser.password = await hashPassword(currentUser.password);
@@ -237,7 +286,7 @@ $(document).ready(function () {
     })();
 
     function saveDB() {
-        writeStorage('eco_heritage_db_v8', db);
+        writeStorage('eco_heritage_db_v11', db);
     }
 
     // Hàm helper đồng bộ hóa tài khoản đang đăng nhập với danh sách toàn cục
@@ -279,7 +328,7 @@ $(document).ready(function () {
 
     // ─── 3. STICKY NAVBAR & PROGRESS BAR ──────────────────────
     const $navbar = $('#mainNav');
-    
+
     // Inject scroll progress bar dynamically if not present
     if (!$('#scrollProgressBar').length) {
         $('body').prepend('<div id="scrollProgressBar"></div>');
@@ -299,7 +348,7 @@ $(document).ready(function () {
     // Auto active nav link highlights
     function autoSetActiveNav() {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        $('.navbar-nav .nav-link').each(function() {
+        $('.navbar-nav .nav-link').each(function () {
             const href = $(this).attr('href');
             if (href && (href === currentPage || (currentPage === '' && href === 'index.html'))) {
                 $('.navbar-nav .nav-link').removeClass('active');
@@ -318,8 +367,8 @@ $(document).ready(function () {
             $('html').removeClass('dark-mode');
             $('#darkModeToggle i').removeClass('bi-sun-fill').addClass('bi-moon-fill');
         }
-        
-        $('#darkModeToggle').on('click', function() {
+
+        $('#darkModeToggle').on('click', function () {
             $('html').toggleClass('dark-mode');
             const isDark = $('html').hasClass('dark-mode');
             localStorage.setItem('eco_dark_mode', isDark);
@@ -334,16 +383,16 @@ $(document).ready(function () {
     // Hero stats counter & tagline typing animation
     function initHeroSection() {
         // Stats Counters
-        $('[data-counter]').each(function() {
+        $('[data-counter]').each(function () {
             const $el = $(this);
             const target = parseInt($el.data('counter'), 10);
             const suffix = $el.data('suffix') || ($el.text().includes('%') ? '%' : '+');
             $({ count: 0 }).animate({ count: target }, {
                 duration: 1500,
-                step: function() {
+                step: function () {
                     $el.text(Math.floor(this.count) + suffix);
                 },
-                complete: function() {
+                complete: function () {
                     $el.text(target + suffix);
                 }
             });
@@ -381,7 +430,7 @@ $(document).ready(function () {
         if (toastLiveExample) {
             $('#toastMessage').text(message);
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-            
+
             toastLiveExample.className = 'toast align-items-center border-0 shadow-lg rounded-3 text-white';
             if (type === 'success') {
                 toastLiveExample.classList.add('bg-success');
@@ -429,11 +478,11 @@ $(document).ready(function () {
             // Đã đăng nhập
             $('#desktopLoginBtn, #mobileLoginBtn').addClass('d-none');
             $('#desktopUserAvatar, #mobileUserBtnGroup').removeClass('d-none');
-            
+
             // Cập nhật thông tin cho dropdown
             $('#dropdownUserName').text(user.name);
             $('#dropdownUserEmail').text(user.email);
-            
+
             if (user.avatar) {
                 $('#avatarImage, #avatarImageDropdown').attr('src', user.avatar).removeClass('d-none');
                 $('#avatarInitials, #avatarInitialsDropdown').addClass('d-none');
@@ -442,7 +491,7 @@ $(document).ready(function () {
                 const initials = user.name.charAt(0).toUpperCase();
                 $('#avatarInitials, #avatarInitialsDropdown').text(initials).removeClass('d-none');
             }
-            
+
             // Nếu là tài khoản Admin
             if (user.email === 'admin@gmail.com' || user.role === 'admin') {
                 user.role = 'admin'; // Bảo đảm đồng bộ
@@ -481,7 +530,7 @@ $(document).ready(function () {
 
         // Tải danh sách tài khoản toàn cục mới nhất
         let userList = readStorage('eco_heritage_users', []) || [];
-        
+
         // Kiểm tra xem email đã được đăng ký chưa (không phân biệt hoa thường)
         const emailExists = userList.some(u => u.email.toLowerCase() === email.toLowerCase());
         if (emailExists) {
@@ -493,19 +542,19 @@ $(document).ready(function () {
         const role = (email.toLowerCase() === 'admin@gmail.com') ? 'admin' : 'user';
         const hashedPassword = await hashPassword(password);
         const newUser = normalizeUser({ name, email, password: hashedPassword, role, saved: [], rated: [], lastLoginTime: Date.now() });
-        
+
         // Thêm vào danh sách tài khoản toàn cục
         userList.push(newUser);
         writeStorage('eco_heritage_users', userList);
-        
+
         // Lưu phiên đăng nhập
         writeStorage('gh_user', newUser);
         showToast('Đăng ký tài khoản thành công! 🎉', 'success');
         $('#authModal').modal('hide');
-        
+
         checkAuthStatus();
         unlockAchievement('badge-system-admin'); // Kiểm tra phân quyền vua y học nếu là admin
-        
+
         // Load lại trang sau 1 giây
         setTimeout(() => { location.reload(); }, 1000);
     });
@@ -517,10 +566,10 @@ $(document).ready(function () {
         const password = $('#loginPassword').val();
 
         if (!isValidEmail(email)) { showToast('Vui lòng nhập email hợp lệ!', 'error'); return; }
-        
+
         const hashedPassword = await hashPassword(password);
         const adminHashed = await hashPassword('admin123');
-        
+
         // Mock tài khoản Admin mặc định
         if (email.toLowerCase() === 'admin@gmail.com' && hashedPassword === adminHashed) {
             let adminList = readStorage('eco_heritage_users', []) || [];
@@ -545,7 +594,7 @@ $(document).ready(function () {
         // Kiểm tra tài khoản trong danh sách toàn cục (không phân biệt hoa thường)
         let userList = readStorage('eco_heritage_users', []) || [];
         const user = userList.find(u => u.email.toLowerCase() === email.toLowerCase());
-        
+
         if (!user) {
             showToast('Tài khoản không tồn tại! Vui lòng Đăng ký.', 'error');
             return;
@@ -569,7 +618,7 @@ $(document).ready(function () {
         let userList = readStorage('eco_heritage_users', []) || [];
         const googleEmail = 'google.user@gmail.com';
         let googleUser = userList.find(u => u.email.toLowerCase() === googleEmail.toLowerCase());
-        
+
         if (!googleUser) {
             googleUser = normalizeUser({
                 name: 'Google User',
@@ -584,7 +633,7 @@ $(document).ready(function () {
             userList.push(googleUser);
             writeStorage('eco_heritage_users', userList);
         }
-        
+
         googleUser.lastLoginTime = Date.now();
         writeStorage('gh_user', googleUser);
         showToast('Đăng nhập Google (Demo) thành công! 🎉', 'success');
@@ -598,7 +647,7 @@ $(document).ready(function () {
         e.preventDefault();
         const email = prompt('Nhập email tài khoản của bạn để khôi phục mật khẩu:');
         if (email === null) return;
-        
+
         const trimmedEmail = email.trim();
         if (!trimmedEmail) {
             showToast('Email không được để trống!', 'error');
@@ -607,7 +656,7 @@ $(document).ready(function () {
 
         let userList = readStorage('eco_heritage_users', []) || [];
         const userIndex = userList.findIndex(u => u.email.toLowerCase() === trimmedEmail.toLowerCase());
-        
+
         if (userIndex === -1) {
             if (trimmedEmail.toLowerCase() === 'admin@gmail.com') {
                 const newPassword = prompt('Tài khoản quản trị viên tìm thấy. Nhập mật khẩu mới cho admin@gmail.com (tối thiểu 6 ký tự):');
@@ -638,7 +687,7 @@ $(document).ready(function () {
 
         const newPassword = prompt('Tài khoản hợp lệ! Vui lòng nhập mật khẩu mới (tối thiểu 6 ký tự):');
         if (newPassword === null) return;
-        
+
         const trimmedPassword = newPassword.trim();
         if (trimmedPassword.length < 6) {
             showToast('Mật khẩu tối thiểu phải từ 6 ký tự!', 'error');
@@ -718,10 +767,10 @@ $(document).ready(function () {
         $('#aqiValue').text(aqiVal);
         $('#weatherUV').text(uvVal);
         $('#weatherHumidity').text(`${humidityVal}%`);
-        
+
         // Đề xuất bài thuốc thích ứng thời tiết v6.0
         updateWeatherAdaptiveRecommendation(tempVal, humidityVal, aqiVal);
-        
+
         // 1. Phân cấp 5 mức AQI (theo chuẩn European AQI — thang 0-100+)
         let aqiStatusText = 'Tốt';
         let aqiClass = 'success';
@@ -731,7 +780,7 @@ $(document).ready(function () {
         let dynamicAqiBorder = 'rgba(16, 185, 129, 0.4)';
         let dynamicAqiIconColor = '#10b981';
         let dynamicAqiIcon = 'bi-shield-fill-check';
-        
+
         if (aqiVal <= 20) {
             aqiStatusText = 'Tốt';
             aqiClass = 'success';
@@ -872,15 +921,15 @@ $(document).ready(function () {
         let aqiBarColor = '#10b981'; // success
         if (aqiVal > 80) aqiBarColor = '#ef4444'; // danger
         else if (aqiVal > 40) aqiBarColor = '#f59e0b'; // warning
-        
+
         let uvBarColor = '#10b981'; // success
         if (uvVal >= 8) uvBarColor = '#ef4444'; // danger
         else if (uvVal >= 3) uvBarColor = '#f59e0b'; // warning
-        
+
         let humBarColor = '#10b981'; // success
         if (humidityVal < 30 || humidityVal > 85) humBarColor = '#ef4444'; // danger
         else if (humidityVal < 50 || humidityVal > 70) humBarColor = '#f59e0b'; // warning
-        
+
         let windBarColor = '#10b981'; // success
         if (windVal >= 30) windBarColor = '#ef4444'; // danger
         else if (windVal >= 15) windBarColor = '#f59e0b'; // warning
@@ -1054,7 +1103,7 @@ $(document).ready(function () {
             if (advice && $('#healthAlertCard').length) {
                 $('#healthAlertTitle span').text(advice.title);
                 $('#healthAlertIcon').removeClass().addClass(`bi ${advice.icon} fs-5`);
-                
+
                 // Đồng thời cập nhật màu sắc khung cảnh báo theo mức độ nguy cơ
                 let alertClass = 'success';
                 if (paramKey === 'aqi') {
@@ -1066,7 +1115,7 @@ $(document).ready(function () {
                 } else if (paramKey === 'wind') {
                     alertClass = windVal <= 20 ? 'success' : 'warning';
                 }
-                
+
                 // Xây dựng giao diện chỉ dẫn y học Đông y chuyên nghiệp nâng cấp
                 const detailHtml = `
                     <div class="row g-3 mt-1">
@@ -1101,10 +1150,10 @@ $(document).ready(function () {
                         </div>
                     </div>
                 `;
-                
+
                 $('#healthAlertText').html(detailHtml);
                 $('#healthAlertCard').removeClass('alert-success alert-warning alert-danger border-success border-warning border-danger')
-                                     .addClass(`alert-${alertClass} border-${alertClass}`);
+                    .addClass(`alert-${alertClass} border-${alertClass}`);
             }
         }
 
@@ -1132,13 +1181,13 @@ $(document).ready(function () {
             $floatingAqiToast.css('border-color', dynamicAqiBorder);
             $('#floatingAqiIconWrapper').css('color', dynamicAqiIconColor);
             $('#floatingAqiIcon').removeClass().addClass(`bi ${dynamicAqiIcon} fs-3`);
-            
+
             // Xử lý nút đóng toast
-            $('#closeAqiToastBtn').off('click').on('click', function() {
+            $('#closeAqiToastBtn').off('click').on('click', function () {
                 $floatingAqiToast.addClass('d-none');
                 sessionStorage.setItem('aqi_toast_closed', 'true');
             });
-            
+
             // Tự động hiện sau 1.5 giây nếu chưa bị đóng thủ công trong phiên này
             if (!sessionStorage.getItem('aqi_toast_closed')) {
                 setTimeout(() => {
@@ -1148,9 +1197,9 @@ $(document).ready(function () {
         }
 
         // Gắn sự kiện cuộn mượt khi nhấn "Xem gợi ý sức khỏe" và cập nhật chỉ dẫn theo thẻ tương ứng
-        $('.card-action-link').off('click').on('click', function(e) {
+        $('.card-action-link').off('click').on('click', function (e) {
             e.preventDefault();
-            
+
             // Tìm xem click thuộc thẻ nào: aqi, uv, humidity, wind
             let paramKey = 'aqi';
             const $card = $(this).closest('.weather-param-card');
@@ -1158,16 +1207,16 @@ $(document).ready(function () {
             else if ($card.find('.uv-icon').length) paramKey = 'uv';
             else if ($card.find('.humidity-icon').length) paramKey = 'humidity';
             else if ($card.find('.wind-icon').length) paramKey = 'wind';
-            
+
             // Cập nhật nội dung tương ứng cho khung chỉ dẫn Đông y
             updateHealthAlertPanel(paramKey);
-            
+
             // Cuộn mượt
             const $target = $('#healthAlertCard');
             if ($target.length) {
                 $('html, body').animate({
                     scrollTop: $target.offset().top - 120
-                }, 600, function() {
+                }, 600, function () {
                     $target.addClass('flash-highlight');
                     setTimeout(() => {
                         $target.removeClass('flash-highlight');
@@ -1179,7 +1228,7 @@ $(document).ready(function () {
     initWeatherDashboard();
     // Cập nhật mỗi 15 phút (900 giây) — đủ real-time mà không spam API
     let weatherIntervalId = setInterval(initWeatherDashboard, 900000);
-    document.addEventListener('visibilitychange', function() {
+    document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
             clearInterval(weatherIntervalId);
             weatherIntervalId = null;
@@ -1209,7 +1258,7 @@ $(document).ready(function () {
         const $grid = $('#herbGrid');
         if (!$grid.length) return;
         $grid.empty();
-        
+
         const skeletonHtml = `
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3 skeleton-card-col">
                 <div class="card skeleton-card h-100 shadow-sm border-0 rounded-4 overflow-hidden p-0 mb-3" style="min-height: 350px;">
@@ -1227,7 +1276,7 @@ $(document).ready(function () {
                 </div>
             </div>
         `;
-        
+
         for (let i = 0; i < 8; i++) {
             $grid.append(skeletonHtml);
         }
@@ -1254,20 +1303,20 @@ $(document).ready(function () {
 
         // Lọc bài thuốc từ CSDL localStorage
         let filtered = db.herbs.filter(h => {
-            const matchesSearch = h.name.toLowerCase().includes(searchValue) || 
-                                  h.usage.toLowerCase().includes(searchValue) ||
-                                  h.scientific.toLowerCase().includes(searchValue) ||
-                                  (h.keywords && h.keywords.toLowerCase().includes(searchValue));
+            const matchesSearch = h.name.toLowerCase().includes(searchValue) ||
+                h.usage.toLowerCase().includes(searchValue) ||
+                h.scientific.toLowerCase().includes(searchValue) ||
+                (h.keywords && h.keywords.toLowerCase().includes(searchValue));
             const matchesCategory = (currentCategoryFilter === 'Tất cả') || (h.category === currentCategoryFilter);
-            
+
             let matchesSymptom = true;
             if (window.currentSymptomFilter && window.currentSymptomFilter !== 'all') {
                 const keyword = window.currentSymptomFilter.toLowerCase();
-                matchesSymptom = h.name.toLowerCase().includes(keyword) || 
-                                 h.usage.toLowerCase().includes(keyword) || 
-                                 (h.keywords && h.keywords.toLowerCase().includes(keyword)) ||
-                                 (h.ingredients && h.ingredients.toLowerCase().includes(keyword)) ||
-                                 (h.efficacy && h.efficacy.toLowerCase().includes(keyword));
+                matchesSymptom = h.name.toLowerCase().includes(keyword) ||
+                    h.usage.toLowerCase().includes(keyword) ||
+                    (h.keywords && h.keywords.toLowerCase().includes(keyword)) ||
+                    (h.ingredients && h.ingredients.toLowerCase().includes(keyword)) ||
+                    (h.efficacy && h.efficacy.toLowerCase().includes(keyword));
             }
 
             return matchesSearch && matchesCategory && matchesSymptom;
@@ -1302,7 +1351,7 @@ $(document).ready(function () {
         filtered.forEach(herb => {
             const herbImage = escapeHTML(herb.image || DEFAULT_HERB_IMAGE);
             const herbFallback = escapeHTML(herb.fallbackImage || DEFAULT_HERB_IMAGE);
-            
+
             let html = '';
             if (currentViewMode === 'grid') {
                 html = `
@@ -1313,6 +1362,9 @@ $(document).ready(function () {
                                 <span class="position-absolute top-0 start-0 m-3 badge bg-white text-dark shadow-sm py-2 px-3 border" style="font-size:0.8rem; border-radius:30px;">
                                     ${escapeHTML(herb.emoji)} ${escapeHTML(herb.category)}
                                 </span>
+                                <button class="btn btn-sm btn-outline-danger btn-save-herb position-absolute top-0 end-0 m-3 rounded-circle shadow-sm bg-white d-flex align-items-center justify-content-center" data-id="${herb.id}" style="width: 36px; height: 36px; z-index: 10;">
+                                    <i class="bi bi-heart"></i>
+                                </button>
                             </div>
                             <div class="card-body p-4 d-flex flex-column justify-content-between">
                                 <div>
@@ -1320,18 +1372,9 @@ $(document).ready(function () {
                                     <small class="text-muted fst-italic d-block mb-3" style="font-size: 0.85rem;">${escapeHTML(herb.scientific)}</small>
                                     <p class="text-secondary small line-clamp-3 mb-4" style="font-size: 0.9rem; line-height: 1.6;">${escapeHTML(herb.usage)}</p>
                                 </div>
-                                <div class="d-flex justify-content-between gap-1.5 mt-auto">
-                                    <button class="btn btn-sm btn-outline-success flex-grow-1 py-2 fw-bold btn-view-detail" data-id="${herb.id}">
-                                        <i class="bi bi-journal-medical me-1"></i> Chi tiết
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger py-2 px-2 btn-save-herb" data-id="${herb.id}" title="Lưu sổ tay">
-                                        <i class="bi bi-heart"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info py-2 px-2 btn-compare-herb" data-id="${herb.id}" title="So sánh">
-                                        <i class="bi bi-arrow-left-right"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-primary py-2 px-2 btn-share-herb" data-id="${herb.id}" data-name="${escapeHTML(herb.name)}" title="Chia sẻ">
-                                        <i class="bi bi-share"></i>
+                                <div class="mt-auto">
+                                    <button class="btn btn-sm btn-success w-100 py-2.5 rounded-pill fw-bold btn-view-detail" data-id="${herb.id}">
+                                        <i class="bi bi-journal-medical me-1"></i> Xem chi tiết bài thuốc
                                     </button>
                                 </div>
                             </div>
@@ -1348,6 +1391,9 @@ $(document).ready(function () {
                                     <span class="position-absolute top-0 start-0 m-3 badge bg-white text-dark shadow-sm py-2 px-3 border" style="font-size:0.8rem; border-radius:30px;">
                                         ${escapeHTML(herb.emoji)} ${escapeHTML(herb.category)}
                                     </span>
+                                    <button class="btn btn-sm btn-outline-danger btn-save-herb position-absolute top-0 end-0 m-3 rounded-circle shadow-sm bg-white d-flex align-items-center justify-content-center" data-id="${herb.id}" style="width: 36px; height: 36px; z-index: 10;">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="card-body p-4 d-flex flex-column h-100 justify-content-between">
@@ -1356,18 +1402,9 @@ $(document).ready(function () {
                                             <small class="text-muted fst-italic d-block mb-3" style="font-size: 0.85rem;">${escapeHTML(herb.scientific)}</small>
                                             <p class="text-secondary small line-clamp-3 mb-3" style="font-size: 0.9rem; line-height: 1.6;">${escapeHTML(herb.usage)}</p>
                                         </div>
-                                        <div class="d-flex justify-content-start gap-2 mt-auto">
-                                            <button class="btn btn-sm btn-outline-success py-2 px-4 fw-bold btn-view-detail" data-id="${herb.id}">
-                                                <i class="bi bi-journal-medical me-1"></i> Xem chi tiết
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger py-2 px-3 btn-save-herb" data-id="${herb.id}" title="Lưu sổ tay">
-                                                <i class="bi bi-heart"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-info py-2 px-3 btn-compare-herb" data-id="${herb.id}" title="So sánh">
-                                                <i class="bi bi-arrow-left-right"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-primary py-2 px-3 btn-share-herb" data-id="${herb.id}" data-name="${escapeHTML(herb.name)}" title="Chia sẻ">
-                                                <i class="bi bi-share"></i>
+                                        <div class="mt-auto text-start">
+                                            <button class="btn btn-sm btn-success py-2.5 px-4 rounded-pill fw-bold btn-view-detail" data-id="${herb.id}">
+                                                <i class="bi bi-journal-medical me-1"></i> Xem chi tiết bài thuốc
                                             </button>
                                         </div>
                                     </div>
@@ -1412,23 +1449,23 @@ $(document).ready(function () {
     // Debounce tìm kiếm
     function debounce(func, wait) {
         let timeout;
-        return function(...args) {
+        return function (...args) {
             clearTimeout(timeout);
             timeout = setTimeout(() => func.apply(this, args), wait);
         };
     }
 
-    $('#searchHerbInput').on('input', debounce(function() { renderHerbs(); }, 250));
-    
+    $('#searchHerbInput').on('input', debounce(function () { renderHerbs(); }, 250));
+
     // Nút Clear tìm kiếm
-    $('#searchClearBtn').on('click', function() {
+    $('#searchClearBtn').on('click', function () {
         $('#searchHerbInput').val('').focus();
         $(this).removeClass('visible');
         renderHerbs();
     });
 
     // Lọc theo pills danh mục
-    $('#categoryFilter .btn-filter').on('click', function() {
+    $('#categoryFilter .btn-filter').on('click', function () {
         $('#categoryFilter .btn-filter').removeClass('active');
         $(this).addClass('active');
         currentCategoryFilter = $(this).data('category');
@@ -1436,7 +1473,7 @@ $(document).ready(function () {
     });
 
     // Lọc theo pills triệu chứng sức khỏe
-    $(document).on('click', '#symptomFilter button', function() {
+    $(document).on('click', '#symptomFilter button', function () {
         $('#symptomFilter button').removeClass('active');
         $(this).addClass('active');
         window.currentSymptomFilter = $(this).data('symptom');
@@ -1444,7 +1481,7 @@ $(document).ready(function () {
     });
 
     // Nút So sánh bài thuốc trên card
-    $(document).on('click', '.btn-compare-herb', function(e) {
+    $(document).on('click', '.btn-compare-herb', function (e) {
         e.stopPropagation();
         const id = $(this).data('id');
         const index = window.compareList.indexOf(id);
@@ -1464,7 +1501,7 @@ $(document).ready(function () {
     });
 
     // Xóa vị thuốc khỏi danh sách so sánh từ trong khay kéo
-    $(document).on('click', '.btn-remove-compare', function(e) {
+    $(document).on('click', '.btn-remove-compare', function (e) {
         e.stopPropagation();
         const id = $(this).data('id');
         const index = window.compareList.indexOf(id);
@@ -1476,7 +1513,7 @@ $(document).ready(function () {
     });
 
     // Hủy bỏ so sánh
-    $(document).on('click', '#btnCancelCompare', function() {
+    $(document).on('click', '#btnCancelCompare', function () {
         window.compareList = [];
         $('.btn-compare-herb').removeClass('btn-info text-white').addClass('btn-outline-info');
         updateCompareDrawer();
@@ -1520,80 +1557,21 @@ $(document).ready(function () {
         }
     }
 
-    // Trigger hiển thị Modal So sánh chi tiết
-    $(document).on('click', '#btnTriggerCompare', function() {
-        const $header = $('#compareTableHeader');
-        const $body = $('#compareTableBody');
-
-        if (!$header.length || !$body.length) return;
-
-        $header.empty();
-        $body.empty();
-
-        // 1. Render Header Row
-        $header.append(`<th style="width: 15%; min-width: 150px; font-weight: 700;" class="text-secondary bg-light">Vị thuốc / Thang</th>`);
-        
-        const selectedHerbs = window.compareList.map(id => db.herbs.find(h => h.id === id)).filter(Boolean);
-        const colWidth = 85 / selectedHerbs.length;
-
-        selectedHerbs.forEach(herb => {
-            $header.append(`
-                <th class="text-center bg-light" style="width: ${colWidth}%; min-width: 200px;">
-                    <div class="fw-bold text-success" style="font-size: 1.1rem;">${herb.emoji} ${herb.name}</div>
-                    <div class="text-muted small fst-italic" style="font-size:0.75rem; margin-top:2px;">${herb.scientific}</div>
-                </th>
-            `);
-        });
-
-        // Helper để vẽ một hàng so sánh
-        function renderCompareRow(label, icon, fieldName, isList = false, isDanger = false) {
-            let rowHtml = `<tr><td class="fw-bold text-secondary"><i class="bi ${icon} me-1 text-success"></i> ${label}</td>`;
-            selectedHerbs.forEach(herb => {
-                let val = herb[fieldName] || 'Không có thông tin';
-                if (isList && Array.isArray(val)) {
-                    val = `<ol class="ps-3 mb-0 small">${val.map(step => `<li>${escapeHTML(step)}</li>`).join('')}</ol>`;
-                } else {
-                    val = escapeHTML(val);
-                }
-                const textClass = isDanger ? 'text-danger fw-semibold' : 'text-secondary';
-                rowHtml += `<td class="${textClass}" style="font-size:0.88rem; line-height:1.6;">${val}</td>`;
-            });
-            rowHtml += '</tr>';
-            $body.append(rowHtml);
-        }
-
-        // 2. Render các hàng so sánh song song
-        renderCompareRow('Nguồn gốc y văn', 'bi-journal-bookmark-fill', 'source');
-        renderCompareRow('Phân loại đặc tính', 'bi-tags-fill', 'category');
-        renderCompareRow('Thành phần vị thuốc', 'bi-capsule', 'ingredients');
-        renderCompareRow('Công năng trị bệnh', 'bi-heart-pulse-fill', 'efficacy');
-        renderCompareRow('Quy trình bào chế', 'bi-list-check', 'steps', true);
-        renderCompareRow('Thời gian đun sắc', 'bi-clock-history', 'time');
-        renderCompareRow('Lợi ích lâm sàng', 'bi-award-fill', 'benefits');
-        renderCompareRow('Chống chỉ định', 'bi-shield-x', 'contraindications', false, true);
-        renderCompareRow('Liều lượng khuyến nghị', 'bi-egg-fill', 'dosage');
-        renderCompareRow('Tài liệu nguồn tham chiếu', 'bi-info-circle-fill', 'referenceDetail');
-
-        // Mở Modal so sánh (z-index: 1065 via CSS, backdrop đẩy xuống 1055)
-        var compModal = document.getElementById('comparisonModal');
-        var bsModal = bootstrap.Modal.getOrCreateInstance(compModal);
-        compModal.addEventListener('shown.bs.modal', function onShown() {
-            // Đẩy backdrop xuống dưới modal để đảm bảo nút đóng hoạt động
-            document.querySelectorAll('.modal-backdrop').forEach(function(bd) {
-                bd.style.zIndex = '1055';
-            });
-            compModal.removeEventListener('shown.bs.modal', onShown);
-        });
-        bsModal.show();
+    // Trigger hiển thị trang So sánh chi tiết
+    $(document).on('click', '#btnTriggerCompare', function () {
+        if (window.compareList.length < 2) return;
+        const id1 = window.compareList[0];
+        const id2 = window.compareList[1];
+        window.location.href = `compare.html?a=${id1}&b=${id2}`;
     });
 
     // Sắp xếp bài thuốc
-    $('#sortSelect').on('change', function() {
+    $('#sortSelect').on('change', function () {
         renderHerbs(true);
     });
 
     // Chế độ xem Grid/List
-    $('#btnGridView').on('click', function() {
+    $('#btnGridView').on('click', function () {
         $('#btnGridView').addClass('active').find('i').removeClass('text-secondary').addClass('text-success');
         $('#btnListView').removeClass('active').find('i').removeClass('text-success').addClass('text-secondary');
         currentViewMode = 'grid';
@@ -1601,7 +1579,7 @@ $(document).ready(function () {
     });
 
     // Chế độ xem Grid/List cho List button
-    $('#btnListView').on('click', function() {
+    $('#btnListView').on('click', function () {
         $('#btnListView').addClass('active').find('i').removeClass('text-secondary').addClass('text-success');
         $('#btnGridView').removeClass('active').find('i').removeClass('text-success').addClass('text-secondary');
         currentViewMode = 'list';
@@ -1609,11 +1587,11 @@ $(document).ready(function () {
     });
 
     // Nút chia sẻ bài thuốc
-    $(document).on('click', '.btn-share-herb', function(e) {
+    $(document).on('click', '.btn-share-herb', function (e) {
         e.stopPropagation();
         const name = $(this).data('name');
         const shareUrl = window.location.origin + window.location.pathname + '?q=' + encodeURIComponent(name);
-        
+
         navigator.clipboard.writeText(shareUrl).then(() => {
             showToast(`Đã sao chép liên kết chia sẻ cho bài thuốc: ${name}!`, 'success');
         }).catch(err => {
@@ -1648,7 +1626,7 @@ $(document).ready(function () {
         $('#herbDetailBenefits').text(herb.benefits || 'Phục hồi sức khỏe toàn diện.');
         $('#herbDetailDosage').text(herb.dosage || 'Đang cập nhật liều dùng...');
         $('#herbDetailContraindications').text(herb.contraindications || 'Không có chống chỉ định đặc biệt, tuy nhiên cần tham khảo ý kiến chuyên gia.');
-        
+
         // Hiển thị nguồn trích dẫn y khoa nếu có
         $('#herbDetailSource').remove();
         if (herb.source) {
@@ -1658,22 +1636,22 @@ $(document).ready(function () {
                 </div>
             `);
         }
-        
-        $('#herbDetailImg').attr('src', herb.image).off('error').on('error', function() {
+
+        $('#herbDetailImg').attr('src', herb.image).off('error').on('error', function () {
             $(this).attr('src', herb.fallbackImage || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600');
         });
 
         // Vẽ các bước thực hiện sắc thuốc
         const $stepsList = $('#herbDetailSteps');
         $stepsList.empty();
-        
+
         let stepsArr = [];
         if (Array.isArray(herb.steps)) {
             stepsArr = herb.steps;
         } else if (typeof herb.steps === 'string') {
             stepsArr = herb.steps.split(';');
         }
-        
+
         stepsArr.forEach((step, idx) => {
             if (step.trim()) {
                 $stepsList.append(`
@@ -1690,20 +1668,20 @@ $(document).ready(function () {
     }
     window.showHerbDetails = showHerbDetails;
 
-    $(document).on('click', '.btn-view-detail', function() {
+    $(document).on('click', '.btn-view-detail', function () {
         const id = $(this).data('id');
         showHerbDetails(id);
     });
 
     // THẢ TIM LƯU SỔ TAY BÀI THUỐC
-    $(document).on('click', '.btn-save-herb', function(e) {
+    $(document).on('click', '.btn-save-herb', function (e) {
         e.stopPropagation();
         const user = readStorage('gh_user', null);
         if (!user) { $('#authModal').modal('show'); return; }
-        
+
         const herbId = $(this).data('id');
         const index = user.saved.indexOf(herbId);
-        
+
         if (index === -1) {
             user.saved.push(herbId);
             $(this).find('i').removeClass('bi-heart').addClass('bi-heart-fill');
@@ -1759,7 +1737,7 @@ $(document).ready(function () {
             map.remove();
         }
 
-        const daNangBounds = L.latLngBounds([15.75, 107.65], [16.35, 108.55]);
+        const daNangBounds = L.latLngBounds([15.4, 107.4], [16.6, 108.8]);
         map = L.map('realLeafletMap', {
             center: [16.0544, 108.2022], // Tâm bản đồ Đà Nẵng
             zoom: 11,
@@ -1792,11 +1770,11 @@ $(document).ready(function () {
         setTimeout(() => { map.invalidateSize(); }, 1500);
         // Invalidate thêm lần thứ 3 để triệt để sửa lỗi gray tiles trên mọi màn hình
         setTimeout(() => { map.invalidateSize(); }, 3000);
-        
-        $(window).on('resize', function() { map.invalidateSize(); });
+
+        $(window).on('resize', function () { map.invalidateSize(); });
 
         // Debounce sự kiện tìm kiếm địa điểm bản đồ
-        $(document).on('input', '#searchLocationInput', debounce(function() {
+        $(document).on('input', '#searchLocationInput', debounce(function () {
             renderMapSidebarAndMarkers();
         }, 250));
 
@@ -1810,7 +1788,7 @@ $(document).ready(function () {
         });
 
         // Click Lọc phân loại Bản đồ
-        $(document).on('click', '#mapTypeFilter button', function() {
+        $(document).on('click', '#mapTypeFilter button', function () {
             $('#mapTypeFilter button').removeClass('active');
             $(this).addClass('active');
             currentMapFilter = $(this).data('type');
@@ -1818,18 +1796,18 @@ $(document).ready(function () {
         });
 
         // Click Tìm vùng gần tôi nhất (Geolocation)
-        $(document).on('click', '#findNearMeBtn', function() {
+        $(document).on('click', '#findNearMeBtn', function () {
             if (!navigator.geolocation) {
                 showToast('Trình duyệt không hỗ trợ định vị!', 'error');
                 return;
             }
             showToast('Đang quét tín hiệu định vị GPS...', 'info');
-            navigator.geolocation.getCurrentPosition(function(pos) {
+            navigator.geolocation.getCurrentPosition(function (pos) {
                 const { latitude, longitude } = pos.coords;
-                
+
                 // Di chuyển bản đồ đến toạ độ của user
                 map.flyTo([latitude, longitude], 13);
-                
+
                 // Vẽ marker tạm cho User
                 if (window.userLocationMarker) {
                     map.removeLayer(window.userLocationMarker);
@@ -1849,7 +1827,7 @@ $(document).ready(function () {
                         const d = (r) => Math.sqrt(Math.pow(r.coords[0] - latitude, 2) + Math.pow(r.coords[1] - longitude, 2));
                         return d(curr) < d(prev) ? curr : prev;
                     });
-                    
+
                     showToast(`Điểm di sản gần bạn nhất: ${nearest.name}`, 'success');
                     setTimeout(() => {
                         // Switch view sang bản đồ trên mobile để thấy điểm nhảy tới
@@ -1870,13 +1848,13 @@ $(document).ready(function () {
                         }
                     }, 2000);
                 }
-            }, function() {
+            }, function () {
                 showToast('Không thể truy cập vị trí! Vui lòng bật định vị trên thiết bị.', 'error');
             }, { enableHighAccuracy: true, timeout: 5000 });
         });
 
         // Click nút Toggle chế độ xem Bản đồ / Danh sách trên Mobile
-        $(document).on('click', '#btnMobileMapToggle', function() {
+        $(document).on('click', '#btnMobileMapToggle', function () {
             const $container = $('.map-fullscreen-container');
             if ($container.hasClass('mobile-list-active')) {
                 $container.removeClass('mobile-list-active').addClass('mobile-map-active');
@@ -1909,20 +1887,20 @@ $(document).ready(function () {
         function createPinIcon(type) {
             const markerColor = getMarkerColor(type);
             return L.divIcon({
-            className: 'custom-google-pin',
-            html: `<svg viewBox="0 0 384 512" style="width:26px;height:36px;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.3));"><path fill="${markerColor}" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/></svg>`,
-            iconSize: [26, 36],
-            iconAnchor: [13, 36],
-            popupAnchor: [0, -36]
+                className: 'custom-google-pin',
+                html: `<svg viewBox="0 0 384 512" style="width:26px;height:36px;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.3));"><path fill="${markerColor}" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/></svg>`,
+                iconSize: [26, 36],
+                iconAnchor: [13, 36],
+                popupAnchor: [0, -36]
             });
         }
 
         const filtered = db.regions.filter(reg => {
             const matchesSearch = reg.name.toLowerCase().includes(searchValue) ||
-                   reg.location.toLowerCase().includes(searchValue) ||
-                   (reg.desc && reg.desc.toLowerCase().includes(searchValue)) ||
-                   (reg.herbs && reg.herbs.some(h => h.toLowerCase().includes(searchValue)));
-            
+                reg.location.toLowerCase().includes(searchValue) ||
+                (reg.desc && reg.desc.toLowerCase().includes(searchValue)) ||
+                (reg.herbs && reg.herbs.some(h => h.toLowerCase().includes(searchValue)));
+
             const matchesType = (currentMapFilter === 'all') || (reg.type === currentMapFilter);
             return matchesSearch && matchesType;
         });
@@ -1940,7 +1918,7 @@ $(document).ready(function () {
             const marker = L.marker(reg.coords, { icon: createPinIcon(reg.type) }).addTo(map);
             const popupContent = `
                 <div style="min-width: 220px; font-family:'Outfit',sans-serif;">
-                    <img src="${escapeHTML(reg.image || 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=400')}" class="w-100 rounded-3 mb-2" style="height: 130px; object-fit: cover;" alt="${escapeHTML(reg.name)}">
+                    <img src="${escapeHTML(reg.image || 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=400')}" class="w-100 rounded-3 mb-2" style="height: 130px; object-fit: cover;" alt="${escapeHTML(reg.name)}" loading="lazy">
                     <span class="badge bg-success mb-1" style="font-size:0.75rem; padding: 3px 8px;">Khu Di Sản Sinh Học</span>
                     <h6 class="fw-bold mb-1" style="color:var(--text-main); font-size: 0.95rem; line-height: 1.3;">${escapeHTML(reg.name)}</h6>
                     <p class="small text-secondary mb-2" style="line-height:1.4; font-size: 0.85rem;">${escapeHTML(reg.desc)}</p>
@@ -1953,7 +1931,7 @@ $(document).ready(function () {
             // Đắp Sidebar List
             $list.append(`
                 <div class="map-item-premium" data-id="${reg.id}">
-                    <img src="${escapeHTML(reg.image || 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=400')}" class="rounded-3">
+                    <img src="${escapeHTML(reg.image || 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=400')}" class="rounded-3" alt="${escapeHTML(reg.name)}" loading="lazy">
                     <div style="flex: 1; min-width: 0;">
                         <h6 class="map-item-title">${escapeHTML(reg.name)}</h6>
                         <span class="map-item-desc"><i class="bi bi-geo-alt-fill text-danger"></i> ${escapeHTML(reg.location)}</span>
@@ -1966,14 +1944,26 @@ $(document).ready(function () {
             `);
         });
 
+        // Tự động căn chỉnh bản đồ vừa khít các markers với khoảng trễ để đảm bảo vùng chứa Leaflet đã render đủ kích thước
+        if (filtered.length > 0 && map) {
+            setTimeout(() => {
+                if (map) {
+                    map.invalidateSize();
+                    const latlngs = filtered.map(r => L.latLng(r.coords[0], r.coords[1]));
+                    const bounds = L.latLngBounds(latlngs);
+                    map.fitBounds(bounds.pad(0.15));
+                }
+            }, 300);
+        }
+
         // Click địa danh trên Sidebar
         $('#dynamicRegionList').off('click', '.map-item-premium').on('click', '.map-item-premium', function () {
             $('.map-item-premium').removeClass('active');
             $(this).addClass('active');
-            
+
             const id = $(this).data('id');
             activeRegionId = id;
-            
+
             const reg = db.regions.find(r => r.id === id);
             if (reg) {
                 // Di chuyển màn hình sang chế độ Bản đồ trên điện thoại để user thấy
@@ -1984,15 +1974,15 @@ $(document).ready(function () {
                         setTimeout(() => { map.invalidateSize(); }, 150);
                     }
                 }
-                
+
                 map.flyTo(reg.coords, 13, { duration: 1.5 });
                 markers[id].openPopup();
-                
+
                 // Mở tab Nhận xét & Đánh giá
                 $('#reviews-tab').prop('disabled', false);
                 const triggerTab = document.querySelector('#reviews-tab');
                 bootstrap.Tab.getInstance(triggerTab)?.show() || new bootstrap.Tab(triggerTab).show();
-                
+
                 loadRegionReviews(id);
             }
         });
@@ -2006,7 +1996,7 @@ $(document).ready(function () {
         $('#activeLocationName').text(reg.name);
         $('#activeLocationRatingText').text(`${(reg.rating || 5.0).toFixed(1)} / 5.0`);
         $('#activeLocationReviewCount').html(`<i class="bi bi-chat-text-fill me-1"></i> ${reg.reviewsCount || 0} nhận xét`);
-        
+
         // Cập nhật thông tin vùng sinh thái dược lý v6.0
         if ($('#regionDetailArea').length) {
             $('#regionDetailDesc').text(reg.desc || 'Khu bảo tồn dược liệu sinh thái sạch.');
@@ -2053,7 +2043,7 @@ $(document).ready(function () {
 
             $('#regionDetailArea').show();
         }
-        
+
         // Vẽ sao trung bình
         const $stars = $('#activeLocationStars');
         $stars.empty();
@@ -2079,30 +2069,25 @@ $(document).ready(function () {
         // Lấy bình luận từ reviews cục bộ hoặc tạo mock
         let reviews = reg.reviewsList || [];
         if (reviews.length === 0) {
-            $reviewsList.append('<div class="text-center text-muted py-4 small">Chua co nhan xet nao cho dia diem nay.</div>');
+            $reviewsList.append('<div class="text-center text-muted py-4 small">Chưa có nhận xét nào cho địa điểm này.</div>');
             return;
         }
-        if (false && reviews.length === 0) {
-            reviews = [
-                { user: 'Nguyễn Minh Hùng', rating: 5, comment: 'Vườn cây rất đẹp, lưu giữ nhiều sâm núi Bà Nà chất lượng cao!' },
-                { user: 'Bác Sĩ Cương Đông Y', rating: 4, comment: 'Khu quy hoạch chuẩn OCOP, hy vọng trạm mở rộng vùng trồng sâm.' }
-            ];
-            reg.reviewsList = reviews;
-            saveDB();
-        }
 
-        reviews.forEach(rev => {
+        // Chỉ hiển thị tối đa 3-4 nhận xét mới nhất
+        const displayReviews = reviews.slice(0, 4);
+        displayReviews.forEach(rev => {
             let starHtml = '';
             for (let i = 1; i <= 5; i++) {
                 starHtml += i <= rev.rating ? '<i class="bi bi-star-fill text-warning" style="font-size:0.75rem;"></i>' : '<i class="bi bi-star text-muted" style="font-size:0.75rem;"></i>';
             }
+
             $reviewsList.append(`
-                <div class="review-bubble">
-                    <div class="d-flex justify-content-between mb-1">
-                        <strong class="small text-dark" style="font-size:0.85rem;">${escapeHTML(rev.user)}</strong>
-                        <div style="gap: 3px; display: flex;">${starHtml}</div>
+                <div class="review-card-premium p-3 rounded-3 mb-2.5" style="background: rgba(0, 0, 0, 0.015); border: 1px solid rgba(0, 0, 0, 0.04);">
+                    <div class="d-flex justify-content-between align-items-center mb-1.5">
+                        <strong class="text-dark fw-bold" style="font-size: 0.85rem;">${escapeHTML(rev.user)}</strong>
+                        <div class="d-flex align-items-center" style="gap: 2px;">${starHtml}</div>
                     </div>
-                    <p class="small text-secondary mb-0" style="line-height:1.4; font-size: 0.8rem;">${escapeHTML(rev.comment)}</p>
+                    <p class="text-secondary mb-0" style="line-height: 1.5; font-size: 0.82rem;">${escapeHTML(rev.comment)}</p>
                 </div>
             `);
         });
@@ -2157,7 +2142,7 @@ $(document).ready(function () {
 
         showToast('Cảm ơn đóng góp nhận xét của bạn! ⭐', 'success');
         $('#reviewCommentInput').val('');
-        
+
         loadRegionReviews(activeRegionId);
         renderMapSidebarAndMarkers(); // Vẽ lại bản đồ
         unlockAchievement('badge-map-review');
@@ -2186,7 +2171,7 @@ $(document).ready(function () {
         $('#profileShowName').text(user.name);
         $('#profileShowEmail').text(user.email);
         $('#profileInputName').val(user.name);
-        
+
         if (user.avatar) {
             $('#profileBigImage').attr('src', user.avatar).removeClass('d-none');
             $('#profileBigInitials').addClass('d-none');
@@ -2194,7 +2179,7 @@ $(document).ready(function () {
             $('#profileBigImage').addClass('d-none').attr('src', '');
             $('#profileBigInitials').text(user.name.charAt(0).toUpperCase()).removeClass('d-none');
         }
-        
+
         if (user.role === 'admin') {
             $('#profileUserRole').text('Hạng đặc biệt: Quản trị viên hệ thống 👑');
             unlockAchievement('badge-system-admin');
@@ -2205,7 +2190,7 @@ $(document).ready(function () {
         // Cập nhật thông số thống kê động trên Banner Cover
         const savedCount = user.saved ? user.saved.length : 0;
         const reviewCount = user.rated ? user.rated.length : 0;
-        
+
         const chatCount = parseInt(localStorage.getItem('eco_bot_chats_' + (user.email || '')) || localStorage.getItem('eco_bot_chats') || 0);
         let unlockedBadges = 0;
         if (savedCount >= 1) unlockedBadges++;
@@ -2286,7 +2271,7 @@ $(document).ready(function () {
         function saveUserData(updatedUser) {
             updateActiveUserSession(updatedUser);
             showToast('Cập nhật hồ sơ cá nhân thành công! 🎉', 'success');
-            
+
             // Cập nhật giao diện lập tức mà không cần F5
             $('#profileShowName').text(updatedUser.name);
             if (updatedUser.avatar) {
@@ -2363,7 +2348,7 @@ $(document).ready(function () {
         showToast('Tài khoản của bạn đã được xóa vĩnh viễn khỏi hệ thống!', 'success');
         $('#deleteAccountModal').modal('hide');
         $('#deleteConfirmPassword').val('');
-        
+
         checkAuthStatus();
         setTimeout(() => { window.location.href = 'index.html'; }, 1000);
     });
@@ -2406,7 +2391,7 @@ $(document).ready(function () {
     }
 
     // Click mở checklist đun sắc từ Tủ thuốc cá nhân
-    $(document).on('click', '.apothecary-drawer', function() {
+    $(document).on('click', '.apothecary-drawer', function () {
         const id = $(this).data('id');
         const herb = db.herbs.find(h => h.id === id);
         if (!herb) return;
@@ -2450,7 +2435,7 @@ $(document).ready(function () {
     });
 
     // Bắt sự kiện check/uncheck từng bước trong checklist
-    $(document).on('change', '.brewing-checkbox', function(e) {
+    $(document).on('change', '.brewing-checkbox', function (e) {
         e.stopPropagation();
         const $item = $(this).closest('.brewing-step-item');
         const isChecked = $(this).is(':checked');
@@ -2482,7 +2467,7 @@ $(document).ready(function () {
 
             // Ghi đè vào danh sách account chung và lưu session
             writeStorage('gh_user', user);
-            
+
             // Cập nhật eco_heritage_users
             let accountsList = readStorage('eco_heritage_users', []) || [];
             accountsList = accountsList.map(u => u.email === user.email ? user : u);
@@ -2493,13 +2478,13 @@ $(document).ready(function () {
     });
 
     // Bấm cả hàng step item để check
-    $(document).on('click', '.brewing-step-item', function() {
+    $(document).on('click', '.brewing-step-item', function () {
         const $cb = $(this).find('.brewing-checkbox');
         $cb.prop('checked', !$cb.is(':checked')).trigger('change');
     });
 
     // Reset checklist sắc thuốc
-    $(document).on('click', '#btnResetBrewing', function() {
+    $(document).on('click', '#btnResetBrewing', function () {
         const modalId = $('#brewingChecklistModal').data('herb-id');
         $('.brewing-checkbox').prop('checked', false);
         $('.brewing-step-item').removeClass('completed');
@@ -2508,7 +2493,7 @@ $(document).ready(function () {
         if (user && user.brewingChecklist) {
             user.brewingChecklist[modalId] = [];
             writeStorage('gh_user', user);
-            
+
             let accountsList = readStorage('eco_heritage_users', []) || [];
             accountsList = accountsList.map(u => u.email === user.email ? user : u);
             writeStorage('eco_heritage_users', accountsList);
@@ -2541,7 +2526,7 @@ $(document).ready(function () {
             if (reg) {
                 $list.append(`
                     <div class="saved-item-card d-flex align-items-center gap-3 p-3 bg-white border rounded-4 shadow-sm hover-elevate" style="width: 100%; max-width: 320px;">
-                        <img src="${escapeHTML(reg.image || 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=400')}" class="rounded-3 object-fit-cover" style="width: 52px; height: 52px; flex-shrink: 0;">
+                        <img src="${escapeHTML(reg.image || 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=400')}" class="rounded-3 object-fit-cover" style="width: 52px; height: 52px; flex-shrink: 0;" alt="${escapeHTML(reg.name)}" loading="lazy">
                         <div class="flex-grow-1 min-w-0">
                             <h6 class="fw-bold mb-0 text-dark text-truncate" style="font-size: 0.95rem;">${reg.name}</h6>
                             <span class="text-muted d-block text-truncate small" style="font-size: 0.76rem; margin-top: 2px;"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${reg.location.split(',').pop().trim()}</span>
@@ -2599,7 +2584,7 @@ $(document).ready(function () {
             // Không có quyền hoặc phiên đăng nhập hết hạn
             $('#adminLockPanel').removeClass('d-none');
             $('#adminMainPanel').addClass('d-none');
-            
+
             if (user && user.role === 'admin' && user.lastLoginTime && (now - user.lastLoginTime > SESSION_TIMEOUT)) {
                 showToast('Phiên làm việc quản trị đã hết hạn! Vui lòng đăng nhập lại.', 'error');
                 localStorage.removeItem('gh_user');
@@ -2628,7 +2613,7 @@ $(document).ready(function () {
     function renderAdminDashboardStats() {
         $('#statTotalRemedies').text(db.herbs.length);
         $('#statTotalLocations').text(db.regions.length);
-        
+
         // Tính tổng reviews trên toàn bộ địa danh
         const totalRev = db.regions.reduce((sum, r) => sum + (r.reviewsList ? r.reviewsList.length : 0), 0);
         $('#statTotalReviews').text(totalRev);
@@ -2680,6 +2665,72 @@ $(document).ready(function () {
         $('#confirmDeleteRemedyModal').modal('hide');
     });
 
+    // Biến tạm lưu ảnh Base64 tải lên trong Admin
+    let uploadedRemedyImageBase64 = '';
+    let uploadedEditRemedyImageBase64 = '';
+    let uploadedLocImageBase64 = '';
+    let uploadedEditLocImageBase64 = '';
+
+    $(document).on('change', '#addRemedyImageFile', function () {
+        const file = this.files[0];
+        if (file) {
+            if (file.size > 1.5 * 1024 * 1024) {
+                showToast('Ảnh quá lớn! Hãy chọn ảnh dưới 1.5MB.', 'error');
+                this.value = '';
+                uploadedRemedyImageBase64 = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => { uploadedRemedyImageBase64 = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $(document).on('change', '#editRemedyImageFile', function () {
+        const file = this.files[0];
+        if (file) {
+            if (file.size > 1.5 * 1024 * 1024) {
+                showToast('Ảnh quá lớn! Hãy chọn ảnh dưới 1.5MB.', 'error');
+                this.value = '';
+                uploadedEditRemedyImageBase64 = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => { uploadedEditRemedyImageBase64 = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $(document).on('change', '#addLocImageFile', function () {
+        const file = this.files[0];
+        if (file) {
+            if (file.size > 1.5 * 1024 * 1024) {
+                showToast('Ảnh quá lớn! Hãy chọn ảnh dưới 1.5MB.', 'error');
+                this.value = '';
+                uploadedLocImageBase64 = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => { uploadedLocImageBase64 = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $(document).on('change', '#editLocImageFile', function () {
+        const file = this.files[0];
+        if (file) {
+            if (file.size > 1.5 * 1024 * 1024) {
+                showToast('Ảnh quá lớn! Hãy chọn ảnh dưới 1.5MB.', 'error');
+                this.value = '';
+                uploadedEditLocImageBase64 = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => { uploadedEditLocImageBase64 = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+    });
+
     // Mở Modal Sửa bài thuốc & điền dữ liệu
     $(document).on('click', '.btn-admin-edit-remedy', function () {
         const id = $(this).data('id');
@@ -2692,12 +2743,14 @@ $(document).ready(function () {
         $('#editRemedyCategory').val(herb.category);
         $('#editRemedyEmoji').val(herb.emoji);
         $('#editRemedyImage').val(herb.image || '');
+        $('#editRemedyImageFile').val('');
+        uploadedEditRemedyImageBase64 = '';
         $('#editRemedyUsage').val(herb.usage);
         $('#editRemedyIngredients').val(herb.ingredients || '');
         $('#editRemedyEfficacy').val(herb.efficacy || '');
         $('#editRemedyTime').val(herb.time || '');
         $('#editRemedyBenefits').val(herb.benefits || '');
-        
+
         let stepsStr = '';
         if (Array.isArray(herb.steps)) {
             stepsStr = herb.steps.join(';');
@@ -2722,14 +2775,14 @@ $(document).ready(function () {
         herb.scientific = $('#editRemedyScientific').val().trim();
         herb.category = $('#editRemedyCategory').val();
         herb.emoji = $('#editRemedyEmoji').val().trim();
-        herb.image = $('#editRemedyImage').val().trim() || DEFAULT_HERB_IMAGE;
+        herb.image = uploadedEditRemedyImageBase64 || $('#editRemedyImage').val().trim() || DEFAULT_HERB_IMAGE;
         herb.fallbackImage = herb.fallbackImage || DEFAULT_HERB_IMAGE;
         herb.usage = $('#editRemedyUsage').val().trim();
         herb.ingredients = $('#editRemedyIngredients').val().trim();
         herb.efficacy = $('#editRemedyEfficacy').val().trim();
         herb.time = $('#editRemedyTime').val().trim();
         herb.benefits = $('#editRemedyBenefits').val().trim();
-        
+
         const stepsVal = $('#editRemedySteps').val().trim();
         herb.steps = stepsVal.split(';').map(s => s.trim()).filter(s => s.length > 0);
         herb.keywords = $('#editRemedyKeywords').val().trim();
@@ -2738,7 +2791,10 @@ $(document).ready(function () {
         saveDB();
         showToast('Cập nhật thông tin bài thuốc thành công! 🌿', 'success');
         $('#editRemedyModal').modal('hide');
-        
+
+        uploadedEditRemedyImageBase64 = '';
+        $('#editRemedyImageFile').val('');
+
         renderAdminRemediesTable();
         renderAdminDashboardStats();
     });
@@ -2758,7 +2814,7 @@ $(document).ready(function () {
         const steps = $('#addRemedySteps').val().trim();
         const keywords = $('#addRemedyKeywords').val().trim();
         const source = $('#addRemedySource').val().trim();
-        const image = $('#addRemedyImage').val().trim() || DEFAULT_HERB_IMAGE;
+        const image = uploadedRemedyImageBase64 || $('#addRemedyImage').val().trim() || DEFAULT_HERB_IMAGE;
 
         const newId = getNextId(db.herbs, 'h');
         const newHerb = {
@@ -2776,7 +2832,10 @@ $(document).ready(function () {
         showToast('Thêm bài thuốc mới thành công! 🌿', 'success');
         $('#addRemedyModal').modal('hide');
         this.reset();
-        
+
+        uploadedRemedyImageBase64 = '';
+        $('#addRemedyImageFile').val('');
+
         renderAdminRemediesTable();
         renderAdminDashboardStats();
     });
@@ -2794,7 +2853,7 @@ $(document).ready(function () {
                     <td class="small text-secondary">${escapeHTML(reg.location)}</td>
                     <td class="small"><code>[${reg.coords.join(', ')}]</code></td>
                     <td class="small text-success">${escapeHTML(reg.herbs.join(', '))}</td>
-                    <td class="text-end">
+                    <td class="text-end text-nowrap">
                         <button class="btn btn-outline-primary btn-sm rounded-pill px-3 me-1 btn-admin-edit-loc" data-id="${reg.id}"><i class="bi bi-pencil-square"></i> Sửa</button>
                         <button class="btn btn-outline-danger btn-sm rounded-pill px-3 btn-admin-delete-loc" data-id="${reg.id}"><i class="bi bi-trash"></i> Xóa</button>
                     </td>
@@ -2837,6 +2896,9 @@ $(document).ready(function () {
         $('#editLocLon').val(reg.coords[1]);
         $('#editLocHerbs').val(reg.herbs.join(', '));
         $('#editLocDesc').val(reg.desc);
+        $('#editLocImage').val(reg.image || '');
+        $('#editLocImageFile').val('');
+        uploadedEditLocImageBase64 = '';
 
         $('#editLocationModal').modal('show');
     });
@@ -2853,15 +2915,19 @@ $(document).ready(function () {
         reg.type = $('#editLocType').val() || 'primary';
         reg.coords[0] = parseFloat($('#editLocLat').val());
         reg.coords[1] = parseFloat($('#editLocLon').val());
-        
+
         const herbsVal = $('#editLocHerbs').val().trim();
         reg.herbs = herbsVal.split(',').map(h => h.trim()).filter(h => h.length > 0);
         reg.desc = $('#editLocDesc').val().trim();
+        reg.image = uploadedEditLocImageBase64 || $('#editLocImage').val().trim() || '';
 
         saveDB();
         showToast('Cập nhật địa danh bản đồ thành công! 🗺️', 'success');
         $('#editLocationModal').modal('hide');
-        
+
+        uploadedEditLocImageBase64 = '';
+        $('#editLocImageFile').val('');
+
         renderAdminLocationsTable();
         renderAdminDashboardStats();
     });
@@ -2876,6 +2942,7 @@ $(document).ready(function () {
         const herbs = $('#addLocHerbs').val().trim();
         const desc = $('#addLocDesc').val().trim();
         const type = $('#addLocType').val() || 'primary';
+        const image = uploadedLocImageBase64 || $('#addLocImage').val().trim() || '';
 
         const newId = getNextId(db.regions, 'r');
         const newLoc = {
@@ -2885,6 +2952,7 @@ $(document).ready(function () {
             type,
             herbs: herbs.split(',').map(h => h.trim()).filter(h => h.length > 0),
             desc,
+            image,
             rating: 5.0,
             reviewsCount: 0,
             reviewsList: []
@@ -2895,7 +2963,10 @@ $(document).ready(function () {
 
         $('#addLocationModal').modal('hide');
         this.reset();
-        
+
+        uploadedLocImageBase64 = '';
+        $('#addLocImageFile').val('');
+
         renderAdminLocationsTable();
         renderAdminDashboardStats();
     });
@@ -2903,7 +2974,7 @@ $(document).ready(function () {
 
 
     // Xuất CSV danh sách bài thuốc trong Admin CMS
-    $(document).on('click', '#exportHerbsCSV', function() {
+    $(document).on('click', '#exportHerbsCSV', function () {
         const activeUser = readStorage('gh_user', null);
         if (!activeUser || activeUser.role !== 'admin') {
             showToast('Quyền truy cập bị từ chối!', 'error');
@@ -2917,7 +2988,7 @@ $(document).ready(function () {
         const csvContent = [headers, ...rows]
             .map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
             .join('\n');
-        
+
         const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const a = $('<a>').attr({ href: url, download: 'ecoheritage_herbs.csv' });
@@ -2938,7 +3009,7 @@ $(document).ready(function () {
 
         // Load tài khoản người dùng đăng nhập trong LocalStorage
         const user = readStorage('gh_user', null);
-        
+
         // Vẽ mock tài khoản
         const users = (readStorage('eco_heritage_users', []) || []).map(normalizeUser); if (false) [
             { name: 'Nguyễn Minh Hùng', email: 'minhhung@vku.edu.vn', role: 'user', pass: '******' },
@@ -2996,11 +3067,14 @@ $(document).ready(function () {
         }
     }
 
+    let reviewDeleteRegId = '';
+    let reviewDeleteIdx = -1;
+
     // Xóa đánh giá (Moderation) kèm cập nhật rating trung bình
     $(document).on('click', '.btn-admin-delete-review', function () {
-        const regId = String($(this).data('regid'));
-        const idx = parseInt($(this).data('idx'), 10);
-        
+        reviewDeleteRegId = String($(this).data('regid'));
+        reviewDeleteIdx = parseInt($(this).data('idx'), 10);
+
         // Kiểm tra phân quyền admin trước khi thực hiện
         const activeUser = readStorage('gh_user', null);
         if (!activeUser || activeUser.role !== 'admin') {
@@ -3008,11 +3082,13 @@ $(document).ready(function () {
             return;
         }
 
-        if (!confirm('Bạn có chắc chắn muốn gỡ bỏ đánh giá này không?')) return;
+        $('#confirmDeleteReviewModal').modal('show');
+    });
 
-        const reg = db.regions.find(r => r.id === regId);
-        if (reg && reg.reviewsList && reg.reviewsList[idx] !== undefined) {
-            reg.reviewsList.splice(idx, 1);
+    $(document).on('click', '#btnConfirmDeleteReview', function () {
+        const reg = db.regions.find(r => r.id === reviewDeleteRegId);
+        if (reg && reg.reviewsList && reg.reviewsList[reviewDeleteIdx] !== undefined) {
+            reg.reviewsList.splice(reviewDeleteIdx, 1);
             reg.reviewsCount = reg.reviewsList.length;
             if (reg.reviewsList.length > 0) {
                 const sumRating = reg.reviewsList.reduce((sum, r) => sum + Number(r.rating || 5), 0);
@@ -3022,39 +3098,40 @@ $(document).ready(function () {
             }
             saveDB();
             showToast('Đã gỡ bỏ đánh giá và cập nhật lại điểm trung bình!', 'success');
+            $('#confirmDeleteReviewModal').modal('hide');
             renderAdminReviewsTable();
         }
     });
 
     const apiKey = (typeof ECO_CONFIG !== 'undefined' && ECO_CONFIG.GEMINI_API_KEY) ? ECO_CONFIG.GEMINI_API_KEY : '';
-    
+
     // Premium Local Fallback Generator for Robust Offline/Timeout experience
     function getLocalPremiumFallback(query) {
         const q = query.toLowerCase();
         const warningPrefix = `<div class="alert alert-warning p-3 small mb-3 text-start" style="font-size:0.75rem; border-radius:var(--radius-sm); background: rgba(255, 193, 7, 0.12); color: #664d03; border: 1px solid rgba(255, 193, 7, 0.2); line-height: 1.4;"><i class="bi bi-exclamation-triangle-fill text-warning me-1"></i> <strong>KHUYẾN CÁO Y KHOA:</strong> Mọi thông tin tư vấn ngoại tuyến chỉ mang tính chất tham khảo học thuật. Quý nhân tuyệt đối không tự ý áp dụng khi chưa có sự tư vấn, bắt mạch và chỉ định từ Bác sĩ hoặc Lương y có chuyên môn.</div>`;
-        
+
         let text = '';
-        
+
         if (q.includes('ngủ') || q.includes('lo âu') || q.includes('hồi hộp') || q.includes('mất ngủ') || q.includes('tâm thần')) {
             return `🩺 **Y Lý Phương Đông**: Mất ngủ, tâm thần bất an theo y lý cổ truyền chủ yếu do **Tâm Tỳ Lưỡng Hư** hoặc **Âm Hư Hỏa Vượng**. Khi lo nghĩ quá độ làm hao tổn tâm huyết, tỳ khí suy nhược khiến huyết không dưỡng được tâm, thần không có nơi trú ngụ khí thần bất ổn.<br><br>🌿 **Phương Dược Cổ Truyền**: Lương y khuyên dùng bài thuốc cổ phương **Quy Tỳ Thang** để dưỡng tâm, kiện tỳ, an thần bồi bổ khí huyết.<br>- **Thành phần**: Nhân sâm (12g), Bạch truật (12g), Phục linh (12g), Hoàng kỳ (12g), Toan táo nhân (12g), Long nhãn (12g), Đương quy (12g), Viễn chí (6g), Mộc hương (6g), Cam thảo (3g).<br>- **Cách dùng**: Sắc với 3 lát gừng và 2 quả táo tàu. Sắc ngày 1 thang, chia 2 lần uống ấm sau ăn.<br><br>🗺️ **Di Sản Thảo Dược**: Các thảo dược hỗ trợ an thần tự nhiên như Toan táo nhân và Phục linh hiện đang được trồng bảo tồn hữu cơ sạch tại khu bảo tồn thảo dược **đỉnh Bà Nà** (Đà Nẵng), nơi có khí hậu mát mẻ lý tưởng giúp cây tích lũy tối đa hoạt chất an thần tinh khiết.`;
         }
-        
+
         if (q.includes('khớp') || q.includes('đau lưng') || q.includes('mỏi gối') || q.includes('tê bì') || q.includes('vai gáy') || q.includes('tê mỏi') || q.includes('xương')) {
             return `🩺 **Y Lý Phương Đông**: Các chứng đau mỏi khớp thuộc phạm vi **Chứng Tý** trong y lý cổ truyền. Nguyên nhân chủ yếu do phong - hàn - thấp tà xâm nhập kinh lạc lúc cơ thể suy nhược, làm khí huyết ứ trệ, không thông sinh ra đau đớn ("bất thông thống").<br><br>🌿 **Phương Dược Cổ Truyền**: Lương y khuyên dùng bài thuốc đệ nhất trị khớp **Độc Hoạt Ký Sinh Thang** để khu phong, trừ thấp, bổ can thận và ích khí dưỡng huyết.<br>- **Thành phần**: Độc hoạt (12g), Tang ký sinh (16g), Đỗ trọng (12g), Đương quy (12g), Bạch thược (12g), Xuyên khung (8g), Địa hoàng (12g), Nhân sâm (12g), Phục linh (12g), Quế chi (6g), Cam thảo (6g).<br>- **Cách dùng**: Sắc nước ngày 1 thang uống ấm nóng, tránh gió lạnh sau khi uống thuốc.<br><br>🗺️ **Di Sản Thảo Dược**: Dây Tang ký sinh quý báu đang được các nhà khoa học trạm sinh vật tại **Bán đảo Sơn Trà** bảo tồn nhân giống tự nhiên dưới tán rừng nguyên sinh, hấp thụ tinh hoa đất trời Sơn Trà đạt hàm lượng kháng viêm tự nhiên tuyệt hảo.`;
         }
-        
+
         if (q.includes('ho') || q.includes('cảm') || q.includes('họng') || q.includes('sốt') || q.includes('phổi') || q.includes('đờm')) {
             return `🩺 **Y Lý Phương Đông**: Cảm lạnh, ho gió, ho đờm hoặc ôn nhiệt do ngoại tà phong nhiệt xâm nhập trực tiếp qua đường mũi miệng vào phế vệ, làm mất chức năng tuyên giáng khí của tạng **Phế**, khí nghịch lên gây ra ho sốt.<br><br>🌿 **Phương Dược Cổ Truyền**: Lương y khuyên dùng bài thuốc kinh điển **Ngân Kiều Tán** để thanh nhiệt giải độc, sơ phong giải biểu, thông phế chỉ khái.<br>- **Thành phần**: Kim ngân hoa (15g), Liên kiều (15g), Cát cánh (9g), Bạc hà (6g), Kinh giới tuệ (12g), Đạm đậu xị (9g), Cam thảo (6g).<br>- **Cách dùng**: Sắc uống nóng ấm, kết hợp xông hơi sả chanh bưởi để ra mồ hôi giải biểu hàn hiệu quả.<br><br>🗺️ **Di Sản Thảo Dược**: Cây Kim ngân hoa hoang dã bản địa tại vùng sườn dốc mát mẻ của núi đá **đèo Hải Vân** có dược lực sát khuẩn tự nhiên vô cùng mạnh mẽ, là vị thuốc vàng chữa ôn dịch phổi của người xưa.`;
         }
-        
+
         if (q.includes('yếu') || q.includes('mệt') || q.includes('suy nhược') || q.includes('nhạt') || q.includes('thiếu huyết') || q.includes('suy huyết') || q.includes('thiếu máu')) {
             return `🩺 **Y Lý Phương Đông**: Thể trạng gầy yếu, ăn uống không tiêu, cơ thể suy nhược mệt mỏi kinh niên là biểu hiện rõ nét của **Khí Huyết Song Hao**. Tỳ vị suy yếu làm mất đi nguồn sinh hóa khí huyết nuôi dưỡng ngũ tạng lục phủ toàn thân.<br><br>🌿 **Phương Dược Cổ Truyền**: Lương y khuyên dùng bài thuốc hoàn hảo **Thập Toàn Đại Bổ** để đại bổ cả khí lẫn huyết, bồi bổ nguyên khí tận gốc.<br>- **Thành phần**: Nhân sâm (12g), Bạch truật (12g), Phục linh (12g), Đương quy (12g), Xuyên khung (8g), Bạch thược (12g), Thục địa (15g), Hoàng kỳ (12g), Cam thảo chích (6g), Nhục quế (4g).<br>- **Cách dùng**: Sắc nước ngày 1 thang, chia 2 lần uống lúc ấm. Kiêng kỵ đồ sống lạnh khó tiêu.<br><br>🗺️ **Di Sản Thảo Dược**: Đương quy và Hoàng kỳ hiện đang được nghiên cứu trồng trọt thí điểm tại thung lũng sinh thái sạch **Hòa Bắc** (Hòa Vang, Đà Nẵng) theo tiêu chuẩn xanh ngặt nghèo, đảm bảo rễ thuốc hoàn toàn tinh khiết không hóa chất.`;
         }
-        
+
         if (q.includes('dạ dày') || q.includes('bao tử') || q.includes('tiêu hóa') || q.includes('ruột') || q.includes('bụng') || q.includes('tiêu chảy')) {
             return `🩺 **Y Lý Phương Đông**: Đau dạ dày, viêm loét đường tiêu hóa hoặc trào ngược tỳ vị phát sinh do **Can Khí Phạm Vị** hoặc **Tỳ Vị Hư Hàn**. Tâm lý uất ức lo nghĩ (thuộc Can) kết hợp ăn uống thiếu khoa học làm tỳ vị mất vận hóa khí, khí nghịch gây đau tức nóng rát.<br><br>🌿 **Phương Dược Cổ Truyền**: Lương y khuyên dùng bài thuốc **Tứ Quân Tử Thang** để kiện tỳ vị, ích khí, hòa trung tiêu giảm trào ngược.<br>- **Thành phần**: Đảng sâm (12g), Bạch truật (12g), Phục linh (12g), Cam thảo chích (6g), Sa nhân (6g), Trần bì (6g).<br>- **Cách dùng**: Sắc uống ấm nóng trước bữa ăn 30 phút, ngày 1 thang.<br><br>🗺️ **Di Sản Thảo Dược**: Tinh bột nghệ đỏ bản địa Sơn Trà cùng Phục linh hữu cơ được bảo tồn tại **Hòa Phú** (Đà Nẵng) chứa chất curcumin tự nhiên cùng các saponin giúp kháng viêm dạ dày cực tốt, xoa dịu các vết loét tỳ vị thần tốc.`;
         }
-        
+
         return text ? (warningPrefix + text) : (warningPrefix + `🩺 **Y Lý Phương Đông**: Theo y học cổ truyền Đông y, sức khỏe và bệnh tật của con người nằm ở sự mất cân bằng giữa **Âm và Dương**, sự tắc nghẽn kinh lạc hoặc suy giảm chức năng **Tạng Phủ**. Cơ thể là một khối thống nhất, cần điều hòa từ gốc thay vì chỉ chữa ngọn.<br><br>🌿 **Phương Dược Cổ Truyền**: Để nâng cao sức khỏe căn bản và thanh lọc tạng phủ hằng ngày, lương y khuyên dưỡng sinh:<br>- **Dưỡng sinh Tỳ Vị**: Ăn uống đúng giờ, tránh xa đồ chiên rán cay nóng. Uống trà bồ công anh hoặc trà hoa cúc mỗi sáng.<br>- **Dưỡng Thận - Cân bằng Âm Dương**: Ngâm chân nước ấm với gừng + muối hạt 15 phút trước khi ngủ.<br>- **Thông Kinh Hoạt Lạc**: Tập dưỡng sinh Thái Cực Quyền hoặc đi bộ sáng sớm 30 phút.<br><br>🗺️ **Di Sản Thảo Dược**: Mời quý nhân trải nghiệm cẩm nang 20+ bài thuốc cổ phương Đông y và bản đồ vườn thảo dược bảo tồn xanh Đà Nẵng ngay trên hệ thống EcoHeritage AI.`);
     }
 
@@ -3062,9 +3139,9 @@ $(document).ready(function () {
     // Hàm chuyển đổi Markdown đơn giản sang HTML cho chatbot nâng cấp v6.5
     function formatChatMarkdown(text) {
         if (!text) return '';
-        
+
         let escaped = escapeHTML(text);
-        
+
         // Chuyển đổi in đậm và in nghiêng chuẩn Markdown
         let formatted = escaped
             .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -3076,7 +3153,7 @@ $(document).ready(function () {
             return '<div class="alert alert-danger d-flex align-items-start gap-2 border-0 rounded-3 p-2.5 mb-3 shadow-sm" style="background: rgba(239, 68, 68, 0.08); color: #dc3545; font-size: 0.85rem;">' +
                 '<i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-0.5" style="font-size: 1.1rem;"></i>' +
                 '<div>' + p1.replace(/⚠️\s*KHUYẾN CÁO Y KHOA:/i, '<strong>⚠️ KHUYẾN CÁO Y KHOA:</strong>') + '</div>' +
-            '</div>';
+                '</div>';
         });
 
         // Định dạng block Y Lý Phương Đông (Màu xanh lá nhẹ)
@@ -3086,7 +3163,7 @@ $(document).ready(function () {
             return '<div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(46, 179, 102, 0.05); border-left: 4px solid var(--primary);">' +
                 '<div class="fw-bold mb-2 text-success" style="font-size: 0.95rem;"><i class="bi bi-heart-pulse-fill me-2"></i>🩺 Y Lý Phương Đông</div>' +
                 '<div style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);">' + cleanText + '</div>' +
-            '</div>';
+                '</div>';
         });
 
         // Định dạng block Phương Dược Cổ Truyền (Màu xanh dương nhẹ)
@@ -3096,7 +3173,7 @@ $(document).ready(function () {
             return '<div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(13, 110, 253, 0.05); border-left: 4px solid #0d6efd;">' +
                 '<div class="fw-bold mb-2 text-primary" style="font-size: 0.95rem;"><i class="bi bi-mortar-pestle me-2"></i>🌿 Phương Dược Cổ Truyền</div>' +
                 '<div style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);">' + cleanText + '</div>' +
-            '</div>';
+                '</div>';
         });
 
         // Định dạng block Di Sản Thảo Dược (Màu cam nhẹ)
@@ -3106,12 +3183,12 @@ $(document).ready(function () {
             return '<div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(245, 158, 11, 0.05); border-left: 4px solid #f59e0b;">' +
                 '<div class="fw-bold mb-2" style="font-size: 0.95rem; color: #b45309;"><i class="bi bi-geo-alt-fill me-2"></i>🗺️ Di Sản Thảo Dược</div>' +
                 '<div style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);">' + cleanText + '</div>' +
-            '</div>';
+                '</div>';
         });
 
         // Thay thế các ký tự xuống dòng bằng br
         formatted = formatted.replace(/\n/g, '<br>');
-        
+
         return formatted;
     }
 
@@ -3156,10 +3233,10 @@ $(document).ready(function () {
             });
 
             if (!response.ok) throw new Error('Gemini API error: ' + response.status);
-            
+
             const data = await response.json();
             const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            
+
             if (aiText) {
                 return aiText;
             }
@@ -3177,12 +3254,12 @@ $(document).ready(function () {
     const CHAT_COOLDOWN_MS = 2000;
 
     // Toggle hiển thị cửa sổ chat
-    $(document).on('click', '#toggleChatBtn', function() {
+    $(document).on('click', '#toggleChatBtn', function () {
         $('#floatingChatWindow').toggleClass('active');
     });
 
     // Sự kiện Click nút gợi ý nhanh
-    $(document).on('click', '.quick-reply-btn', function() {
+    $(document).on('click', '.quick-reply-btn', function () {
         const cleanText = $(this).text().replace(/^[^\w\s]+/, '').trim();
         $chatInput.val(cleanText);
         $('#chatSend').trigger('click');
@@ -3204,13 +3281,12 @@ $(document).ready(function () {
     function addChatMessage(text, isUser = false, saveToHistory = true) {
         if (!$chatBody.length) return;
         const time = new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0');
-        
+
         let processedText = text;
         if (!isUser && !text.includes('<div class="ai-local-reply">')) {
-            processedText = formatChatMarkdown(text) +
-                `<div class="medical-disclaimer-box mt-2"><i class="bi bi-exclamation-triangle-fill"></i> Khuyến cáo: Thông tin mang tính tham khảo. Quý khách cần tham vấn bác sĩ Y học cổ truyền trước khi sử dụng.</div>`;
+            processedText = formatChatMarkdown(text);
         }
-        
+
         const html = isUser ? `
             <div class="chat-message user-message">
                 <div class="message-content">
@@ -3225,9 +3301,9 @@ $(document).ready(function () {
                     <span class="message-time d-block" style="font-size:0.7rem; color:#a5bcb0; margin-top:2px; margin-left:10px;">${time} - Lương Y EcoBot</span>
                 </div>
             </div>`;
-            
+
         $chatBody.append(html);
-        
+
         // Cuộn mượt bằng gán trực tiếp scrollTop = scrollHeight kết hợp trì hoãn để đảm bảo DOM render hoàn tất
         if ($chatBody[0]) {
             $chatBody[0].scrollTop = $chatBody[0].scrollHeight;
@@ -3252,9 +3328,9 @@ $(document).ready(function () {
     }
 
     let isChatting = false;
-    
+
     // Cho phép nhấn Enter để gửi chat
-    $(document).on('keypress', '#chatInput', function(e) {
+    $(document).on('keypress', '#chatInput', function (e) {
         if (e.which === 13 && !e.shiftKey) {
             e.preventDefault();
             $('#chatSend').trigger('click');
@@ -3263,7 +3339,7 @@ $(document).ready(function () {
 
     $('#chatSend').on('click', async function () {
         if (isChatting) return;
-        
+
         // Rate-limiting: Chặn spam 2 giây giữa các tin nhắn
         const now = Date.now();
         if (now - lastChatTime < CHAT_COOLDOWN_MS) {
@@ -3271,7 +3347,7 @@ $(document).ready(function () {
             return;
         }
         lastChatTime = now;
-        
+
         const query = $chatInput.val().trim();
         if (!query) return;
 
@@ -3307,7 +3383,7 @@ $(document).ready(function () {
         }
 
         const lowerQuery = query.toLowerCase();
-        
+
         setTimeout(async () => {
             $('#' + typingId).remove();
 
@@ -3322,8 +3398,8 @@ $(document).ready(function () {
             }
 
             // 2. Tra cứu cơ sở dữ liệu bài thuốc 20+ nội bộ trước (Chính xác 100%)
-            const localMatch = db.herbs.find(h => 
-                lowerQuery.includes(h.name.toLowerCase()) || 
+            const localMatch = db.herbs.find(h =>
+                lowerQuery.includes(h.name.toLowerCase()) ||
                 h.name.toLowerCase().includes(lowerQuery)
             );
 
@@ -3365,59 +3441,121 @@ $(document).ready(function () {
         const $yieldCanvas = $('#yieldChart');
         const $categoryCanvas = $('#categoryChart');
 
+        // ==================== BIỂU ĐỒ SẢN LƯỢNG (BAR CHART) ====================
         if ($yieldCanvas.length) {
             const ctxYield = $yieldCanvas[0].getContext('2d');
+
+            const regionLabels = db.regions.map(r => {
+                const name = r.name || '';
+                if (name.includes('Sơn Trà')) return 'Sơn Trà';
+                if (name.includes('Bà Nà')) return 'Bà Nà';
+                if (name.includes('Ngũ Hành Sơn')) return 'Ngũ Hành Sơn';
+                if (name.includes('Nam Hải Vân')) return 'Nam Hải Vân';
+                if (name.includes('Linh') || name.includes('Bãi Bụt')) return 'Chùa Linh Ứng';
+                if (name.includes('Đồng Đình') || name.includes('Đình')) return 'Đồng Đình';
+                if (name.includes('Hòa Bắc') || name.includes('Bắc')) return 'Hòa Bắc';
+                if (name.includes('Hải Vân') || name.includes('Đèo Hải')) return 'Đèo Hải Vân';
+                if (name.includes('Y Dược') || name.includes('Đại học Y Dược')) return 'ĐH Y Dược';
+                if (name.includes('Đông Giang') || name.includes('Giang')) return 'Đông Giang';
+                if (name.includes('Nhơn')) return 'Hòa Nhơn';
+                if (name.includes('Hòa Phú') || name.includes('Phú')) return 'Hòa Phú';
+                if (name.includes('Nam Ô')) return 'Nam Ô';
+                
+                // Fallback for custom regions added later
+                let shortName = name
+                    .replace(/Khu bảo tồn thiên nhiên/gi, 'Bảo tồn')
+                    .replace(/Khu bảo tồn dược liệu/gi, 'Dược liệu')
+                    .replace(/Vườn dược liệu/gi, 'Vườn')
+                    .replace(/Rừng cấm Quốc gia/gi, 'Rừng')
+                    .replace(/Hợp tác xã/gi, 'HTX')
+                    .replace(/Trường Đại học/gi, 'ĐH')
+                    .replace(/Đại học/gi, 'ĐH')
+                    .replace(/ven biển/gi, '')
+                    .replace(/sinh học/gi, '')
+                    .replace(/dược liệu/gi, '')
+                    .trim();
+                return shortName.length > 15 ? shortName.substring(0, 13) + '...' : shortName;
+            });
+
+            const regionYields = db.regions.map(r => Number(r.yieldTons || 15));
+
+            const regionColors = [
+                '#2eb366', '#dc3545', '#ffc107', '#0d6efd',
+                '#17a2b8', '#6f42c1', '#e91e63', '#fd7e14'
+            ];
+
             new Chart(ctxYield, {
                 type: 'bar',
                 data: {
-                    labels: ['Sơn Trà', 'Bà Nà', 'Ngũ Hành Sơn', 'Hải Vân', 'Hòa Bắc', 'Hòa Phú'],
+                    labels: regionLabels,
                     datasets: [{
-                        label: 'Sản lượng dược liệu sạch (Tấn/Năm)',
-                        data: [42, 65, 18, 29, 35, 21],
-                        backgroundColor: [
-                            'rgba(46, 179, 102, 0.85)',
-                            'rgba(220, 53, 69, 0.85)',
-                            'rgba(255, 193, 7, 0.85)',
-                            'rgba(13, 110, 253, 0.85)',
-                            'rgba(23, 162, 184, 0.85)',
-                            'rgba(111, 66, 193, 0.85)'
-                        ],
-                        borderColor: ['#2eb366', '#dc3545', '#ffc107', '#0d6efd', '#17a2b8', '#6f42c1'],
+                        label: 'Sản lượng (Tấn/Năm)',
+                        data: regionYields,
+                        backgroundColor: regionColors,
+                        borderColor: '#ffffff',
                         borderWidth: 1.5,
-                        borderRadius: 6
+                        borderRadius: 8,
+                        hoverBackgroundColor: '#1e8f5e'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    layout: {
+                        padding: { top: 10, bottom: 20, left: 10, right: 10 }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(13,22,17,0.95)',
+                            titleFont: { size: 14, family: 'Outfit' },
+                            bodyFont: { size: 13, family: 'Outfit' },
+                            displayColors: false
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.03)' } },
-                        x: { grid: { display: false } }
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.06)' },
+                            ticks: { font: { size: 12, family: 'Outfit' } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { size: 10, family: 'Outfit', weight: '600' },
+                                padding: 8,
+                                maxRotation: 45,
+                                minRotation: 45,
+                                autoSkip: false
+                            }
+                        }
                     }
                 }
             });
         }
 
+        // ==================== BIỂU ĐỒ PHÂN LOẠI (DOUGHNUT) ====================
         if ($categoryCanvas.length) {
             const ctxCategory = $categoryCanvas[0].getContext('2d');
-            // Tính toán số lượng bài thuốc theo nhóm phân loại từ dữ liệu thực
+
             const categoryCounts = {};
-            const categoryColors = {
-                'Chữa bệnh': '#dc3545',
-                'An thần': '#ffc107', 
-                'Bổ dưỡng': '#0d6efd',
-                'Giải độc': '#2eb366',
-                'Làm đẹp': '#e91e8c',
-                'Khác': '#6f42c1'
-            };
             db.herbs.forEach(h => {
                 const cat = h.category || 'Khác';
                 categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
             });
+
             const categoryLabels = Object.keys(categoryCounts);
             const categoryData = Object.values(categoryCounts);
-            const categoryBgColors = categoryLabels.map(label => categoryColors[label] || '#6f42c1');
+
+            const categoryColors = {
+                'Chữa bệnh': '#dc3545',
+                'An thần': '#ffc107',
+                'Bổ dưỡng': '#0d6efd',
+                'Giải độc': '#2eb366',
+                'Khác': '#6f42c1'
+            };
+
+            const backgroundColors = categoryLabels.map(label => categoryColors[label] || '#6f42c1');
 
             new Chart(ctxCategory, {
                 type: 'doughnut',
@@ -3425,32 +3563,42 @@ $(document).ready(function () {
                     labels: categoryLabels,
                     datasets: [{
                         data: categoryData,
-                        backgroundColor: categoryBgColors,
-                        borderWidth: 2
+                        backgroundColor: backgroundColors,
+                        borderWidth: 3,
+                        borderColor: '#ffffff'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    cutout: '65%',
                     plugins: {
                         legend: {
                             position: 'bottom',
-                            labels: { font: { family: 'Outfit', size: 12 } }
+                            labels: {
+                                font: { family: 'Outfit', size: 13, weight: '600' },
+                                padding: 14,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(13,22,17,0.95)',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 13 }
                         }
-                    },
-                    cutout: '60%'
+                    }
                 }
             });
         }
     }
 
     // Đăng ký nhận bản tin ở Footer
-    $('.newsletter-group').each(function() {
+    $('.newsletter-group').each(function () {
         const $group = $(this);
         const $button = $group.find('button');
         const $input = $group.find('input[type="email"]');
-        
-        $button.on('click', function(e) {
+
+        $button.on('click', function (e) {
             e.preventDefault();
             const email = $input.val().trim();
             if (!email || !isValidEmail(email)) {
@@ -3460,8 +3608,8 @@ $(document).ready(function () {
             $input.val('');
             showToast('Đăng ký nhận tin tức sức khỏe thành công! 📬', 'success');
         });
-        
-        $input.on('keypress', function(e) {
+
+        $input.on('keypress', function (e) {
             if (e.which === 13) {
                 e.preventDefault();
                 $button.trigger('click');
@@ -3520,7 +3668,7 @@ $(document).ready(function () {
             });
         }, { threshold: 0.5 });
 
-        $('.scramble-text').each(function() {
+        $('.scramble-text').each(function () {
             observer.observe(this);
         });
     }
@@ -3528,7 +3676,7 @@ $(document).ready(function () {
     function initScrollProgressBar() {
         const $bar = $('#scrollProgressBar');
         if (!$bar.length) return;
-        $(window).on('scroll', function() {
+        $(window).on('scroll', function () {
             const scrolled = $(window).scrollTop();
             const docHeight = $(document).height() - $(window).height();
             const pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
@@ -3541,7 +3689,7 @@ $(document).ready(function () {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const items = $(entry.target).find('.stagger-item');
-                    items.each(function(index) {
+                    items.each(function (index) {
                         const $item = $(this);
                         setTimeout(() => {
                             $item.addClass('in-view').css({
@@ -3555,7 +3703,7 @@ $(document).ready(function () {
             });
         }, { threshold: 0.15 });
 
-        $('.stagger-container').each(function() {
+        $('.stagger-container').each(function () {
             $(this).find('.stagger-item').css({
                 opacity: 0,
                 transform: 'translateY(30px)',
@@ -3566,9 +3714,9 @@ $(document).ready(function () {
     }
 
     function initParallaxSections() {
-        $(window).on('scroll', function() {
+        $(window).on('scroll', function () {
             const scrolled = $(window).scrollTop();
-            $('.parallax-bg').each(function() {
+            $('.parallax-bg').each(function () {
                 const speed = parseFloat($(this).data('parallax-speed') || 0.15);
                 const offset = -(scrolled * speed);
                 $(this).css('background-position-y', offset + 'px');
@@ -3581,7 +3729,7 @@ $(document).ready(function () {
         if (!$btn.length) return;
 
         // Hiện/ẩn nút khi cuộn trang — xuất hiện khi scroll > 300px
-        $(window).on('scroll', function() {
+        $(window).on('scroll', function () {
             if ($(window).scrollTop() > 300) {
                 $btn.addClass('visible');
             } else {
@@ -3590,18 +3738,18 @@ $(document).ready(function () {
         });
 
         // Click cuộn mượt lên đầu trang
-        $btn.on('click', function() {
+        $btn.on('click', function () {
             $('html, body').animate({ scrollTop: 0 }, 600, 'swing');
         });
     }
 
     // ─── 15. XÓA LỊCH SỬ CHATBOT ──────────────────────────────
-    $(document).on('click', '#clearChatHistoryBtn', function() {
+    window.clearChatHistory = function () {
         if (!confirm('Bạn có chắc muốn xóa toàn bộ lịch sử trò chuyện?')) return;
-        
+
         // Xóa lịch sử trong LocalStorage
         localStorage.removeItem('eco_bot_chats_history');
-        
+
         // Xóa nội dung chat body, giữ lại tin nhắn chào mừng mặc định
         const $chatBody = $('#chatBody');
         if ($chatBody.length) {
@@ -3617,12 +3765,12 @@ $(document).ready(function () {
                 </div>
             `);
         }
-        
+
         showToast('Đã xóa lịch sử trò chuyện thành công! 🗑️', 'success');
-    });
+    };
 
     // ─── 17. CHỨC NĂNG PHIÊN BẢN v6.0 PREMIUM ULTRA ────────────
-    
+
     // A. Hạt lá thảo dược trôi nổi nền
     function initFloatingLeaves() {
         const $container = $('#floating-particles-leaves');
@@ -3645,10 +3793,10 @@ $(document).ready(function () {
     // B. Đề xuất bài thuốc thích ứng thời tiết
     function updateWeatherAdaptiveRecommendation(tempVal, humidityVal, aqiVal) {
         if (!$('#weatherAdaptiveCard').length) return;
-        
+
         let adviceText = '';
         let targetHerbId = 'h3'; // Quy Tỳ Thang làm mặc định
-        
+
         if (tempVal >= 32) {
             adviceText = `Nhiệt độ Đà Nẵng đang khá cao (${tempVal}°C), nắng nóng dễ làm hao tán dương dịch. AI đề xuất dùng <strong>Lục Vị Địa Hoàng Hoàn</strong> để tư âm bổ can thận, làm mát cơ thể tự nhiên.`;
             targetHerbId = 'h2';
@@ -3657,7 +3805,7 @@ $(document).ready(function () {
             targetHerbId = 'h1';
         } else if (aqiVal > 60) {
             adviceText = `Chất lượng không khí (EAQI) Đà Nẵng kém (${aqiVal}), nhiều khói bụi mịn gây rát họng. AI khuyên dùng bài thuốc <strong>Ngân Kiều Tán</strong> để sơ phong thanh nhiệt, bảo vệ hầu họng và phổi.`;
-            targetHerbId = 'h6';
+            targetHerbId = 'h4';
         } else if (humidityVal > 85) {
             adviceText = `Độ ẩm Đà Nẵng quá cao (${humidityVal}%), thấp khí tụ dễ đau mỏi khớp xương. AI khuyên sắc uống <strong>Độc Hoạt Tang Ký Sinh</strong> để trừ phong thấp, giảm nhức mỏi tê bì cốt tủy.`;
             targetHerbId = 'h5';
@@ -3668,9 +3816,9 @@ $(document).ready(function () {
 
         $('#weatherAdaptiveAdvice').html(adviceText);
         $('#weatherAdaptiveRecipeBtn').removeClass('d-none');
-        
+
         // Gắn sự kiện xem chi tiết bài thuốc đề nghị
-        $('#btnGoToRecipe').off('click').on('click', function() {
+        $('#btnGoToRecipe').off('click').on('click', function () {
             showHerbDetails(targetHerbId);
         });
     }
@@ -3681,16 +3829,16 @@ $(document).ready(function () {
         const $suggestions = $('#searchSuggestions');
         if (!$input.length || !$suggestions.length) return;
 
-        $input.on('input', function() {
+        $input.on('input', function () {
             const val = $(this).val().trim().toLowerCase();
             if (val.length < 1) {
                 $suggestions.addClass('d-none').empty();
                 return;
             }
 
-            const matches = db.herbs.filter(h => 
-                h.name.toLowerCase().includes(val) || 
-                h.scientific.toLowerCase().includes(val) || 
+            const matches = db.herbs.filter(h =>
+                h.name.toLowerCase().includes(val) ||
+                h.scientific.toLowerCase().includes(val) ||
                 h.keywords.toLowerCase().includes(val)
             ).slice(0, 5);
 
@@ -3711,7 +3859,7 @@ $(document).ready(function () {
                         </div>
                     </div>
                 `);
-                $item.on('click', function() {
+                $item.on('click', function () {
                     $input.val(h.name);
                     $suggestions.addClass('d-none').empty();
                     renderHerbs();
@@ -3721,7 +3869,7 @@ $(document).ready(function () {
             $suggestions.removeClass('d-none');
         });
 
-        $(document).on('click', function(e) {
+        $(document).on('click', function (e) {
             if (!$(e.target).closest('#searchHerbInput, #searchSuggestions').length) {
                 $suggestions.addClass('d-none');
             }
@@ -3731,8 +3879,8 @@ $(document).ready(function () {
     // D. Trợ Lý Khám Bệnh & Chẩn Đoán Đa Triệu Chứng AI
     function initAiDiagnostics() {
         const selectedSymptoms = [];
-        
-        $(document).on('click', '.symptom-pill-btn', function() {
+
+        $(document).on('click', '.symptom-pill-btn', function () {
             $(this).toggleClass('active btn-outline-success btn-success text-white');
             const sym = $(this).data('symptom');
             const idx = selectedSymptoms.indexOf(sym);
@@ -3743,7 +3891,7 @@ $(document).ready(function () {
             }
         });
 
-        $('#btnPerformAiDiagnosis').on('click', function() {
+        $('#btnPerformAiDiagnosis').on('click', function () {
             const customText = $('#aiDiagnosisCustomText').val().trim();
             if (selectedSymptoms.length === 0 && !customText) {
                 showToast('Vui lòng chọn ít nhất một triệu chứng hoặc điền mô tả thể trạng!', 'warning');
@@ -3784,12 +3932,12 @@ $(document).ready(function () {
 
             function showDiagnosisResult() {
                 $('#aiDiagnosisLoading').addClass('d-none');
-                
+
                 // Thuật toán đối chiếu tìm kiếm bài thuốc phù hợp nhất
                 let matchedHerb = db.herbs[0]; // fallback
                 let maxMatches = 0;
                 const searchStr = (selectedSymptoms.join(' ') + ' ' + customText).toLowerCase();
-                
+
                 db.herbs.forEach(h => {
                     let matches = 0;
                     selectedSymptoms.forEach(sym => {
@@ -3837,7 +3985,7 @@ $(document).ready(function () {
                 $('#resDiagnosis').text(diagnosisTitle);
                 $('#resRemedyName').text(matchedHerb.name);
                 $('#resRemedyEmoji').text(matchedHerb.emoji || '🍵');
-                
+
                 const ing = matchedHerb.ingredients.length > 60 ? matchedHerb.ingredients.slice(0, 60) + '...' : matchedHerb.ingredients;
                 $('#resIngredients').text(ing);
                 $('#resAdjustments').text(adjustments);
@@ -3845,7 +3993,7 @@ $(document).ready(function () {
                 $('#resContra').text(matchedHerb.contraindications || 'Không có chống chỉ định đặc biệt.');
 
                 // Nút chuyển hướng/xem chi tiết bài thuốc
-                $('#btnResGoToRecipe').off('click').on('click', function() {
+                $('#btnResGoToRecipe').off('click').on('click', function () {
                     showHerbDetails(matchedHerb.id);
                 });
 
@@ -3866,14 +4014,14 @@ $(document).ready(function () {
 
         if (!$upload.length || !$img.length || !$startBtn.length) return;
 
-        $upload.on('change', function(e) {
+        $upload.on('change', function (e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(evt) {
+                reader.onload = function (evt) {
                     $img.attr('src', evt.target.result);
                     $startBtn.prop('disabled', false);
-                    
+
                     // Reset kết quả
                     $('#arResultPlaceholder').removeClass('d-none');
                     $('#arProgressArea').addClass('d-none');
@@ -3883,7 +4031,7 @@ $(document).ready(function () {
             }
         });
 
-        $startBtn.on('click', function() {
+        $startBtn.on('click', function () {
             $(this).prop('disabled', true);
             $overlay.show();
 
@@ -3931,15 +4079,15 @@ $(document).ready(function () {
                 $('#arResultEmoji').text(h.emoji || '🌿');
                 $('#arResultName').text(h.name);
                 $('#arResultScientific').text(h.scientific);
-                
+
                 const conf = (95 + Math.random() * 4.9).toFixed(1);
                 $('#arResultConfidence').text(`${conf}% Khớp`);
                 $('#arResultEfficacy').text(h.efficacy || h.usage);
-                
+
                 const dists = db.regions.filter(r => r.herbs.includes(h.name)).map(r => r.name);
                 $('#arResultDistribution').text(dists.length > 0 ? dists.join(', ') : 'Đang nuôi cấy ươm tạo tại Hòa Vang, Đà Nẵng.');
 
-                $('#btnArGoToRemedy').off('click').on('click', function() {
+                $('#btnArGoToRemedy').off('click').on('click', function () {
                     $('#aiScannerModal').modal('hide');
                     setTimeout(() => {
                         showHerbDetails(h.id);
@@ -3959,7 +4107,7 @@ $(document).ready(function () {
         if (!$book.length) return;
 
         // Bấm trang 1 lật sang trang 2
-        $('#bookPage1').on('click', function() {
+        $('#bookPage1').on('click', function () {
             $(this).toggleClass('flipped');
             if ($(this).hasClass('flipped')) {
                 currentPage = 2;
@@ -3973,7 +4121,7 @@ $(document).ready(function () {
         });
 
         // Bấm trang 2 lật sang kết thúc
-        $('#bookPage2').on('click', function(e) {
+        $('#bookPage2').on('click', function (e) {
             if ($(e.target).closest('#btnRewindBook').length) return;
 
             $(this).toggleClass('flipped');
@@ -3987,7 +4135,7 @@ $(document).ready(function () {
             }
         });
 
-        $('#btnNextPage').on('click', function() {
+        $('#btnNextPage').on('click', function () {
             if (currentPage === 1) {
                 $('#bookPage1').addClass('flipped').css('z-index', '5');
                 $('#bookPage2').css('z-index', '9');
@@ -3998,7 +4146,7 @@ $(document).ready(function () {
             }
         });
 
-        $('#btnPrevPage').on('click', function() {
+        $('#btnPrevPage').on('click', function () {
             if (currentPage === 3) {
                 $('#bookPage2').removeClass('flipped').css('z-index', '9');
                 currentPage = 2;
@@ -4009,7 +4157,7 @@ $(document).ready(function () {
             }
         });
 
-        $('#btnRewindBook').on('click', function() {
+        $('#btnRewindBook').on('click', function () {
             $('#bookPage2').removeClass('flipped').css('z-index', '8');
             $('#bookPage1').removeClass('flipped').css('z-index', '9');
             currentPage = 1;
@@ -4033,7 +4181,7 @@ $(document).ready(function () {
             { coords: [16.0718, 108.1565], radius: 3000, color: '#10b981', desc: 'Thổ nhưỡng feralit rừng Hải Vân - Thích hợp Xạ Đen, Chè Xuể rừng hoang dã' }
         ];
 
-        $toggleBtn.on('click', function() {
+        $toggleBtn.on('click', function () {
             heatmapActive = !heatmapActive;
             $(this).toggleClass('active btn-outline-danger btn-danger text-white');
 
@@ -4054,7 +4202,7 @@ $(document).ready(function () {
 
                 // Thêm bảng chú giải map legend
                 const legend = L.control({ position: 'bottomleft' });
-                legend.onAdd = function() {
+                legend.onAdd = function () {
                     const div = L.DomUtil.create('div', 'leaflet-heatmap-legend');
                     div.innerHTML = `
                         <div class="fw-bold mb-1.5" style="font-size:0.82rem;"><i class="bi bi-fire text-danger"></i> Bản đồ nhiệt thích nghi</div>
@@ -4089,16 +4237,16 @@ $(document).ready(function () {
         let selectedFire = null;
         let selectedTime = null;
 
-        $(document).on('click', '#btnOpenBrewingSim', function() {
+        $(document).on('click', '#btnOpenBrewingSim', function () {
             const nameStr = $('#herbDetailName').text().replace(/[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD00-\uDFFF]/g, '').trim();
             const herb = db.herbs.find(h => h.name.toLowerCase().includes(nameStr.toLowerCase()));
-            
+
             if (herb) {
                 currentHerbId = herb.id;
                 // Đóng modal chi tiết to
                 const detailEl = document.getElementById('herbDetailModal');
                 bootstrap.Modal.getInstance(detailEl)?.hide();
-                
+
                 setTimeout(() => {
                     $('#brewingSimModal').modal('show');
                     startSimGame();
@@ -4114,7 +4262,7 @@ $(document).ready(function () {
             selectedWater = null;
             selectedFire = null;
             selectedTime = null;
-            
+
             $('#brewingFireGraphic').removeClass('fire-high fire-low');
             $('#brewingPotGraphic').removeClass('cooking');
             $('#steamBubblesContainer').empty();
@@ -4130,7 +4278,7 @@ $(document).ready(function () {
             if (currentStep === 1) {
                 $title.text('Bước 1: Lựa chọn Ấm Sắc thuốc');
                 $text.text('Chất liệu nồi sắc thuốc truyền dẫn nhiệt tốt và tránh oxi hóa dược chất.');
-                
+
                 const choices = [
                     { id: 'clay', name: '🏺 Ấm đất nung', score: 100, feedback: 'Hoàn hảo! Ấm đất giữ nhiệt cực lâu và không gây phản ứng hóa học.' },
                     { id: 'glass', name: '🧪 Ấm thủy tinh', score: 80, feedback: 'Khá tốt, không phai hoạt chất nhưng truyền dẫn giữ nhiệt trung bình.' },
@@ -4138,7 +4286,7 @@ $(document).ready(function () {
                 ];
                 choices.forEach(c => {
                     const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
-                    $b.on('click', function() {
+                    $b.on('click', function () {
                         selectedPot = c;
                         showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
                         currentStep = 2;
@@ -4150,7 +4298,7 @@ $(document).ready(function () {
             else if (currentStep === 2) {
                 $title.text('Bước 2: Cân đo lượng nước đun');
                 $text.text('Tỷ lệ nước quyết định nồng độ tinh dầu và độ ngấm của bài thuốc sắc.');
-                
+
                 const choices = [
                     { id: '3cups', name: '💧 3 Bát nước', score: 100, feedback: 'Đạt chuẩn! 3 bát nước sắc cô đặc còn 1 bát uống ấm dưỡng vị.' },
                     { id: '5cups', name: '🌊 5 Bát nước', score: 65, feedback: 'Quá nhiều nước! Thang sắc loãng khó cô đọng hoạt chất.' },
@@ -4158,7 +4306,7 @@ $(document).ready(function () {
                 ];
                 choices.forEach(c => {
                     const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
-                    $b.on('click', function() {
+                    $b.on('click', function () {
                         selectedWater = c;
                         showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
                         currentStep = 3;
@@ -4170,7 +4318,7 @@ $(document).ready(function () {
             else if (currentStep === 3) {
                 $title.text('Bước 3: Điều khiển Hỏa hầu (Ngọn lửa)');
                 $text.text('Chuẩn Đông y sắc: Vũ hỏa (lửa to đun sôi) ban đầu dực thịnh, sau hạ Văn hỏa (riu riu).');
-                
+
                 const choices = [
                     { id: 'mix', name: '🔥 Lửa to rồi nhỏ riu riu', score: 100, feedback: 'Hoàn hảo! Đun sôi nhanh rồi giữ lửa nhỏ âm ỉ giữ hoạt chất.' },
                     { id: 'high', name: '🌋 Lửa to liên tục', score: 50, feedback: 'Quá nhiệt! Bay hơi sạch tinh dầu quý của thảo mộc thơm.' },
@@ -4178,10 +4326,10 @@ $(document).ready(function () {
                 ];
                 choices.forEach(c => {
                     const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
-                    $b.on('click', function() {
+                    $b.on('click', function () {
                         selectedFire = c;
                         showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
-                        
+
                         // Kích hoạt đồ họa lửa đun sắc
                         if (c.id === 'high' || c.id === 'mix') {
                             $('#brewingFireGraphic').addClass('fire-high');
@@ -4189,7 +4337,7 @@ $(document).ready(function () {
                             $('#brewingFireGraphic').addClass('fire-low');
                         }
                         $('#brewingPotGraphic').addClass('cooking');
-                        
+
                         // Steam bubbles animation
                         const $bubbles = $('#steamBubblesContainer');
                         for (let i = 0; i < 5; i++) {
@@ -4216,7 +4364,7 @@ $(document).ready(function () {
 
                 $title.text('Bước 4: Thời gian chưng cất');
                 $text.text('Độ dài đun chiết xuất hoạt tính sinh học của rễ củ cây thuốc.');
-                
+
                 const choices = [
                     { id: '60m', name: '⏱️ 60 Phút', score: 100, feedback: 'Chuẩn Đông y! Đủ thời gian tiết hoạt chất ra nước sắc.' },
                     { id: '20m', name: '⚡ 20 Phút', score: 40, feedback: 'Quá ngắn! Dược chất chưa tan kịp hết trong nước đun.' },
@@ -4224,7 +4372,7 @@ $(document).ready(function () {
                 ];
                 choices.forEach(c => {
                     const $b = $(`<button class="btn btn-sm btn-outline-light rounded-pill px-3 py-2" style="font-size:0.8rem; font-weight:600;">${c.name}</button>`);
-                    $b.on('click', function() {
+                    $b.on('click', function () {
                         selectedTime = c;
                         showToast(c.feedback, c.score >= 80 ? 'success' : 'warning');
                         currentStep = 5;
@@ -4268,7 +4416,7 @@ $(document).ready(function () {
                 `);
 
                 const $btnBack = $('<button class="btn btn-success rounded-pill px-4 py-2 fw-bold"><i class="bi bi-arrow-counterclockwise"></i> Xem Lại Cổ Phương</button>');
-                $btnBack.on('click', function() {
+                $btnBack.on('click', function () {
                     $('#brewingSimModal').modal('hide');
                     setTimeout(() => {
                         $('#herbDetailModal').modal('show');
@@ -4281,7 +4429,7 @@ $(document).ready(function () {
 
     // I. Bắt sự kiện Preset thời tiết ở Trang chủ
     function initWeatherPresets() {
-        $(document).on('click', '.weather-preset-btn', function() {
+        $(document).on('click', '.weather-preset-btn', function () {
             $('.weather-preset-btn').removeClass('active');
             $(this).addClass('active');
 
@@ -4314,15 +4462,15 @@ $(document).ready(function () {
             let aqiBarColor = '#10b981'; // success
             if (aqi > 80) aqiBarColor = '#ef4444'; // danger
             else if (aqi > 40) aqiBarColor = '#f59e0b'; // warning
-            
+
             let uvBarColor = '#10b981'; // success
             if (uv >= 8) uvBarColor = '#ef4444'; // danger
             else if (uv >= 3) uvBarColor = '#f59e0b'; // warning
-            
+
             let humBarColor = '#10b981'; // success
             if (hum < 30 || hum > 85) humBarColor = '#ef4444'; // danger
             else if (hum < 50 || hum > 70) humBarColor = '#f59e0b'; // warning
-            
+
             let windBarColor = '#10b981'; // success
             if (wind >= 30) windBarColor = '#ef4444'; // danger
             else if (wind >= 15) windBarColor = '#f59e0b'; // warning
@@ -4362,7 +4510,7 @@ $(document).ready(function () {
     }
 
     // Gắn sự kiện click marker popup
-    $(document).on('click', '.select-region-btn', function(e) {
+    $(document).on('click', '.select-region-btn', function (e) {
         e.preventDefault();
         const id = $(this).data('id');
         $(`.map-item-premium[data-id="${id}"]`).click();
@@ -4377,6 +4525,75 @@ $(document).ready(function () {
         $('#searchClearBtn').attr('aria-label', 'Xóa từ khóa tìm kiếm');
     }
 
+    // ─── 17. QUY TRÌNH BÀO CHẾ ĐỘNG ────────────────────────────
+    function initDynamicPreparationSteps() {
+        const $select = $('#homePrepSelect');
+        const $container = $('#homePrepStepsContainer');
+        const $source = $('#homePrepSource');
+        if (!$select.length || !$container.length) return;
+
+        // Xóa sạch và đổ danh sách bài thuốc hiện có vào dropdown
+        $select.empty();
+        db.herbs.forEach((h, index) => {
+            $select.append(`<option value="${h.id}" ${index === 0 ? 'selected' : ''}>${escapeHTML(h.name)} (${escapeHTML(h.category)})</option>`);
+        });
+
+        // Hàm render các bước bào chế của bài thuốc được chọn
+        function renderSelectedSteps(herbId) {
+            const herb = db.herbs.find(h => h.id === herbId);
+            if (!herb) return;
+
+            $container.empty();
+            const steps = herb.steps || [];
+
+            const colors = ['success', 'primary', 'warning', 'info', 'danger'];
+            const borderColors = ['#2eb366', '#0d6efd', '#ffc107', '#17a2b8', '#dc3545'];
+
+            if (steps.length > 0) {
+                steps.forEach((step, idx) => {
+                    const color = colors[idx % colors.length];
+                    const borderCol = borderColors[idx % borderColors.length];
+                    const stepNum = idx + 1;
+
+                    $container.append(`
+                        <div class="d-flex mb-3 p-3 process-step-premium border-start border-4" style="border-left-color: ${borderCol} !important; background: rgba(0,0,0,0.01); border-radius: 8px;">
+                            <span class="badge bg-${color} text-${color === 'warning' ? 'dark' : 'white'} rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 38px; height: 38px; font-weight: bold; font-size: 1.05rem; flex-shrink: 0;">${stepNum}</span>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1 text-dark" style="font-size:0.9rem;">Bước ${stepNum}: Quy trình sơ chế</h6>
+                                <p class="text-secondary mb-0 small" style="line-height: 1.5; font-size: 0.82rem;">${escapeHTML(step)}</p>
+                            </div>
+                        </div>
+                    `);
+                });
+            } else {
+                $container.append('<div class="text-muted small py-3 text-center">Chưa cập nhật quy trình bào chế cho bài thuốc này.</div>');
+            }
+
+            // Hiển thị nguồn dữ liệu xác thực
+            if ($source.length) {
+                const sourceDetail = herb.referenceDetail || herb.source || 'Dược điển Việt Nam V';
+                $source.html(`
+                    <div class="p-3 bg-light rounded-3 text-secondary mt-3 d-flex align-items-center gap-2 border" style="font-size: 0.8rem; border-left: 4px solid var(--primary) !important;">
+                        <i class="bi bi-bookmark-star-fill text-success fs-6"></i>
+                        <div>
+                            <strong>Nguồn dữ liệu xác thực:</strong> <em>${escapeHTML(sourceDetail)}</em>
+                        </div>
+                    </div>
+                `);
+            }
+        }
+
+        // Bắt sự kiện chọn bài thuốc khác
+        $select.on('change', function () {
+            renderSelectedSteps($(this).val());
+        });
+
+        // Khởi tạo hiển thị cho bài thuốc đầu tiên
+        if (db.herbs.length > 0) {
+            renderSelectedSteps(db.herbs[0].id);
+        }
+    }
+
     // KHỞI CHẠY TỔNG HỢP CÁC TRANG
     initDarkMode();
     autoSetActiveNav();
@@ -4387,6 +4604,7 @@ $(document).ready(function () {
     initCharts();
     initProfilePage();
     initAdminPage();
+    initDynamicPreparationSteps();
     loadChatHistory();
 
     // Khởi chạy v6.0 Premium Ultra systems

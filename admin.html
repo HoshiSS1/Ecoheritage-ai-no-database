@@ -24,8 +24,8 @@
     <!-- Studio Freight Lenis -->
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
 
-    <link rel="stylesheet" href="style.css?v=22.0">
-    <link rel="stylesheet" href="v5-premium.css?v=22.0">
+    <link rel="stylesheet" href="style.css?v=25.1">
+    <link rel="stylesheet" href="v5-premium.css?v=25.1">
     <meta name="theme-color" content="#2eb366">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-offwhite">
@@ -48,6 +48,7 @@
                         <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-heart me-1"></i>Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="dictionary.html"><i class="bi bi-journal-medical me-1"></i>Từ điển bài thuốc</a></li>
                         <li class="nav-item"><a class="nav-link" href="map.html"><i class="bi bi-map me-1"></i>Bản đồ dược liệu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-envelope me-1"></i>Liên hệ</a></li>
                         <li class="nav-item d-none" id="navAdminLink"><a class="nav-link active" href="admin.html"><i class="bi bi-shield-lock me-1"></i>Quản trị</a></li>
                     </ul>
                     <div class="d-lg-none mt-3 mb-2" id="mobileAuthSection">
@@ -68,13 +69,13 @@
                         <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
                         <div class="dropdown">
                             <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
-                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar" loading="lazy">
+                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
                                 <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" aria-labelledby="avatarDropdown" style="width: 250px;">
                                 <li class="dropdown-header text-center pb-3 border-bottom mb-2">
                                     <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); font-size: 1.3rem; overflow: hidden;">
-                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar" loading="lazy">
+                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
                                         <span id="avatarInitialsDropdown">U</span>
                                     </div>
                                     <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
@@ -321,7 +322,7 @@
                         <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none footer-link-hover">Trang chủ</a></li>
                         <li class="mb-2"><a href="dictionary.html" class="text-secondary text-decoration-none footer-link-hover">Từ điển Y Dược</a></li>
                         <li class="mb-2"><a href="map.html" class="text-secondary text-decoration-none footer-link-hover">Bản đồ Vệ tinh</a></li>
-                        <li class="mb-2"><a href="profile.html" class="text-secondary text-decoration-none footer-link-hover">Hồ sơ cá nhân</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-secondary text-decoration-none footer-link-hover">Liên hệ</a></li>
                     </ul>
                 </div>
                 <!-- Cột 3: Liên hệ -->
@@ -347,7 +348,7 @@
                     <h5 class="fw-bold mb-4 text-white">Nhận tin sức khỏe</h5>
                     <p class="text-secondary mb-4">Đăng ký để nhận những lời khuyên y dược, mẹo bào chế sớm nhất từ Lương y của EcoHeritage.</p>
                     <div class="input-group newsletter-group shadow">
-                        <input type="email" class="form-control border-0 px-4 bg-white bg-opacity-10 text-white" placeholder="Email của bạn...">
+                        <input type="email" class="form-control border-0 px-4 bg-white bg-opacity-10 text-white newsletter-input-field" placeholder="Email của bạn...">
                         <button class="btn btn-success px-4"><i class="bi bi-send-fill"></i></button>
                     </div>
                 </div>
@@ -398,8 +399,9 @@
                                 <input type="text" class="form-control" id="addRemedyEmoji" placeholder="🌿" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Duong dan anh bai thuoc</label>
-                                <input type="text" class="form-control" id="addRemedyImage" placeholder="./images/ten_anh.png hoac https://...">
+                                <label class="form-label small fw-bold">Đường dẫn ảnh bài thuốc</label>
+                                <input type="text" class="form-control" id="addRemedyImage" placeholder="./images/ten_anh.png hoặc https://...">
+                                <input type="file" class="form-control mt-2" id="addRemedyImageFile" accept="image/*">
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-bold">Mô tả tóm tắt</label>
@@ -487,6 +489,11 @@
                             <label class="form-label small fw-bold">Mô tả chi tiết vùng sinh vật</label>
                             <textarea class="form-control" id="addLocDesc" rows="3" required></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Hình ảnh địa danh</label>
+                            <input type="text" class="form-control mb-2" id="addLocImage" placeholder="Đường dẫn hoặc URL ảnh...">
+                            <input type="file" class="form-control" id="addLocImageFile" accept="image/*">
+                        </div>
                         <button type="submit" class="btn btn-success w-100 rounded-pill py-2.5 fw-bold shadow-sm">Lưu Địa Điểm Bản Đồ <i class="bi bi-save"></i></button>
                     </form>
                 </div>
@@ -528,8 +535,9 @@
                                 <input type="text" class="form-control" id="editRemedyEmoji" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Duong dan anh bai thuoc</label>
-                                <input type="text" class="form-control" id="editRemedyImage" placeholder="./images/ten_anh.png hoac https://...">
+                                <label class="form-label small fw-bold">Đường dẫn ảnh bài thuốc</label>
+                                <input type="text" class="form-control" id="editRemedyImage" placeholder="./images/ten_anh.png hoặc https://...">
+                                <input type="file" class="form-control mt-2" id="editRemedyImageFile" accept="image/*">
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-bold">Mô tả tóm tắt</label>
@@ -618,6 +626,11 @@
                             <label class="form-label small fw-bold">Mô tả chi tiết vùng sinh vật</label>
                             <textarea class="form-control" id="editLocDesc" rows="3" required></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Hình ảnh địa danh</label>
+                            <input type="text" class="form-control mb-2" id="editLocImage" placeholder="Đường dẫn hoặc URL ảnh...">
+                            <input type="file" class="form-control" id="editLocImageFile" accept="image/*">
+                        </div>
                         <button type="submit" class="btn btn-primary w-100 rounded-pill py-2.5 fw-bold shadow-sm">Cập Nhật Địa Điểm <i class="bi bi-check-circle"></i></button>
                     </form>
                 </div>
@@ -658,6 +671,25 @@
                 <div class="modal-footer border-0 pt-0">
                     <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Hủy</button>
                     <button type="button" class="btn btn-danger rounded-pill px-4" id="btnConfirmDeleteLocation">Xóa địa điểm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRM DELETE REVIEW -->
+    <div class="modal fade" id="confirmDeleteReviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg p-4 bg-white text-dark">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Xác nhận gỡ đánh giá</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3 text-start">
+                    <p class="mb-0 text-secondary">Bạn có chắc chắn muốn gỡ bỏ đánh giá này không? Hành động này không thể hoàn tác.</p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4" id="btnConfirmDeleteReview">Gỡ bỏ</button>
                 </div>
             </div>
         </div>
@@ -718,7 +750,7 @@
                                             <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoặc đăng nhập nhanh</span>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger"></i> Google</button>
+                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger me-2"></i> Google (Demo)</button>
                                         </div>
                                     </form>
                                 </div>
@@ -762,8 +794,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="config.js"></script>
-    <script src="data.js?v=23.0"></script>
-    <script src="script.js?v=23.0"></script>
+    <script src="data.js?v=27.0"></script>
+    <script src="script.js?v=27.0"></script>
 </body>
 </html>
 

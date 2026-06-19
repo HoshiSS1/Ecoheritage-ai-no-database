@@ -26,19 +26,30 @@ const EcoHeritageDefaultData = {
             ],
             "desc": "Lá phổi xanh của thành phố Đà Nẵng, có khí hậu mát mẻ đặc trưng biển, là nơi bảo tồn nhiều giống cây thuốc nam đặc hữu quý hiếm.",
             "rating": 4.5,
-            "reviewsCount": 2,
+            "reviewsCount": 4,
             "reviewsList": [
                 {
                     "user": "Bác Sĩ Lê Mạnh",
                     "rating": 5,
-                    "comment": "Sơn Trà khí hậu tuyệt vời, rất nhiều cây kim ngân và chổi xuể chất lượng hoạt tính cao."
+                    "comment": "Địa hình cát pha ven biển Sơn Trà tạo ra giống Kim ngân hoa có chất lượng hoạt chất rất cao."
                 },
                 {
-                    "user": "Lương Y Cương",
+                    "user": "Lương Y Nguyễn Cương",
                     "rating": 4,
-                    "comment": "Đất cát pha và hơi biển tạo điều kiện tốt cho kim ngân hoa tích tụ tinh dầu."
+                    "comment": "Các cây thuốc Nam ở đây sinh trưởng tự nhiên dưới tán rừng nên giữ được trọn vẹn đặc tính y học cổ truyền."
+                },
+                {
+                    "user": "Dược Sĩ Phạm Hữu",
+                    "rating": 5,
+                    "comment": "Khu bảo tồn được khoanh vùng bảo vệ nghiêm ngặt, rất thích hợp nghiên cứu và thu hái bảo tồn."
+                },
+                {
+                    "user": "Lê Quốc Anh (Eco-tourist)",
+                    "rating": 4,
+                    "comment": "Phong cảnh tuyệt vời kết hợp vườn thuốc nam hữu cơ xanh mướt."
                 }
-            ]
+            ],
+            "yieldTons": 42
         },
         {
             "id": "r2",
@@ -58,19 +69,25 @@ const EcoHeritageDefaultData = {
             ],
             "desc": "Với độ cao 1,487m so với mực nước biển, khí hậu ôn đới quanh năm, đây là thiên đường sinh trưởng của các loài sâm núi và nấm linh chi cổ thụ.",
             "rating": 5,
-            "reviewsCount": 2,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
-                    "user": "Trần Nam",
+                    "user": "GS. Trần Nam",
                     "rating": 5,
-                    "comment": "Sâm Ngọc Linh trồng ở vùng này phát triển rất tốt nhờ độ cao và sương mù."
+                    "comment": "Độ cao gần 1500m và sương mù quanh năm tạo môi trường lý tưởng nhất cho Sâm Ngọc Linh tích tụ saponin."
                 },
                 {
-                    "user": "Nguyễn Minh Hùng",
+                    "user": "Lương Y Nguyễn Cương",
                     "rating": 5,
-                    "comment": "Khu bảo tồn bảo vệ giống sâm rất nghiêm ngặt, chất lượng sâm đạt chuẩn dược lý."
+                    "comment": "Nơi đây bảo tồn nấm lim xanh tự nhiên có chất lượng hàng đầu cả nước."
+                },
+                {
+                    "user": "TS. Nguyễn Minh Hùng",
+                    "rating": 5,
+                    "comment": "Mô hình gieo trồng sâm dưới tán rừng tự nhiên tại Bà Nà đạt chuẩn dược lý học."
                 }
-            ]
+            ],
+            "yieldTons": 65
         },
         {
             "id": "r3",
@@ -89,20 +106,26 @@ const EcoHeritageDefaultData = {
                 "Diếp cá"
             ],
             "desc": "Khu vực tâm linh danh thắng Ngũ Hành Sơn với núi đá vôi lâu đời, nơi người dân địa phương gieo trồng các loại cây thuốc nam làm ấm, an thần.",
-            "rating": 4.5,
-            "reviewsCount": 2,
+            "rating": 4.7,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "Phan Hoa",
                     "rating": 4,
-                    "comment": "Vườn cây thuốc ở Ngũ Hành Sơn mát mẻ, đinh lăng rễ to và thơm."
+                    "comment": "Vườn thuốc ngải cứu và đinh lăng xanh tốt ngay dưới chân núi đá vôi Ngũ Hành Sơn."
                 },
                 {
-                    "user": "Lương Y Cương",
+                    "user": "Lương Y Nguyễn Cương",
                     "rating": 5,
-                    "comment": "Địa điểm tâm linh và dược liệu kết hợp tuyệt vời. Có nhiều bài thuốc gia truyền ở đây."
+                    "comment": "Địa điểm tâm linh kết hợp bảo tồn các vị thuốc an thần mang tính lịch sử sâu sắc."
+                },
+                {
+                    "user": "Dược Sĩ Mai Lan",
+                    "rating": 5,
+                    "comment": "Đinh lăng rễ to và rất thơm nhờ đất đá vôi giàu khoáng chất."
                 }
-            ]
+            ],
+            "yieldTons": 18
         },
         {
             "id": "r4",
@@ -121,15 +144,26 @@ const EcoHeritageDefaultData = {
                 "Cam thảo"
             ],
             "desc": "Nằm bên sườn dãy Trường Sơn đâm ra biển, có lượng mưa dồi dào tạo điều kiện cho các loại thảo dược bổ dưỡng gân cốt phát triển mạnh.",
-            "rating": 5,
-            "reviewsCount": 1,
+            "rating": 4.7,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "Lê Văn Tự",
                     "rating": 5,
-                    "comment": "Ba kích vùng Nam Hải Vân chịu sương gió Trường Sơn rễ rất nạc, tính ấm tốt."
+                    "comment": "Ba kích vùng Nam Hải Vân chịu sương gió Trường Sơn rễ rất nạc, tính ấm cực tốt."
+                },
+                {
+                    "user": "Dược Sĩ Ngọc Anh",
+                    "rating": 5,
+                    "comment": "Đảng sâm sinh trưởng tự nhiên ở sườn núi có dược tính kháng viêm rất mạnh."
+                },
+                {
+                    "user": "Bác Sĩ Lâm",
+                    "rating": 4,
+                    "comment": "Nguồn dược liệu sạch phong phú, đặc biệt là các cây thuốc bổ xương khớp."
                 }
-            ]
+            ],
+            "yieldTons": 29
         },
         {
             "id": "r5",
@@ -149,14 +183,25 @@ const EcoHeritageDefaultData = {
             ],
             "desc": "Khu vườn thảo dược yên bình nằm trong khuôn viên chùa Linh Ứng, phục vụ việc chế thuốc thiện nguyện cứu độ chúng sinh của các nhà sư.",
             "rating": 5,
-            "reviewsCount": 1,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "Sư thầy Tịnh Tâm",
                     "rating": 5,
-                    "comment": "Vườn thuốc nam nhà chùa trồng được nhiều kim ngân và cam thảo, cứu giúp nhiều mảnh đời khó khăn."
+                    "comment": "Nhà chùa tự tay gieo trồng kim ngân và bạc hà để sắc thuốc cứu độ chúng sinh miễn phí."
+                },
+                {
+                    "user": "Lê Quốc Anh (Du khách)",
+                    "rating": 5,
+                    "comment": "Khu vườn yên bình nằm cạnh tượng Phật Bà, thảo dược trồng hoàn toàn hữu cơ."
+                },
+                {
+                    "user": "Dược Sĩ Hoàng Yến",
+                    "rating": 5,
+                    "comment": "Kim ngân hoa thu hái tại chùa Linh Ứng có mùi thơm tinh khiết đặc trưng."
                 }
-            ]
+            ],
+            "yieldTons": 12
         },
         {
             "id": "r6",
@@ -175,15 +220,26 @@ const EcoHeritageDefaultData = {
                 "Tâm sen"
             ],
             "desc": "Nằm cạnh Bảo tàng Đồng Đình cổ kính, vùng thung lũng ẩm này là nơi lưu trữ hàng trăm loài thảo dược giải độc và an thần tự nhiên.",
-            "rating": 4,
-            "reviewsCount": 1,
+            "rating": 4.7,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
-                    "user": "Lê Quốc Anh",
+                    "user": "Lê Quốc Anh (Eco-tourist)",
                     "rating": 4,
-                    "comment": "Khu vực thung lũng ẩm ướt ở Sơn Trà thích hợp cho ngải cứu phát triển."
+                    "comment": "Khu bảo tồn dược liệu ven thung lũng ẩm thích hợp cho ngải cứu và lạc tiên phát triển."
+                },
+                {
+                    "user": "Lương Y Nguyễn Cương",
+                    "rating": 5,
+                    "comment": "Lạc tiên vùng này có hàm lượng hoạt chất an thần cao vượt trội."
+                },
+                {
+                    "user": "Dược Sĩ Thanh Bình",
+                    "rating": 5,
+                    "comment": "Không gian sinh thái Đồng Đình lưu giữ được nhiều nguồn gen thuốc Nam quý hiếm."
                 }
-            ]
+            ],
+            "yieldTons": 15
         },
         {
             "id": "r7",
@@ -203,14 +259,25 @@ const EcoHeritageDefaultData = {
             ],
             "desc": "Vườn thực vật hữu cơ nằm ven sông Cu Đê trong lành, áp dụng công nghệ sinh học cao để trồng và bào chế các loại dược liệu giải độc gan và giảm đường huyết.",
             "rating": 5,
-            "reviewsCount": 1,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "Đặng Tuấn",
                     "rating": 5,
-                    "comment": "Áp dụng công nghệ sinh học cao giúp nâng cao hàm lượng dược tính của cà gai leo rõ rệt."
+                    "comment": "Hòa Bắc ứng dụng công nghệ sấy lạnh giúp cà gai leo giữ nguyên dược tính Solasodine."
+                },
+                {
+                    "user": "Bác Sĩ Minh",
+                    "rating": 5,
+                    "comment": "Dây thìa canh trồng hữu cơ ven sông Cu Đê giúp hỗ trợ hạ đường huyết rất tốt."
+                },
+                {
+                    "user": "Dược Sĩ Quốc Khánh",
+                    "rating": 5,
+                    "comment": "Vườn dược liệu tiêu chuẩn, đóng gói chuyên nghiệp đạt OCOP quốc gia."
                 }
-            ]
+            ],
+            "yieldTons": 35
         },
         {
             "id": "r8",
@@ -230,14 +297,25 @@ const EcoHeritageDefaultData = {
             ],
             "desc": "Khu vườn mô hình phục vụ thực hành bào chế dược liệu và lưu trữ các giống cây thuốc y học cổ truyền tiêu chuẩn phục vụ nghiên cứu khoa học.",
             "rating": 5,
-            "reviewsCount": 1,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "GS. Nguyễn Văn Bằng",
                     "rating": 5,
-                    "comment": "Khu vườn thực nghiệm mô hình rất chuyên nghiệp tại khu đô thị đại học mới Hòa Quý."
+                    "comment": "Vườn thực nghiệm chuyên nghiệp phục vụ công tác giảng dạy và nghiên cứu thực vật học."
+                },
+                {
+                    "user": "Sinh viên Minh Anh",
+                    "rating": 5,
+                    "comment": "Nơi lưu trữ các giống trinh nữ hoàng cung và ích mẫu thuần chủng."
+                },
+                {
+                    "user": "Dược Sĩ Thùy Linh",
+                    "rating": 5,
+                    "comment": "Hệ thống phân loại cây thuốc khoa học, chú trọng tiêu chuẩn hóa."
                 }
-            ]
+            ],
+            "yieldTons": 10
         },
         {
             "id": "r9",
@@ -256,15 +334,26 @@ const EcoHeritageDefaultData = {
                 "Đinh lăng"
             ],
             "desc": "Đồi núi thoải dốc ẩm ướt với đất đỏ bazan, thích hợp cho sự tích tụ tinh dầu của gừng núi, chè dây và các loại sâm bồi bổ sức khỏe khí huyết.",
-            "rating": 4,
-            "reviewsCount": 1,
+            "rating": 4.7,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
-                    "user": "Lương Y Cương",
+                    "user": "Lương Y Nguyễn Cương",
                     "rating": 4,
-                    "comment": "Khí hậu mát mẻ sườn núi giúp gừng rừng và đảng sâm tích tụ nhiều hoạt chất bổ dưỡng."
+                    "comment": "Khí hậu mát mẻ sườn núi giúp gừng rừng và đảng sâm tích tụ nhiều tinh dầu cay ấm."
+                },
+                {
+                    "user": "A Lăng Giang",
+                    "rating": 5,
+                    "comment": "Đông Giang có thổ nhưỡng đất đỏ bazan rất tốt cho cây chè dây rừng giải độc."
+                },
+                {
+                    "user": "Bác Sĩ Tuấn",
+                    "rating": 5,
+                    "comment": "Gừng núi Đông Giang củ nhỏ nhưng dược tính làm ấm tỳ vị rất mạnh."
                 }
-            ]
+            ],
+            "yieldTons": 22
         },
         {
             "id": "r10",
@@ -284,14 +373,25 @@ const EcoHeritageDefaultData = {
             ],
             "desc": "Vùng sản xuất nông nghiệp ứng dụng công nghệ cao chuyên canh cây cà gai leo giải độc gan và thảo dược giảm ngọt đạt tiêu chuẩn OCOP quốc gia.",
             "rating": 5,
-            "reviewsCount": 1,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "Phạm Minh",
                     "rating": 5,
-                    "comment": "Hợp tác xã sản xuất cà gai leo rất sạch, sấy lạnh đạt chuẩn OCOP quốc gia xuất sắc."
+                    "comment": "Hợp tác xã sản xuất cà gai leo rất sạch, sấy lạnh đạt chuẩn OCOP xuất sắc."
+                },
+                {
+                    "user": "Dược Sĩ Hải Đăng",
+                    "rating": 5,
+                    "comment": "Cà gai leo Hòa Nhơn có hàm lượng hoạt chất bảo vệ gan hàng đầu Đà Nẵng."
+                },
+                {
+                    "user": "Bác Sĩ Hương",
+                    "rating": 5,
+                    "comment": "Bệnh nhân men gan cao sử dụng nước sắc cà gai leo Hòa Nhơn cho kết quả men gan ổn định."
                 }
-            ]
+            ],
+            "yieldTons": 38
         },
         {
             "id": "r11",
@@ -311,14 +411,25 @@ const EcoHeritageDefaultData = {
             ],
             "desc": "Hệ sinh thái rừng bán ngập mát mẻ, khí hậu mát dịu từ mạch nước ngầm tạo môi trường hoàn hảo bảo tồn nấm linh chi rừng hoang dã.",
             "rating": 5,
-            "reviewsCount": 1,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "Vũ Đức",
                     "rating": 5,
                     "comment": "Môi trường rừng ngập nước mát mẻ nhân giống nấm lim xanh giữ nguyên hoạt chất quý."
+                },
+                {
+                    "user": "Dược Sĩ Minh Châu",
+                    "rating": 5,
+                    "comment": "Nấm lim xanh rừng hoang dã bảo tồn tại Hòa Phú có giá trị y học đặc biệt cao."
+                },
+                {
+                    "user": "Lương Y Nguyễn Cương",
+                    "rating": 5,
+                    "comment": "Mạch nước ngầm mát dịu là yếu tố tiên quyết để nấm chi phát triển tốt."
                 }
-            ]
+            ],
+            "yieldTons": 21
         },
         {
             "id": "r12",
@@ -337,15 +448,26 @@ const EcoHeritageDefaultData = {
                 "Cam thảo"
             ],
             "desc": "Mũi đá rạn Hải Vân sát biển, nơi tụ họp các loài thân thảo chịu mặn và gió cát, có hàm lượng tinh dầu kháng khuẩn cực mạnh.",
-            "rating": 4,
-            "reviewsCount": 1,
+            "rating": 4.7,
+            "reviewsCount": 3,
             "reviewsList": [
                 {
                     "user": "Hoàng Long",
                     "rating": 4,
-                    "comment": "Vườn cát ven biển Nam Ô thích hợp cho bạc hà kháng khuẩn mạnh."
+                    "comment": "Vườn cát ven biển Nam Ô thích hợp cho bạc hà kháng khuẩn phát triển mạnh."
+                },
+                {
+                    "user": "Dược Sĩ Phương Thảo",
+                    "rating": 5,
+                    "comment": "Dành dành cát biển hấp thụ muối khoáng có tính thanh nhiệt tả hỏa tốt."
+                },
+                {
+                    "user": "Lương Y Nguyễn Cương",
+                    "rating": 5,
+                    "comment": "Thảo dược Nam Ô chịu sương muối gió biển có sức sống và hoạt tính tinh dầu mạnh mẽ."
                 }
-            ]
+            ],
+            "yieldTons": 14
         }
     ],
     "herbs": [
@@ -825,10 +947,11 @@ const EcoHeritageDefaultData = {
             "referenceDetail": "Dược điển Việt Nam V, Bộ Y Tế, NXB Y Học (Trang 1190)."
         }
     ]
-};
+}
+;
 
 if (typeof window !== 'undefined') {
-    const CURRENT_DB_VERSION = 'eco_heritage_db_v8';
+    const CURRENT_DB_VERSION = 'eco_heritage_db_v11';
     // CHỈ ghi nếu chưa có — không overwrite data người dùng
     if (!localStorage.getItem(CURRENT_DB_VERSION)) {
         localStorage.setItem(CURRENT_DB_VERSION, JSON.stringify(EcoHeritageDefaultData));

@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
 
-    <link rel="stylesheet" href="style.css?v=22.0">
-    <link rel="stylesheet" href="v5-premium.css?v=22.0">
+    <link rel="stylesheet" href="style.css?v=27.0">
+    <link rel="stylesheet" href="v5-premium.css?v=27.0">
     <meta name="theme-color" content="#2eb366">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-offwhite">
@@ -48,6 +48,7 @@
                         <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-heart me-1"></i>Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="dictionary.html"><i class="bi bi-journal-medical me-1"></i>Từ điển bài thuốc</a></li>
                         <li class="nav-item"><a class="nav-link active" href="map.html"><i class="bi bi-map me-1"></i>Bản đồ dược liệu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-envelope me-1"></i>Liên hệ</a></li>
                         <li class="nav-item d-none" id="navAdminLink"><a class="nav-link" href="admin.html"><i class="bi bi-shield-lock me-1"></i>Quản trị</a></li>
                     </ul>
                     <div class="d-lg-none mt-3 mb-2" id="mobileAuthSection">
@@ -68,13 +69,13 @@
                         <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
                         <div class="dropdown">
                             <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
-                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar" loading="lazy">
+                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
                                 <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" aria-labelledby="avatarDropdown" style="width: 250px;">
                                 <li class="dropdown-header text-center pb-3 border-bottom mb-2">
                                     <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); font-size: 1.3rem; overflow: hidden;">
-                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar" loading="lazy">
+                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
                                         <span id="avatarInitialsDropdown">U</span>
                                     </div>
                                     <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
@@ -126,7 +127,7 @@
                         <button class="nav-link w-100 border-0 py-2.5 active fw-bold text-dark" id="places-tab" data-bs-toggle="tab" data-bs-target="#places-pane" type="button" role="tab"><i class="bi bi-pin-map-fill me-1"></i> Địa điểm (12)</button>
                     </li>
                     <li class="nav-item flex-fill text-center" role="presentation">
-                        <button class="nav-link w-100 border-0 py-2.5 fw-bold text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-pane" type="button" role="tab" disabled title="Chọn một địa điểm để xem đánh giá" style="opacity: 0.6; cursor: not-allowed;"><i class="bi bi-star-fill me-1"></i> Đánh giá</button>
+                        <button class="nav-link w-100 border-0 py-2.5 fw-bold text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-pane" type="button" role="tab" disabled title="Chọn một địa điểm để xem chi tiết" style="opacity: 0.6; cursor: not-allowed;"><i class="bi bi-info-circle-fill me-1"></i> Chi tiết</button>
                     </li>
                 </ul>
                 
@@ -157,62 +158,69 @@
                         </div>
                     </div>
                     
-                    <!-- Pane 2: Nhận xét Đánh giá -->
+                    <!-- Pane 2: Chi tiết địa điểm -->
                     <div class="tab-pane fade flex-grow-1 overflow-hidden" id="reviews-pane" role="tabpanel">
-                        <div class="p-3 border-bottom bg-light">
-                            <h5 class="fw-bold mb-1" id="activeLocationName">Tên địa điểm</h5>
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <div class="text-warning" id="activeLocationStars">
-                                    <!-- Dynamic stars -->
-                                </div>
-                                <span class="small fw-bold text-secondary" id="activeLocationRatingText">4.8 / 5.0</span>
-                            </div>
-                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1.5 small" id="activeLocationReviewCount"><i class="bi bi-chat-text-fill me-1"></i> 0 đánh giá</span>
-                        </div>
-                        
-                        <!-- Thông tin vùng sinh thái & Dược lý v6.0 -->
-                        <div class="p-3 border-bottom bg-white overflow-auto" id="regionDetailArea" style="display: none; max-height: 280px;">
-                            <p class="small text-secondary mb-3" id="regionDetailDesc" style="line-height: 1.6;"></p>
-                            
-                            <!-- Danh sách thảo dược phân bố -->
-                            <div class="mb-3 text-start">
-                                <span class="small fw-bold text-success d-block mb-2" style="font-size: 0.8rem;"><i class="bi bi-tags-fill"></i> DƯỢC LIỆU PHÂN BỐ CHÍNH:</span>
-                                <div class="d-flex flex-wrap gap-1.5" id="regionDetailHerbs" style="gap: 5px;">
-                                    <!-- Dynamic herb badges -->
-                                </div>
-                            </div>
-                            
-                            <!-- Chỉ số sinh thái thực tế (Ecology Score) -->
-                            <div class="mb-2 text-start">
-                                <span class="small fw-bold text-secondary d-block mb-2" style="font-size: 0.8rem;"><i class="bi bi-bar-chart-line-fill"></i> CHỈ SỐ THỔ NHƯỠNG & KHÍ HẬU:</span>
-                                <div class="ecology-stats-grid">
-                                    <div class="ecology-stat-card">
-                                        <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Độ pH của đất</div>
-                                        <div class="fs-6 fw-extrabold text-success" id="ecoSoilPH">6.5</div>
-                                        <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoSoilPHBar" style="width: 65%;"></div></div>
-                                    </div>
-                                    <div class="ecology-stat-card">
-                                        <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Cao độ (m)</div>
-                                        <div class="fs-6 fw-extrabold text-primary" id="ecoAltitude">1,487m</div>
-                                        <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoAltitudeBar" style="width: 85%;"></div></div>
-                                    </div>
-                                    <div class="ecology-stat-card">
-                                        <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Nhiệt độ TB</div>
-                                        <div class="fs-6 fw-extrabold text-warning" id="ecoTemp">24.5°C</div>
-                                        <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoTempBar" style="width: 72%;"></div></div>
-                                    </div>
-                                    <div class="ecology-stat-card">
-                                        <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Độ ẩm thích ứng</div>
-                                        <div class="fs-6 fw-extrabold text-danger" id="ecoDensity">95%</div>
-                                        <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoDensityBar" style="width: 95%;"></div></div>
-                                    </div>
+                        <div class="p-3 border-bottom bg-light d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <div>
+                                <h5 class="fw-bold mb-1 text-success" id="activeLocationName">Tên địa điểm</h5>
+                                <div class="d-flex align-items-center gap-2 fs-7 text-muted">
+                                    <span id="activeLocationStars"></span>
+                                    <span class="fw-bold text-dark" id="activeLocationRatingText" style="font-size: 0.8rem;">5.0 / 5.0</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- List of reviews -->
-                        <div class="flex-grow-1 overflow-auto p-3 d-flex flex-column gap-2" id="activeLocationReviewsList">
-                            <!-- JS will render reviews here -->
+                        <!-- Single Scrollable Container for Region Details and Reviews -->
+                        <div class="flex-grow-1 overflow-auto" id="reviewsPaneContent">
+                            <!-- Thông tin vùng sinh thái & Dược lý v6.0 -->
+                            <div class="p-3 border-bottom bg-white" id="regionDetailArea" style="display: none;">
+                                <p class="small text-secondary mb-3" id="regionDetailDesc" style="line-height: 1.6;"></p>
+                                
+                                <!-- Danh sách thảo dược phân bố -->
+                                <div class="mb-3 text-start">
+                                    <span class="small fw-bold text-success d-block mb-2" style="font-size: 0.8rem;"><i class="bi bi-tags-fill"></i> DƯỢC LIỆU PHÂN BỐ CHÍNH:</span>
+                                    <div class="d-flex flex-wrap gap-1.5" id="regionDetailHerbs" style="gap: 5px;">
+                                        <!-- Dynamic herb badges -->
+                                    </div>
+                                </div>
+                                
+                                <!-- Chỉ số sinh thái thực tế (Ecology Score) -->
+                                <div class="mb-2 text-start">
+                                    <span class="small fw-bold text-secondary d-block mb-2" style="font-size: 0.8rem;"><i class="bi bi-bar-chart-line-fill"></i> CHỈ SỐ THỔ NHƯỠNG & KHÍ HẬU:</span>
+                                    <div class="ecology-stats-grid">
+                                        <div class="ecology-stat-card">
+                                            <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Độ pH của đất</div>
+                                            <div class="fs-6 fw-extrabold text-success" id="ecoSoilPH">6.5</div>
+                                            <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoSoilPHBar" style="width: 65%;"></div></div>
+                                        </div>
+                                        <div class="ecology-stat-card">
+                                            <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Cao độ (m)</div>
+                                            <div class="fs-6 fw-extrabold text-primary" id="ecoAltitude">1,487m</div>
+                                            <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoAltitudeBar" style="width: 85%;"></div></div>
+                                        </div>
+                                        <div class="ecology-stat-card">
+                                            <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Nhiệt độ TB</div>
+                                            <div class="fs-6 fw-extrabold text-warning" id="ecoTemp">24.5°C</div>
+                                            <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoTempBar" style="width: 72%;"></div></div>
+                                        </div>
+                                        <div class="ecology-stat-card">
+                                            <div class="small fw-bold text-muted" style="font-size: 0.7rem;">Độ ẩm thích ứng</div>
+                                            <div class="fs-6 fw-extrabold text-danger" id="ecoDensity">95%</div>
+                                            <div class="ecology-progress-bar"><div class="ecology-progress-fill" id="ecoDensityBar" style="width: 95%;"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Nhận xét & Đánh giá -->
+                            <div class="p-3">
+                                <h6 class="fw-bold mb-3 text-secondary d-flex align-items-center gap-2" style="font-size: 0.85rem;" id="activeLocationReviewCount">
+                                    <i class="bi bi-chat-text-fill text-success"></i> 0 nhận xét
+                                </h6>
+                                <div class="d-flex flex-column gap-2" id="activeLocationReviewsList">
+                                    <!-- JS will render reviews here -->
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Write a review form -->
@@ -279,7 +287,7 @@
                         <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none footer-link-hover">Trang chủ</a></li>
                         <li class="mb-2"><a href="dictionary.html" class="text-secondary text-decoration-none footer-link-hover">Từ điển Y Dược</a></li>
                         <li class="mb-2"><a href="map.html" class="text-secondary text-decoration-none footer-link-hover">Bản đồ Vệ tinh</a></li>
-                        <li class="mb-2"><a href="profile.html" class="text-secondary text-decoration-none footer-link-hover">Hồ sơ cá nhân</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-secondary text-decoration-none footer-link-hover">Liên hệ</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
@@ -375,7 +383,7 @@
                                             <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoặc đăng nhập nhanh</span>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger"></i> Google</button>
+                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger me-2"></i> Google (Demo)</button>
                                         </div>
                                     </form>
                                 </div>
@@ -459,59 +467,69 @@
         </div>
     </div>
 
-    <!-- FLOATING CHAT WIDGET -->
-    <button class="floating-chat-btn premium-chat-btn" id="toggleChatBtn" title="Chat với AI" aria-label="Mở chatbot tư vấn Lương y">
+    <!-- FLOATING CHATBOT WIDGET (ECOBOT PRO v2) -->
+    <button class="floating-chat-btn premium-chat-btn" id="toggleChatBtn" aria-label="Mở chatbot tư vấn Lương y" title="Trò chuyện Lương y số">
         <div class="chat-icon-wrapper">
             <i class="bi bi-chat-dots-fill fs-4 text-white"></i>
         </div>
         <div class="badge-pulse"></div>
     </button>
     <div class="floating-chat-window premium-chat-window" id="floatingChatWindow" data-lenis-prevent>
-        <div class="chat-header premium-chat-header d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-3">
-                <div class="ai-avatar-circle">
-                    <i class="bi bi-robot"></i>
-                </div>
-                <div>
-                    <strong class="d-block text-white fw-bold" style="font-size: 1rem; line-height: 1.2; letter-spacing: 0.5px;">EcoBot Pro</strong>
-                    <div class="d-flex align-items-center gap-1 mt-1">
-                        <span class="status-dot online" style="width:8px; height:8px; background:#00e676; border-radius:50%; display:inline-block;"></span>
-                        <small class="text-white-50" style="font-size: 0.75rem;">Lương Y Số AI 24/7</small>
+        <!-- Chat Header -->
+        <div class="chat-header premium-chat-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="ai-avatar-circle">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <div>
+                        <strong class="d-block text-white fw-bold" style="font-size: 1.05rem; line-height: 1.2; letter-spacing: 0.3px;">EcoBot Pro</strong>
+                        <div class="d-flex align-items-center gap-2 mt-1">
+                            <span class="chatbot-status-dot"></span>
+                            <small class="text-white" style="font-size: 0.75rem; opacity: 0.8;">Lương Y Số AI 24/7</small>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex align-items-center gap-1">
-                <button class="btn btn-sm p-1" id="clearChatHistoryBtn" title="Xóa lịch sử chat" style="color:rgba(255,255,255,0.7); border:none; background:none;" aria-label="Xóa lịch sử chat">
-                    <i class="bi bi-trash3 fs-6"></i>
-                </button>
-                <button class="btn btn-sm p-1" onclick="$('#floatingChatWindow').removeClass('active')" style="color:white; border:none; background:none;" aria-label="Đóng chatbot">
-                    <i class="bi bi-x-lg fs-5"></i>
-                </button>
+                <div class="d-flex align-items-center gap-1">
+                    <button class="btn chatbot-header-btn" id="clearChatHistoryBtn" title="Xóa lịch sử chat" aria-label="Xóa lịch sử chat">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                    <button class="btn chatbot-header-btn" onclick="$('#floatingChatWindow').removeClass('active')" aria-label="Đóng chatbot">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
             </div>
         </div>
+        <!-- Chat Body -->
         <div class="chat-body-widget premium-chat-body" id="chatBody">
             <div class="chat-message ai-message mt-2">
-                <div class="message-avatar"><i class="bi bi-robot text-primary"></i></div>
+                <div class="message-avatar"><i class="bi bi-robot"></i></div>
                 <div class="message-content">
-                    <div class="message-bubble ai-bubble premium-bubble">
-                        <p class="mb-0">Kính chào quý nhân! Tôi là Lương y số EcoBot. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
+                    <div class="message-bubble ai-bubble">
+                        <p class="mb-0">Kính chào quý nhân! 🙏 Tôi là <strong>Lương y số EcoBot</strong>. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
                     </div>
-                    <span class="message-time" style="font-size: 0.7rem; color: #a5bcb0; margin-left: 10px;">EcoHeritage AI</span>
+                    <span class="message-time d-block" style="font-size: 0.7rem; color: #8fa096; margin-top: 4px; margin-left: 10px;">EcoHeritage AI</span>
                 </div>
             </div>
         </div>
-        <div class="chat-footer p-3 bg-white border-top">
-            <div class="d-flex gap-2 overflow-auto pb-2 mb-2" id="quickReplies">
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">💤 Mất ngủ</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">🦴 Đau khớp</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">😷 Cảm cúm</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">💊 Bổ dưỡng</button>
+        <!-- Chat Footer -->
+        <div class="chat-footer-v2">
+            <div class="chatbot-quick-replies" id="quickReplies">
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💤</span> Mất ngủ</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🦴</span> Đau khớp</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">😷</span> Cảm cúm</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💊</span> Bổ dưỡng</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🌿</span> Thảo dược</button>
             </div>
-            <div class="input-group premium-chat-input-group shadow-sm rounded-pill overflow-hidden border mb-2">
-                <input type="text" class="form-control border-0 px-4 py-3 bg-transparent" id="chatInput" placeholder="Hỏi Lương y về thảo dược, trị bệnh...">
-                <button class="btn btn-primary px-4 bg-gradient-primary border-0" id="chatSend"><i class="bi bi-send-fill fs-5"></i></button>
+            <div class="chatbot-input-wrapper">
+                <div class="chatbot-input-group">
+                    <input type="text" class="chatbot-input" id="chatInput" placeholder="Hỏi Lương y về thảo dược, trị bệnh..." autocomplete="off">
+                    <button class="chatbot-send-btn" id="chatSend" aria-label="Gửi tin nhắn">
+                        <i class="bi bi-send-fill"></i>
+                    </button>
+                </div>
             </div>
-            <div class="text-center text-danger fw-semibold" style="font-size: 0.72rem; line-height: 1.3;">
+            <div class="chatbot-disclaimer">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i> Khuyến cáo: Tham vấn ý kiến bác sĩ trước khi sử dụng hoặc làm theo bất kỳ bài thuốc nào từ chatbot.
             </div>
         </div>
@@ -548,7 +566,7 @@
                         <div class="brewing-pot-area">
                             <div class="brewing-pot-shadow"></div>
                             <div class="brewing-fire" id="brewingFireGraphic"></div>
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23854d0e'><ellipse cx='50' cy='60' rx='35' ry='25'/><rect x='45' y='20' width='10' height='20'/><circle cx='50' cy='15' r='8'/></svg>" class="brewing-pot-img" id="brewingPotGraphic" alt="Brewing Pot">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23854d0e'><ellipse cx='50' cy='60' rx='35' ry='25'/><rect x='45' y='20' width='10' height='20'/><circle cx='50' cy='15' r='8'/></svg>" class="brewing-pot-img" id="brewingPotGraphic" alt="Brewing Pot" loading="lazy">
                             <!-- Steam bubbles container -->
                             <div id="steamBubblesContainer"></div>
                         </div>
@@ -574,8 +592,8 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="config.js"></script>
-    <script src="data.js?v=23.0"></script>
-    <script src="script.js?v=23.0"></script>
+    <script src="data.js?v=27.0"></script>
+    <script src="script.js?v=27.0"></script>
 </body>
 </html>
 

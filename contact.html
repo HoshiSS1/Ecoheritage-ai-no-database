@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Liên hệ ban quản trị EcoHeritage AI - Gửi ý kiến góp ý bảo tồn y học cổ truyền.">
+    <meta name="keywords" content="liên hệ, phản hồi, đóng góp ý kiến, vku, đông y đà nẵng">
+    <title>Liên hệ & Góp ý - EcoHeritage AI</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌿</text></svg>" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css?v=27.0">
+    <link rel="stylesheet" href="v5-premium.css?v=27.0">
+    <meta name="theme-color" content="#2eb366">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-offwhite">
+    <!-- Page Scroll Progress Bar -->
+    <div id="scrollProgressBar" class="premium-scroll-progress-bar"></div>
+    <!-- Hạt sinh học nền -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- 1. HEADER & NAVBAR -->
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top shadow-sm py-3 transition-all" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <i class="bi bi-tree-fill text-success" style="font-size: 28px;"></i>
+                    <span class="logo-text">Eco<span class="logo-accent">Heritage</span> <span class="badge bg-success bg-opacity-10 text-success ms-1" style="font-size: 0.65em; vertical-align: middle;">AI</span></span>
+                </a>
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-heart me-1"></i>Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dictionary.html"><i class="bi bi-journal-medical me-1"></i>Từ điển bài thuốc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="map.html"><i class="bi bi-map me-1"></i>Bản đồ dược liệu</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="contact.html"><i class="bi bi-envelope me-1"></i>Liên hệ</a></li>
+                        <li class="nav-item d-none" id="navAdminLink"><a class="nav-link" href="admin.html"><i class="bi bi-shield-lock me-1"></i>Quản trị</a></li>
+                    </ul>
+                    <div class="d-lg-none mt-3 mb-2" id="mobileAuthSection">
+                        <button class="btn btn-auth w-100" data-bs-toggle="modal" data-bs-target="#authModal" id="mobileLoginBtn">Đăng nhập</button>
+                        <div class="d-none w-100 gap-2" id="mobileUserBtnGroup">
+                            <a href="profile.html" class="btn btn-outline-success w-50 py-2 rounded-pill fw-bold"><i class="bi bi-person-fill"></i> Hồ sơ</a>
+                            <button class="btn btn-outline-danger w-50 py-2 rounded-pill fw-bold" id="mobileLogoutBtn"><i class="bi bi-box-arrow-right"></i> Ra</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="darkModeToggle" class="btn btn-outline-success rounded-circle border-0 p-2 me-2" 
+                        title="Chuyển chế độ tối/sáng" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;">
+                    <i class="bi bi-moon-fill fs-5"></i>
+                </button>
+                <div class="d-none d-lg-flex align-items-center gap-3" id="desktopAuthSection">
+                    <button class="btn btn-auth" data-bs-toggle="modal" data-bs-target="#authModal" id="desktopLoginBtn">Đăng nhập</button>
+                    <div class="d-none align-items-center gap-2" id="desktopUserAvatar">
+                        <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
+                        <div class="dropdown">
+                            <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
+                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
+                                <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" style="width: 250px;">
+                                <li class="dropdown-header text-center pb-3 border-bottom mb-2">
+                                    <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); overflow: hidden;">
+                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
+                                        <span id="avatarInitialsDropdown">U</span>
+                                    </div>
+                                    <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
+                                    <small class="text-muted d-block" id="dropdownUserEmail">email@gmail.com</small>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2" href="profile.html">
+                                        <i class="bi bi-person-circle text-success fs-5"></i>
+                                        <span>Hồ sơ cá nhân</span>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider opacity-50"></li>
+                                <li>
+                                    <button class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center gap-2 text-danger w-100 text-start border-0 bg-transparent" id="dropdownLogoutBtn">
+                                        <i class="bi bi-box-arrow-right fs-5"></i>
+                                        <span>Đăng xuất</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 2. NỘI DUNG CHÍNH -->
+    <main class="flex-grow-1" style="margin-top: 110px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-badge">Góp Ý & Phản Hồi</span>
+                <h2 class="section-title">Liên Hệ <span class="gradient-text-green">Chúng Tôi</span></h2>
+                <p class="text-muted mx-auto" style="max-width: 600px;">
+                    Hãy gửi những ý kiến đóng góp, phản hồi hoặc câu hỏi của bạn để cùng xây dựng cộng đồng bảo tồn y dược tốt hơn.
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Cột trái: Form liên hệ -->
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white h-100">
+                        <h4 class="fw-bold text-success mb-4"><i class="bi bi-envelope-paper-fill me-2"></i>Mẫu Gửi Ý Kiến</h4>
+                        
+                        <form id="contactForm" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="contactName" class="form-label small fw-bold text-secondary">Họ và Tên</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-person text-success"></i></span>
+                                    <input type="text" class="form-control bg-light border-0 py-2.5 rounded-end shadow-none" id="contactName" placeholder="Nhập họ và tên..." required>
+                                </div>
+                                <div class="invalid-feedback d-none text-danger small mt-1" id="nameError">Vui lòng nhập họ và tên của bạn!</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="contactEmail" class="form-label small fw-bold text-secondary">Địa chỉ Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-envelope text-success"></i></span>
+                                    <input type="email" class="form-control bg-light border-0 py-2.5 rounded-end shadow-none" id="contactEmail" placeholder="example@email.com" required>
+                                </div>
+                                <div class="invalid-feedback d-none text-danger small mt-1" id="emailError">Địa chỉ email không hợp lệ! (Ví dụ: name@domain.com)</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="contactSubject" class="form-label small fw-bold text-secondary">Tiêu đề phản hồi</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-bookmark-fill text-success"></i></span>
+                                    <input type="text" class="form-control bg-light border-0 py-2.5 rounded-end shadow-none" id="contactSubject" placeholder="Chủ đề góp ý..." required>
+                                </div>
+                                <div class="invalid-feedback d-none text-danger small mt-1" id="subjectError">Vui lòng nhập tiêu đề phản hồi!</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="contactMessage" class="form-label small fw-bold text-secondary">Nội dung góp ý / Ý kiến phản hồi</label>
+                                <textarea class="form-control bg-light border-0 p-3 shadow-none" id="contactMessage" rows="5" placeholder="Hãy nhập nội dung chi tiết phản hồi của bạn..." style="border-radius: var(--radius-sm);" required minlength="10"></textarea>
+                                <div class="invalid-feedback d-none text-danger small mt-1" id="messageError">Nội dung góp ý quá ngắn! (Tối thiểu 10 ký tự)</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-premium-success w-100 py-3 rounded-pill fw-bold shadow-lg d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-send-fill"></i> GỬI PHẢN HỒI
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Thông tin liên hệ -->
+                <div class="col-lg-5" data-aos="fade-left">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="fw-bold text-success mb-4"><i class="bi bi-building-fill me-2"></i>Văn Phòng Ban Quản Trị</h4>
+                            
+                            <div class="d-flex align-items-start gap-3 mb-4">
+                                <div class="rounded-circle bg-success bg-opacity-10 p-2.5 text-success d-flex align-items-center justify-content-center" style="width:45px; height:45px; flex-shrink:0;">
+                                    <i class="bi bi-geo-alt-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Địa chỉ văn phòng</h6>
+                                    <p class="text-secondary small mb-0">Trường Đại học Công nghệ Thông tin và Truyền thông Việt - Hàn (VKU)</p>
+                                    <small class="text-muted">470 Đường Trần Đại Nghĩa, Hòa Quý, Ngũ Hành Sơn, Đà Nẵng, Việt Nam</small>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start gap-3 mb-4">
+                                <div class="rounded-circle bg-success bg-opacity-10 p-2.5 text-success d-flex align-items-center justify-content-center" style="width:45px; height:45px; flex-shrink:0;">
+                                    <i class="bi bi-telephone-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Số điện thoại liên hệ</h6>
+                                    <p class="text-secondary small mb-0">(+84) 1900 8888</p>
+                                    <small class="text-muted">Hỗ trợ kỹ thuật 24/7</small>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start gap-3 mb-4">
+                                <div class="rounded-circle bg-success bg-opacity-10 p-2.5 text-success d-flex align-items-center justify-content-center" style="width:45px; height:45px; flex-shrink:0;">
+                                    <i class="bi bi-envelope-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Hộp thư hỗ trợ điện tử</h6>
+                                    <p class="text-secondary small mb-0">contact@ecoheritage.vn</p>
+                                    <small class="text-muted">Phản hồi trong vòng 24 giờ</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 rounded-3 bg-light border border-light text-start">
+                            <h6 class="fw-bold text-success mb-2"><i class="bi bi-clock-history"></i> Thời gian tiếp nhận phản hồi</h6>
+                            <p class="small text-secondary mb-0" style="line-height: 1.5;">
+                                Toàn bộ các góp ý và đánh giá sinh thái của bạn sẽ được chuyển thẳng tới cổng kiểm duyệt quản trị viên CMS để cập nhật cải tiến hệ sinh thái.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. FOOTER -->
+    <footer class="site-footer bg-dark-premium text-white py-5 position-relative overflow-hidden mt-auto">
+        <div class="footer-wave position-absolute top-0 start-0 w-100" style="transform: translateY(-99%); z-index: 0;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" style="height: 60px;">
+                <path d="M0,40 C360,100 720,0 1080,60 C1260,90 1380,50 1440,40 L1440,121 L0,121 Z" fill="var(--bg-dark-premium)"/>
+            </svg>
+        </div>
+        <div class="container position-relative z-1">
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand mb-4 d-flex align-items-center gap-2">
+                        <i class="bi bi-tree-fill text-success fs-2"></i>
+                        <span class="fs-3 fw-bold text-white">Eco<span class="text-success">Heritage AI</span></span>
+                    </div>
+                    <p class="text-secondary" style="line-height: 1.8;">Nền tảng số hóa dược liệu sinh học và bản đồ di sản y học cổ truyền Việt Nam.</p>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold mb-4 text-white">Khám phá</h5>
+                    <ul class="list-unstyled text-secondary">
+                        <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none footer-link-hover">Trang chủ</a></li>
+                        <li class="mb-2"><a href="dictionary.html" class="text-secondary text-decoration-none footer-link-hover">Từ điển Y Dược</a></li>
+                        <li class="mb-2"><a href="map.html" class="text-secondary text-decoration-none footer-link-hover">Bản đồ Vệ tinh</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-secondary text-decoration-none footer-link-hover">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold mb-4 text-white">Liên hệ học thuật</h5>
+                    <p class="text-secondary">Trường Đại học Công nghệ Thông tin và Truyền thông Việt - Hàn (VKU)</p>
+                    <small class="text-muted"><i class="bi bi-geo-alt-fill text-success"></i> 470 Đường Trần Đại Nghĩa, Hòa Quý, Ngũ Hành Sơn, Đà Nẵng</small>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center mt-4">
+                <small class="text-secondary">&copy; 2026 EcoHeritage AI. Đồ án môn học Web CK - SV. Nguyễn Minh Hùng VKU.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION FOR VALIDATION -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-4" style="z-index: 1100">
+        <div id="liveToast" class="toast align-items-center border-0 shadow-lg rounded-3 text-white" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center fw-semibold">
+                    <i class="bi bi-check-circle-fill me-2 fs-5" id="toastIcon"></i>
+                    <span id="toastMessage">Thông báo gửi thành công!</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Dark Mode Toggle
+        const isDarkMode = localStorage.getItem('eco_theme_dark') === 'true';
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark-mode');
+            $('#darkModeToggle i').removeClass('bi-moon-fill').addClass('bi-sun-fill');
+        }
+        
+        $('#darkModeToggle').on('click', function() {
+            const hasDark = document.documentElement.classList.toggle('dark-mode');
+            localStorage.setItem('eco_theme_dark', hasDark);
+            $('#darkModeToggle i').toggleClass('bi-moon-fill bi-sun-fill');
+        });
+
+        // jQuery input validation logic for form
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset validation errors
+            $('.invalid-feedback').addClass('d-none');
+            $('input, textarea').removeClass('is-invalid');
+            
+            let isValid = true;
+            
+            // Check Name
+            const name = $('#contactName').val().trim();
+            if (!name) {
+                $('#contactName').addClass('is-invalid');
+                $('#nameError').removeClass('d-none');
+                isValid = false;
+            }
+            
+            // Check Email
+            const email = $('#contactEmail').val().trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                $('#contactEmail').addClass('is-invalid');
+                $('#emailError').removeClass('d-none');
+                isValid = false;
+            }
+            
+            // Check Subject
+            const subject = $('#contactSubject').val().trim();
+            if (!subject) {
+                $('#contactSubject').addClass('is-invalid');
+                $('#subjectError').removeClass('d-none');
+                isValid = false;
+            }
+            
+            // Check Message
+            const message = $('#contactMessage').val().trim();
+            if (!message || message.length < 10) {
+                $('#contactMessage').addClass('is-invalid');
+                $('#messageError').removeClass('d-none');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show Success Toast
+                $('#liveToast').removeClass('bg-danger').addClass('bg-success');
+                $('#toastIcon').removeClass('bi-exclamation-triangle-fill').addClass('bi-check-circle-fill');
+                $('#toastMessage').text('Đã gửi phản hồi thành công! Cảm ơn bạn đã đóng góp. 📬');
+                
+                const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+                toast.show();
+                
+                // Clear Form
+                $('#contactForm')[0].reset();
+            } else {
+                // Show Error Toast
+                $('#liveToast').removeClass('bg-success').addClass('bg-danger');
+                $('#toastIcon').removeClass('bi-check-circle-fill').addClass('bi-exclamation-triangle-fill');
+                $('#toastMessage').text('Vui lòng kiểm tra lại các trường thông tin bị lỗi!');
+                
+                const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+                toast.show();
+            }
+        });
+    </script>
+</body>
+</html>

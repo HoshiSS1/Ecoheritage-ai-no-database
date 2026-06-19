@@ -716,7 +716,8 @@ html.dark-mode .premium-chat-window {
 .premium-chat-header {
     background: linear-gradient(135deg, #092c1a 0%, #059669 60%, #10b981 100%) !important;
     padding: 16px 20px !important;
-    border-bottom: 2px solid rgba(217, 119, 6, 0.35) !important; /* Gold bottom accent line */
+    border-bottom: 2px solid rgba(217, 119, 6, 0.35) !important;
+    /* Gold bottom accent line */
     border-top-left-radius: 24px !important;
     border-top-right-radius: 24px !important;
 }
@@ -788,6 +789,7 @@ html.dark-mode .premium-chat-body {
     font-size: 1.15rem !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02) !important;
 }
+
 html.dark-mode .message-avatar {
     background: rgba(16, 185, 129, 0.15) !important;
     color: #00e676 !important;
@@ -808,6 +810,7 @@ html.dark-mode .message-avatar {
     border-top-left-radius: 4px !important;
     box-shadow: 0 4px 16px rgba(13, 22, 17, 0.04) !important;
 }
+
 html.dark-mode .ai-bubble {
     background: rgba(25, 42, 33, 0.95) !important;
     color: var(--text-main) !important;
@@ -821,6 +824,7 @@ html.dark-mode .ai-bubble {
     border-top-right-radius: 4px !important;
     box-shadow: 0 5px 15px rgba(16, 185, 129, 0.22) !important;
 }
+
 html.dark-mode .user-bubble {
     background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
 }
@@ -833,6 +837,7 @@ html.dark-mode .user-bubble {
     -webkit-backdrop-filter: blur(20px) !important;
     border-top: 1px solid rgba(16, 185, 129, 0.12) !important;
 }
+
 html.dark-mode .chat-footer-v2 {
     background: rgba(10, 20, 15, 0.95) !important;
     border-top-color: rgba(16, 185, 129, 0.2) !important;
@@ -846,6 +851,7 @@ html.dark-mode .chat-footer-v2 {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
 }
+
 .chatbot-quick-replies::-webkit-scrollbar {
     display: none !important;
 }
@@ -865,11 +871,13 @@ html.dark-mode .chat-footer-v2 {
     cursor: pointer !important;
     transition: all 0.3s ease !important;
 }
+
 html.dark-mode .chatbot-quick-pill {
     background: rgba(16, 185, 129, 0.08) !important;
     color: #6ee7b7 !important;
     border-color: rgba(16, 185, 129, 0.35) !important;
 }
+
 .chatbot-quick-pill:hover {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
     color: white !important;
@@ -877,6 +885,7 @@ html.dark-mode .chatbot-quick-pill {
     transform: translateY(-2px) !important;
     box-shadow: 0 5px 12px var(--primary-glow) !important;
 }
+
 html.dark-mode .chatbot-quick-pill:hover {
     background: rgba(16, 185, 129, 0.18) !important;
     color: white !important;
@@ -897,6 +906,7 @@ html.dark-mode .chatbot-quick-pill:hover {
     transition: all 0.3s ease !important;
     box-shadow: 0 2px 8px rgba(13, 22, 17, 0.02) !important;
 }
+
 html.dark-mode .chatbot-input-group {
     background: rgba(13, 22, 17, 0.5) !important;
     border-color: rgba(16, 185, 129, 0.25) !important;
@@ -907,6 +917,7 @@ html.dark-mode .chatbot-input-group {
     box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12) !important;
     background: #ffffff !important;
 }
+
 html.dark-mode .chatbot-input-group:focus-within {
     background: rgba(13, 22, 17, 0.8) !important;
 }
@@ -920,6 +931,7 @@ html.dark-mode .chatbot-input-group:focus-within {
     color: #1a2e22 !important;
     outline: none !important;
 }
+
 html.dark-mode .chatbot-input {
     color: var(--text-main) !important;
 }
@@ -940,6 +952,7 @@ html.dark-mode .chatbot-input {
     box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25) !important;
     transition: all 0.3s ease !important;
 }
+
 .chatbot-send-btn:hover {
     transform: scale(1.08) rotate(-5deg) !important;
     box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4) !important;
@@ -1371,7 +1384,18 @@ html.dark-mode .chatbot-input {
 /* ─── 2. NÂNG CẤP GIAO DIỆN TRANG HỒ SƠ CÁ NHÂN (PROFILE PAGE EXCELLENCY) ─── */
 .profile-cover-section {
     background-attachment: scroll !important;
-    border-bottom: 6px solid var(--primary) !important;
+    border-bottom: 2px solid rgba(16, 185, 129, 0.15) !important;
+}
+
+.glass-stat-card {
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.glass-stat-card:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 12px 30px rgba(0, 230, 118, 0.25) !important;
 }
 
 .profile-card {
@@ -1389,30 +1413,59 @@ html.dark-mode .chatbot-input {
 
 /* Thẻ Huy chương thành tựu */
 .achievement-card {
-    background: rgba(248, 249, 250, 0.8) !important;
-    border: 1.5px solid rgba(13, 22, 17, 0.06) !important;
+    background: rgba(248, 249, 250, 0.45) !important;
+    border: 1.5px solid rgba(13, 22, 17, 0.05) !important;
     padding: 22px 15px !important;
+    border-radius: var(--radius-md) !important;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
 .achievement-card:hover {
-    transform: translateY(-6px) scale(1.03) !important;
-    background: white !important;
-    border-color: var(--primary) !important;
-    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.12) !important;
+    transform: translateY(-8px) scale(1.04) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
 }
 
-/* Huy chương đã mở khóa phát sáng */
+/* Huy chương đã mở khóa phát sáng riêng biệt */
 .achievement-card:not(.locked) {
     background: white !important;
-    border-color: rgba(16, 185, 129, 0.25) !important;
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.06) !important;
+    border-width: 1.5px !important;
+}
+
+#badge-first-save.unlocked {
+    border-color: #2eb366 !important;
+    box-shadow: 0 8px 25px rgba(46, 179, 102, 0.18) !important;
+}
+
+#badge-expert.unlocked {
+    border-color: #0d6efd !important;
+    box-shadow: 0 8px 25px rgba(13, 110, 253, 0.18) !important;
+}
+
+#badge-bot-chat.unlocked {
+    border-color: #ff9800 !important;
+    box-shadow: 0 8px 25px rgba(255, 152, 0, 0.18) !important;
+}
+
+#badge-map-review.unlocked {
+    border-color: #e91e63 !important;
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.18) !important;
+}
+
+#badge-ranger.unlocked {
+    border-color: #9c27b0 !important;
+    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.18) !important;
+}
+
+#badge-system-admin.unlocked {
+    border-color: #ffc107 !important;
+    box-shadow: 0 8px 30px rgba(255, 193, 7, 0.3) !important;
+    background: linear-gradient(to bottom, #fff, #fff9e6) !important;
 }
 
 /* Huy chương bị khóa phủ kính mờ */
 .badge-locked-overlay {
-    background: rgba(255, 255, 255, 0.75) !important;
-    backdrop-filter: blur(4px) !important;
+    background: rgba(255, 255, 255, 0.82) !important;
+    backdrop-filter: blur(5px) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -1646,26 +1699,70 @@ html.dark-mode .chatbot-input {
         height: calc(100vh - 190px) !important;
         min-height: auto !important;
     }
+
     .map-fullscreen-container.mobile-list-active .map-full-wrapper {
         display: none !important;
     }
+
     .map-fullscreen-container.mobile-map-active .map-floating-sidebar {
         display: none !important;
     }
+
     .map-fullscreen-container.mobile-map-active .map-full-wrapper {
         display: block !important;
         width: 100% !important;
         height: calc(100vh - 190px) !important;
     }
-    
+
     .map-fullscreen-container {
         flex-direction: column !important;
         height: calc(100vh - 190px) !important;
         min-height: auto !important;
         overflow: hidden !important;
     }
+
     .sidebar-list {
         max-height: none !important;
+    }
+
+    .map-floating-sidebar #reviews-pane.active {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        overflow: hidden !important;
+    }
+
+    #reviewsPaneContent {
+        flex-grow: 1 !important;
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+
+    #regionDetailArea {
+        flex-grow: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    #activeLocationReviewsList {
+        overflow: visible !important;
+        flex-grow: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    #writeReviewSection {
+        padding: 10px 15px !important;
+    }
+
+    #reviewStarRating i {
+        font-size: 1.15rem !important;
+    }
+
+    #activeLocationReviewsList .review-card-premium {
+        padding: 8px 12px !important;
+        margin-bottom: 8px !important;
     }
 }
 
@@ -1699,6 +1796,7 @@ html.dark-mode .chatbot-input {
     position: relative;
     overflow: hidden;
 }
+
 .shimmer-badge::before {
     content: '' !important;
     position: absolute !important;
@@ -1710,9 +1808,15 @@ html.dark-mode .chatbot-input {
     transform: skewX(-25deg) !important;
     animation: shimmerBadgeAnim 2.5s infinite linear !important;
 }
+
 @keyframes shimmerBadgeAnim {
-    0% { left: -100%; }
-    100% { left: 150%; }
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 150%;
+    }
 }
 
 /* Tilt Card Wrapper */
@@ -1720,6 +1824,7 @@ html.dark-mode .chatbot-input {
     transform-style: preserve-3d !important;
     transform: perspective(1000px);
 }
+
 .tilt-card-wrapper .card {
     transform: translateZ(10px) !important;
     transition: transform 0.1s ease !important;
@@ -1736,15 +1841,18 @@ html.dark-mode .chatbot-input {
     transform: rotate(180deg);
     z-index: 2;
 }
+
 .wave-divider svg {
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
     height: 40px;
 }
+
 .wave-divider .shape-fill {
     fill: var(--bg-offwhite) !important;
 }
+
 html.dark-mode .wave-divider .shape-fill {
     fill: var(--bg-offwhite) !important;
 }
@@ -1758,15 +1866,18 @@ html.dark-mode .wave-divider .shape-fill {
     line-height: 0;
     z-index: 2;
 }
+
 .wave-divider-top svg {
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
     height: 40px;
 }
+
 .wave-divider-top .shape-fill {
     fill: var(--bg-offwhite) !important;
 }
+
 html.dark-mode .wave-divider-top .shape-fill {
     fill: var(--bg-offwhite) !important;
 }
@@ -1778,6 +1889,7 @@ html.dark-mode .wave-divider-top .shape-fill {
     gap: 4px;
     padding: 6px 12px;
 }
+
 .typing-dots span {
     width: 6px;
     height: 6px;
@@ -1785,11 +1897,28 @@ html.dark-mode .wave-divider-top .shape-fill {
     border-radius: 50%;
     animation: typingBounce 1.4s infinite ease-in-out both;
 }
-.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+.typing-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
 @keyframes typingBounce {
-    0%, 80%, 100% { transform: scale(0.2); opacity: 0.5; }
-    40% { transform: scale(1); opacity: 1; }
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0.2);
+        opacity: 0.5;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* Toast Custom Override */
@@ -1802,6 +1931,7 @@ html.dark-mode .wave-divider-top .shape-fill {
     border-radius: var(--radius-md) !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
 }
+
 .custom-toast .toast-body {
     color: #E8F5E9 !important;
     font-weight: 500;
@@ -1816,7 +1946,10 @@ html.dark-mode .wave-divider-top .shape-fill {
 
 /* Accessibility: prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
@@ -1828,7 +1961,8 @@ html.dark-mode .wave-divider-top .shape-fill {
    Redesigned 4-card Weather Grid (v7.5 Mockup Redesign)
    ========================================================================== */
 .weather-param-card {
-    background: rgba(240, 253, 244, 0.65) !important; /* Light mode: translucent light green */
+    background: rgba(240, 253, 244, 0.65) !important;
+    /* Light mode: translucent light green */
     backdrop-filter: blur(15px) !important;
     -webkit-backdrop-filter: blur(15px) !important;
     border: 1.5px solid rgba(46, 179, 102, 0.15) !important;
@@ -1855,18 +1989,22 @@ html.dark-mode .wave-divider-top .shape-fill {
     justify-content: center;
     border-radius: 14px;
 }
+
 .aqi-icon {
     background: rgba(245, 158, 11, 0.1);
     color: #f59e0b;
 }
+
 .uv-icon {
     background: rgba(245, 158, 11, 0.1);
     color: #eab308;
 }
+
 .humidity-icon {
     background: rgba(59, 130, 246, 0.1);
     color: #3b82f6;
 }
+
 .wind-icon {
     background: rgba(16, 185, 129, 0.1);
     color: #10b981;
@@ -1882,14 +2020,17 @@ html.dark-mode .wave-divider-top .shape-fill {
     letter-spacing: 0.8px;
     display: inline-block;
 }
+
 .status-badge-pill.success {
     background: rgba(16, 185, 129, 0.12) !important;
     color: #10b981 !important;
 }
+
 .status-badge-pill.warning {
     background: rgba(245, 158, 11, 0.12) !important;
     color: #d97706 !important;
 }
+
 .status-badge-pill.danger {
     background: rgba(239, 68, 68, 0.12) !important;
     color: #ef4444 !important;
@@ -1905,6 +2046,7 @@ html.dark-mode .wave-divider-top .shape-fill {
     margin-top: 15px;
     text-transform: uppercase;
 }
+
 .card-value-text {
     font-size: 2.3rem !important;
     font-weight: 850 !important;
@@ -1920,6 +2062,7 @@ html.dark-mode .wave-divider-top .shape-fill {
     text-decoration: none !important;
     transition: all 0.3s ease;
 }
+
 .card-action-link:hover {
     color: #059669 !important;
     padding-left: 3px;
@@ -1931,21 +2074,26 @@ html.dark-mode .weather-param-card {
     border: 1.5px solid rgba(16, 185, 129, 0.15) !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
 }
+
 html.dark-mode .weather-param-card:hover {
     background: rgba(13, 33, 22, 0.95) !important;
     border-color: rgba(16, 185, 129, 0.38) !important;
     box-shadow: 0 15px 40px rgba(16, 185, 129, 0.15) !important;
 }
+
 html.dark-mode .card-label-text {
     color: rgba(255, 255, 255, 0.55) !important;
 }
+
 html.dark-mode .card-value-text {
     color: #ffffff !important;
 }
+
 html.dark-mode .status-badge-pill.warning {
     background: rgba(245, 158, 11, 0.2) !important;
     color: #fbbf24 !important;
 }
+
 html.dark-mode .status-badge-pill.danger {
     background: rgba(239, 68, 68, 0.2) !important;
     color: #f87171 !important;
@@ -1953,10 +2101,22 @@ html.dark-mode .status-badge-pill.danger {
 
 /* Highlight flashing animation */
 @keyframes flashHighlight {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 179, 102, 0.5); }
-    50% { transform: scale(1.02); box-shadow: 0 0 20px 10px rgba(46, 179, 102, 0.2); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 179, 102, 0); }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(46, 179, 102, 0.5);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px 10px rgba(46, 179, 102, 0.2);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(46, 179, 102, 0);
+    }
 }
+
 .flash-highlight {
     animation: flashHighlight 1.2s ease-in-out 2;
 }
@@ -2041,13 +2201,16 @@ html.dark-mode .btn-close {
     padding: 10px !important;
     transition: all 0.3s ease !important;
 }
+
 .auth-close-btn:hover {
     background-color: rgba(0, 0, 0, 0.15) !important;
 }
+
 html.dark-mode .auth-close-btn {
     background-color: rgba(255, 255, 255, 0.1) !important;
     filter: invert(1) grayscale(1) brightness(2) !important;
 }
+
 html.dark-mode .auth-close-btn:hover {
     background-color: rgba(255, 255, 255, 0.2) !important;
 }
@@ -2061,6 +2224,7 @@ html.dark-mode #aqi-dashboard {
 html.dark-mode .premium-chat-window {
     border-radius: 22px !important;
 }
+
 @media (max-width: 768px) {
     html.dark-mode .premium-chat-window {
         border-radius: 0 !important;
@@ -2072,11 +2236,15 @@ html.dark-mode .premium-chat-window {
     overflow: hidden;
     position: relative;
 }
+
 .hero-premium-bg::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
         radial-gradient(circle at 10% 20%, rgba(46, 179, 102, 0.22) 0%, transparent 45%),
         radial-gradient(circle at 90% 80%, rgba(0, 230, 118, 0.16) 0%, transparent 45%),
         radial-gradient(circle at 50% 15%, rgba(13, 110, 253, 0.1) 0%, transparent 40%),
@@ -2085,10 +2253,19 @@ html.dark-mode .premium-chat-window {
     animation: driftMesh 25s ease-in-out infinite alternate;
     pointer-events: none;
 }
+
 @keyframes driftMesh {
-    0% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
-    50% { transform: scale(1.15) translate(20px, -15px) rotate(2deg); }
-    100% { transform: scale(1.05) translate(-10px, 15px) rotate(-1deg); }
+    0% {
+        transform: scale(1) translate(0px, 0px) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.15) translate(20px, -15px) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1.05) translate(-10px, 15px) rotate(-1deg);
+    }
 }
 
 /* ─── WEATHER ADAPTIVE CARD ────────────────────────────────── */
@@ -2096,15 +2273,18 @@ html.dark-mode .premium-chat-window {
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 10px 30px rgba(46, 179, 102, 0.04) !important;
 }
+
 #weatherAdaptiveCard:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(46, 179, 102, 0.15) !important;
     border-color: rgba(46, 179, 102, 0.45) !important;
 }
+
 html.dark-mode #weatherAdaptiveCard {
     background: linear-gradient(135deg, rgba(46, 179, 102, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%) !important;
     border-color: rgba(46, 179, 102, 0.35) !important;
 }
+
 html.dark-mode #weatherAdaptiveCard p {
     color: var(--text-light) !important;
 }
@@ -2114,10 +2294,12 @@ html.dark-mode #weatherAdaptiveCard p {
     position: relative;
     overflow: hidden;
 }
+
 .timeline-wrapper {
     position: relative;
     padding: 20px 0;
 }
+
 .timeline-line {
     position: absolute;
     left: 50%;
@@ -2128,23 +2310,28 @@ html.dark-mode #weatherAdaptiveCard p {
     transform: translateX(-50%);
     z-index: 1;
 }
+
 .timeline-item {
     position: relative;
     z-index: 2;
     transition: all 0.4s ease;
 }
+
 .timeline-content-wrapper {
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     padding: 15px;
     border-radius: 16px;
 }
+
 .timeline-item:hover .timeline-content-wrapper {
     transform: translateY(-8px);
     background: rgba(46, 179, 102, 0.03);
 }
+
 html.dark-mode .timeline-item:hover .timeline-content-wrapper {
     background: rgba(255, 255, 255, 0.02);
 }
+
 .timeline-marker {
     width: 50px;
     height: 50px;
@@ -2156,9 +2343,11 @@ html.dark-mode .timeline-item:hover .timeline-content-wrapper {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 3;
 }
+
 html.dark-mode .timeline-marker {
     border-color: var(--bg-dark-premium) !important;
 }
+
 .timeline-item:hover .timeline-marker {
     transform: scale(1.2) !important;
     box-shadow: 0 0 25px var(--primary-glow) !important;
@@ -2169,14 +2358,17 @@ html.dark-mode .timeline-marker {
         left: 25px !important;
         transform: none !important;
     }
+
     .timeline-item {
         margin-bottom: 2.5rem !important;
     }
+
     .timeline-content-wrapper {
         text-align: left !important;
         padding-left: 60px !important;
         width: 100% !important;
     }
+
     .timeline-marker-wrapper {
         display: none !important;
     }
@@ -2188,6 +2380,7 @@ html.dark-mode .timeline-marker {
         transform: scale(0.5);
         opacity: 0.8;
     }
+
     100% {
         transform: scale(1.4);
         opacity: 0;
@@ -2201,6 +2394,7 @@ html.dark-mode .timeline-marker {
 #comparisonModal {
     z-index: 1065 !important;
 }
+
 #brewingSimModal {
     z-index: 1070 !important;
 }
@@ -2210,6 +2404,7 @@ html.dark-mode .timeline-marker {
     border-top: 2px solid rgba(46, 179, 102, 0.3) !important;
     backdrop-filter: blur(20px) saturate(160%) !important;
 }
+
 html.dark-mode .comparison-drawer {
     background: rgba(21, 36, 28, 0.92) !important;
     border-top: 2px solid rgba(0, 230, 118, 0.25) !important;
@@ -2222,11 +2417,13 @@ html.dark-mode .comparison-drawer {
     border: 1px solid rgba(46, 179, 102, 0.15) !important;
     background: rgba(255, 255, 255, 0.8) !important;
 }
+
 html.dark-mode #compareItemsList .badge {
     background: rgba(255, 255, 255, 0.08) !important;
     border-color: rgba(255, 255, 255, 0.15) !important;
     color: var(--text-main) !important;
 }
+
 #compareItemsList .badge i:hover {
     color: #ef4444 !important;
     transform: scale(1.15);
@@ -2241,41 +2438,51 @@ html.dark-mode #compareItemsList .badge {
     color: #1b5e20 !important;
     border-bottom: 2px solid rgba(46, 179, 102, 0.2) !important;
 }
+
 html.dark-mode .compare-table th {
     background-color: rgba(255, 255, 255, 0.03) !important;
     color: #00e676 !important;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
 }
+
 .compare-table td {
     padding: 1rem 1.25rem !important;
     line-height: 1.6;
 }
+
 html.dark-mode .compare-table td {
     color: var(--text-main) !important;
     border-color: rgba(255, 255, 255, 0.08) !important;
 }
+
 /* Dark mode: comparison modal content, header, footer */
 html.dark-mode #comparisonModal .modal-content {
     background: var(--bg-light) !important;
     color: var(--text-main) !important;
 }
+
 html.dark-mode #comparisonModal .modal-header {
     background: #065f46 !important;
 }
+
 html.dark-mode #comparisonModal .modal-footer {
     background: var(--bg-white) !important;
     border-color: rgba(255, 255, 255, 0.08) !important;
 }
+
 html.dark-mode #comparisonModal .table {
     background-color: var(--bg-light) !important;
     color: var(--text-main) !important;
 }
+
 html.dark-mode #comparisonModal .bg-light {
     background-color: rgba(255, 255, 255, 0.04) !important;
 }
+
 html.dark-mode #comparisonModal .text-secondary {
     color: var(--text-muted) !important;
 }
+
 html.dark-mode #comparisonModal .text-danger {
     color: #f87171 !important;
 }
@@ -2293,14 +2500,16 @@ html.dark-mode #comparisonModal .text-danger {
     height: 140px;
     border-radius: 12px;
     position: relative;
-    background: #170d05 !important; /* Rich dark wooden hole background */
+    background: #170d05 !important;
+    /* Rich dark wooden hole background */
     border: 3px solid #54300c !important;
-    box-shadow: 
+    box-shadow:
         inset 0 10px 20px rgba(0, 0, 0, 0.8),
         0 8px 16px rgba(0, 0, 0, 0.35) !important;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     transform-style: preserve-3d;
-    overflow: visible !important; /* Crucial to let the drawer pop out */
+    overflow: visible !important;
+    /* Crucial to let the drawer pop out */
 }
 
 .apothecary-drawer:hover {
@@ -2320,9 +2529,10 @@ html.dark-mode #comparisonModal .text-danger {
     top: 0;
     left: 0;
     border-radius: 8px;
-    background: linear-gradient(135deg, #5c300a, #381a03) !important; /* Polished dark wood grain */
+    background: linear-gradient(135deg, #5c300a, #381a03) !important;
+    /* Polished dark wood grain */
     border: 2px solid #8c521a !important;
-    box-shadow: 
+    box-shadow:
         inset 0 2px 4px rgba(255, 255, 255, 0.15),
         0 6px 12px rgba(0, 0, 0, 0.5) !important;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -2332,18 +2542,21 @@ html.dark-mode #comparisonModal .text-danger {
 
 .apothecary-drawer:hover .drawer-face {
     transform: translateZ(35px) translateY(-8px);
-    background: linear-gradient(135deg, #6d3a0e, #452104) !important; /* Lighter/glossier on hover */
-    box-shadow: 
+    background: linear-gradient(135deg, #6d3a0e, #452104) !important;
+    /* Lighter/glossier on hover */
+    box-shadow:
         inset 0 2px 4px rgba(255, 255, 255, 0.25),
         0 20px 40px rgba(0, 0, 0, 0.75) !important;
-    border-color: #fbbf24 !important; /* Gold highlight on border */
+    border-color: #fbbf24 !important;
+    /* Gold highlight on border */
 }
 
 /* Gold Pull Ring Handle */
 .drawer-handle-ring {
     width: 32px;
     height: 32px;
-    border: 3.5px solid #d97706; /* Golden handle */
+    border: 3.5px solid #d97706;
+    /* Golden handle */
     border-radius: 50%;
     margin-bottom: 0.75rem;
     position: relative;
@@ -2361,7 +2574,7 @@ html.dark-mode #comparisonModal .text-danger {
     height: 8px;
     background: #b45309;
     border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .apothecary-drawer:hover .drawer-handle-ring {
@@ -2371,7 +2584,8 @@ html.dark-mode #comparisonModal .text-danger {
 
 /* Classical Chinese Medicine label container */
 .drawer-label {
-    background: #fef3c7; /* Pale aged parchment tag */
+    background: #fef3c7;
+    /* Pale aged parchment tag */
     border: 2px solid #b45309;
     border-radius: 4px;
     padding: 4px 12px;
@@ -2379,7 +2593,7 @@ html.dark-mode #comparisonModal .text-danger {
     display: flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
 
@@ -2406,10 +2620,11 @@ html.dark-mode #comparisonModal .text-danger {
 
 /* ─── PARCHMENT RECIPE SCROLL THEME ────────────────────────── */
 .scroll-paper-theme {
-    background: #fdfaf2 !important; /* Parchment cream */
+    background: #fdfaf2 !important;
+    /* Parchment cream */
     border: 8px solid #b45309 !important;
     border-image: linear-gradient(135deg, #b45309, #d97706, #78350f) 8 !important;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
 }
 
 .scroll-paper-theme .modal-header {
@@ -2435,6 +2650,7 @@ html.dark-mode #comparisonModal .text-danger {
     border-color: #b45309 !important;
     transition: all 0.3s ease;
 }
+
 .btn-outline-amber:hover {
     background: #b45309 !important;
     color: #fff !important;
@@ -2446,6 +2662,7 @@ html.dark-mode #comparisonModal .text-danger {
     box-shadow: 0 4px 10px rgba(180, 83, 9, 0.3);
     transition: all 0.3s ease;
 }
+
 .btn-amber:hover {
     background: #78350f !important;
     box-shadow: 0 6px 15px rgba(120, 53, 15, 0.4);
@@ -2492,15 +2709,25 @@ html.dark-mode #comparisonModal .text-danger {
 
 /* ─── 1. MESH GRADIENT & LABELS/LEAVES PARTICLES ───────────── */
 @keyframes meshGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
+
 .hero-mesh-animate {
     background: linear-gradient(-45deg, #0d2215 0%, #153823 35%, #0f1c13 70%, #1a3c26 100%) !important;
     background-size: 300% 300% !important;
     animation: meshGradient 20s ease infinite !important;
 }
+
 .floating-particle-leaf {
     position: absolute;
     pointer-events: none;
@@ -2508,13 +2735,27 @@ html.dark-mode #comparisonModal .text-danger {
     font-size: 1.5rem;
     animation: floatLeafAnim 12s linear infinite;
     opacity: 0;
-    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.15));
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.15));
 }
+
 @keyframes floatLeafAnim {
-    0% { transform: translateY(105vh) translateX(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.6; }
-    90% { opacity: 0.6; }
-    100% { transform: translateY(-10vh) translateX(120px) rotate(360deg); opacity: 0; }
+    0% {
+        transform: translateY(105vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    90% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-10vh) translateX(120px) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 /* ─── 2. SEARCH AUTOCOMPLETE ──────────────────────────────── */
@@ -2527,18 +2768,20 @@ html.dark-mode #comparisonModal .text-danger {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(46, 179, 102, 0.25);
     border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
     z-index: 1090;
     max-height: 280px;
     overflow-y: auto;
     margin-top: 6px;
     padding: 6px 0;
 }
+
 .dark-mode .autocomplete-suggestions {
     background: rgba(20, 28, 24, 0.98);
     border-color: rgba(46, 179, 102, 0.45);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
+
 .suggestion-item {
     display: flex;
     align-items: center;
@@ -2550,19 +2793,22 @@ html.dark-mode #comparisonModal .text-danger {
     font-size: 0.9rem;
     font-weight: 500;
 }
+
 .dark-mode .suggestion-item {
     color: #e5e7eb;
 }
+
 .suggestion-item:hover {
     background: rgba(46, 179, 102, 0.08);
     padding-left: 20px;
 }
+
 .suggestion-img {
     width: 32px;
     height: 32px;
     object-fit: cover;
     border-radius: 6px;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* ─── 3. AI DIAGNOSIS SCROLL & SCANNER ────────────────────── */
@@ -2577,6 +2823,7 @@ html.dark-mode #comparisonModal .text-danger {
     box-shadow: inset 0 0 50px rgba(133, 77, 14, 0.2), 0 20px 40px rgba(0, 0, 0, 0.2);
     color: #451a03 !important;
 }
+
 .stamp-red-seal {
     width: 90px;
     height: 90px;
@@ -2601,10 +2848,12 @@ html.dark-mode #comparisonModal .text-danger {
     letter-spacing: 0.5px;
     line-height: 1.2;
 }
+
 .stamp-red-seal::before {
     content: '★ CỔ PHƯƠNG ★';
     font-size: 0.55rem;
 }
+
 .stamp-red-seal span {
     border-top: 1px solid #dc2626;
     border-bottom: 1px solid #dc2626;
@@ -2624,13 +2873,15 @@ html.dark-mode #comparisonModal .text-danger {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
+
 .ai-scanner-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .scanner-corner {
     position: absolute;
     width: 25px;
@@ -2640,10 +2891,30 @@ html.dark-mode #comparisonModal .text-danger {
     pointer-events: none;
     z-index: 12;
 }
-.corner-tl { top: 15px; left: 15px; border-width: 5px 0 0 5px; }
-.corner-tr { top: 15px; right: 15px; border-width: 5px 5px 0 0; }
-.corner-bl { bottom: 15px; left: 15px; border-width: 0 0 5px 5px; }
-.corner-br { bottom: 15px; right: 15px; border-width: 0 5px 5px 0; }
+
+.corner-tl {
+    top: 15px;
+    left: 15px;
+    border-width: 5px 0 0 5px;
+}
+
+.corner-tr {
+    top: 15px;
+    right: 15px;
+    border-width: 5px 5px 0 0;
+}
+
+.corner-bl {
+    bottom: 15px;
+    left: 15px;
+    border-width: 0 0 5px 5px;
+}
+
+.corner-br {
+    bottom: 15px;
+    right: 15px;
+    border-width: 0 5px 5px 0;
+}
 
 .ai-scan-overlay {
     position: absolute;
@@ -2655,20 +2926,30 @@ html.dark-mode #comparisonModal .text-danger {
     pointer-events: none;
     z-index: 10;
 }
+
 .ai-scan-line {
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, rgba(46,179,102,0) 0%, rgba(46,179,102,1) 50%, rgba(46,179,102,0) 100%);
-    box-shadow: 0 0 10px rgba(46,179,102,0.8);
+    background: linear-gradient(90deg, rgba(46, 179, 102, 0) 0%, rgba(46, 179, 102, 1) 50%, rgba(46, 179, 102, 0) 100%);
+    box-shadow: 0 0 10px rgba(46, 179, 102, 0.8);
     position: absolute;
     top: 0;
     animation: laserScanAnim 3s linear infinite;
     z-index: 11;
 }
+
 @keyframes laserScanAnim {
-    0% { top: 0%; }
-    50% { top: 100%; }
-    100% { top: 0%; }
+    0% {
+        top: 0%;
+    }
+
+    50% {
+        top: 100%;
+    }
+
+    100% {
+        top: 0%;
+    }
 }
 
 /* ─── 4. INTERACTIVE 3D ANTIQUE BOOK ───────────────────────── */
@@ -2680,14 +2961,16 @@ html.dark-mode #comparisonModal .text-danger {
     padding: 30px;
     width: 100%;
 }
+
 .book-3d {
     width: 660px;
     height: 440px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.5s;
-    box-shadow: 0 35px 70px rgba(0,0,0,0.4);
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
 }
+
 .book-page-3d {
     width: 50%;
     height: 100%;
@@ -2699,9 +2982,11 @@ html.dark-mode #comparisonModal .text-danger {
     transform-style: preserve-3d;
     z-index: 10;
 }
+
 .book-page-3d.flipped {
     transform: rotateY(-180deg);
 }
+
 .page-side {
     position: absolute;
     width: 100%;
@@ -2710,15 +2995,17 @@ html.dark-mode #comparisonModal .text-danger {
     left: 0;
     backface-visibility: hidden;
     padding: 30px;
-    box-shadow: inset 4px 0 12px rgba(0,0,0,0.08);
+    box-shadow: inset 4px 0 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
+
 .page-front {
     background: #fdfaf2;
     z-index: 2;
     border-radius: 0 12px 12px 0;
     border-left: 1px solid #e1d7be;
 }
+
 .page-back {
     background: #fdfaf2;
     transform: rotateY(180deg);
@@ -2726,15 +3013,19 @@ html.dark-mode #comparisonModal .text-danger {
     border-radius: 12px 0 0 12px;
     border-right: 1px solid #e1d7be;
 }
+
 .page-cover {
-    background: #7c2d12 !important; /* Cinnamon brown cover */
+    background: #7c2d12 !important;
+    /* Cinnamon brown cover */
     color: #fef08a !important;
     border: 4px solid #b45309 !important;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
 }
+
 .page-cover-left {
     border-radius: 12px 0 0 12px !important;
 }
+
 .page-cover-right {
     border-radius: 0 12px 12px 0 !important;
 }
@@ -2746,6 +3037,7 @@ html.dark-mode #comparisonModal .text-danger {
     gap: 12px;
     margin-top: 15px;
 }
+
 .ecology-stat-card {
     background: rgba(46, 179, 102, 0.05);
     border: 1px solid rgba(46, 179, 102, 0.12);
@@ -2754,43 +3046,51 @@ html.dark-mode #comparisonModal .text-danger {
     text-align: center;
     transition: transform 0.3s ease;
 }
+
 .ecology-stat-card:hover {
     transform: translateY(-2px);
 }
+
 .dark-mode .ecology-stat-card {
     background: rgba(46, 179, 102, 0.08);
     border-color: rgba(46, 179, 102, 0.25);
 }
+
 .ecology-progress-bar {
     height: 6px;
     border-radius: 3px;
-    background: rgba(0,0,0,0.06);
+    background: rgba(0, 0, 0, 0.06);
     overflow: hidden;
     margin-top: 6px;
 }
+
 .dark-mode .ecology-progress-bar {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
 }
+
 .ecology-progress-fill {
     height: 100%;
     background: linear-gradient(90deg, #10b981, #059669);
     border-radius: 3px;
 }
+
 .leaflet-heatmap-legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 12px 16px;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     font-size: 0.8rem;
     font-weight: 600;
     border: 1px solid rgba(46, 179, 102, 0.2);
     line-height: 1.6;
 }
+
 .dark-mode .leaflet-heatmap-legend {
     background: rgba(18, 25, 22, 0.95);
     border-color: rgba(46, 179, 102, 0.4);
     color: #e5e7eb;
 }
+
 .legend-color-box {
     width: 16px;
     height: 16px;
@@ -2808,9 +3108,10 @@ html.dark-mode #comparisonModal .text-danger {
     color: #fff;
     text-align: center;
     position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .brewing-pot-area {
     height: 200px;
     position: relative;
@@ -2819,6 +3120,7 @@ html.dark-mode #comparisonModal .text-danger {
     justify-content: center;
     margin-bottom: 20px;
 }
+
 .brewing-pot-img {
     width: 130px;
     height: 130px;
@@ -2826,14 +3128,27 @@ html.dark-mode #comparisonModal .text-danger {
     z-index: 2;
     transition: transform 0.3s;
 }
+
 .brewing-pot-img.cooking {
     animation: cookingPotAnim 1s ease-in-out infinite;
 }
+
 @keyframes cookingPotAnim {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-3px) rotate(1deg); }
-    75% { transform: translateY(1px) rotate(-1deg); }
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-3px) rotate(1deg);
+    }
+
+    75% {
+        transform: translateY(1px) rotate(-1deg);
+    }
 }
+
 .steam-bubble {
     position: absolute;
     background: rgba(255, 255, 255, 0.3);
@@ -2844,11 +3159,23 @@ html.dark-mode #comparisonModal .text-danger {
     opacity: 0;
     z-index: 3;
 }
+
 @keyframes bubbleUpAnim {
-    0% { transform: translateY(0) scale(0.3); opacity: 0; }
-    50% { opacity: 0.6; }
-    100% { transform: translateY(-70px) scale(1.3); opacity: 0; }
+    0% {
+        transform: translateY(0) scale(0.3);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-70px) scale(1.3);
+        opacity: 0;
+    }
 }
+
 .brewing-fire {
     position: absolute;
     bottom: 15px;
@@ -2860,29 +3187,39 @@ html.dark-mode #comparisonModal .text-danger {
     transition: opacity 0.3s, background 0.3s;
     z-index: 1;
 }
+
 .brewing-fire.fire-high {
     opacity: 0.95;
     background: radial-gradient(circle, #fbbf24 20%, #f97316 50%, #ef4444 80%, transparent 100%);
     animation: firePulseAnim 0.3s infinite alternate;
 }
+
 .brewing-fire.fire-low {
     opacity: 0.65;
     background: radial-gradient(circle, #f97316 35%, #ef4444 75%, transparent 100%);
     animation: firePulseAnim 0.6s infinite alternate;
 }
+
 @keyframes firePulseAnim {
-    0% { transform: scale(0.85) translateY(0); }
-    100% { transform: scale(1.15) translateY(-6px); }
+    0% {
+        transform: scale(0.85) translateY(0);
+    }
+
+    100% {
+        transform: scale(1.15) translateY(-6px);
+    }
 }
+
 .brewing-pot-shadow {
     width: 120px;
     height: 14px;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 50%;
     position: absolute;
     bottom: 26px;
     z-index: 0;
 }
+
 .brewing-fire-controls button {
     width: 54px;
     height: 54px;
@@ -2893,10 +3230,11 @@ html.dark-mode #comparisonModal .text-danger {
     align-items: center;
     justify-content: center;
     margin: 0 8px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     transition: all 0.2s ease;
 }
+
 .brewing-fire-controls button:hover {
     transform: scale(1.1);
 }
@@ -2905,6 +3243,7 @@ html.dark-mode #comparisonModal .text-danger {
     box-shadow: 0 0 18px rgba(46, 179, 102, 0.45);
     border: 1px solid rgba(46, 179, 102, 0.7) !important;
 }
+
 .dark-mode .glowing-neon-border {
     box-shadow: 0 0 25px rgba(46, 179, 102, 0.75);
 }
@@ -2916,11 +3255,13 @@ html.dark-mode .btn-filter {
     color: var(--text-muted) !important;
     border-color: rgba(46, 179, 102, 0.2) !important;
 }
+
 html.dark-mode .btn-filter.active {
     background: var(--primary) !important;
     color: white !important;
     border-color: var(--primary) !important;
 }
+
 html.dark-mode .btn-filter:hover:not(.active) {
     background: var(--bg-white) !important;
     color: var(--primary) !important;
@@ -2932,60 +3273,75 @@ html.dark-mode .map-floating-sidebar {
     background: var(--bg-white) !important;
     border-right: 1px solid rgba(46, 179, 102, 0.15) !important;
 }
+
 html.dark-mode .map-floating-sidebar #sidebarTabs {
     background: var(--bg-light) !important;
     border-bottom: 1px solid rgba(46, 179, 102, 0.15) !important;
 }
+
 html.dark-mode .map-floating-sidebar #sidebarTabs .nav-link {
     color: var(--text-muted) !important;
 }
+
 html.dark-mode .map-floating-sidebar #sidebarTabs .nav-link.active {
     background: var(--bg-white) !important;
     color: var(--primary) !important;
 }
+
 html.dark-mode #places-pane,
 html.dark-mode #reviews-pane {
     background: var(--bg-white) !important;
 }
+
 html.dark-mode #places-pane .bg-light,
 html.dark-mode #reviews-pane .bg-light {
     background: var(--bg-light) !important;
     border-bottom-color: rgba(46, 179, 102, 0.15) !important;
 }
+
 html.dark-mode #searchLocationInput {
     background: var(--bg-light) !important;
     color: var(--text-main) !important;
 }
+
 html.dark-mode .map-floating-sidebar .input-group {
     background: var(--bg-light) !important;
     border-color: rgba(46, 179, 102, 0.2) !important;
 }
+
 html.dark-mode .map-item-premium {
     border-bottom-color: rgba(46, 179, 102, 0.1) !important;
 }
+
 html.dark-mode .map-item-premium:hover {
     background: var(--bg-light) !important;
 }
+
 html.dark-mode .map-item-premium.active {
     background: rgba(46, 179, 102, 0.12) !important;
     border-left-color: var(--primary) !important;
 }
+
 html.dark-mode #regionDetailArea {
     background: var(--bg-white) !important;
     border-bottom-color: rgba(46, 179, 102, 0.15) !important;
 }
+
 html.dark-mode #activeLocationReviewsList {
     background: var(--bg-white) !important;
 }
+
 html.dark-mode .review-bubble {
     background: var(--bg-light) !important;
     border-color: rgba(46, 179, 102, 0.1) !important;
 }
+
 html.dark-mode #writeReviewSection,
 html.dark-mode #reviewLoginRequired {
     background: var(--bg-light) !important;
     border-top-color: rgba(46, 179, 102, 0.15) !important;
 }
+
 html.dark-mode .star-rating i:not(.active) {
     color: rgba(255, 255, 255, 0.15) !important;
 }
@@ -2996,9 +3352,11 @@ html.dark-mode .achievement-card.locked {
     border-color: rgba(255, 255, 255, 0.05) !important;
     color: var(--text-muted) !important;
 }
+
 html.dark-mode .achievement-card.locked .achievement-title {
     color: var(--text-muted) !important;
 }
+
 html.dark-mode .achievement-card.locked .achievement-desc {
     color: rgba(255, 255, 255, 0.35) !important;
 }
@@ -3008,23 +3366,29 @@ html.dark-mode .metric-card {
     background: var(--bg-light) !important;
     border-color: rgba(46, 179, 102, 0.15) !important;
 }
+
 html.dark-mode .table-responsive-premium {
     background: var(--bg-light) !important;
     border-color: rgba(46, 179, 102, 0.15) !important;
 }
+
 html.dark-mode .table {
     background-color: var(--bg-light) !important;
 }
+
 html.dark-mode .admin-sidebar {
     background: var(--bg-white) !important;
 }
+
 html.dark-mode .admin-nav-link {
     color: var(--text-muted) !important;
 }
+
 html.dark-mode .admin-nav-link:hover,
 html.dark-mode .admin-nav-link.active {
     color: white !important;
 }
+
 html.dark-mode .admin-nav-link.active {
     background: rgba(46, 179, 102, 0.2) !important;
 }
@@ -3052,13 +3416,16 @@ html.dark-mode .leaflet-popup-content-wrapper {
     border: 1px solid rgba(46, 179, 102, 0.3) !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
 }
+
 html.dark-mode .leaflet-popup-tip {
     background: var(--bg-light) !important;
     border: 1px solid rgba(46, 179, 102, 0.3) !important;
 }
+
 html.dark-mode .leaflet-popup-content {
     color: var(--text-main) !important;
 }
+
 html.dark-mode .leaflet-popup-content h1,
 html.dark-mode .leaflet-popup-content h2,
 html.dark-mode .leaflet-popup-content h3,
@@ -3070,6 +3437,7 @@ html.dark-mode .leaflet-popup-content span,
 html.dark-mode .leaflet-popup-content p {
     color: var(--text-main) !important;
 }
+
 html.dark-mode .leaflet-popup-close-button {
     color: var(--text-muted) !important;
 }
@@ -3079,9 +3447,11 @@ html.dark-mode .leaflet-popup-close-button {
     transition: box-shadow 0.3s ease, transform 0.1s ease !important;
     transform-style: preserve-3d !important;
 }
+
 .tilt-card:hover {
     box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15), 0 0 30px rgba(16, 185, 129, 0.08) !important;
 }
+
 html.dark-mode .tilt-card:hover {
     box-shadow: 0 20px 40px rgba(0, 230, 118, 0.15), 0 0 35px rgba(0, 230, 118, 0.1) !important;
 }
@@ -3095,6 +3465,7 @@ html.dark-mode .tilt-card:hover {
     width: 20px !important;
     height: 20px !important;
 }
+
 .pulse-marker-icon::after {
     content: '' !important;
     display: block !important;
@@ -3123,11 +3494,13 @@ html.dark-mode .tilt-card:hover {
     margin-top: 8px !important;
     padding: 6px 0 !important;
 }
+
 html.dark-mode .autocomplete-suggestions {
     background: rgba(15, 26, 20, 0.98) !important;
     border-color: rgba(16, 185, 129, 0.35) !important;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45) !important;
 }
+
 .suggestion-item {
     display: flex !important;
     align-items: center !important;
@@ -3139,10 +3512,12 @@ html.dark-mode .autocomplete-suggestions {
     font-size: 0.9rem !important;
     font-weight: 600 !important;
 }
+
 .suggestion-item:hover {
     background: rgba(16, 185, 129, 0.1) !important;
     padding-left: 20px !important;
 }
+
 .suggestion-img {
     width: 32px !important;
     height: 32px !important;
@@ -3158,24 +3533,35 @@ html.dark-mode .table-responsive-premium {
     border: 1px solid rgba(16, 185, 129, 0.15) !important;
     box-shadow: var(--shadow-sm) !important;
 }
+
 html.dark-mode .admin-table th {
     background: rgba(16, 185, 129, 0.08) !important;
     color: #00e676 !important;
     border-bottom: 2px solid rgba(16, 185, 129, 0.2) !important;
 }
+
 html.dark-mode .admin-table td {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
     color: var(--text-main) !important;
 }
+
 html.dark-mode .admin-table tr:hover {
     background: rgba(16, 185, 129, 0.04) !important;
 }
 
 /* Dynamic Mesh Gradient Animation */
 @keyframes meshGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* ─── UNIFORM FILTER BUTTONS (ROW 1 & ROW 2 DICTIONARY COHESION) ─── */
@@ -3195,7 +3581,8 @@ html.dark-mode .admin-table tr:hover {
     gap: 6px !important;
 }
 
-.btn-filter:hover, .btn-filter.active,
+.btn-filter:hover,
+.btn-filter.active,
 #symptomFilter button:hover,
 #symptomFilter button.active {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
@@ -3214,7 +3601,8 @@ html.dark-mode #symptomFilter button {
     box-shadow: var(--shadow-sm) !important;
 }
 
-html.dark-mode .btn-filter:hover, html.dark-mode .btn-filter.active,
+html.dark-mode .btn-filter:hover,
+html.dark-mode .btn-filter.active,
 html.dark-mode #symptomFilter button:hover,
 html.dark-mode #symptomFilter button.active {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
@@ -3234,7 +3622,7 @@ html.dark-mode #symptomFilter button.active {
         border: 1px solid rgba(16, 185, 129, 0.18) !important;
         box-shadow: var(--shadow-md) !important;
     }
-    
+
     .map-full-wrapper {
         position: absolute !important;
         top: 0 !important;
@@ -3243,7 +3631,7 @@ html.dark-mode #symptomFilter button.active {
         height: 100% !important;
         z-index: 1 !important;
     }
-    
+
     .map-floating-sidebar {
         position: absolute !important;
         top: 20px !important;
@@ -3259,7 +3647,7 @@ html.dark-mode #symptomFilter button.active {
         box-shadow: 0 15px 45px rgba(13, 22, 17, 0.15) !important;
         overflow: hidden !important;
     }
-    
+
     html.dark-mode .map-floating-sidebar {
         background: rgba(13, 22, 17, 0.86) !important;
         border-color: rgba(16, 185, 129, 0.35) !important;
@@ -3272,21 +3660,25 @@ html.dark-mode #symptomFilter button.active {
         right: 15px !important;
         top: 15px !important;
     }
+
     .leaflet-control-zoom {
         margin-right: 0 !important;
         border: 1.5px solid rgba(16, 185, 129, 0.2) !important;
         box-shadow: var(--shadow-md) !important;
     }
+
     .leaflet-bar a {
         background-color: white !important;
         color: var(--text-main) !important;
         transition: all 0.2s ease !important;
     }
+
     html.dark-mode .leaflet-bar a {
         background-color: var(--bg-light) !important;
         color: var(--text-main) !important;
-        border-color: rgba(255,255,255,0.08) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
     }
+
     .leaflet-bar a:hover {
         background-color: var(--primary) !important;
         color: white !important;
@@ -3300,6 +3692,21 @@ html.dark-mode #symptomFilter button.active {
     gap: 4px !important;
 }
 
+/* Premium reviews pane active layout globally */
+.map-floating-sidebar #reviews-pane.active {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+#reviewsPaneContent {
+    flex-grow: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+}
+
 /* Premium detail card inside map sidebar */
 #regionDetailArea {
     background: rgba(255, 255, 255, 0.7) !important;
@@ -3309,7 +3716,12 @@ html.dark-mode #symptomFilter button.active {
     margin: 10px 15px 15px !important;
     padding: 15px !important;
     box-shadow: var(--shadow-sm) !important;
+    flex-grow: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
 }
+
 html.dark-mode #regionDetailArea {
     background: rgba(13, 22, 17, 0.6) !important;
     border-color: rgba(16, 185, 129, 0.25) !important;
@@ -3329,13 +3741,95 @@ html.dark-mode #regionDetailArea {
     gap: 6px !important;
     line-height: 1.35 !important;
 }
+
 html.dark-mode .medical-disclaimer-box {
     background: rgba(245, 158, 11, 0.12) !important;
     border-color: rgba(245, 158, 11, 0.3) !important;
     color: #f59e0b !important;
 }
 
+@media (min-width: 992px) {
+    .border-start-lg {
+        border-left: 1px solid rgba(16, 185, 129, 0.15) !important;
+    }
+}
 
+/* --- Profile & Achievement Card dark mode overrides --- */
+html.dark-mode .profile-card {
+    background: rgba(13, 22, 17, 0.72) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3) !important;
+}
 
+html.dark-mode .profile-card:hover {
+    border-color: rgba(46, 179, 102, 0.4) !important;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.4) !important;
+}
 
-
+html.dark-mode .achievement-card {
+    background: rgba(15, 26, 20, 0.45) !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .particles-container {
+        display: none !important;
+    }
+
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* FIX 1: Biểu đồ Sản lượng - Ngăn chồng chéo nhãn trục X */
+#yieldChart {
+    max-height: 380px !important;
+}
+
+#yieldChart canvas {
+    max-height: 340px !important;
+}
+
+/* Rotate nhãn khi mobile */
+@media (max-width: 768px) {
+    .chart-x-label {
+        transform: rotate(-45deg) !important;
+        text-anchor: end !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+/* FIX 2: Review card hiển thị đầy đủ nội dung */
+.review-card-premium {
+    min-height: auto !important;
+    max-height: none !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    padding: 14px 16px !important;
+}
+
+.review-card-premium p {
+    line-height: 1.55 !important;
+    font-size: 0.83rem !important;
+    max-height: none !important;
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+}
+
+/* Avatar tên người dùng không bị truncate quá mạnh */
+.review-card-premium .text-truncate {
+    max-width: 160px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}

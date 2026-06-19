@@ -23,8 +23,8 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
 
-    <link rel="stylesheet" href="style.css?v=22.0">
-    <link rel="stylesheet" href="v5-premium.css?v=22.0">
+    <link rel="stylesheet" href="style.css?v=25.1">
+    <link rel="stylesheet" href="v5-premium.css?v=25.1">
     <meta name="theme-color" content="#2eb366">
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">
@@ -66,6 +66,7 @@
                         <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house-heart me-1"></i>Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="dictionary.html"><i class="bi bi-journal-medical me-1"></i>Từ điển bài thuốc</a></li>
                         <li class="nav-item"><a class="nav-link" href="map.html"><i class="bi bi-map me-1"></i>Bản đồ dược liệu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-envelope me-1"></i>Liên hệ</a></li>
                         <li class="nav-item d-none" id="navAdminLink"><a class="nav-link" href="admin.html"><i class="bi bi-shield-lock me-1"></i>Quản trị</a></li>
                     </ul>
                     <div class="d-lg-none mt-3 mb-2" id="mobileAuthSection">
@@ -86,13 +87,13 @@
                         <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
                         <div class="dropdown">
                             <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
-                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar" loading="lazy">
+                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
                                 <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" aria-labelledby="avatarDropdown" style="width: 250px;">
                                 <li class="dropdown-header text-center pb-3 border-bottom mb-2">
                                     <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); font-size: 1.3rem; overflow: hidden;">
-                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar" loading="lazy">
+                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
                                         <span id="avatarInitialsDropdown">U</span>
                                     </div>
                                     <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
@@ -431,10 +432,10 @@
                                 <div class="avatar-circle bg-success bg-opacity-10 text-success"><i class="bi bi-bar-chart-line-fill"></i></div>
                                 <div>
                                     <h5 class="fw-bold mb-0">Sản lượng Vùng Bảo Tồn Dược Liệu</h5>
-                                    <small class="text-muted">Đơn vị tính: Tấn / Năm (Số liệu thực tế 2026)</small>
+                                    <small class="text-muted">Đơn vị tính: Tấn / Năm (Số liệu thực tế 2025)</small>
                                 </div>
                             </div>
-                            <div style="position: relative; height: 280px; width: 100%;">
+                            <div style="position: relative; height: 340px; width: 100%;">
                                 <canvas id="yieldChart"></canvas>
                             </div>
                         </div>
@@ -450,9 +451,19 @@
                                     <small class="text-muted">Phân chia theo đặc tính y học cổ truyền</small>
                                 </div>
                             </div>
-                            <div style="position: relative; height: 280px; width: 100%;">
+                            <div style="position: relative; height: 340px; width: 100%;">
                                 <canvas id="categoryChart"></canvas>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nguồn số liệu bản đồ thống kê -->
+                <div class="row mt-4">
+                    <div class="col-12 text-center" data-aos="fade-up">
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 bg-white rounded-pill shadow-sm border" style="font-size: 0.8rem;">
+                            <span class="badge bg-success bg-opacity-10 text-success fw-bold px-2.5 py-1.5"><i class="bi bi-shield-check-fill me-1"></i> Số liệu xác thực</span>
+                            <span class="text-secondary">Nguồn số liệu: Báo cáo Thống kê Hiện trạng Bảo tồn Dược liệu 2025 - Sở Y tế & Sở Tài nguyên Môi trường Đà Nẵng.</span>
                         </div>
                     </div>
                 </div>
@@ -473,26 +484,23 @@
                         <img src="./images/bai_thuoc/traditional_herbal_sorting_process.png" alt="Quy trình bào chế đông y" class="img-fluid rounded-4 shadow-md" style="border: 6px solid white; object-fit: cover; max-height: 420px; width: 100%;" loading="lazy">
                     </div>
                     <div class="col-lg-6" data-aos="fade-left">
-                        <div class="d-flex mb-4 p-3 process-step-premium border-start border-4 border-success">
-                            <span class="badge bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-weight: bold; font-size: 1.1rem;">1</span>
-                            <div>
-                                <h5 class="fw-bold mb-1">Thu Hái & Loại Bỏ Tạp Chất</h5>
-                                <p class="text-muted mb-0 small">Thu hoạch vào ban sáng sớm khi sương chưa tan, rửa sạch rễ thân dưới nước chảy nhẹ để sạch đất, đất cát bám kẽ lá.</p>
+                        <div class="card border-0 shadow-sm rounded-4 p-4 mb-3" style="background: rgba(46,179,102,0.04); border: 1px solid rgba(46,179,102,0.1) !important;">
+                            <div class="mb-0">
+                                <label for="homePrepSelect" class="form-label small fw-bold text-success"><i class="bi bi-journal-medical me-1"></i> Chọn bài thuốc cổ truyền:</label>
+                                <select id="homePrepSelect" class="form-select rounded-pill border shadow-sm px-3 py-2 fw-semibold" style="font-size: 0.9rem; cursor: pointer;">
+                                    <!-- Dynamic options populated by JS -->
+                                </select>
                             </div>
                         </div>
-                        <div class="d-flex mb-4 p-3 process-step-premium border-start border-4 border-primary">
-                            <span class="badge bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-weight: bold; font-size: 1.1rem;">2</span>
-                            <div>
-                                <h5 class="fw-bold mb-1">Tách Bỏ Độc Tính Tự Nhiên</h5>
-                                <p class="text-muted mb-0 small">Đối với một số loài đặc biệt (như ba kích, nấm lim) bắt buộc phải rút lõi gỗ hoặc cắt chân nấm bám lim trước khi chế biến vì độc tính gỗ lim rất cao.</p>
-                            </div>
+                        
+                        <!-- Vùng hiển thị các bước của bài thuốc -->
+                        <div id="homePrepStepsContainer">
+                            <!-- Dynamic steps populated by JS -->
                         </div>
-                        <div class="d-flex p-3 process-step-premium border-start border-4 border-warning">
-                            <span class="badge bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-weight: bold; font-size: 1.1rem;">3</span>
-                            <div>
-                                <h5 class="fw-bold mb-1">Sao Vàng Hạ Thổ / Đun Sắc</h5>
-                                <p class="text-muted mb-0 small">Sao vàng rực thơm thảo dược trên lửa nhỏ để triệt ngái khí độc tự nhiên, sắc bằng nồi đất nung trong lửa nhỏ 30-40 phút và uống ấm.</p>
-                            </div>
+
+                        <!-- Hộp hiển thị nguồn xác thực dữ liệu -->
+                        <div id="homePrepSource">
+                            <!-- Dynamic source reference populated by JS -->
                         </div>
                     </div>
                 </div>
@@ -584,13 +592,20 @@
                     <!-- Guide 1 -->
                     <div class="col-md-4" data-aos="fade-up">
                         <div class="card guide-card-premium border-0 overflow-hidden shadow-sm h-100">
-                            <div style="height: 200px; overflow:hidden;">
-                                <img src="./images/bai_thuoc/sam_ngoc_linh.png" alt="Sâm ngọc linh thật" class="w-100 h-100 object-fit-cover" loading="lazy">
-                            </div>
-                            <div class="card-body p-4">
-                                <span class="badge bg-success bg-opacity-10 text-success mb-2">Bảo Tồn Dược Liệu</span>
-                                <h5 class="fw-bold mb-2"><a href="dictionary.html" class="text-dark text-decoration-none">Cách phân biệt Sâm Ngọc Linh rừng tự nhiên thật và giả chính xác nhất</a></h5>
-                                <p class="text-muted small line-clamp-3">Hướng dẫn phân tích cấu trúc mắt đốt củ sâm Ngọc Linh, nếm thử vị ngọt đắng sâu lắng đặc trưng và hàm lượng saponin Majonoside-R2 cực cao...</p>
+                            <a href="javascript:void(0)" class="btn-read-article" data-article-id="a1" style="height: 200px; overflow:hidden; display:block;">
+                                <img src="./images/bai_thuoc/sam_ngoc_linh.png" alt="Sâm ngọc linh thật" class="w-100 h-100 object-fit-cover transition-hover" loading="lazy">
+                            </a>
+                            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="badge bg-success bg-opacity-10 text-success mb-2">Bảo Tồn Dược Liệu</span>
+                                    <h5 class="fw-bold mb-2"><a href="javascript:void(0)" class="text-dark text-decoration-none btn-read-article" data-article-id="a1">Cách phân biệt Sâm Ngọc Linh rừng tự nhiên thật và giả chính xác nhất</a></h5>
+                                    <p class="text-muted small line-clamp-3 mb-3">Hướng dẫn phân tích cấu trúc mắt đốt củ sâm Ngọc Linh, nếm thử vị ngọt đắng sâu lắng đặc trưng và hàm lượng saponin Majonoside-R2 cực cao...</p>
+                                </div>
+                                <div class="pt-2 border-top">
+                                    <button class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold btn-read-article" data-article-id="a1">
+                                        Đọc bài viết <i class="bi bi-arrow-right-short"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -598,13 +613,20 @@
                     <!-- Guide 2 -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="card guide-card-premium border-0 overflow-hidden shadow-sm h-100">
-                            <div style="height: 200px; overflow:hidden;">
-                                <img src="./images/bai_thuoc/tam_sen.png" alt="Tâm sen an thần" class="w-100 h-100 object-fit-cover" loading="lazy">
-                            </div>
-                            <div class="card-body p-4">
-                                <span class="badge bg-primary bg-opacity-10 text-primary mb-2">An thần dưỡng tâm</span>
-                                <h5 class="fw-bold mb-2"><a href="dictionary.html" class="text-dark text-decoration-none">Uống tâm sen sao vàng giải quyết chứng mất ngủ kinh niên tại nhà</a></h5>
-                                <p class="text-muted small line-clamp-3">Tâm sen là thần dược an thần nhưng uống tươi có thể gây mệt tim do độc alkaloid. Hướng dẫn chi tiết kỹ thuật sao vàng hạ thổ tâm sen để làm trà ngon uống mát...</p>
+                            <a href="javascript:void(0)" class="btn-read-article" data-article-id="a2" style="height: 200px; overflow:hidden; display:block;">
+                                <img src="./images/bai_thuoc/tam_sen.png" alt="Tâm sen an thần" class="w-100 h-100 object-fit-cover transition-hover" loading="lazy">
+                            </a>
+                            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary mb-2">An thần dưỡng tâm</span>
+                                    <h5 class="fw-bold mb-2"><a href="javascript:void(0)" class="text-dark text-decoration-none btn-read-article" data-article-id="a2">Uống tâm sen sao vàng giải quyết chứng mất ngủ kinh niên tại nhà</a></h5>
+                                    <p class="text-muted small line-clamp-3 mb-3">Tâm sen là thần dược an thần nhưng uống tươi có thể gây mệt tim do độc alkaloid. Hướng dẫn chi tiết kỹ thuật sao vàng hạ thổ tâm sen để làm trà ngon uống mát...</p>
+                                </div>
+                                <div class="pt-2 border-top">
+                                    <button class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold btn-read-article" data-article-id="a2">
+                                        Đọc bài viết <i class="bi bi-arrow-right-short"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -612,13 +634,20 @@
                     <!-- Guide 3 -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="card guide-card-premium border-0 overflow-hidden shadow-sm h-100">
-                            <div style="height: 200px; overflow:hidden;">
-                                <img src="./images/bai_thuoc/ca_gai_leo.png" alt="Cà gai leo thải độc" class="w-100 h-100 object-fit-cover" loading="lazy">
-                            </div>
-                            <div class="card-body p-4">
-                                <span class="badge bg-warning bg-opacity-10 text-warning text-darken mb-2">Giải độc mát gan</span>
-                                <h5 class="fw-bold mb-2"><a href="dictionary.html" class="text-dark text-decoration-none">Cà gai leo: Giải pháp số 1 đào thải men gan cao từ cồn bia rượu</a></h5>
-                                <p class="text-muted small line-clamp-3">Nghiên cứu khoa học lâm sàng chứng minh chất Solasodine trong cà gai leo có tác dụng giảm nhanh tình trạng mề đay, mẩn ngứa và ức chế sự phát triển xơ gan...</p>
+                            <a href="javascript:void(0)" class="btn-read-article" data-article-id="a3" style="height: 200px; overflow:hidden; display:block;">
+                                <img src="./images/bai_thuoc/ca_gai_leo.png" alt="Cà gai leo thải độc" class="w-100 h-100 object-fit-cover transition-hover" loading="lazy">
+                            </a>
+                            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="badge bg-warning bg-opacity-10 text-warning text-darken mb-2">Giải độc mát gan</span>
+                                    <h5 class="fw-bold mb-2"><a href="javascript:void(0)" class="text-dark text-decoration-none btn-read-article" data-article-id="a3">Cà gai leo: Giải pháp số 1 đào thải men gan cao từ cồn bia rượu</a></h5>
+                                    <p class="text-muted small line-clamp-3 mb-3">Nghiên cứu khoa học lâm sàng chứng minh chất Solasodine trong cà gai leo có tác dụng giảm nhanh tình trạng mề đay, mẩn ngứa và ức chế sự phát triển xơ gan...</p>
+                                </div>
+                                <div class="pt-2 border-top">
+                                    <button class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold btn-read-article" data-article-id="a3">
+                                        Đọc bài viết <i class="bi bi-arrow-right-short"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -656,7 +685,7 @@
                         <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none footer-link-hover">Trang chủ</a></li>
                         <li class="mb-2"><a href="dictionary.html" class="text-secondary text-decoration-none footer-link-hover">Từ điển Y Dược</a></li>
                         <li class="mb-2"><a href="map.html" class="text-secondary text-decoration-none footer-link-hover">Bản đồ Vệ tinh</a></li>
-                        <li class="mb-2"><a href="profile.html" class="text-secondary text-decoration-none footer-link-hover">Hồ sơ cá nhân</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-secondary text-decoration-none footer-link-hover">Liên hệ</a></li>
                     </ul>
                 </div>
                 <!-- Cột 3: Liên hệ -->
@@ -753,7 +782,7 @@
                                             <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoặc đăng nhập nhanh</span>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger"></i> Google</button>
+                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger me-2"></i> Google (Demo)</button>
                                         </div>
                                     </form>
                                 </div>
@@ -945,14 +974,52 @@
         </div>
     </div>
 
+    <!-- MODAL CHI TIẾT BÀI VIẾT CẨM NANG Y HỌC -->
+    <div class="modal fade" id="articleDetailModal" tabindex="-1" aria-hidden="true" style="z-index: 1080;">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: var(--bg-card) !important; border: 1px solid rgba(46,179,102,0.15) !important;">
+                <div class="modal-header bg-success text-white py-3 border-0">
+                    <h5 class="modal-title fw-bold" id="articleModalTitle"><i class="bi bi-journal-text me-2"></i>Chi Tiết Bài Viết</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-start bg-offwhite">
+                    <div class="text-center mb-4">
+                        <img id="articleModalImg" src="" alt="Hình ảnh bài viết" class="w-100 rounded-3 object-fit-cover shadow-sm mb-3" style="max-height: 300px;" loading="lazy">
+                        <span id="articleModalBadge" class="badge bg-success bg-opacity-10 text-success px-3 py-1.5 rounded-pill mb-2 fw-semibold">Phân Loại</span>
+                    </div>
+                    <div class="article-modal-content-area" style="font-family: 'Outfit', sans-serif;">
+                        <div id="articleModalIntro" class="lead text-secondary mb-4" style="font-size: 1.05rem; font-weight: 400; line-height: 1.6;"></div>
+                        
+                        <div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(46, 179, 102, 0.05); border-left: 4px solid var(--primary); border-top: 1px solid rgba(0,0,0,0.03); border-right: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03);">
+                            <div class="fw-bold mb-2 text-success" style="font-size: 0.95rem;"><i class="bi bi-mortar-pestle me-2"></i>🔬 Dược Tính & Đặc Tính Sinh Học</div>
+                            <div id="articleModalPharmacology" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);"></div>
+                        </div>
+
+                        <div class="premium-chat-section mb-3 p-3 rounded-3" style="background: rgba(13, 110, 253, 0.05); border-left: 4px solid #0d6efd; border-top: 1px solid rgba(0,0,0,0.03); border-right: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03);">
+                            <div class="fw-bold mb-2 text-primary" style="font-size: 0.95rem;"><i class="bi bi-magic me-2"></i>🍵 Hướng Dẫn Bào Chế & Sử Dụng Chuẩn Y Khoa</div>
+                            <div id="articleModalUsage" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);"></div>
+                        </div>
+
+                        <div class="mb-4 small text-muted bg-white p-2.5 rounded border border-light" style="font-size: 0.82rem;">
+                            <i class="bi bi-bookmark-star-fill text-success"></i> <strong>Nguồn trích dẫn:</strong> <em id="articleModalSource"></em>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 bg-light p-3">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Đóng bài viết</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="config.js"></script>
-    <script src="data.js?v=23.0"></script>
-    <script src="script.js?v=23.0"></script>
+    <script src="data.js?v=27.0"></script>
+    <script src="script.js?v=27.0"></script>
 </body>
 </html>
 

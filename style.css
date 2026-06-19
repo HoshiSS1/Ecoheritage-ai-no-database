@@ -18,6 +18,7 @@
     --bg-light: #EBF2ED;                 /* Lục xám rất nhạt */
     --bg-dark-premium: #0D1611;          /* Nền tối sâu ngọc lục */
     --bg-dark-card: #15241C;             /* Thẻ tối của admin */
+    --bg-card: #FFFFFF;                  /* Nền thẻ / modal trắng */
     
     --text-main: #1A2E22;                /* Chữ màu lá khô sẫm */
     --text-muted: #536C5E;               /* Chữ xám lục */
@@ -887,6 +888,7 @@ html.dark-mode {
     --bg-white: #070D0A;
     --bg-offwhite: #0A120E;
     --bg-light: #0F1A14;
+    --bg-card: #0F1A14;                  /* Nền thẻ / modal tối */
     --text-main: #E2F0E5;
     --text-muted: #8AA395;
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.45);
@@ -1799,6 +1801,62 @@ html.dark-mode .profile-card h6 {
 html.dark-mode .custom-auth-tabs {
     background: rgba(13, 22, 17, 0.5) !important;
 }
+
+/* --- High contrast color overrides for Bootstrap classes in dark mode --- */
+html.dark-mode .text-success {
+    color: #4eed94 !important; /* Lighter bright green for readability */
+}
+html.dark-mode .text-primary {
+    color: #60a5fa !important; /* Lighter blue */
+}
+html.dark-mode .text-danger {
+    color: #f87171 !important; /* Lighter red */
+}
+html.dark-mode .text-warning {
+    color: #fbbf24 !important; /* Lighter yellow */
+}
+html.dark-mode .border-success {
+    border-color: rgba(78, 237, 148, 0.3) !important;
+}
+
+/* --- Leaflet Dark Mode Map Style Overrides --- */
+html.dark-mode .leaflet-tile-container img {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%) !important;
+}
+html.dark-mode .leaflet-container {
+    background: #0f1a14 !important;
+}
+html.dark-mode .leaflet-control-attribution {
+    background: rgba(13, 22, 17, 0.8) !important;
+    color: var(--text-muted) !important;
+}
+html.dark-mode .leaflet-control-attribution a {
+    color: var(--primary) !important;
+}
+html.dark-mode .leaflet-bar a {
+    background-color: var(--bg-light) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.2) !important;
+}
+html.dark-mode .leaflet-bar a:hover {
+    background-color: rgba(46, 179, 102, 0.25) !important;
+    color: var(--primary) !important;
+}
+
+/* Fix article modal background transparency under light mode */
+#articleDetailModal .modal-content,
+#articleDetailModal .modal-body {
+    background-color: #FFFFFF !important;
+    color: #1A2E22 !important;
+}
+
+/* Fix article modal background transparency under dark mode */
+html.dark-mode #articleDetailModal .modal-content,
+html.dark-mode #articleDetailModal .modal-body {
+    background-color: #0F1A14 !important;
+    color: #E2F0E5 !important;
+}
+
 
 
 

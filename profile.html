@@ -24,8 +24,8 @@
     <!-- Studio Freight Lenis -->
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
 
-    <link rel="stylesheet" href="style.css?v=22.0">
-    <link rel="stylesheet" href="v5-premium.css?v=22.0">
+    <link rel="stylesheet" href="style.css?v=25.1">
+    <link rel="stylesheet" href="v5-premium.css?v=25.1">
     <meta name="theme-color" content="#2eb366">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-offwhite">
@@ -50,6 +50,7 @@
                         <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-heart me-1"></i>Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="dictionary.html"><i class="bi bi-journal-medical me-1"></i>Từ điển bài thuốc</a></li>
                         <li class="nav-item"><a class="nav-link" href="map.html"><i class="bi bi-map me-1"></i>Bản đồ dược liệu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-envelope me-1"></i>Liên hệ</a></li>
                         <li class="nav-item d-none" id="navAdminLink"><a class="nav-link" href="admin.html"><i class="bi bi-shield-lock me-1"></i>Quản trị</a></li>
                     </ul>
                     <div class="d-lg-none mt-3 mb-2" id="mobileAuthSection">
@@ -70,13 +71,13 @@
                         <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill d-none" id="desktopAdminBadge">Quản trị viên</span>
                         <div class="dropdown">
                             <a href="#" class="avatar-circle text-decoration-none border-0" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản cá nhân" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--primary);">
-                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar" loading="lazy">
+                                <img id="avatarImage" src="" class="w-100 h-100 object-fit-cover d-none" alt="Avatar">
                                 <span id="avatarInitials" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">U</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-3 rounded-4 glassmorphic-dropdown" aria-labelledby="avatarDropdown" style="width: 250px;">
                                 <li class="dropdown-header text-center pb-3 border-bottom mb-2">
                                     <div class="avatar-circle mx-auto mb-2" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--primary); font-size: 1.3rem; overflow: hidden;">
-                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar" loading="lazy">
+                                        <img id="avatarImageDropdown" src="" class="w-100 h-100 object-fit-cover rounded-circle d-none" alt="Avatar">
                                         <span id="avatarInitialsDropdown">U</span>
                                     </div>
                                     <h6 class="fw-bold mb-0 text-dark" id="dropdownUserName">Tên Người Dùng</h6>
@@ -106,12 +107,12 @@
     <!-- 2. NỘI DUNG CHÍNH TRANG CÁ NHÂN -->
     <main class="flex-grow-1" style="margin-top: 110px; padding-bottom: 80px;">
         <!-- BANNER COVER IMAGE -->
-        <div class="profile-cover-section position-relative" style="height: 280px; background: linear-gradient(135deg, rgba(46, 179, 102, 0.9) 0%, rgba(21, 36, 28, 0.95) 100%), url('./images/bai_thuoc/thap_toan_dai_bo_1780293793264.png') no-repeat center/cover; overflow: hidden;">
+        <div class="profile-cover-section position-relative overflow-hidden hero-premium-bg bg-dark-premium" style="height: 300px; border-bottom: 2px solid rgba(16, 185, 129, 0.15);">
             <div class="container h-100 d-flex align-items-end pb-4 position-relative z-1">
                 <div class="d-flex flex-column flex-md-row align-items-center align-items-md-end justify-content-between text-center text-md-start gap-4 position-relative w-100">
                     <!-- Left side: Avatar + User Info -->
                     <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-end gap-3 gap-sm-4">
-                        <div class="avatar-profile-large position-relative" style="width: clamp(100px, 15vw, 140px); height: clamp(100px, 15vw, 140px); border-radius: 50%; background: linear-gradient(135deg, #00e676, #15241c); color: white; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; display: flex; align-items: center; justify-content: center; border: 6px solid #fff; box-shadow: 0 15px 35px rgba(0,230,118, 0.4); text-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-top: -30px;">
+                        <div class="avatar-profile-large position-relative" style="width: clamp(100px, 15vw, 140px); height: clamp(100px, 15vw, 140px); border-radius: 50%; background: linear-gradient(135deg, var(--primary-light), var(--primary-dark)); color: white; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; display: flex; align-items: center; justify-content: center; border: 6px solid rgba(255,255,255,0.9); box-shadow: 0 15px 35px rgba(46, 179, 102, 0.35); text-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-top: -30px; transition: all 0.3s ease;">
                             <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                                 <img id="profileBigImage" src="" class="w-100 h-100 d-none object-fit-cover" alt="Avatar" loading="lazy">
                                 <span id="profileBigInitials">U</span>
@@ -119,24 +120,27 @@
                             <div class="position-absolute" style="width: 24px; height: 24px; background: #00e676; border-radius: 50%; bottom: 5%; right: 5%; border: 4px solid #fff; box-shadow: 0 0 10px rgba(0,230,118,0.8); z-index: 10;"></div>
                         </div>
                         <div class="text-white pb-sm-2">
-                            <h2 class="fw-bold mb-1" id="profileShowName" style="font-size: clamp(1.5rem, 4vw, 2rem);">Họ và Tên</h2>
-                            <p class="small opacity-75 mb-0" id="profileShowEmail">email@gmail.com</p>
+                            <h2 class="fw-bold mb-1" id="profileShowName" style="font-size: clamp(1.5rem, 4vw, 2.2rem); text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Họ và Tên</h2>
+                            <p class="small opacity-75 mb-0" id="profileShowEmail" style="letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">email@gmail.com</p>
                         </div>
                     </div>
                     
                     <!-- Right side: Glassmorphic Stats Counters -->
                     <div class="d-flex align-items-center gap-3 mb-2 pb-sm-2 flex-wrap justify-content-center">
-                        <div class="glass-stat-card text-center text-white px-3 py-2 rounded-4" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1.5px solid rgba(255,255,255,0.18); box-shadow: 0 8px 30px rgba(0,0,0,0.15); min-width: 110px;">
-                            <span class="d-block fs-3 fw-black text-warning" id="profileStatSaved">0</span>
-                            <span class="small opacity-75 uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.8px;">Đã lưu</span>
+                        <div class="glass-stat-card text-center text-white px-4 py-3 rounded-4 shadow-lg" style="background: rgba(255,255,255,0.07); backdrop-filter: blur(16px); border: 1.5px solid rgba(255,255,255,0.15); min-width: 120px; transition: all 0.3s ease;">
+                            <i class="bi bi-heart-fill text-warning mb-1 fs-5 d-block"></i>
+                            <span class="d-block fs-2 fw-black text-warning scramble-text" id="profileStatSaved">0</span>
+                            <span class="small opacity-75 text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1.2px;">Đã lưu</span>
                         </div>
-                        <div class="glass-stat-card text-center text-white px-3 py-2 rounded-4" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1.5px solid rgba(255,255,255,0.18); box-shadow: 0 8px 30px rgba(0,0,0,0.15); min-width: 110px;">
-                            <span class="d-block fs-3 fw-black text-info" id="profileStatReviews">0</span>
-                            <span class="small opacity-75 uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.8px;">Đánh giá</span>
+                        <div class="glass-stat-card text-center text-white px-4 py-3 rounded-4 shadow-lg" style="background: rgba(255,255,255,0.07); backdrop-filter: blur(16px); border: 1.5px solid rgba(255,255,255,0.15); min-width: 120px; transition: all 0.3s ease;">
+                            <i class="bi bi-chat-left-text-fill text-info mb-1 fs-5 d-block"></i>
+                            <span class="d-block fs-2 fw-black text-info scramble-text" id="profileStatReviews">0</span>
+                            <span class="small opacity-75 text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1.2px;">Đánh giá</span>
                         </div>
-                        <div class="glass-stat-card text-center text-white px-3 py-2 rounded-4" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1.5px solid rgba(255,255,255,0.18); box-shadow: 0 8px 30px rgba(0,0,0,0.15); min-width: 110px;">
-                            <span class="d-block fs-3 fw-black text-success" id="profileStatBadges" style="color: #00e676 !important;">0</span>
-                            <span class="small opacity-75 uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.8px;">Danh hiệu</span>
+                        <div class="glass-stat-card text-center text-white px-4 py-3 rounded-4 shadow-lg" style="background: rgba(255,255,255,0.07); backdrop-filter: blur(16px); border: 1.5px solid rgba(255,255,255,0.15); min-width: 120px; transition: all 0.3s ease;">
+                            <i class="bi bi-trophy-fill text-success mb-1 fs-5 d-block" style="color: #00e676 !important;"></i>
+                            <span class="d-block fs-2 fw-black text-success scramble-text" id="profileStatBadges" style="color: #00e676 !important;">0</span>
+                            <span class="small opacity-75 text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1.2px;">Danh hiệu</span>
                         </div>
                     </div>
                 </div>
@@ -159,14 +163,14 @@
             <div class="row g-4 d-none" id="profileLoggedIn">
                 <!-- Cột trái: Thông tin cá nhân & bảo mật -->
                 <div class="col-lg-4" data-aos="fade-right">
-                    <div class="profile-card text-center mb-4 bg-white rounded-4 shadow-sm p-5 border">
+                    <div class="profile-card text-center mb-4 rounded-4 shadow-sm p-5 border-0">
                         <div class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-4" id="profileUserRole">Hạng: Người dùng phổ thông</div>
                         
                         <hr class="my-4 border-success opacity-10">
                         
                         <!-- Form cập nhật thông tin cá nhân -->
                         <h5 class="fw-bold text-start mb-3"><i class="bi bi-person-bounding-box text-success me-2"></i>Cập Nhật Thông Tin</h5>
-                        <form id="updateProfileForm" class="text-start p-4 bg-light rounded-4 border-0 mb-4">
+                        <form id="updateProfileForm" class="text-start p-4 rounded-4 mb-4" style="background: rgba(46, 179, 102, 0.03); border: 1.5px solid rgba(46, 179, 102, 0.08) !important;">
                             <div class="mb-3">
                                 <label for="profileInputName" class="form-label small fw-bold text-secondary">Họ và Tên</label>
                                 <input type="text" class="form-control premium-input rounded-pill" id="profileInputName" required>
@@ -177,10 +181,10 @@
                             </div>
                             <button type="submit" class="btn btn-premium-success w-100 py-2.5 rounded-pill fw-bold shadow-sm mt-2"><i class="bi bi-person-check-fill me-1"></i> Lưu thay đổi</button>
                         </form>
-
+ 
                         <!-- Form đổi mật khẩu bảo mật -->
                         <h5 class="fw-bold text-start mb-3"><i class="bi bi-shield-lock-fill text-danger me-2"></i>Bảo Mật & Mật Khẩu</h5>
-                        <form id="changePasswordForm" class="text-start p-4 bg-light rounded-4 border-0">
+                        <form id="changePasswordForm" class="text-start p-4 rounded-4" style="background: rgba(46, 179, 102, 0.03); border: 1.5px solid rgba(46, 179, 102, 0.08) !important;">
                             <div class="mb-3">
                                 <label for="oldPassword" class="form-label small fw-bold text-secondary">Mật khẩu cũ</label>
                                 <div class="position-relative">
@@ -204,7 +208,7 @@
                             </div>
                             <button type="submit" class="btn btn-premium-success w-100 py-2.5 rounded-pill fw-bold shadow-sm mt-2"><i class="bi bi-key-fill me-1"></i> Cập nhật ngay</button>
                         </form>
-
+ 
                         <button class="btn btn-outline-danger w-100 rounded-pill py-2.5 fw-bold mt-4 shadow-sm hover-elevate" id="profileLogoutBtnMain"><i class="bi bi-box-arrow-right me-2"></i> Đăng xuất tài khoản</button>
                         <button type="button" class="btn btn-link text-danger w-100 mt-2 small text-decoration-none" id="btnDeleteAccount" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"><i class="bi bi-trash3-fill me-1"></i> Xóa tài khoản</button>
                     </div>
@@ -213,7 +217,7 @@
                 <!-- Cột phải: Thành tựu & Bộ sưu tập bài thuốc -->
                 <div class="col-lg-8" data-aos="fade-left">
                     <!-- PHẦN 1: BẢNG THÀNH TỰU (ACHIEVEMENTS) -->
-                    <div class="p-4 bg-white rounded-4 shadow-sm border mb-4">
+                    <div class="profile-card p-4 rounded-4 shadow-sm border-0 mb-4">
                         <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-trophy-fill text-warning me-2"></i>Thành Tựu Học Giả Dược Khoa</h4>
                         <p class="text-muted small mb-4">Tích cực tra cứu bài thuốc, bình luận bản đồ và thảo luận với Lương y số để mở khóa huy chương quý giá.</p>
                         
@@ -222,8 +226,8 @@
                             <div class="col-6 col-md-4">
                                 <div class="achievement-card locked hover-elevate shadow-sm" id="badge-first-save" style="border-radius: 1rem; overflow: hidden; position: relative;">
                                     <div class="achievement-icon" style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius: 50%; width: 60px; height: 60px; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">🌱</div>
-                                    <h6 class="fw-bold mb-1 text-dark">Mầm Non Xanh</h6>
-                                    <span class="small text-muted d-block" style="font-size:0.75rem;">Lưu bài thuốc đầu tiên</span>
+                                    <h6 class="fw-bold mb-1 text-dark achievement-title">Mầm Non Xanh</h6>
+                                    <span class="small text-muted d-block achievement-desc" style="font-size:0.75rem;">Lưu bài thuốc đầu tiên</span>
                                     <div class="badge-locked-overlay"><i class="bi bi-lock-fill"></i></div>
                                 </div>
                             </div>
@@ -231,8 +235,8 @@
                             <div class="col-6 col-md-4">
                                 <div class="achievement-card locked hover-elevate shadow-sm" id="badge-expert" style="border-radius: 1rem; overflow: hidden; position: relative;">
                                     <div class="achievement-icon" style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-radius: 50%; width: 60px; height: 60px; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">🌿</div>
-                                    <h6 class="fw-bold mb-1 text-dark">Thảo Dược Sư</h6>
-                                    <span class="small text-muted d-block" style="font-size:0.75rem;">Lưu thành công từ 5 bài thuốc</span>
+                                    <h6 class="fw-bold mb-1 text-dark achievement-title">Thảo Dược Sư</h6>
+                                    <span class="small text-muted d-block achievement-desc" style="font-size:0.75rem;">Lưu thành công từ 5 bài thuốc</span>
                                     <div class="badge-locked-overlay"><i class="bi bi-lock-fill"></i></div>
                                 </div>
                             </div>
@@ -240,8 +244,8 @@
                             <div class="col-6 col-md-4">
                                 <div class="achievement-card locked hover-elevate shadow-sm" id="badge-bot-chat" style="border-radius: 1rem; overflow: hidden; position: relative;">
                                     <div class="achievement-icon" style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-radius: 50%; width: 60px; height: 60px; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">💬</div>
-                                    <h6 class="fw-bold mb-1 text-dark">Thần Y Hộ Mệnh</h6>
-                                    <span class="small text-muted d-block" style="font-size:0.75rem;">Chat với EcoBot 3+ lần</span>
+                                    <h6 class="fw-bold mb-1 text-dark achievement-title">Thần Y Hộ Mệnh</h6>
+                                    <span class="small text-muted d-block achievement-desc" style="font-size:0.75rem;">Chat với EcoBot 3+ lần</span>
                                     <div class="badge-locked-overlay"><i class="bi bi-lock-fill"></i></div>
                                 </div>
                             </div>
@@ -249,8 +253,8 @@
                             <div class="col-6 col-md-4">
                                 <div class="achievement-card locked hover-elevate shadow-sm" id="badge-map-review" style="border-radius: 1rem; overflow: hidden; position: relative;">
                                     <div class="achievement-icon" style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #fce4ec, #f8bbd0); border-radius: 50%; width: 60px; height: 60px; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">🗺️</div>
-                                    <h6 class="fw-bold mb-1 text-dark">Nhà Thám Hiểm</h6>
-                                    <span class="small text-muted d-block" style="font-size:0.75rem;">Đánh giá 1 địa danh</span>
+                                    <h6 class="fw-bold mb-1 text-dark achievement-title">Nhà Thám Hiểm</h6>
+                                    <span class="small text-muted d-block achievement-desc" style="font-size:0.75rem;">Đánh giá 1 địa danh</span>
                                     <div class="badge-locked-overlay"><i class="bi bi-lock-fill"></i></div>
                                 </div>
                             </div>
@@ -258,8 +262,8 @@
                             <div class="col-6 col-md-4">
                                 <div class="achievement-card locked hover-elevate shadow-sm" id="badge-ranger" style="border-radius: 1rem; overflow: hidden; position: relative;">
                                     <div class="achievement-icon" style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-radius: 50%; width: 60px; height: 60px; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">⚔️</div>
-                                    <h6 class="fw-bold mb-1 text-dark">Vệ Binh Sơn Trà</h6>
-                                    <span class="small text-muted d-block" style="font-size:0.75rem;">Đánh giá từ 3 địa điểm</span>
+                                    <h6 class="fw-bold mb-1 text-dark achievement-title">Vệ Binh Sơn Trà</h6>
+                                    <span class="small text-muted d-block achievement-desc" style="font-size:0.75rem;">Đánh giá từ 3 địa điểm</span>
                                     <div class="badge-locked-overlay"><i class="bi bi-lock-fill"></i></div>
                                 </div>
                             </div>
@@ -267,8 +271,8 @@
                             <div class="col-6 col-md-4">
                                 <div class="achievement-card locked hover-elevate shadow-sm" id="badge-system-admin" style="border-radius: 1rem; overflow: hidden; position: relative;">
                                     <div class="achievement-icon" style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #fff8e1, #ffecb3); border-radius: 50%; width: 60px; height: 60px; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">👑</div>
-                                    <h6 class="fw-bold mb-1 text-dark">Vị Vua Y Học</h6>
-                                    <span class="small text-muted d-block" style="font-size:0.75rem;">Tài khoản quản trị viên</span>
+                                    <h6 class="fw-bold mb-1 text-dark achievement-title">Vị Vua Y Học</h6>
+                                    <span class="small text-muted d-block achievement-desc" style="font-size:0.75rem;">Tài khoản quản trị viên</span>
                                     <div class="badge-locked-overlay"><i class="bi bi-lock-fill"></i></div>
                                 </div>
                             </div>
@@ -276,7 +280,7 @@
                     </div>
 
                     <!-- PHẦN 2: BỘ SƯU TẬP THẢO DƯỢC & ĐỊA ĐIỂM ĐÃ LƯU -->
-                    <div class="bg-white rounded-4 shadow-sm border mb-4" style="padding: 45px !important; border-color: rgba(46, 179, 102, 0.15) !important;">
+                    <div class="profile-card rounded-4 shadow-sm border-0 mb-4" style="padding: 45px !important;">
                         <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-heart-fill text-danger me-2"></i>Sổ Tay Dược Liệu Cá Nhân</h4>
                         <p class="text-muted small mb-4">Các loại thảo dược bạn đã thả tim lưu trữ để tra cứu nhanh khi cần thiết.</p>
                         
@@ -292,7 +296,7 @@
                     </div>
 
                     <!-- PHẦN 3: LỊCH SỬ HỎI ĐÁP ECOBOT -->
-                    <div class="bg-white rounded-4 shadow-sm border" style="padding: 45px !important; border-color: rgba(46, 179, 102, 0.15) !important;">
+                    <div class="profile-card rounded-4 shadow-sm border-0" style="padding: 45px !important;">
                         <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-chat-right-text-fill text-success me-2"></i>Lịch Sử Tư Vấn Lương Y</h4>
                         <p class="text-muted small mb-4">Danh sách 10 câu hỏi gần đây nhất bạn đã gửi cho Lương y số EcoBot.</p>
                         <div id="profileChatHistoryList" class="list-group list-group-flush rounded-3 border-0">
@@ -334,7 +338,7 @@
                         <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none footer-link-hover">Trang chủ</a></li>
                         <li class="mb-2"><a href="dictionary.html" class="text-secondary text-decoration-none footer-link-hover">Từ điển Y Dược</a></li>
                         <li class="mb-2"><a href="map.html" class="text-secondary text-decoration-none footer-link-hover">Bản đồ Vệ tinh</a></li>
-                        <li class="mb-2"><a href="profile.html" class="text-secondary text-decoration-none footer-link-hover">Hồ sơ cá nhân</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-secondary text-decoration-none footer-link-hover">Liên hệ</a></li>
                     </ul>
                 </div>
                 <!-- Cột 3: Liên hệ -->
@@ -360,7 +364,7 @@
                     <h5 class="fw-bold mb-4 text-white">Nhận tin sức khỏe</h5>
                     <p class="text-secondary mb-4">Đăng ký để nhận những lời khuyên y dược, mẹo bào chế sớm nhất từ Lương y của EcoHeritage.</p>
                     <div class="input-group newsletter-group shadow">
-                        <input type="email" class="form-control border-0 px-4 bg-white bg-opacity-10 text-white" placeholder="Email của bạn...">
+                        <input type="email" class="form-control border-0 px-4 bg-white bg-opacity-10 text-white newsletter-input-field" placeholder="Email của bạn...">
                         <button class="btn btn-success px-4"><i class="bi bi-send-fill"></i></button>
                     </div>
                 </div>
@@ -453,7 +457,7 @@
                                             <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoặc đăng nhập nhanh</span>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger"></i> Google</button>
+                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger me-2"></i> Google (Demo)</button>
                                         </div>
                                     </form>
                                 </div>
@@ -542,59 +546,69 @@
         </div>
     </div>
 
-    <!-- FLOATING CHAT WIDGET -->
-    <button class="floating-chat-btn premium-chat-btn" id="toggleChatBtn" title="Chat với AI" aria-label="Mở chatbot tư vấn Lương y">
+    <!-- FLOATING CHATBOT WIDGET (ECOBOT PRO v2) -->
+    <button class="floating-chat-btn premium-chat-btn" id="toggleChatBtn" aria-label="Mở chatbot tư vấn Lương y" title="Trò chuyện Lương y số">
         <div class="chat-icon-wrapper">
             <i class="bi bi-chat-dots-fill fs-4 text-white"></i>
         </div>
         <div class="badge-pulse"></div>
     </button>
     <div class="floating-chat-window premium-chat-window" id="floatingChatWindow" data-lenis-prevent>
-        <div class="chat-header premium-chat-header d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-3">
-                <div class="ai-avatar-circle">
-                    <i class="bi bi-robot"></i>
-                </div>
-                <div>
-                    <strong class="d-block text-white fw-bold" style="font-size: 1rem; line-height: 1.2; letter-spacing: 0.5px;">EcoBot Pro</strong>
-                    <div class="d-flex align-items-center gap-1 mt-1">
-                        <span class="status-dot online" style="width:8px; height:8px; background:#00e676; border-radius:50%; display:inline-block;"></span>
-                        <small class="text-white-50" style="font-size: 0.75rem;">Lương Y Số AI 24/7</small>
+        <!-- Chat Header -->
+        <div class="chat-header premium-chat-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="ai-avatar-circle">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <div>
+                        <strong class="d-block text-white fw-bold" style="font-size: 1.05rem; line-height: 1.2; letter-spacing: 0.3px;">EcoBot Pro</strong>
+                        <div class="d-flex align-items-center gap-2 mt-1">
+                            <span class="chatbot-status-dot"></span>
+                            <small class="text-white" style="font-size: 0.75rem; opacity: 0.8;">Lương Y Số AI 24/7</small>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex align-items-center gap-1">
-                <button class="btn btn-sm p-1" id="clearChatHistoryBtn" title="Xóa lịch sử chat" style="color:rgba(255,255,255,0.7); border:none; background:none;" aria-label="Xóa lịch sử chat">
-                    <i class="bi bi-trash3 fs-6"></i>
-                </button>
-                <button class="btn btn-sm p-1" onclick="$('#floatingChatWindow').removeClass('active')" style="color:white; border:none; background:none;" aria-label="Đóng chatbot">
-                    <i class="bi bi-x-lg fs-5"></i>
-                </button>
+                <div class="d-flex align-items-center gap-1">
+                    <button class="btn chatbot-header-btn" id="clearChatHistoryBtn" title="Xóa lịch sử chat" aria-label="Xóa lịch sử chat">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                    <button class="btn chatbot-header-btn" onclick="$('#floatingChatWindow').removeClass('active')" aria-label="Đóng chatbot">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
             </div>
         </div>
+        <!-- Chat Body -->
         <div class="chat-body-widget premium-chat-body" id="chatBody">
             <div class="chat-message ai-message mt-2">
-                <div class="message-avatar"><i class="bi bi-robot text-primary"></i></div>
+                <div class="message-avatar"><i class="bi bi-robot"></i></div>
                 <div class="message-content">
-                    <div class="message-bubble ai-bubble premium-bubble">
-                        <p class="mb-0">Kính chào quý nhân! Tôi là Lương y số EcoBot. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
+                    <div class="message-bubble ai-bubble">
+                        <p class="mb-0">Kính chào quý nhân! 🙏 Tôi là <strong>Lương y số EcoBot</strong>. Tôi có thể tư vấn đầy đủ về các bài thuốc cổ truyền (VD: Thập Toàn Đại Bổ, Quy Tỳ Thang...). Bạn đang gặp vấn đề sức khỏe nào?</p>
                     </div>
-                    <span class="message-time" style="font-size: 0.7rem; color: #a5bcb0; margin-left: 10px;">EcoHeritage AI</span>
+                    <span class="message-time d-block" style="font-size: 0.7rem; color: #8fa096; margin-top: 4px; margin-left: 10px;">EcoHeritage AI</span>
                 </div>
             </div>
         </div>
-        <div class="chat-footer p-3 bg-white border-top">
-            <div class="d-flex gap-2 overflow-auto pb-2 mb-2" id="quickReplies">
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">💤 Mất ngủ</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">🦴 Đau khớp</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">😷 Cảm cúm</button>
-                <button class="btn btn-sm btn-outline-success rounded-pill text-nowrap quick-reply-btn">💊 Bổ dưỡng</button>
+        <!-- Chat Footer -->
+        <div class="chat-footer-v2">
+            <div class="chatbot-quick-replies" id="quickReplies">
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💤</span> Mất ngủ</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🦴</span> Đau khớp</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">😷</span> Cảm cúm</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💊</span> Bổ dưỡng</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🌿</span> Thảo dược</button>
             </div>
-            <div class="input-group premium-chat-input-group shadow-sm rounded-pill overflow-hidden border mb-2">
-                <input type="text" class="form-control border-0 px-4 py-3 bg-transparent" id="chatInput" placeholder="Hỏi Lương y về thảo dược, trị bệnh...">
-                <button class="btn btn-primary px-4 bg-gradient-primary border-0" id="chatSend"><i class="bi bi-send-fill fs-5"></i></button>
+            <div class="chatbot-input-wrapper">
+                <div class="chatbot-input-group">
+                    <input type="text" class="chatbot-input" id="chatInput" placeholder="Hỏi Lương y về thảo dược, trị bệnh..." autocomplete="off">
+                    <button class="chatbot-send-btn" id="chatSend" aria-label="Gửi tin nhắn">
+                        <i class="bi bi-send-fill"></i>
+                    </button>
+                </div>
             </div>
-            <div class="text-center text-danger fw-semibold" style="font-size: 0.72rem; line-height: 1.3;">
+            <div class="chatbot-disclaimer">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i> Khuyến cáo: Tham vấn ý kiến bác sĩ trước khi sử dụng hoặc làm theo bất kỳ bài thuốc nào từ chatbot.
             </div>
         </div>
@@ -660,8 +674,8 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
     <script src="config.js"></script>
-    <script src="data.js?v=23.0"></script>
-    <script src="script.js?v=23.0"></script>
+    <script src="data.js?v=27.0"></script>
+    <script src="script.js?v=27.0"></script>
 </body>
 </html>
 
