@@ -21,7 +21,9 @@ $(document).ready(function () {
         window.scrollTo(0, 0);
     }, 100);
 
-    // ─── 1. KHỞI TẠO CSDL TRÊN LOCALSTORAGE (DATABASE SYNC & UPGRADE) ────
+    // =========================================================================
+    // ─── PHẦN 1: KHỞI TẠO CSDL TRÊN LOCALSTORAGE (DATABASE SYNC & UPGRADE) ───
+    // =========================================================================
     const DEFAULT_HERB_IMAGE = './images/hero_vector.png';
 
     // Dữ liệu cẩm nang bài viết y học cổ truyền
@@ -301,7 +303,9 @@ $(document).ready(function () {
         }
     }
 
-    // ─── 2. AOS & PARTICLES NỀN CHUYỂN ĐỘNG ────────────────────
+    // =========================================================================
+    // ─── PHẦN 2: HIỆU ỨNG CHUYỂN ĐỘNG AOS & PARTICLES NỀN ────────────────────
+    // =========================================================================
     if (typeof AOS !== 'undefined') {
         AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });
     }
@@ -326,7 +330,9 @@ $(document).ready(function () {
     }
     createParticles();
 
-    // ─── 3. STICKY NAVBAR & PROGRESS BAR ──────────────────────
+    // =========================================================================
+    // ─── PHẦN 3: THANH ĐIỀU HƯỚNG STICKY NAVBAR & THANH TIẾN TRÌNH ĐỌC ────────
+    // =========================================================================
     const $navbar = $('#mainNav');
 
     // Inject scroll progress bar dynamically if not present
@@ -424,7 +430,9 @@ $(document).ready(function () {
         }
     });
 
-    // ─── 4. HỆ THỐNG THÔNG BÁO NỔI (TOAST NOTIFICATIONS) ───────
+    // =========================================================================
+    // ─── PHẦN 4: HỆ THỐNG THÔNG BÁO NỔI (TOAST NOTIFICATIONS) ────────────────
+    // =========================================================================
     function showToast(message, type = 'success') {
         const toastLiveExample = document.getElementById('liveToast');
         if (toastLiveExample) {
@@ -452,7 +460,9 @@ $(document).ready(function () {
         }
     }
 
-    // ─── 5. PASSWORD EYE TOGGLE ────────────────────────────────
+    // =========================================================================
+    // ─── PHẦN 5: NÚT ẨN/HIỆN MẬT KHẨU (PASSWORD EYE TOGGLE) ──────────────────
+    // =========================================================================
     $(document).on('click', '.password-toggle-btn', function () {
         const targetId = $(this).data('target');
         const $input = $('#' + targetId);
@@ -471,7 +481,9 @@ $(document).ready(function () {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    // ─── 6. HỆ THỐNG AUTH (LocalStorage gh_user) ────────────────
+    // =========================================================================
+    // ─── PHẦN 6: HỆ THỐNG ĐĂNG NHẬP / ĐĂNG KÝ / PHÂN QUYỀN (AUTH SYSTEM) ─────
+    // =========================================================================
     function checkAuthStatus() {
         const user = readStorage('gh_user', null);
         if (user) {
@@ -701,7 +713,9 @@ $(document).ready(function () {
         });
     });
 
-    // ─── 7. DASHBOARD MÔI TRƯỜNG — TỌA ĐỘ CỐ ĐỊNH ĐÀ NẴNG ─────
+    // =========================================================================
+    // ─── PHẦN 7: DASHBOARD THỜI TIẾT & CHỈ SỐ AQI REAL-TIME ──────────────────
+    // =========================================================================
     // Luôn sử dụng tọa độ Đà Nẵng cố định cho API thời tiết
     function getUserLocation() {
         return { lat: 16.0678, lon: 108.2208, name: 'Đà Nẵng' };
@@ -1242,7 +1256,9 @@ $(document).ready(function () {
     });
 
 
-    // ─── 8. KHO TỪ ĐIỂN 20+ BÀI THUỐC ĐÔNG Y (DICTIONARY) ──────
+    // =========================================================================
+    // ─── PHẦN 8: TỪ ĐIỂN BÀI THUỐC CỔ PHƯƠNG & BẢNG SO SÁNH SONG SONG ────────
+    // =========================================================================
     let currentCategoryFilter = 'Tất cả';
     let currentViewMode = 'grid'; // grid hoặc list
     let renderTimeout = null;
@@ -1701,7 +1717,9 @@ $(document).ready(function () {
     });
 
 
-    // ─── 9. BẢN ĐỒ VỆ TINH LEAFLET & ĐÁNH GIÁ 1-5 SAO (MAP.HTML) ──
+    // =========================================================================
+    // ─── PHẦN 9: BẢN ĐỒ DƯỢC LIỆU VỆ TINH LEAFLET & HỆ THỐNG ĐÁNH GIÁ ────────
+    // =========================================================================
     let map;
     let markers = {};
     let activeRegionId = '';
@@ -2152,7 +2170,9 @@ $(document).ready(function () {
     });
 
 
-    // ─── 10. TRANG CÁ NHÂN & THÀNH TỰU (PROFILE.HTML) ──────────
+    // =========================================================================
+    // ─── PHẦN 10: TRANG CÁ NHÂN, SỔ TAY BÀI THUỐC & HUY CHƯƠNG THÀNH TỰU ─────
+    // =========================================================================
     function initProfilePage() {
         if (!$('#profileContentSection').length) return; // Chỉ chạy trên profile.html
 
@@ -2572,7 +2592,9 @@ $(document).ready(function () {
     }
 
 
-    // ─── 11. CỔNG QUẢN TRỊ ADMIN CMS (ADMIN.HTML) ──────────────
+    // =========================================================================
+    // ─── PHẦN 11: CỔNG QUẢN TRỊ ADMIN CMS (CRUD BÀI THUỐC & ĐỊA ĐIỂM) ────────
+    // =========================================================================
     function initAdminPage() {
         if (!$('#adminLockPanel').length) return; // Chỉ chạy trên admin.html
 
@@ -3103,6 +3125,9 @@ $(document).ready(function () {
         }
     });
 
+    // =========================================================================
+    // ─── PHẦN 12: HỆ THỐNG TRỢ LÝ CHATBOT LƯƠNG Y SỐ ECOBOT (GEMINI AI) ──────
+    // =========================================================================
     const apiKey = (typeof ECO_CONFIG !== 'undefined' && ECO_CONFIG.GEMINI_API_KEY) ? ECO_CONFIG.GEMINI_API_KEY : '';
 
     // Premium Local Fallback Generator for Robust Offline/Timeout experience
@@ -3436,7 +3461,9 @@ $(document).ready(function () {
     }
 
 
-    // ─── 13. KHỞI CHẠY HỆ THỐNG BIỂU ĐỒ & TRANG WEB ─────────────
+    // =========================================================================
+    // ─── PHẦN 13: KHỞI CHẠY HỆ THỐNG BIỂU ĐỒ CHART.JS & KHỞI TẠO TRANG WEB ───
+    // =========================================================================
     function initCharts() {
         const $yieldCanvas = $('#yieldChart');
         const $categoryCanvas = $('#categoryChart');
@@ -3723,7 +3750,9 @@ $(document).ready(function () {
             });
         });
     }
-    // ─── 14. NÚT CUỘN LÊN ĐẦU TRANG (BACK TO TOP) ─────────────
+    // =========================================================================
+    // ─── PHẦN 14: NÚT CUỘN LÊN ĐẦU TRANG (BACK TO TOP) ───────────────────────
+    // =========================================================================
     function initBackToTop() {
         const $btn = $('#backToTopBtn');
         if (!$btn.length) return;
@@ -3743,7 +3772,9 @@ $(document).ready(function () {
         });
     }
 
-    // ─── 15. XÓA LỊCH SỬ CHATBOT ──────────────────────────────
+    // =========================================================================
+    // ─── PHẦN 15: CHỨC NĂNG XÓA LỊCH SỬ TRÒ CHUYỆN CHATBOT ───────────────────
+    // =========================================================================
     window.clearChatHistory = function () {
         if (!confirm('Bạn có chắc muốn xóa toàn bộ lịch sử trò chuyện?')) return;
 
@@ -3769,7 +3800,9 @@ $(document).ready(function () {
         showToast('Đã xóa lịch sử trò chuyện thành công! 🗑️', 'success');
     };
 
-    // ─── 17. CHỨC NĂNG PHIÊN BẢN v6.0 PREMIUM ULTRA ────────────
+    // =========================================================================
+    // ─── PHẦN 18: CHỨC NĂNG PHIÊN BẢN NÂNG CẤP PREMIUM (V6.0 / V7.5 ULTRA) ───
+    // =========================================================================
 
     // A. Hạt lá thảo dược trôi nổi nền
     function initFloatingLeaves() {
@@ -4517,7 +4550,9 @@ $(document).ready(function () {
     });
 
 
-    // ─── 16. HỖ TRỢ TRUY CẬP (ACCESSIBILITY) ───────────────────
+    // =========================================================================
+    // ─── PHẦN 16: CHỨC NĂNG HỖ TRỢ TRUY CẬP (ACCESSIBILITY OPTIMIZATION) ─────
+    // =========================================================================
     function initAccessibility() {
         $('#darkModeToggle').attr('aria-label', 'Chuyển đổi giao diện tối sáng');
         $('.password-toggle-btn').attr('aria-label', 'Hiển thị mật khẩu');
@@ -4525,7 +4560,9 @@ $(document).ready(function () {
         $('#searchClearBtn').attr('aria-label', 'Xóa từ khóa tìm kiếm');
     }
 
-    // ─── 17. QUY TRÌNH BÀO CHẾ ĐỘNG ────────────────────────────
+    // =========================================================================
+    // ─── PHẦN 17: QUY TRÌNH BÀO CHẾ BÀI THUỐC ĐỘNG (INTERACTIVE BREWING) ─────
+    // =========================================================================
     function initDynamicPreparationSteps() {
         const $select = $('#homePrepSelect');
         const $container = $('#homePrepStepsContainer');

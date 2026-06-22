@@ -14,7 +14,7 @@
 
 **EcoHeritage AI** là một ứng dụng Web (Single-Page logic/Client-side) được phát triển nhằm mục đích số hóa, bảo tồn và quảng bá di sản y học cổ truyền Đông y tại khu vực Đà Nẵng, Việt Nam. Nền tảng kết hợp công nghệ bản đồ tương tác vệ tinh Leaflet, biểu đồ phân tích Chart.js, hệ thống quản trị dữ liệu CMS, và mô hình Generative AI (Google Gemini API) đóng vai trò là Lương Y Số tư vấn sức khỏe.
 
-> ⚠️ **Đặc điểm kiến trúc**: Dự án hoạt động độc lập không cần cơ sở dữ liệu backend. Toàn bộ dữ liệu người dùng, bài thuốc tự tạo, đánh giá bản đồ và nhật ký hoạt động được lưu trữ và đồng bộ hóa thông qua **LocalStorage** của trình duyệt web.
+> ⚠️ **Đặc điểm kiến trúc**: Dự án hoạt động độc lập không cần cơ sở dữ liệu backend phức tạp. Toàn bộ dữ liệu người dùng, bài thuốc tự tạo, đánh giá bản đồ và nhật ký hoạt động được tự động đồng bộ hóa hai chiều thông qua **LocalStorage** của trình duyệt web (sử dụng key cơ sở dữ liệu `eco_heritage_db_v11` và cơ chế di trú tự động để bảo toàn dữ liệu khi có phiên bản nâng cấp mới).
 
 ---
 
@@ -127,6 +127,15 @@ Do dự án là ứng dụng Client-side thuần túy, việc cài đặt và ch
    npx -y http-server -p 8080
    ```
 3. Truy cập địa chỉ: [http://localhost:8080](http://localhost:8080) trên trình duyệt.
+
+### Cách 3: Chạy Kiểm tra Hệ thống & Chẩn đoán Lỗi (Diagnostics)
+Trước khi chấm điểm hoặc bàn giao dự án, bạn có thể chạy công cụ kiểm tra tự động tích hợp sẵn để quét toàn bộ lỗi:
+1. Mở terminal tại thư mục dự án.
+2. Chạy script chẩn đoán bằng Node.js:
+   ```bash
+   node validate.js
+   ```
+3. Công cụ sẽ quét lỗi cú pháp JavaScript, kiểm tra trùng lặp ID trong thẻ HTML, xác minh các liên kết tài nguyên cục bộ (CSS, JS, Images) và đảm bảo các tệp tin ảnh trong cơ sở dữ liệu `data.js` đều tồn tại đầy đủ trên ổ đĩa.
 
 ---
 

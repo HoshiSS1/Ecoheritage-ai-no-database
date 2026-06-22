@@ -6,6 +6,14 @@
     <meta name="description" content="Liên hệ ban quản trị EcoHeritage AI - Gửi ý kiến góp ý bảo tồn y học cổ truyền.">
     <meta name="keywords" content="liên hệ, phản hồi, đóng góp ý kiến, vku, đông y đà nẵng">
     <title>Liên hệ & Góp ý - EcoHeritage AI</title>
+    <!-- Open Graph cho chia sẻ mạng xã hội -->
+    <meta property="og:title" content="Liên hệ & Góp ý - EcoHeritage AI">
+    <meta property="og:description" content="Liên hệ ban quản trị EcoHeritage AI - Gửi ý kiến góp ý bảo tồn y học cổ truyền.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://hoshiss1.github.io/Ecoheritage-ai-no-database/images/ban_do/son_tra_map.png">
+    <link rel="canonical" href="https://ecoheritage-ai.vercel.app/contact.html">
+    <link rel="manifest" href="manifest.json">
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🌿</text></svg>" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -242,6 +250,97 @@
         </div>
     </footer>
 
+    <!-- MODAL ĐỒNG BỘ 1: ĐĂNG NHẬP & ĐĂNG KÝ (AUTH SPLIT MODAL) -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content border-0 shadow-lg overflow-hidden bg-transparent">
+                <button type="button" class="btn-close auth-close-btn position-absolute top-0 end-0 m-4" style="z-index: 20;" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                <div class="row g-0 auth-premium-container position-relative rounded-4 overflow-hidden">
+                    <!-- Trái: Đồ họa ảnh nền do AI tạo -->
+                    <div class="col-lg-5 d-none d-lg-block position-relative">
+                        <img src="./images/login_bg.png" class="w-100 h-100 object-fit-cover" alt="EcoHeritage AI Login" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800'">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 login-gradient-overlay"></div>
+                        <div class="position-absolute bottom-0 start-0 p-5 text-white z-1">
+                            <h2 class="fw-bold mb-3">Eco<span class="text-warning">Heritage AI</span></h2>
+                            <p class="fs-6 opacity-75">Nền tảng tra cứu thảo duyệt và định vị vùng bảo tồn sinh học Đà Nẵng kết hợp AI.</p>
+                        </div>
+                    </div>
+                    <!-- Phải: Form xác thực -->
+                    <div class="col-lg-7 bg-white p-5 auth-glass-panel d-flex flex-column justify-content-center">
+                        <div class="auth-form-wrapper mx-auto w-100" style="max-width: 450px;">
+                            <div class="text-center mb-4">
+                                <h3 class="fw-black text-dark mb-2">Chào mừng trở lại! 👋</h3>
+                                <p class="text-muted small">Đăng nhập để xem tủ sách thảo dược và đóng góp ý kiến.</p>
+                            </div>
+                            
+                            <ul class="nav nav-pills custom-auth-tabs mb-4 justify-content-center p-1 bg-light rounded-pill shadow-sm" id="authTabs">
+                                <li class="nav-item flex-fill text-center"><button class="nav-link active w-100 rounded-pill fw-bold" data-bs-toggle="tab" data-bs-target="#login-pane">Đăng nhập</button></li>
+                                <li class="nav-item flex-fill text-center"><button class="nav-link w-100 rounded-pill fw-bold" data-bs-toggle="tab" data-bs-target="#register-pane">Đăng ký mới</button></li>
+                            </ul>
+                            
+                            <div class="tab-content">
+                                <!-- Tab Đăng nhập -->
+                                <div class="tab-pane fade show active" id="login-pane">
+                                    <form id="loginForm" class="needs-validation" novalidate>
+                                        <div class="form-floating mb-3 position-relative">
+                                            <input type="email" class="form-control premium-input" id="loginEmail" placeholder="Email" required>
+                                            <label for="loginEmail"><i class="bi bi-envelope me-2 text-muted"></i>Email của bạn</label>
+                                        </div>
+                                        <div class="form-floating mb-3 position-relative">
+                                            <input type="password" class="form-control premium-input" id="loginPassword" placeholder="Pass" required minlength="6">
+                                            <label for="loginPassword"><i class="bi bi-shield-lock me-2 text-muted"></i>Mật khẩu</label>
+                                            <button type="button" class="password-toggle-btn" data-target="loginPassword" tabindex="-1"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe" checked>
+                                                <label class="form-check-label text-muted small" for="rememberMe">Ghi nhớ tài khoản</label>
+                                            </div>
+                                            <a href="#" id="forgotPasswordLink" class="text-success text-decoration-none small fw-semibold">Quên mật khẩu?</a>
+                                        </div>
+                                        <button type="submit" class="btn btn-premium-success w-100 py-3 rounded-pill fw-bold shadow-lg mb-3">TIẾP TỤC <i class="bi bi-arrow-right ms-2"></i></button>
+                                        
+                                        <div class="position-relative text-center my-3">
+                                            <hr class="text-muted opacity-25">
+                                            <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">Hoặc đăng nhập nhanh</span>
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <button type="button" id="googleLoginBtn" class="btn btn-outline-light text-dark border w-100 py-2.5 rounded-pill shadow-sm hover-elevate small fw-semibold d-flex align-items-center justify-content-center gap-2"><i class="bi bi-google text-danger me-2"></i> Google (Demo)</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Tab Đăng ký -->
+                                <div class="tab-pane fade" id="register-pane">
+                                    <form id="registerForm" class="needs-validation" novalidate>
+                                        <div class="form-floating mb-3 position-relative">
+                                            <input type="text" class="form-control premium-input" id="registerName" placeholder="Tên" required>
+                                            <label for="registerName"><i class="bi bi-person me-2 text-muted"></i>Họ và Tên</label>
+                                        </div>
+                                        <div class="form-floating mb-3 position-relative">
+                                            <input type="email" class="form-control premium-input" id="registerEmail" placeholder="Email" required>
+                                            <label for="registerEmail"><i class="bi bi-envelope me-2 text-muted"></i>Email đăng ký</label>
+                                        </div>
+                                        <div class="form-floating mb-3 position-relative">
+                                            <input type="password" class="form-control premium-input" id="registerPassword" placeholder="Pass" required minlength="6">
+                                            <label for="registerPassword"><i class="bi bi-shield-lock me-2 text-muted"></i>Mật khẩu (tối thiểu 6 ký tự)</label>
+                                            <button type="button" class="password-toggle-btn" data-target="registerPassword" tabindex="-1"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                        <div class="form-floating mb-3 position-relative">
+                                            <input type="password" class="form-control premium-input" id="registerPasswordConfirm" placeholder="Confirm" required minlength="6">
+                                            <label for="registerPasswordConfirm"><i class="bi bi-shield-check me-2 text-muted"></i>Xác nhận mật khẩu</label>
+                                            <button type="button" class="password-toggle-btn" data-target="registerPasswordConfirm" tabindex="-1"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                        <button type="submit" class="btn btn-premium-primary w-100 py-3 rounded-pill fw-bold shadow-lg mt-2">ĐĂNG KÝ TÀI KHOẢN <i class="bi bi-person-plus ms-2"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST NOTIFICATION FOR VALIDATION -->
     <div class="toast-container position-fixed bottom-0 end-0 p-4" style="z-index: 1100">
         <div id="liveToast" class="toast align-items-center border-0 shadow-lg rounded-3 text-white" role="alert" aria-live="assertive" aria-atomic="true">
@@ -259,22 +358,10 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="config.js"></script>
+    <script src="data.js?v=27.0"></script>
+    <script src="script.js?v=27.0"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
-
-        // Dark Mode Toggle
-        const isDarkMode = localStorage.getItem('eco_theme_dark') === 'true';
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark-mode');
-            $('#darkModeToggle i').removeClass('bi-moon-fill').addClass('bi-sun-fill');
-        }
-        
-        $('#darkModeToggle').on('click', function() {
-            const hasDark = document.documentElement.classList.toggle('dark-mode');
-            localStorage.setItem('eco_theme_dark', hasDark);
-            $('#darkModeToggle i').toggleClass('bi-moon-fill bi-sun-fill');
-        });
-
         // jQuery input validation logic for form
         $('#contactForm').on('submit', function(e) {
             e.preventDefault();
