@@ -70,7 +70,7 @@ html.dark-mode .admin-table tr:hover {
 /* ─── PREMIUM TABLES & CONTENT CARDS ─── */
 .table-responsive-premium {
     border-radius: 16px !important;
-    overflow: hidden !important;
+    overflow-x: auto !important;
     border: 1px solid rgba(46, 179, 102, 0.12) !important;
     box-shadow: 0 10px 30px rgba(13, 22, 17, 0.03) !important;
     background: #ffffff;
