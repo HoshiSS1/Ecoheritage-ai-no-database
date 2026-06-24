@@ -5,7 +5,7 @@
 /* ─── SaaS MINIMALIST ADMIN TABLES ─── */
 html.dark-mode .admin-table,
 html.dark-mode .table-responsive-premium {
-    background: var(--bg-light) !important;
+    background: var(--bg-dark-card) !important;
     border: 1px solid rgba(16, 185, 129, 0.15) !important;
     box-shadow: var(--shadow-sm) !important;
 }
@@ -18,25 +18,355 @@ html.dark-mode .admin-table th {
 
 html.dark-mode .admin-table td {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-    color: var(--text-main) !important;
+    color: var(--text-light) !important;
 }
 
 html.dark-mode .admin-table tr:hover {
     background: rgba(16, 185, 129, 0.04) !important;
 }
 
-/* Dynamic Mesh Gradient Animation */
-@keyframes meshGradient {
-    0% {
-        background-position: 0% 50%;
-    }
+/* ─── PREMIUM SAAS SIDEBAR ─── */
+.admin-sidebar {
+    background: linear-gradient(180deg, #09130d 0%, #0d1611 100%) !important;
+    border-right: 1px solid rgba(46, 179, 102, 0.1) !important;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1) !important;
+}
 
-    50% {
-        background-position: 100% 50%;
-    }
+.admin-sidebar .py-4 {
+    border-bottom: 1px solid rgba(46, 179, 102, 0.15) !important;
+}
 
-    100% {
-        background-position: 0% 50%;
+.admin-nav-link {
+    color: rgba(255, 255, 255, 0.65) !important;
+    border-left: 4px solid transparent !important;
+    border-radius: 0 30px 30px 0 !important;
+    margin: 4px 12px 4px 0 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.admin-nav-link i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.admin-nav-link:hover {
+    color: #ffffff !important;
+    background: rgba(46, 179, 102, 0.08) !important;
+    padding-left: 28px !important;
+}
+
+.admin-nav-link:hover i {
+    transform: scale(1.1) translateX(2px);
+}
+
+.admin-nav-link.active {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, rgba(46, 179, 102, 0.25) 0%, rgba(46, 179, 102, 0.05) 100%) !important;
+    border-left-color: var(--primary) !important;
+    box-shadow: inset 2px 0 0 rgba(46, 179, 102, 0.5) !important;
+    font-weight: 700 !important;
+}
+
+/* ─── PREMIUM TABLES & CONTENT CARDS ─── */
+.table-responsive-premium {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(46, 179, 102, 0.12) !important;
+    box-shadow: 0 10px 30px rgba(13, 22, 17, 0.03) !important;
+    background: #ffffff;
+}
+
+.admin-table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+.admin-table tbody tr {
+    transition: all 0.2s ease !important;
+}
+
+.admin-table tbody tr:hover {
+    background-color: rgba(46, 179, 102, 0.02) !important;
+}
+
+.admin-table td, .admin-table th {
+    padding: 16px 20px !important;
+    vertical-align: middle !important;
+}
+
+.admin-table th {
+    background-color: #f7faf8 !important;
+    color: var(--text-main) !important;
+    border-bottom: 2px solid rgba(46, 179, 102, 0.15) !important;
+    font-size: 0.88rem !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+}
+
+/* GPS & Code Badges */
+.gps-coordinate-badge {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    background: rgba(46, 179, 102, 0.08);
+    color: var(--primary-dark) !important;
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(46, 179, 102, 0.15);
+    display: inline-flex;
+    align-items: center;
+    transition: all var(--transition-normal);
+}
+
+.gps-coordinate-badge:hover {
+    background: rgba(46, 179, 102, 0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(46, 179, 102, 0.1);
+}
+
+html.dark-mode .gps-coordinate-badge {
+    background: rgba(0, 230, 118, 0.08) !important;
+    color: #00e676 !important;
+    border-color: rgba(0, 230, 118, 0.25) !important;
+}
+
+.admin-email-badge {
+    font-family: monospace;
+    background: #f1f5f9;
+    color: #475569 !important;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    border: 1px solid #e2e8f0;
+}
+
+html.dark-mode .admin-email-badge {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-light) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.admin-password-masked {
+    color: #94a3b8 !important;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+/* Metric Cards style augmentation */
+.metric-card {
+    border-radius: 20px !important;
+    border: 1px solid rgba(46, 179, 102, 0.1) !important;
+    box-shadow: 0 10px 30px rgba(13, 22, 17, 0.04) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 35px rgba(46, 179, 102, 0.12) !important;
+    border-color: rgba(46, 179, 102, 0.3) !important;
+}
+
+html.dark-mode .metric-card {
+    background: var(--bg-dark-card) !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html.dark-mode .metric-card h2 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .metric-icon {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* CMS Action Buttons spacing and hover */
+.btn-admin-action {
+    transition: all 0.2s ease;
+}
+.btn-admin-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ─── ROLE BADGES ─── */
+.badge-role {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    padding: 6px 12px;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-role.admin {
+    background: rgba(46, 179, 102, 0.12) !important;
+    color: #2eb366 !important;
+    border: 1px solid rgba(46, 179, 102, 0.2) !important;
+}
+
+.badge-role.user {
+    background: rgba(100, 116, 139, 0.12) !important;
+    color: #64748b !important;
+    border: 1px solid rgba(100, 116, 139, 0.2) !important;
+}
+
+html.dark-mode .badge-role.admin {
+    background: rgba(0, 230, 118, 0.1) !important;
+    color: #00e676 !important;
+    border-color: rgba(0, 230, 118, 0.25) !important;
+}
+
+html.dark-mode .badge-role.user {
+    background: rgba(148, 163, 184, 0.1) !important;
+    color: #94a3b8 !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+/* ─── HERB CATEGORY BADGES ─── */
+.badge-category-rare {
+    background: rgba(239, 68, 68, 0.08) !important;
+    color: #ef4444 !important;
+    border: 1px solid rgba(239, 68, 68, 0.18) !important;
+    font-weight: 600;
+    font-size: 0.76rem;
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.badge-category-sleep {
+    background: rgba(99, 102, 241, 0.08) !important;
+    color: #6366f1 !important;
+    border: 1px solid rgba(99, 102, 241, 0.18) !important;
+    font-weight: 600;
+    font-size: 0.76rem;
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.badge-category-nutritious {
+    background: rgba(16, 185, 129, 0.08) !important;
+    color: #10b981 !important;
+    border: 1px solid rgba(16, 185, 129, 0.18) !important;
+    font-weight: 600;
+    font-size: 0.76rem;
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.badge-category-detox {
+    background: rgba(245, 158, 11, 0.08) !important;
+    color: #f59e0b !important;
+    border: 1px solid rgba(245, 158, 11, 0.18) !important;
+    font-weight: 600;
+    font-size: 0.76rem;
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.badge-category-default {
+    background: rgba(107, 114, 128, 0.08) !important;
+    color: #6b7280 !important;
+    border: 1px solid rgba(107, 114, 128, 0.18) !important;
+    font-weight: 600;
+    font-size: 0.76rem;
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+html.dark-mode .badge-category-rare {
+    background: rgba(248, 113, 113, 0.1) !important;
+    color: #f87171 !important;
+    border-color: rgba(248, 113, 113, 0.25) !important;
+}
+
+html.dark-mode .badge-category-sleep {
+    background: rgba(129, 140, 248, 0.1) !important;
+    color: #818cf8 !important;
+    border-color: rgba(129, 140, 248, 0.25) !important;
+}
+
+html.dark-mode .badge-category-nutritious {
+    background: rgba(52, 211, 153, 0.1) !important;
+    color: #34d399 !important;
+    border-color: rgba(52, 211, 153, 0.25) !important;
+}
+
+html.dark-mode .badge-category-detox {
+    background: rgba(251, 191, 36, 0.1) !important;
+    color: #fbbf24 !important;
+    border-color: rgba(251, 191, 36, 0.25) !important;
+}
+
+/* ─── PREMIUM ADMIN CARD (AI ADVISOR) ─── */
+.admin-card {
+    background: #ffffff;
+    border: 1px solid rgba(46, 179, 102, 0.12) !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    box-shadow: 0 10px 30px rgba(13, 22, 17, 0.03) !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.admin-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #6366f1, #2eb366);
+}
+
+html.dark-mode .admin-card {
+    background: var(--bg-dark-card) !important;
+    border-color: rgba(16, 185, 129, 0.15) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+/* ─── PREMIUM FORM CONTROLS ─── */
+.admin-sidebar input, .admin-sidebar select, 
+.tab-content .form-control, .tab-content .form-select {
+    border-radius: 10px !important;
+    border: 1.5px solid rgba(46, 179, 102, 0.18) !important;
+    padding: 10px 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.tab-content .form-control:focus, .tab-content .form-select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(46, 179, 102, 0.15) !important;
+    background-color: #ffffff !important;
+}
+
+html.dark-mode .tab-content .form-control, html.dark-mode .tab-content .form-select {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+    color: var(--text-light) !important;
+}
+
+html.dark-mode .tab-content .form-control:focus, html.dark-mode .tab-content .form-select:focus {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border-color: #00e676 !important;
+    box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.15) !important;
+}
+
+/* ─── TAB SWITCH ANIMATION ─── */
+@keyframes fadeInUpAdmin {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
     }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-pane.fade.show {
+    animation: fadeInUpAdmin 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 

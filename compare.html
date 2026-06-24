@@ -519,6 +519,73 @@
         </div>
     </footer>
 
+    <!-- FLOATING CHATBOT WIDGET (ECOBOT PRO v2) -->
+    <button class="floating-chat-btn premium-chat-btn" id="toggleChatBtn" aria-label="Mở chatbot tư vấn Lương y"
+        title="Trò chuyện Lương y số">
+        <div class="chat-icon-wrapper">
+            <i class="bi bi-chat-dots-fill fs-4 text-white"></i>
+        </div>
+        <div class="badge-pulse"></div>
+    </button>
+    <div class="floating-chat-window premium-chat-window" id="floatingChatWindow" data-lenis-prevent>
+        <div class="chat-header premium-chat-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="ai-avatar-circle"><i class="bi bi-robot"></i></div>
+                    <div>
+                        <strong class="d-block text-white fw-bold"
+                            style="font-size: 1.05rem; line-height: 1.2; letter-spacing: 0.3px;">EcoBot Pro</strong>
+                        <div class="d-flex align-items-center gap-2 mt-1">
+                            <span class="chatbot-status-dot"></span>
+                            <small class="text-white" style="font-size: 0.75rem; opacity: 0.8;">Lương Y Số AI 24/7</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                    <button class="btn chatbot-header-btn" id="clearChatHistoryBtn" title="Xóa lịch sử chat"
+                        aria-label="Xóa lịch sử chat"><i class="bi bi-trash3"></i></button>
+                    <button class="btn chatbot-header-btn" onclick="$('#floatingChatWindow').removeClass('active')"
+                        aria-label="Đóng chatbot"><i class="bi bi-x-lg"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="chat-body-widget premium-chat-body" id="chatBody">
+            <div class="chat-message ai-message mt-2">
+                <div class="message-avatar"><i class="bi bi-robot"></i></div>
+                <div class="message-content">
+                    <div class="message-bubble ai-bubble">
+                        <p class="mb-0">Kính chào quý nhân! 🙏 Tôi là <strong>Lương y số EcoBot</strong>. Tôi có thể tư
+                            vấn đầy đủ về các bài thuốc cổ truyền. Bạn đang gặp vấn đề sức khỏe nào?</p>
+                    </div>
+                    <span class="message-time d-block"
+                        style="font-size: 0.7rem; color: #8fa096; margin-top: 4px; margin-left: 10px;">EcoHeritage AI</span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-footer-v2">
+            <div class="chatbot-quick-replies" id="quickReplies">
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💤</span> Mất ngủ</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🦴</span> Đau khớp</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">😷</span> Cảm cúm</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">💊</span> Bổ dưỡng</button>
+                <button class="chatbot-quick-pill quick-reply-btn"><span class="quick-pill-icon">🌿</span> Thảo dược</button>
+            </div>
+            <div class="chatbot-input-wrapper">
+                <div class="chatbot-input-group">
+                    <input type="text" class="chatbot-input" id="chatInput"
+                        placeholder="Hỏi Lương y về thảo dược, trị bệnh..." autocomplete="off">
+                    <button class="chatbot-send-btn" id="chatSend" aria-label="Gửi tin nhắn">
+                        <i class="bi bi-send-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="chatbot-disclaimer">
+                <i class="bi bi-exclamation-triangle-fill me-1"></i> Khuyến cáo: Tham vấn ý kiến bác sĩ trước khi sử
+                dụng hoặc làm theo bất kỳ bài thuốc nào từ chatbot.
+            </div>
+        </div>
+    </div>
+
     <!-- SHARED MODALS & WIDGETS -->
 
     <!-- MODAL 1: AUTH (SPLIT LAYOUT) -->

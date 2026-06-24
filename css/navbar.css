@@ -52,18 +52,69 @@ html.dark-mode .autocomplete-suggestions {
     border: 1px solid rgba(16, 185, 129, 0.15) !important;
 }
 
-
-
 /* --- Dropdown header text-dark --- */
 html.dark-mode .dropdown-header .text-dark,
 html.dark-mode #dropdownUserName {
     color: var(--text-main) !important;
 }
 
-
-
 /* --- Dashboard header bg (gradient is fine, but small/opacity text) --- */
 html.dark-mode .dashboard-header-bg small {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
+/* ─── NAVBAR PROFILE & BADGE LAYOUT ALIGNMENT ─── */
+#desktopAuthSection:not(.d-none) {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+}
+
+#desktopUserAvatar:not(.d-none) {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+}
+
+/* ─── PREVENT NAVIGATION LINKS WRAPPING ─── */
+.nav-link {
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .navbar-nav {
+        gap: 6px !important;
+    }
+    .nav-link {
+        padding: 6px 10px !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+#desktopAdminBadge {
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.3px;
+    padding: 6px 14px !important;
+    border-radius: 30px !important;
+    border: 1px solid rgba(46, 179, 102, 0.22) !important;
+    background: rgba(46, 179, 102, 0.08) !important;
+    color: var(--primary) !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 6px rgba(46, 179, 102, 0.04) !important;
+}
+
+html.dark-mode #desktopAdminBadge {
+    background: rgba(0, 230, 118, 0.08) !important;
+    color: #00e676 !important;
+    border-color: rgba(0, 230, 118, 0.25) !important;
+    box-shadow: 0 2px 6px rgba(0, 230, 118, 0.04) !important;
+}
+
+html.dark-mode .avatar-circle {
+    border-color: #1a2c22 !important;
+}

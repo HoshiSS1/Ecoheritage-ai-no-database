@@ -21,6 +21,114 @@ $(document).ready(function () {
         window.scrollTo(0, 0);
     }, 100);
 
+    // ─── PHẦN KHỞI TẠO ĐĂNG NHẬP GOOGLE THẬT ───
+    let googleTokenClient = null;
+
+    function initGoogleAuth() {
+        if (window.google && window.google.accounts) {
+            initializeTokenClient();
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = 'https://accounts.google.com/gsi/client';
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+            initializeTokenClient();
+        };
+        script.onerror = () => {
+            console.error('Failed to load Google Identity Services SDK');
+        };
+        document.head.appendChild(script);
+    }
+
+    function initializeTokenClient() {
+        try {
+            googleTokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: '676058826167-234q1algf2o1oufao085mudcflkd9b3o.apps.googleusercontent.com',
+                scope: 'openid email profile',
+                callback: async (tokenResponse) => {
+                    if (tokenResponse && tokenResponse.access_token) {
+                        showToast('Đang kết nối tài khoản Google...', 'info');
+                        try {
+                            const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                                headers: {
+                                    'Authorization': `Bearer ${tokenResponse.access_token}`
+                                }
+                            });
+                            const userInfo = await res.json();
+                            if (userInfo && userInfo.email) {
+                                handleGoogleLoginSuccess(userInfo);
+                            } else {
+                                showToast('Không thể lấy thông tin tài khoản Google!', 'error');
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            showToast('Lỗi kết nối API Google!', 'error');
+                        }
+                    }
+                }
+            });
+        } catch (e) {
+            console.error('Error initializing Google Auth Client:', e);
+        }
+    }
+
+    function handleGoogleLoginSuccess(userInfo) {
+        let userList = readStorage('eco_heritage_users', []) || [];
+        const email = userInfo.email;
+        let googleUser = userList.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+        if (googleUser && googleUser.status === 'disabled') {
+            showToast('Tài khoản Google của bạn đã bị khóa!', 'error');
+            return;
+        }
+
+        if (!googleUser) {
+            // Đăng ký mới nếu chưa tồn tại
+            googleUser = normalizeUser({
+                name: userInfo.name || 'Google User',
+                email: email,
+                password: '',
+                role: 'user',
+                avatar: userInfo.picture || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150',
+                saved: [],
+                rated: [],
+                lastLoginTime: Date.now()
+            });
+            userList.push(googleUser);
+            writeStorage('eco_heritage_users', userList);
+        } else {
+            // Cập nhật thông tin avatar hoặc tên nếu có thay đổi từ Google
+            let modified = false;
+            if (userInfo.picture && googleUser.avatar !== userInfo.picture) {
+                googleUser.avatar = userInfo.picture;
+                modified = true;
+            }
+            if (userInfo.name && googleUser.name !== userInfo.name) {
+                googleUser.name = userInfo.name;
+                modified = true;
+            }
+            if (modified) {
+                const idx = userList.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+                if (idx !== -1) {
+                    userList[idx] = googleUser;
+                    writeStorage('eco_heritage_users', userList);
+                }
+            }
+        }
+
+        googleUser.lastLoginTime = Date.now();
+        writeStorage('gh_user', googleUser);
+        showToast('Đăng nhập Google thành công! 🎉', 'success');
+        $('#authModal').modal('hide');
+        checkAuthStatus();
+        setTimeout(() => { location.reload(); }, 1000);
+    }
+
+    // Khởi chạy tải SDK Google
+    initGoogleAuth();
+
     // =========================================================================
     // ─── PHẦN 1: KHỞI TẠO CSDL TRÊN LOCALSTORAGE (DATABASE SYNC & UPGRADE) ───
     // =========================================================================
@@ -110,7 +218,8 @@ $(document).ready(function () {
             avatar: user?.avatar || '',
             saved: Array.isArray(user?.saved) ? user.saved : [],
             rated: Array.isArray(user?.rated) ? user.rated : [],
-            lastLoginTime: user?.lastLoginTime || null
+            lastLoginTime: user?.lastLoginTime || null,
+            status: user?.status || 'active'
         };
     }
 
@@ -504,9 +613,17 @@ $(document).ready(function () {
     function checkAuthStatus() {
         const user = readStorage('gh_user', null);
         if (user) {
+            const userList = readStorage('eco_heritage_users', []) || [];
+            const globalUser = userList.find(u => u.email.toLowerCase() === user.email.toLowerCase());
+            if (globalUser && globalUser.status === 'disabled') {
+                localStorage.removeItem('gh_user');
+                showToast('Tài khoản của bạn đã bị khóa bởi quản trị viên. Đang đăng xuất...', 'error');
+                setTimeout(() => { location.reload(); }, 1500);
+                return;
+            }
             // Đã đăng nhập
             $('#desktopLoginBtn, #mobileLoginBtn').addClass('d-none');
-            $('#desktopUserAvatar, #mobileUserBtnGroup').removeClass('d-none');
+            $('#desktopUserAvatar, #mobileUserBtnGroup').removeClass('d-none').addClass('d-flex');
 
             // Cập nhật thông tin cho dropdown
             $('#dropdownUserName').text(user.name);
@@ -521,18 +638,24 @@ $(document).ready(function () {
                 $('#avatarInitials, #avatarInitialsDropdown').text(initials).removeClass('d-none');
             }
 
-            // Nếu là tài khoản Admin
-            if (user.email === 'admin@gmail.com' || user.role === 'admin') {
-                user.role = 'admin'; // Bảo đảm đồng bộ
+            // Nếu là tài khoản Admin hoặc Biên tập viên (Editor)
+            if (user.email === 'admin@gmail.com' || user.role === 'admin' || user.role === 'editor') {
+                if (user.email === 'admin@gmail.com') {
+                    user.role = 'admin'; // Bảo đảm đồng bộ
+                }
                 writeStorage('gh_user', user);
-                $('#navAdminLink, #desktopAdminBadge').removeClass('d-none');
+                $('#navAdminLink').removeClass('d-none');
+                
+                // Cập nhật text badge admin/editor
+                const badgeText = user.role === 'admin' ? 'Quản trị viên' : 'Biên tập viên';
+                $('#desktopAdminBadge').text(badgeText).removeClass('d-none');
             } else {
                 $('#navAdminLink, #desktopAdminBadge').addClass('d-none');
             }
         } else {
             // Chưa đăng nhập
             $('#desktopLoginBtn, #mobileLoginBtn').removeClass('d-none');
-            $('#desktopUserAvatar, #mobileUserBtnGroup').addClass('d-none');
+            $('#desktopUserAvatar, #mobileUserBtnGroup').addClass('d-none').removeClass('d-flex');
             $('#navAdminLink, #desktopAdminBadge').addClass('d-none');
         }
     }
@@ -591,10 +714,27 @@ $(document).ready(function () {
     // Form Đăng nhập
     $('#loginForm').on('submit', async function (e) {
         e.preventDefault();
+        const $form = $(this);
         const email = $('#loginEmail').val().trim();
         const password = $('#loginPassword').val();
 
-        if (!isValidEmail(email)) { showToast('Vui lòng nhập email hợp lệ!', 'error'); return; }
+        // Xóa thông báo lỗi cũ
+        $form.find('.login-error-banner').remove();
+        $form.find('.input-error').removeClass('input-error');
+
+        // Helper: hiển thị lỗi inline + shake
+        function showLoginError(msg, fieldIds) {
+            $form.find('.login-error-banner').remove();
+            const banner = `<div class="login-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>${msg}</span></div>`;
+            $form.prepend(banner);
+            if (fieldIds) fieldIds.forEach(id => $('#' + id).addClass('input-error'));
+            $form.removeClass('form-shake');
+            void $form[0].offsetWidth; // force reflow
+            $form.addClass('form-shake');
+            setTimeout(() => $form.removeClass('form-shake'), 600);
+        }
+
+        if (!isValidEmail(email)) { showLoginError('Vui lòng nhập email hợp lệ!', ['loginEmail']); showToast('Vui lòng nhập email hợp lệ!', 'error'); return; }
 
         const hashedPassword = await hashPassword(password);
         const adminHashed = await hashPassword('admin123');
@@ -625,10 +765,17 @@ $(document).ready(function () {
         const user = userList.find(u => u.email.toLowerCase() === email.toLowerCase());
 
         if (!user) {
+            showLoginError('Tài khoản không tồn tại! Vui lòng Đăng ký.', ['loginEmail']);
             showToast('Tài khoản không tồn tại! Vui lòng Đăng ký.', 'error');
             return;
         }
+        if (user.status === 'disabled') {
+            showLoginError('Tài khoản của bạn đã bị khóa bởi quản trị viên!', ['loginEmail']);
+            showToast('Tài khoản của bạn đã bị khóa bởi quản trị viên!', 'error');
+            return;
+        }
         if (user.password !== hashedPassword) {
+            showLoginError('Mật khẩu không chính xác!', ['loginPassword']);
             showToast('Mật khẩu không chính xác!', 'error');
             return;
         }
@@ -642,33 +789,14 @@ $(document).ready(function () {
         setTimeout(() => { location.reload(); }, 1000);
     });
 
-    // Sự kiện Đăng nhập bằng Google
+    // Sự kiện Đăng nhập bằng Google (Sử dụng API thật của Google Identity Services)
     $(document).on('click', '#googleLoginBtn', function () {
-        let userList = readStorage('eco_heritage_users', []) || [];
-        const googleEmail = 'google.user@gmail.com';
-        let googleUser = userList.find(u => u.email.toLowerCase() === googleEmail.toLowerCase());
-
-        if (!googleUser) {
-            googleUser = normalizeUser({
-                name: 'Google User',
-                email: googleEmail,
-                password: '',
-                role: 'user',
-                avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150',
-                saved: [],
-                rated: [],
-                lastLoginTime: Date.now()
-            });
-            userList.push(googleUser);
-            writeStorage('eco_heritage_users', userList);
+        if (googleTokenClient) {
+            googleTokenClient.requestAccessToken();
+        } else {
+            showToast('Đang kết nối thư viện Google, vui lòng bấm lại sau giây lát...', 'warning');
+            initGoogleAuth();
         }
-
-        googleUser.lastLoginTime = Date.now();
-        writeStorage('gh_user', googleUser);
-        showToast('Đăng nhập Google (Demo) thành công! 🎉', 'success');
-        $('#authModal').modal('hide');
-        checkAuthStatus();
-        setTimeout(() => { location.reload(); }, 1000);
     });
 
     // Sự kiện Quên mật khẩu
@@ -2619,12 +2747,12 @@ $(document).ready(function () {
         const now = Date.now();
         const SESSION_TIMEOUT = 15 * 60 * 1000; // 15 phút
 
-        if (!user || user.role !== 'admin' || !user.lastLoginTime || (now - user.lastLoginTime > SESSION_TIMEOUT)) {
+        if (!user || (user.role !== 'admin' && user.role !== 'editor') || !user.lastLoginTime || (now - user.lastLoginTime > SESSION_TIMEOUT)) {
             // Không có quyền hoặc phiên đăng nhập hết hạn
             $('#adminLockPanel').removeClass('d-none');
             $('#adminMainPanel').addClass('d-none');
 
-            if (user && user.role === 'admin' && user.lastLoginTime && (now - user.lastLoginTime > SESSION_TIMEOUT)) {
+            if (user && (user.role === 'admin' || user.role === 'editor') && user.lastLoginTime && (now - user.lastLoginTime > SESSION_TIMEOUT)) {
                 showToast('Phiên làm việc quản trị đã hết hạn! Vui lòng đăng nhập lại.', 'error');
                 localStorage.removeItem('gh_user');
             } else {
@@ -2638,9 +2766,23 @@ $(document).ready(function () {
         user.lastLoginTime = Date.now();
         updateActiveUserSession(user);
 
-        // Quyền admin: Hiển thị Panel
+        // Quyền admin/editor: Hiển thị Panel
         $('#adminLockPanel').addClass('d-none');
         $('#adminMainPanel').removeClass('d-none');
+
+        // Phân quyền Biên tập viên (Editor)
+        if (user.role === 'editor') {
+            $('#tab-users').addClass('d-none');
+            // Nếu đang xem tab Người dùng thì chuyển sang tab Tổng quan
+            if ($('#tab-users').hasClass('active') || $('#pane-users').hasClass('active')) {
+                $('#tab-users').removeClass('active');
+                $('#pane-users').removeClass('active show');
+                $('#tab-dash').addClass('active');
+                $('#pane-dash').addClass('active show');
+            }
+        } else {
+            $('#tab-users').removeClass('d-none');
+        }
 
         renderAdminDashboardStats();
         renderAdminRemediesTable();
@@ -2669,11 +2811,14 @@ $(document).ready(function () {
             $tbody.append(`
                 <tr>
                     <td>
+                        <img src="${herb.image || DEFAULT_HERB_IMAGE}" class="rounded-circle object-fit-cover shadow-sm border border-light" style="width: 35px; height: 35px;" alt="${escapeHTML(herb.name)}">
+                    </td>
+                    <td>
                         <span class="me-2 fs-5">${escapeHTML(herb.emoji)}</span>
                         <strong>${escapeHTML(herb.name)}</strong>
                     </td>
                     <td><em>${escapeHTML(herb.scientific)}</em></td>
-                    <td><span class="badge bg-success bg-opacity-10 text-success">${escapeHTML(herb.category)}</span></td>
+                    <td><span class="badge ${herb.category === 'Quý hiếm' ? 'badge-category-rare' : herb.category === 'An thần' ? 'badge-category-sleep' : herb.category === 'Bổ dưỡng' ? 'badge-category-nutritious' : herb.category === 'Giải độc' ? 'badge-category-detox' : 'badge-category-default'}">${escapeHTML(herb.category)}</span></td>
                     <td class="small text-secondary line-clamp-3" style="max-width: 300px;">${escapeHTML(herb.usage)}</td>
                     <td class="text-end">
                         <button class="btn btn-outline-primary btn-sm rounded-pill px-3 me-1 btn-admin-edit-remedy" data-id="${herb.id}"><i class="bi bi-pencil-square"></i> Sửa</button>
@@ -2888,9 +3033,12 @@ $(document).ready(function () {
         db.regions.forEach(reg => {
             $tbody.append(`
                 <tr>
+                    <td>
+                        <img src="${reg.image || './images/hero_vector.png'}" class="rounded object-fit-cover shadow-sm border border-light" style="width: 50px; height: 35px;" alt="${escapeHTML(reg.name)}">
+                    </td>
                     <td><strong>${escapeHTML(reg.name)}</strong></td>
                     <td class="small text-secondary">${escapeHTML(reg.location)}</td>
-                    <td class="small"><code>[${reg.coords.join(', ')}]</code></td>
+                    <td class="small"><span class="gps-coordinate-badge"><i class="bi bi-geo-alt-fill text-success me-1"></i>${reg.coords.join(', ')}</span></td>
                     <td class="small text-success">${escapeHTML(reg.herbs.join(', '))}</td>
                     <td class="text-end text-nowrap">
                         <button class="btn btn-outline-primary btn-sm rounded-pill px-3 me-1 btn-admin-edit-loc" data-id="${reg.id}"><i class="bi bi-pencil-square"></i> Sửa</button>
@@ -3050,31 +3198,79 @@ $(document).ready(function () {
         const user = readStorage('gh_user', null);
 
         // Vẽ mock tài khoản
-        const users = (readStorage('eco_heritage_users', []) || []).map(normalizeUser); if (false) [
-            { name: 'Nguyễn Minh Hùng', email: 'minhhung@vku.edu.vn', role: 'user', pass: '******' },
-            { name: 'Lương Y Cương', email: 'luongycuong@gmail.com', role: 'user', pass: '******' }
-        ];
+        const users = (readStorage('eco_heritage_users', []) || []).map(normalizeUser);
         if (user) {
-            // Tránh hiển thị trùng lặp nếu tài khoản hiện tại đã có trong danh sách
             if (!users.some(u => u.email.toLowerCase() === user.email.toLowerCase())) {
-                users.unshift({ name: user.name, email: user.email, role: user.role, password: user.password || '******' });
+                users.unshift({ name: user.name, email: user.email, role: user.role, password: user.password || '******', status: user.status || 'active' });
             }
         }
 
         users.forEach(u => {
+            const isSelf = user && user.email.toLowerCase() === u.email.toLowerCase();
             $tbody.append(`
                 <tr>
-                    <td><strong>${u.name}</strong></td>
-                    <td><code>${u.email}</code></td>
-                    <td><span class="badge badge-role ${u.role}">${u.role === 'admin' ? 'Quản trị viên' : 'Thành viên'}</span></td>
-                    <td class="small text-muted"><code style="font-size:0.75rem;">••••••••</code></td>
+                    <td>
+                        <strong>${escapeHTML(u.name)}</strong>
+                        ${u.status === 'disabled' ? '<span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-20 ms-1" style="font-size: 0.65rem;">Bị khóa</span>' : ''}
+                    </td>
+                    <td><span class="admin-email-badge">${escapeHTML(u.email)}</span></td>
+                    <td>
+                        <select class="form-select form-select-sm d-inline-block w-auto border-0 bg-light fw-bold admin-user-role-select" data-email="${escapeHTML(u.email)}" ${isSelf ? 'disabled title="Bạn không thể tự đổi quyền của mình"' : ''} style="font-size:0.78rem; border-radius:30px; padding: 4px 28px 4px 12px;">
+                            <option value="user" ${u.role === 'user' ? 'selected' : ''}>Thành viên</option>
+                            <option value="editor" ${u.role === 'editor' ? 'selected' : ''}>Biên tập viên</option>
+                            <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Quản trị viên</option>
+                        </select>
+                    </td>
+                    <td><span class="admin-password-masked">••••••••</span></td>
                     <td class="text-end">
-                        <button class="btn btn-outline-secondary btn-sm rounded-pill px-2.5" disabled><i class="bi bi-shield-lock"></i> Vô hiệu hóa</button>
+                        <button class="btn btn-sm rounded-pill px-3 btn-admin-toggle-status ${u.status === 'disabled' ? 'btn-outline-success' : 'btn-outline-danger'}" data-email="${escapeHTML(u.email)}" ${isSelf ? 'disabled title="Bạn không thể tự khóa tài khoản của mình"' : ''}>
+                            <i class="bi ${u.status === 'disabled' ? 'bi-shield-check' : 'bi-shield-slash'}"></i> 
+                            ${u.status === 'disabled' ? 'Kích hoạt' : 'Vô hiệu hóa'}
+                        </button>
                     </td>
                 </tr>
             `);
         });
     }
+
+    // ─── CMS USER ROLE & STATUS CHANGERS ───
+    $(document).on('change', '.admin-user-role-select', function () {
+        const email = $(this).data('email');
+        const newRole = $(this).val();
+        let list = readStorage('eco_heritage_users', []) || [];
+        const idx = list.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+        if (idx > -1) {
+            list[idx].role = newRole;
+            writeStorage('eco_heritage_users', list);
+            const roleName = newRole === 'admin' ? 'Quản trị viên' : (newRole === 'editor' ? 'Biên tập viên' : 'Thành viên');
+            showToast(`Đã đổi quyền ${email} thành ${roleName}! `, 'success');
+            
+            const activeUser = readStorage('gh_user', null);
+            if (activeUser && activeUser.email.toLowerCase() === email.toLowerCase()) {
+                activeUser.role = newRole;
+                writeStorage('gh_user', activeUser);
+                checkAuthStatus();
+            }
+            renderAdminUsersTable();
+        }
+    });
+
+    $(document).on('click', '.btn-admin-toggle-status', function () {
+        const email = $(this).data('email');
+        let list = readStorage('eco_heritage_users', []) || [];
+        const idx = list.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+        if (idx > -1) {
+            const currentStatus = list[idx].status || 'active';
+            const newStatus = currentStatus === 'active' ? 'disabled' : 'active';
+            list[idx].status = newStatus;
+            writeStorage('eco_heritage_users', list);
+            
+            const actionText = newStatus === 'active' ? 'kích hoạt' : 'vô hiệu hóa';
+            showToast(`Đã ${actionText} tài khoản ${email}! `, 'success');
+            
+            renderAdminUsersTable();
+        }
+    });
 
     // CMS 4: Vẽ bảng Moderation reviews phản hồi
     function renderAdminReviewsTable() {
@@ -3182,7 +3378,7 @@ $(document).ready(function () {
     function formatChatMarkdown(text) {
         if (!text) return '';
 
-        let escaped = escapeHTML(text);
+        let escaped = escapeHTML(text).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
 
         // Chuyển đổi in đậm và in nghiêng chuẩn Markdown
         let formatted = escaped

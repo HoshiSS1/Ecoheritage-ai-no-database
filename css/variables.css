@@ -646,7 +646,6 @@ body {
 }
 
 .section-title,
-.nav-link,
 .btn,
 .badge,
 .lead,
@@ -1117,7 +1116,9 @@ body {
     bottom: 100px;
     right: 30px;
     width: 370px;
+    max-width: 90vw;
     height: 500px;
+    max-height: calc(100vh - 120px);
     background: white;
     border-radius: 22px;
     box-shadow: var(--shadow-lg);
