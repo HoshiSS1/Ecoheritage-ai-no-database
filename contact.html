@@ -525,6 +525,26 @@
             }
             
             if (isValid) {
+                // Save to localStorage
+                const feedbackItem = {
+                    id: 'fb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    date: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
+                    status: 'unread'
+                };
+                let feedbacks = [];
+                try {
+                    feedbacks = JSON.parse(localStorage.getItem('eco_heritage_contact_feedbacks')) || [];
+                    if (!Array.isArray(feedbacks)) feedbacks = [];
+                } catch(e) {
+                    feedbacks = [];
+                }
+                feedbacks.unshift(feedbackItem);
+                localStorage.setItem('eco_heritage_contact_feedbacks', JSON.stringify(feedbacks));
+
                 // Show Success Toast
                 $('#liveToast').removeClass('bg-danger').addClass('bg-success');
                 $('#toastIcon').removeClass('bi-exclamation-triangle-fill').addClass('bi-check-circle-fill');

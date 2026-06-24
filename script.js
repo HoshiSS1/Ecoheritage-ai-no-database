@@ -2786,6 +2786,7 @@ $(document).ready(function () {
         renderAdminLocationsTable();
         renderAdminUsersTable();
         renderAdminReviewsTable();
+        renderAdminFeedbacksTable();
     }
 
     function renderAdminDashboardStats() {
@@ -2796,6 +2797,10 @@ $(document).ready(function () {
         const totalRev = db.regions.reduce((sum, r) => sum + (r.reviewsList ? r.reviewsList.length : 0), 0);
         $('#statTotalReviews').text(totalRev);
         $('#statTotalUsers').text((readStorage('eco_heritage_users', []) || []).length);
+
+        // Tính tổng phản hồi góp ý
+        const feedbacks = readStorage('eco_heritage_contact_feedbacks', []) || [];
+        $('#statTotalFeedbacks').text(feedbacks.length);
     }
 
     // CMS 1: Vẽ bảng bài thuốc CRUD
@@ -3332,6 +3337,79 @@ $(document).ready(function () {
             showToast('Đã gỡ bỏ đánh giá và cập nhật lại điểm trung bình!', 'success');
             $('#confirmDeleteReviewModal').modal('hide');
             renderAdminReviewsTable();
+        }
+    });
+
+    // CMS 5: Vẽ bảng liên hệ góp ý phản hồi
+    function renderAdminFeedbacksTable() {
+        const $tbody = $('#adminContactsTableBody');
+        if (!$tbody.length) return;
+        $tbody.empty();
+
+        const feedbacks = readStorage('eco_heritage_contact_feedbacks', []) || [];
+
+        feedbacks.forEach((fb) => {
+            const isUnread = fb.status === 'unread';
+            const badge = isUnread 
+                ? '<span class="badge bg-warning text-dark"><i class="bi bi-envelope-fill me-1"></i>Mới</span>' 
+                : '<span class="badge bg-secondary"><i class="bi bi-envelope-open-fill me-1"></i>Đã đọc</span>';
+            const rowClass = isUnread ? 'table-warning bg-opacity-10 fw-medium' : '';
+
+            $tbody.append(`
+                <tr class="${rowClass}" data-fb-id="${fb.id}">
+                    <td><strong>${escapeHTML(fb.name)}</strong></td>
+                    <td class="small">${escapeHTML(fb.email)}</td>
+                    <td class="small"><strong>${escapeHTML(fb.subject)}</strong></td>
+                    <td class="small text-secondary" style="max-width: 320px; white-space: pre-wrap;">${escapeHTML(fb.message)}</td>
+                    <td class="small text-muted">${escapeHTML(fb.date)}</td>
+                    <td>${badge}</td>
+                    <td class="text-end">
+                        <div class="d-flex justify-content-end gap-2">
+                            ${isUnread ? `<button class="btn btn-outline-success btn-sm rounded-pill px-2.5 btn-admin-read-feedback" data-id="${fb.id}"><i class="bi bi-check-circle"></i> Đọc</button>` : ''}
+                            <button class="btn btn-outline-danger btn-sm rounded-pill px-2.5 btn-admin-delete-feedback" data-id="${fb.id}"><i class="bi bi-trash3-fill"></i> Xóa</button>
+                        </div>
+                    </td>
+                </tr>
+            `);
+        });
+
+        if (feedbacks.length === 0) {
+            $tbody.append('<tr><td colspan="7" class="text-center py-4 text-muted">Chưa có ý kiến đóng góp hay liên hệ nào từ khách hàng.</td></tr>');
+        }
+    }
+
+    // Đánh dấu đã đọc ý kiến phản hồi
+    $(document).on('click', '.btn-admin-read-feedback', function () {
+        const id = $(this).data('id');
+        let feedbacks = readStorage('eco_heritage_contact_feedbacks', []) || [];
+        const fb = feedbacks.find(item => String(item.id) === String(id));
+        if (fb) {
+            fb.status = 'read';
+            writeStorage('eco_heritage_contact_feedbacks', feedbacks);
+            showToast('Đã đánh dấu là đã đọc đóng góp này!', 'success');
+            renderAdminFeedbacksTable();
+            renderAdminDashboardStats();
+        }
+    });
+
+    // Xóa ý kiến phản hồi
+    $(document).on('click', '.btn-admin-delete-feedback', function () {
+        const id = $(this).data('id');
+        let feedbacks = readStorage('eco_heritage_contact_feedbacks', []) || [];
+        const filtered = feedbacks.filter(item => String(item.id) !== String(id));
+        writeStorage('eco_heritage_contact_feedbacks', filtered);
+        showToast('Đã xóa ý kiến đóng góp thành công!', 'success');
+        renderAdminFeedbacksTable();
+        renderAdminDashboardStats();
+    });
+
+    // Xóa toàn bộ ý kiến phản hồi
+    $(document).on('click', '#clearAllFeedbacks', function () {
+        if (confirm('Bạn có chắc chắn muốn xóa toàn bộ ý kiến đóng góp không? Hành động này không thể hoàn tác.')) {
+            writeStorage('eco_heritage_contact_feedbacks', []);
+            showToast('Đã xóa sạch hòm thư phản hồi!', 'success');
+            renderAdminFeedbacksTable();
+            renderAdminDashboardStats();
         }
     });
 
