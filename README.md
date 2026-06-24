@@ -99,7 +99,7 @@ Ecoheritage-ai-no-database/
 ├── admin.html         # Cổng quản trị Admin CMS & Thống kê
 ├── script.js          # Logic JavaScript điều khiển toàn hệ thống (~4300 dòng)
 ├── style.css          # Hệ thống Design System gốc và biến màu
-├── v5-premium.css     # CSS nâng cấp Premium giao diện, Dark Mode overrides
+├── components-extra.css     # CSS nâng cấp Premium giao diện, Dark Mode overrides
 ├── data.js            # Cơ sở dữ liệu mặc định y học (20+ bài thuốc & 12+ địa điểm)
 ├── config.js          # Cấu hình API Key và Google Client ID
 ├── manifest.json      # Tệp manifest hỗ trợ PWA

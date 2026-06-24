@@ -1857,6 +1857,12 @@ html.dark-mode #articleDetailModal .modal-body {
     color: #E2F0E5 !important;
 }
 
+/* Weather preset button style normalization */
+.weather-preset-btn {
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+}
+
 
 
 
