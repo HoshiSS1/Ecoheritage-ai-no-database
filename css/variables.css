@@ -1583,3 +1583,12 @@ html.dark-mode .profile-card h6 {
     font-size: 1.15rem;
     max-width: 650px;
 }
+
+/* --- High Contrast text for Floating AQI Toast --- */
+.floating-aqi-toast,
+.floating-aqi-toast h6,
+.floating-aqi-toast p,
+.floating-aqi-toast span,
+.floating-aqi-toast div {
+    color: #ffffff !important;
+}
