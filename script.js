@@ -1581,7 +1581,7 @@ $(document).ready(function () {
             user.saved.forEach(id => {
                 const $btn = $(`.btn-save-herb[data-id="${id}"]`);
                 $btn.find('i').removeClass('bi-heart').addClass('bi-heart-fill');
-                $btn.removeClass('btn-outline-danger').addClass('btn-danger text-white');
+                $btn.removeClass('btn-outline-danger bg-white').addClass('btn-danger text-white');
             });
         }
 
@@ -1843,7 +1843,7 @@ $(document).ready(function () {
         if (index === -1) {
             user.saved.push(herbId);
             $(this).find('i').removeClass('bi-heart').addClass('bi-heart-fill');
-            $(this).removeClass('btn-outline-danger').addClass('btn-danger text-white');
+            $(this).removeClass('btn-outline-danger bg-white').addClass('btn-danger text-white');
             showToast('Đã lưu bài thuốc vào tủ sách cá nhân! 💖', 'success');
             unlockAchievement('badge-first-save');
             if (user.saved.length >= 5) {
@@ -1852,7 +1852,7 @@ $(document).ready(function () {
         } else {
             user.saved.splice(index, 1);
             $(this).find('i').removeClass('bi-heart-fill').addClass('bi-heart');
-            $(this).removeClass('btn-danger text-white').addClass('btn-outline-danger');
+            $(this).removeClass('btn-danger text-white').addClass('btn-outline-danger bg-white');
             showToast('Đã xóa bài thuốc khỏi tủ sách', 'error');
         }
         updateActiveUserSession(user);
