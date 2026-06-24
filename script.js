@@ -3290,6 +3290,11 @@ $(document).ready(function () {
         $('#chatSend').trigger('click');
     });
 
+    // Click event handler for clear chat history button
+    $(document).on('click', '#clearChatHistoryBtn', function () {
+        window.clearChatHistory();
+    });
+
     // Load lịch sử chat từ LocalStorage
     function loadChatHistory() {
         if (!$chatBody.length) return;
