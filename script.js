@@ -236,6 +236,23 @@ $(document).ready(function () {
             });
             writeStorage('eco_heritage_db_v11', db);
         }
+
+        // Di trú (Upgrade) CSDL trong LocalStorage nếu tên bài thuốc mặc định khác biệt
+        const needsNameUpgrade = db.herbs.some(h => {
+            const defaultHerb = EcoHeritageDefaultData.herbs.find(dh => dh.id === h.id);
+            return defaultHerb && defaultHerb.name !== h.name;
+        });
+
+        if (needsNameUpgrade) {
+            db.herbs = db.herbs.map(h => {
+                const defaultHerb = EcoHeritageDefaultData.herbs.find(dh => dh.id === h.id);
+                if (defaultHerb && defaultHerb.name !== h.name) {
+                    h.name = defaultHerb.name;
+                }
+                return h;
+            });
+            writeStorage('eco_heritage_db_v11', db);
+        }
     } else {
         // Lần đầu hoặc DB rỗng — khởi tạo từ data.js và ghi lưu
         db = normalizeDB(null);

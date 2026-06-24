@@ -474,7 +474,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h1",
             "source": "Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)",
-            "name": "Thập Toàn Đại Bổ Thang",
+            "name": "Thập Toàn Đại Bổ (Bồi bổ khí huyết toàn diện)",
             "scientific": "Thái Bình Huệ Dân Hòa Tễ Cục Phương",
             "category": "Bổ dưỡng",
             "usage": "Đại bổ khí huyết, phục hồi sinh lực toàn diện sau ốm dậy.",
@@ -499,7 +499,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h2",
             "source": "Tiểu Nhi Dược Chứng Trực Quyết - Tiền Ất (Thời Tống)",
-            "name": "Lục Vị Địa Hoàng Hoàn",
+            "name": "Lục Vị Địa Hoàng (Tư âm dưỡng thận, trị nóng trong)",
             "scientific": "Tiểu Nhi Dược Chứng Trực Quyết",
             "category": "Bổ dưỡng",
             "usage": "Tư âm bổ thận, trị đau lưng mỏi gối, mồ hôi trộm, ù tai.",
@@ -523,7 +523,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h3",
             "source": "Tế Sinh Phương - Nghiêm Dụng Hòa (Thời Tống)",
-            "name": "Quy Tỳ Thang",
+            "name": "Quy Tỳ Thang (Bồi bổ tâm tỳ, đặc trị mất ngủ)",
             "scientific": "Tế Sinh Phương",
             "category": "An thần",
             "usage": "Kiện tỳ dưỡng tâm, đặc trị mất ngủ, hay quên, đánh trống ngực.",
@@ -548,7 +548,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h4",
             "source": "Ôn Bệnh Điều Biện - Ngô Cúc Thông (Thời Thanh)",
-            "name": "Ngân Kiều Tán",
+            "name": "Ngân Kiều Tán (Thanh nhiệt giải độc, trị cảm sốt)",
             "scientific": "Ôn Bệnh Điều Biện",
             "category": "Giải độc",
             "usage": "Tân lương thấu biểu, thanh nhiệt giải độc, trị cảm mạo phong nhiệt, ho, đau họng.",
@@ -573,7 +573,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h5",
             "source": "Bị Cấp Thiên Kim Yếu Phương - Tôn Tư Mạo (Thời Đường)",
-            "name": "Độc Hoạt Tang Ký Sinh Thang",
+            "name": "Độc Hoạt Tang Ký Sinh (Trị đau nhức xương khớp)",
             "scientific": "Thiên Kim Phương",
             "category": "Chữa bệnh",
             "usage": "Trị phong thấp, đau nhức mỏi xương khớp, thần kinh tọa, đau lưng châm chích.",
@@ -598,7 +598,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h6",
             "source": "Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)",
-            "name": "Tứ Quân Tử Thang",
+            "name": "Tứ Quân Tử Thang (Ích khí kiện tỳ, bổ tiêu hóa)",
             "scientific": "Hòa Tễ Cục Phương",
             "category": "Bổ dưỡng",
             "usage": "Kiện tỳ ích khí, cải thiện tiêu hóa, trị chứng chán ăn, người mệt mỏi.",
@@ -623,7 +623,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h7",
             "source": "Chính Thể Loại Yếu - Tiết Kỷ (Thời Minh)",
-            "name": "Bát Trân Thang",
+            "name": "Bát Trân Thang (Bồi bổ khí huyết, giảm suy nhược)",
             "scientific": "Chính Thể Loại Yếu",
             "category": "Bổ dưỡng",
             "usage": "Khí huyết lưỡng bổ, trị các chứng suy nhược, thiếu máu, gầy ốm.",
@@ -647,7 +647,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h8",
             "source": "Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)",
-            "name": "Bình Vị Tán",
+            "name": "Bình Vị Tán (Trị đau dạ dày, đầy bụng khó tiêu)",
             "scientific": "Hòa Tễ Cục Phương",
             "category": "Chữa bệnh",
             "usage": "Táo thấp kiện tỳ, trị chứng đầy bụng, khó tiêu, buồn nôn.",
@@ -671,7 +671,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h9",
             "source": "Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)",
-            "name": "Tiêu Dao Tán",
+            "name": "Tiêu Dao Tán (Giải uất điều kinh, giảm căng thẳng)",
             "scientific": "Hòa Tễ Cục Phương",
             "category": "Chữa bệnh",
             "usage": "Sơ can giải uất, kiện tỳ dưỡng huyết. Trị chứng kinh nguyệt không đều.",
@@ -694,7 +694,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h10",
             "source": "Tỳ Vị Luận - Lý Đông Viên (Thời Kim - Nguyên)",
-            "name": "Bổ Trung Ích Khí Thang",
+            "name": "Bổ Trung Ích Khí (Bồi bổ tỳ vị, nâng cao sinh lực)",
             "scientific": "Tỳ Vị Luận",
             "category": "Bổ dưỡng",
             "usage": "Bổ trung ích khí, thăng dương cử hãm. Trị nội tạng sa giáng.",
@@ -717,7 +717,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h11",
             "source": "Nội Ngoại Thương Biện Hoặc Luận - Lý Đông Viên (Thời Kim - Nguyên)",
-            "name": "Sinh Mạch Tán",
+            "name": "Sinh Mạch Tán (Ích khí sinh tân, trị ho suyễn mệt)",
             "scientific": "Nội Ngoại Thương Biện Hoặc Luận",
             "category": "Bổ dưỡng",
             "usage": "Ích khí sinh tân, liễm âm chỉ hãn. Trị chứng khí âm lưỡng hư.",
@@ -740,7 +740,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h12",
             "source": "Nhiếp Sinh Bí Phẫu - Hồng Cơ (Thời Minh)",
-            "name": "Thiên Vương Bổ Tâm Đan",
+            "name": "Thiên Vương Bổ Tâm (Dưỡng tâm an thần, trị hồi hộp)",
             "scientific": "Nhiếp Sinh Bí Phẫu",
             "category": "An thần",
             "usage": "Tư âm thanh nhiệt, bổ tâm an thần. Trị mất ngủ mạn tính.",
@@ -763,7 +763,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h13",
             "source": "Thái Bình Huệ Dân Hòa Tễ Cục Phương (Thời Tống)",
-            "name": "Nhị Trần Thang",
+            "name": "Nhị Trần Thang (Trị ho có đờm, kiện tỳ hóa đờm)",
             "scientific": "Hòa Tễ Cục Phương",
             "category": "Giải độc",
             "usage": "Táo thấp hóa đờm, lý khí hòa trung. Đặc trị ho có đờm.",
@@ -786,7 +786,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h14",
             "source": "Thương Hàn Luận - Trương Trọng Cảnh (Thời Đông Hán)",
-            "name": "Bạch Hổ Thang",
+            "name": "Bạch Hổ Thang (Thanh nhiệt tả hỏa, trị sốt cao)",
             "scientific": "Thương Hàn Luận",
             "category": "Giải độc",
             "usage": "Thanh khí phận nhiệt. Trị sốt rất cao.",
@@ -810,7 +810,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h15",
             "source": "Bị Cấp Thiên Kim Yếu Phương - Tôn Tư Mạo (Thời Đường)",
-            "name": "Ôn Đởm Thang",
+            "name": "Ôn Đởm Thang (Thanh đởm hòa vị, trị mất ngủ lo sợ)",
             "scientific": "Thiên Kim Phương",
             "category": "Chữa bệnh",
             "usage": "Lý khí hóa đờm, thanh đởm hòa vị. Trị mất ngủ kèm hoảng hốt.",
@@ -833,7 +833,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h16",
             "source": "Ôn Bệnh Điều Biện - Ngô Cúc Thông (Thời Thanh)",
-            "name": "Tang Cúc Ẩm",
+            "name": "Tang Cúc Ẩm (Sơ phong thanh nhiệt, trị ho khan phát sốt)",
             "scientific": "Ôn Bệnh Điều Biện",
             "category": "Giải độc",
             "usage": "Sơ phong thanh nhiệt, tuyên phế chỉ khái. Trị cảm mạo mới phát.",
@@ -856,7 +856,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h17",
             "source": "Y Lâm Cải Lỗi - Vương Thanh Nhậm (Thời Thanh)",
-            "name": "Huyết Phủ Trục Ứ Thang",
+            "name": "Huyết Phủ Trục Ứ (Hoạt huyết hóa ứ, trị đau ngực nhức đầu)",
             "scientific": "Y Lâm Cải Lỗi",
             "category": "Chữa bệnh",
             "usage": "Hoạt huyết hóa ứ, hành khí chỉ thống. Trị đau tức ngực.",
@@ -879,7 +879,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h18",
             "source": "Thương Hàn Trực Cách - Lưu Hoàn Tố (Thời Kim - Nguyên)",
-            "name": "Lục Nhất Tán",
+            "name": "Lục Nhất Tán (Thanh nhiệt trừ thấp, trị rôm sảy mẩn ngứa)",
             "scientific": "Thương Hàn Trực Cách",
             "category": "Giải độc",
             "usage": "Thanh thử lợi thấp. Trị trúng nắng mùa hè.",
@@ -902,7 +902,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h19",
             "source": "Đan Khê Tâm Pháp - Chu Đan Khê (Thời Nguyên)",
-            "name": "Việt Cúc Hoàn",
+            "name": "Việt Cúc Hoàn (Hành khí giải uất, trị đau đầy bụng)",
             "scientific": "Đan Khê Tâm Pháp",
             "category": "Chữa bệnh",
             "usage": "Hành khí giải uất. Trị 6 loại uất (Khí, Huyết, Đờm, Hỏa, Thấp, Thực).",
@@ -925,7 +925,7 @@ const EcoHeritageDefaultData = {
         {
             "id": "h20",
             "source": "Ôn Bệnh Điều Biện - Ngô Cúc Thông (Thời Thanh)",
-            "name": "Thanh Dinh Thang",
+            "name": "Thanh Dinh Thang (Thanh nhiệt lương huyết, giải độc phát ban)",
             "scientific": "Ôn Bệnh Điều Biện",
             "category": "Chữa bệnh",
             "usage": "Thanh dinh thấu nhiệt, tư âm giải độc. Trị sốt cao mê sảng.",
