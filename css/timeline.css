@@ -1,0 +1,89 @@
+/*
+ * EcoHeritage AI - Modular CSS Component: TIMELINE
+ */
+
+/* ─── HISTORY TIMELINE ─────────────────────────────────────── */
+#timeline-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-wrapper {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(46, 179, 102, 0.15);
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.timeline-item {
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+
+.timeline-content-wrapper {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding: 15px;
+    border-radius: 16px;
+}
+
+.timeline-item:hover .timeline-content-wrapper {
+    transform: translateY(-8px);
+    background: rgba(46, 179, 102, 0.03);
+}
+
+html.dark-mode .timeline-item:hover .timeline-content-wrapper {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.timeline-marker {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 3;
+}
+
+html.dark-mode .timeline-marker {
+    border-color: var(--bg-dark-premium) !important;
+}
+
+.timeline-item:hover .timeline-marker {
+    transform: scale(1.2) !important;
+    box-shadow: 0 0 25px var(--primary-glow) !important;
+}
+
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 25px !important;
+        transform: none !important;
+    }
+
+    .timeline-item {
+        margin-bottom: 2.5rem !important;
+    }
+
+    .timeline-content-wrapper {
+        text-align: left !important;
+        padding-left: 60px !important;
+        width: 100% !important;
+    }
+
+    .timeline-marker-wrapper {
+        display: none !important;
+    }
+}
+

@@ -1,0 +1,42 @@
+/*
+ * EcoHeritage AI - Modular CSS Component: ADMIN
+ */
+
+/* ─── SaaS MINIMALIST ADMIN TABLES ─── */
+html.dark-mode .admin-table,
+html.dark-mode .table-responsive-premium {
+    background: var(--bg-light) !important;
+    border: 1px solid rgba(16, 185, 129, 0.15) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+html.dark-mode .admin-table th {
+    background: rgba(16, 185, 129, 0.08) !important;
+    color: #00e676 !important;
+    border-bottom: 2px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+html.dark-mode .admin-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .admin-table tr:hover {
+    background: rgba(16, 185, 129, 0.04) !important;
+}
+
+/* Dynamic Mesh Gradient Animation */
+@keyframes meshGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+

@@ -1,0 +1,801 @@
+/*
+ * EcoHeritage AI - Modular CSS Component: MODAL
+ */
+
+/* ─── MODAL SPLIT AUTHENTICATION v5 ───────────────────────── */
+.auth-premium-container {
+    background: white;
+    box-shadow: var(--shadow-lg);
+}
+
+.login-gradient-overlay {
+    background: linear-gradient(to top, rgba(13, 22, 17, 0.85) 0%, rgba(46, 179, 102, 0.25) 100%) !important;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: color var(--transition-fast);
+}
+
+.password-toggle-btn:hover {
+    color: var(--primary);
+}
+
+/* ─── CHATBOT VỊ LƯƠNG Y SỐ AI (ECOBOT PRO) ────────────────── */
+.ai-local-reply {
+    background: rgba(230, 248, 237, 0.5);
+    border-radius: var(--radius-sm);
+    padding: 15px;
+    border: 1.5px dashed var(--primary-light);
+}
+
+/* Hide EcoBot online indicator */
+#ecobot-indicator,
+.ecobot-indicator,
+[data-ecobot-online] {
+    display: none !important;
+}
+
+
+
+/* ─── SLEEK BALANCED SCALE-DOWN STYLING (Modals & Charts Sizing) ─── */
+@media (min-width: 992px) {
+
+    /* Shrink and balance the Auth Modal (Figure 2) */
+    #authModal .modal-dialog {
+        max-width: 900px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #authModal .auth-premium-container {
+        height: auto;
+    }
+
+    /* Shrink and balance the Herb Detail Modal (Figure 1) */
+    #herbDetailModal .modal-dialog {
+        max-width: 950px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Shrink and balance the Environmental Dashboard Charts (Figure 3) */
+    #analytics-section .container {
+        max-width: 1080px !important;
+    }
+}
+
+
+
+/* ─── REMEDY COMPARISON STYLING ────────────────────────────── */
+
+/* FIX: Ensure comparison modal always renders ABOVE Bootstrap's backdrop (z-index: 1050).
+   This CSS rule acts as a cache-proof override for the inline z-index attribute. */
+#comparisonModal {
+    z-index: 1065 !important;
+}
+
+#brewingSimModal {
+    z-index: 1070 !important;
+}
+
+.comparison-drawer {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-top: 2px solid rgba(46, 179, 102, 0.3) !important;
+    backdrop-filter: blur(20px) saturate(160%) !important;
+}
+
+html.dark-mode .comparison-drawer {
+    background: rgba(21, 36, 28, 0.92) !important;
+    border-top: 2px solid rgba(0, 230, 118, 0.25) !important;
+    color: var(--text-light) !important;
+}
+
+#compareItemsList .badge {
+    transition: all 0.3s ease;
+    border-radius: 30px !important;
+    border: 1px solid rgba(46, 179, 102, 0.15) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+html.dark-mode #compareItemsList .badge {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: var(--text-main) !important;
+}
+
+#compareItemsList .badge i:hover {
+    color: #ef4444 !important;
+    transform: scale(1.15);
+}
+
+.compare-table th {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+    background-color: rgba(46, 179, 102, 0.05) !important;
+    color: #1b5e20 !important;
+    border-bottom: 2px solid rgba(46, 179, 102, 0.2) !important;
+}
+
+html.dark-mode .compare-table th {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    color: #00e676 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.compare-table td {
+    padding: 1rem 1.25rem !important;
+    line-height: 1.6;
+}
+
+html.dark-mode .compare-table td {
+    color: var(--text-main) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Dark mode: comparison modal content, header, footer */
+html.dark-mode #comparisonModal .modal-content {
+    background: var(--bg-light) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode #comparisonModal .modal-header {
+    background: #065f46 !important;
+}
+
+html.dark-mode #comparisonModal .modal-footer {
+    background: var(--bg-white) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark-mode #comparisonModal .table {
+    background-color: var(--bg-light) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode #comparisonModal .bg-light {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+html.dark-mode #comparisonModal .text-secondary {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode #comparisonModal .text-danger {
+    color: #f87171 !important;
+}
+
+
+
+/* ─── VIRTUAL MEDICINE CABINET (APOTHECARY STYLE) ──────────── */
+#profileSavedHerbsList {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+}
+
+.apothecary-drawer {
+    perspective: 1000px;
+    height: 140px;
+    border-radius: 12px;
+    position: relative;
+    background: #170d05 !important;
+    /* Rich dark wooden hole background */
+    border: 3px solid #54300c !important;
+    box-shadow:
+        inset 0 10px 20px rgba(0, 0, 0, 0.8),
+        0 8px 16px rgba(0, 0, 0, 0.35) !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    overflow: visible !important;
+    /* Crucial to let the drawer pop out */
+}
+
+.apothecary-drawer:hover {
+    transform: translateY(-4px) !important;
+    border-color: #6e3f10 !important;
+}
+
+.drawer-face {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #5c300a, #381a03) !important;
+    /* Polished dark wood grain */
+    border: 2px solid #8c521a !important;
+    box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.5) !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateZ(10px);
+    transform-style: preserve-3d;
+}
+
+.apothecary-drawer:hover .drawer-face {
+    transform: translateZ(35px) translateY(-8px);
+    background: linear-gradient(135deg, #6d3a0e, #452104) !important;
+    /* Lighter/glossier on hover */
+    box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.25),
+        0 20px 40px rgba(0, 0, 0, 0.75) !important;
+    border-color: #fbbf24 !important;
+    /* Gold highlight on border */
+}
+
+/* Gold Pull Ring Handle */
+.drawer-handle-ring {
+    width: 32px;
+    height: 32px;
+    border: 3.5px solid #d97706;
+    /* Golden handle */
+    border-radius: 50%;
+    margin-bottom: 0.75rem;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.drawer-handle-ring::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 8px;
+    background: #b45309;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.apothecary-drawer:hover .drawer-handle-ring {
+    transform: scale(1.1) rotate(5deg);
+    border-color: #fbbf24;
+}
+
+/* Classical Chinese Medicine label container */
+.drawer-label {
+    background: #fef3c7;
+    /* Pale aged parchment tag */
+    border: 2px solid #b45309;
+    border-radius: 4px;
+    padding: 4px 12px;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.apothecary-drawer:hover .drawer-label {
+    background: #fff;
+    border-color: #d97706;
+}
+
+.drawer-emoji {
+    font-size: 1.1rem;
+}
+
+.drawer-title {
+    font-weight: 800;
+    color: #78350f;
+    font-size: 0.85rem;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.2px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+/* ─── PARCHMENT RECIPE SCROLL THEME ────────────────────────── */
+.scroll-paper-theme {
+    background: #fdfaf2 !important;
+    /* Parchment cream */
+    border: 8px solid #b45309 !important;
+    border-image: linear-gradient(135deg, #b45309, #d97706, #78350f) 8 !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+}
+
+.scroll-paper-theme .modal-header {
+    background: #fdf6e2 !important;
+    border-bottom: 2px dashed #b45309 !important;
+}
+
+.scroll-paper-theme .modal-body {
+    background: #fdfaf2 !important;
+    color: #451a03 !important;
+}
+
+.text-serif {
+    font-family: 'Outfit', serif;
+}
+
+.bg-amber-gradient {
+    background: linear-gradient(90deg, #d97706 0%, #b45309 100%) !important;
+}
+
+.btn-outline-amber {
+    color: #b45309 !important;
+    border-color: #b45309 !important;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-amber:hover {
+    background: #b45309 !important;
+    color: #fff !important;
+}
+
+.btn-amber {
+    background: #b45309 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(180, 83, 9, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-amber:hover {
+    background: #78350f !important;
+    box-shadow: 0 6px 15px rgba(120, 53, 15, 0.4);
+}
+
+/* Classical brewing checklist items */
+.brewing-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: rgba(180, 83, 9, 0.03);
+    border: 1px solid rgba(180, 83, 9, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.brewing-step-item:hover {
+    background: rgba(180, 83, 9, 0.06);
+    border-color: rgba(180, 83, 9, 0.18);
+}
+
+.brewing-step-item.completed {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16, 185, 129, 0.2);
+    text-decoration: line-through;
+    color: #6b7280;
+}
+
+.brewing-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    border-radius: 4px;
+    border: 2px solid #b45309;
+    accent-color: #b45309;
+    cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EcoHeritage AI - Version 6.0 Premium Ultra Features & UI CSS
+   ═══════════════════════════════════════════════════════════ */
+
+
+
+/* ─── 3. AI DIAGNOSIS SCROLL & SCANNER ────────────────────── */
+.parchment-scroll {
+    background: #faf4e8 !important;
+    background-image: radial-gradient(rgba(180, 83, 9, 0.04) 1px, transparent 0) !important;
+    background-size: 20px 20px !important;
+    border: 8px double #854d0e !important;
+    border-radius: 12px !important;
+    padding: 30px !important;
+    position: relative;
+    box-shadow: inset 0 0 50px rgba(133, 77, 14, 0.2), 0 20px 40px rgba(0, 0, 0, 0.2);
+    color: #451a03 !important;
+}
+
+.stamp-red-seal {
+    width: 90px;
+    height: 90px;
+    border: 3px double #dc2626;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #dc2626;
+    font-weight: 900;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    transform: rotate(-12deg);
+    position: absolute;
+    bottom: 25px;
+    right: 35px;
+    opacity: 0.8;
+    background: transparent;
+    pointer-events: none;
+    font-family: monospace;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+.stamp-red-seal::before {
+    content: '★ CỔ PHƯƠNG ★';
+    font-size: 0.55rem;
+}
+
+.stamp-red-seal span {
+    border-top: 1px solid #dc2626;
+    border-bottom: 1px solid #dc2626;
+    padding: 1px 3px;
+    font-size: 0.75rem;
+    margin: 2px 0;
+}
+
+/* AR Herb Scanner simulation */
+.ai-scanner-box {
+    position: relative;
+    border: 3px dashed rgba(46, 179, 102, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.ai-scanner-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scanner-corner {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-color: #2eb366;
+    border-style: solid;
+    pointer-events: none;
+    z-index: 12;
+}
+
+.corner-tl {
+    top: 15px;
+    left: 15px;
+    border-width: 5px 0 0 5px;
+}
+
+.corner-tr {
+    top: 15px;
+    right: 15px;
+    border-width: 5px 5px 0 0;
+}
+
+.corner-bl {
+    bottom: 15px;
+    left: 15px;
+    border-width: 0 0 5px 5px;
+}
+
+.corner-br {
+    bottom: 15px;
+    right: 15px;
+    border-width: 0 5px 5px 0;
+}
+
+.ai-scan-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(46, 179, 102, 0.05);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.ai-scan-line {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, rgba(46, 179, 102, 0) 0%, rgba(46, 179, 102, 1) 50%, rgba(46, 179, 102, 0) 100%);
+    box-shadow: 0 0 10px rgba(46, 179, 102, 0.8);
+    position: absolute;
+    top: 0;
+    animation: laserScanAnim 3s linear infinite;
+    z-index: 11;
+}
+
+@keyframes laserScanAnim {
+    0% {
+        top: 0%;
+    }
+
+    50% {
+        top: 100%;
+    }
+
+    100% {
+        top: 0%;
+    }
+}
+
+
+
+/* ─── 4. INTERACTIVE 3D ANTIQUE BOOK ───────────────────────── */
+.book-3d-container {
+    perspective: 1600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+}
+
+.book-3d {
+    width: 660px;
+    height: 440px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
+}
+
+.book-page-3d {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform-origin: left center;
+    transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    z-index: 10;
+}
+
+.book-page-3d.flipped {
+    transform: rotateY(-180deg);
+}
+
+.page-side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    padding: 30px;
+    box-shadow: inset 4px 0 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.page-front {
+    background: #fdfaf2;
+    z-index: 2;
+    border-radius: 0 12px 12px 0;
+    border-left: 1px solid #e1d7be;
+}
+
+.page-back {
+    background: #fdfaf2;
+    transform: rotateY(180deg);
+    z-index: 1;
+    border-radius: 12px 0 0 12px;
+    border-right: 1px solid #e1d7be;
+}
+
+.page-cover {
+    background: #7c2d12 !important;
+    /* Cinnamon brown cover */
+    color: #fef08a !important;
+    border: 4px solid #b45309 !important;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.page-cover-left {
+    border-radius: 12px 0 0 12px !important;
+}
+
+.page-cover-right {
+    border-radius: 0 12px 12px 0 !important;
+}
+
+
+
+/* ─── 6. INTERACTIVE BREWING SIMULATOR ────────────────────── */
+.brewing-container {
+    background: #111827;
+    border-radius: 20px;
+    padding: 24px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brewing-pot-area {
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.brewing-pot-img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    z-index: 2;
+    transition: transform 0.3s;
+}
+
+.brewing-pot-img.cooking {
+    animation: cookingPotAnim 1s ease-in-out infinite;
+}
+
+@keyframes cookingPotAnim {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-3px) rotate(1deg);
+    }
+
+    75% {
+        transform: translateY(1px) rotate(-1deg);
+    }
+}
+
+.steam-bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    bottom: 110px;
+    animation: bubbleUpAnim 1s ease-in infinite;
+    opacity: 0;
+    z-index: 3;
+}
+
+@keyframes bubbleUpAnim {
+    0% {
+        transform: translateY(0) scale(0.3);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-70px) scale(1.3);
+        opacity: 0;
+    }
+}
+
+.brewing-fire {
+    position: absolute;
+    bottom: 15px;
+    width: 90px;
+    height: 55px;
+    background: radial-gradient(circle, #f97316 20%, #ef4444 60%, transparent 100%);
+    border-radius: 50% 50% 0 0;
+    opacity: 0;
+    transition: opacity 0.3s, background 0.3s;
+    z-index: 1;
+}
+
+.brewing-fire.fire-high {
+    opacity: 0.95;
+    background: radial-gradient(circle, #fbbf24 20%, #f97316 50%, #ef4444 80%, transparent 100%);
+    animation: firePulseAnim 0.3s infinite alternate;
+}
+
+.brewing-fire.fire-low {
+    opacity: 0.65;
+    background: radial-gradient(circle, #f97316 35%, #ef4444 75%, transparent 100%);
+    animation: firePulseAnim 0.6s infinite alternate;
+}
+
+@keyframes firePulseAnim {
+    0% {
+        transform: scale(0.85) translateY(0);
+    }
+
+    100% {
+        transform: scale(1.15) translateY(-6px);
+    }
+}
+
+.brewing-pot-shadow {
+    width: 120px;
+    height: 14px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 26px;
+    z-index: 0;
+}
+
+.brewing-fire-controls button {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+.brewing-fire-controls button:hover {
+    transform: scale(1.1);
+}
+
+.glowing-neon-border {
+    box-shadow: 0 0 18px rgba(46, 179, 102, 0.45);
+    border: 1px solid rgba(46, 179, 102, 0.7) !important;
+}
+
+.dark-mode .glowing-neon-border {
+    box-shadow: 0 0 25px rgba(46, 179, 102, 0.75);
+}
+
+
+
+/* --- Auth modal Google button --- */
+html.dark-mode #googleLoginBtn {
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.3) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+html.dark-mode #googleLoginBtn:hover {
+    background: rgba(46, 179, 102, 0.12) !important;
+    border-color: var(--primary) !important;
+}
+
+
+
+/* --- Herb Detail Modal: text visibility --- */
+html.dark-mode #herbDetailModal .text-secondary {
+    color: var(--text-muted) !important;
+}
+html.dark-mode #herbDetailModal .text-danger {
+    color: #f87171 !important;
+}
+html.dark-mode #herbDetailModal h5.fw-bold {
+    color: var(--text-main) !important;
+}
+

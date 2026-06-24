@@ -1,0 +1,889 @@
+/*
+ * EcoHeritage AI - Modular CSS Component: DARKMODE
+ */
+
+/* ─── SAVED ITEMS CARD & NEWSLETTER FOOTER HIGH CONTRAST ─── */
+.saved-item-card {
+    transition: all var(--transition-normal) !important;
+    border-color: rgba(46, 179, 102, 0.1) !important;
+}
+
+.saved-item-card:hover {
+    transform: translateY(-4px) scale(1.02) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 10px 25px rgba(46, 179, 102, 0.12) !important;
+}
+
+/* High Contrast Newsletter Footer Input & Placeholder */
+.newsletter-group input {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    transition: all var(--transition-fast) !important;
+}
+
+.newsletter-group input:focus {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: var(--primary-light) !important;
+    box-shadow: 0 0 15px rgba(46, 179, 102, 0.4) !important;
+}
+
+.newsletter-group input::placeholder {
+    color: rgba(255, 255, 255, 0.72) !important;
+    opacity: 1 !important;
+    /* Ensure high contrast in all browsers */
+}
+
+/* Premium Floating Chat Button Override */
+.premium-chat-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.45), 0 0 25px rgba(16, 185, 129, 0.2) !important;
+    transition: all var(--transition-bounce) !important;
+}
+
+.premium-chat-btn:hover {
+    transform: scale(1.12) rotate(6deg) !important;
+    box-shadow: 0 15px 45px rgba(16, 185, 129, 0.6) !important;
+}
+
+
+
+/* ─── DARK MODE OVERRIDES FOR PREMIUM v5 ───────────────────────── */
+html.dark-mode .admin-header,
+html.dark-mode .admin-card,
+html.dark-mode .auth-premium-container,
+html.dark-mode .guide-card-premium,
+html.dark-mode .achievement-card:not(.locked),
+html.dark-mode .achievement-card:hover {
+    background: var(--bg-light) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .process-step-premium {
+    background: rgba(22, 32, 25, 0.6) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .process-step-premium:hover {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+}
+
+html.dark-mode .premium-chat-input-group {
+    background: var(--bg-white) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+html.dark-mode .premium-chat-input-group input {
+    background: transparent !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .badge-locked-overlay {
+    background: rgba(13, 22, 17, 0.8) !important;
+}
+
+html.dark-mode .btn-outline-dark {
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.3) !important;
+}
+
+html.dark-mode .btn-outline-dark:hover {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+/* Fix table styles in admin page for dark mode */
+html.dark-mode .table {
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .table th,
+html.dark-mode .table td {
+    background-color: transparent !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+    color: var(--text-main) !important;
+}
+
+/* Ensure modals don't have white sections */
+html.dark-mode .modal-body {
+    background-color: var(--bg-offwhite) !important;
+}
+
+html.dark-mode .auth-premium-container .col-lg-7 {
+    background-color: var(--bg-light) !important;
+}
+
+/* Modal close button standard dark filter in dark mode */
+html.dark-mode .btn-close {
+    filter: invert(1) grayscale(1) brightness(2) !important;
+}
+
+/* Custom Auth Close Button with circular backdrop for maximum contrast */
+.auth-close-btn {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border-radius: 50% !important;
+    padding: 10px !important;
+    transition: all 0.3s ease !important;
+}
+
+.auth-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+html.dark-mode .auth-close-btn {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    filter: invert(1) grayscale(1) brightness(2) !important;
+}
+
+html.dark-mode .auth-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Dark mode: AQI Dashboard section background */
+html.dark-mode #aqi-dashboard {
+    background: linear-gradient(to bottom, var(--bg-offwhite), var(--bg-light) 50%, var(--bg-offwhite) 100%) !important;
+}
+
+/* Dark mode: Chatbot window border-radius fix */
+html.dark-mode .premium-chat-window {
+    border-radius: 22px !important;
+}
+
+@media (max-width: 768px) {
+    html.dark-mode .premium-chat-window {
+        border-radius: 0 !important;
+    }
+}
+
+
+
+/* ─── 7. COMPREHENSIVE DARK MODE CONTRAST & VISIBILITY OVERRIDES (EcoHeritage v6.5) ─── */
+/* Fix dictionary filter buttons in dark mode */
+html.dark-mode .btn-filter {
+    background: var(--bg-light) !important;
+    color: var(--text-muted) !important;
+    border-color: rgba(46, 179, 102, 0.2) !important;
+}
+
+html.dark-mode .btn-filter.active {
+    background: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+}
+
+html.dark-mode .btn-filter:hover:not(.active) {
+    background: var(--bg-white) !important;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+/* Fix map floating sidebar and inner panels in dark mode */
+html.dark-mode .map-floating-sidebar {
+    background: var(--bg-white) !important;
+    border-right: 1px solid rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .map-floating-sidebar #sidebarTabs {
+    background: var(--bg-light) !important;
+    border-bottom: 1px solid rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .map-floating-sidebar #sidebarTabs .nav-link {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .map-floating-sidebar #sidebarTabs .nav-link.active {
+    background: var(--bg-white) !important;
+    color: var(--primary) !important;
+}
+
+html.dark-mode #places-pane,
+html.dark-mode #reviews-pane {
+    background: var(--bg-white) !important;
+}
+
+html.dark-mode #places-pane .bg-light,
+html.dark-mode #reviews-pane .bg-light {
+    background: var(--bg-light) !important;
+    border-bottom-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode #searchLocationInput {
+    background: var(--bg-light) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .map-floating-sidebar .input-group {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.2) !important;
+}
+
+html.dark-mode .map-item-premium {
+    border-bottom-color: rgba(46, 179, 102, 0.1) !important;
+}
+
+html.dark-mode .map-item-premium:hover {
+    background: var(--bg-light) !important;
+}
+
+html.dark-mode .map-item-premium.active {
+    background: rgba(46, 179, 102, 0.12) !important;
+    border-left-color: var(--primary) !important;
+}
+
+html.dark-mode #regionDetailArea {
+    background: var(--bg-white) !important;
+    border-bottom-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode #activeLocationReviewsList {
+    background: var(--bg-white) !important;
+}
+
+html.dark-mode .review-bubble {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.1) !important;
+}
+
+html.dark-mode #writeReviewSection,
+html.dark-mode #reviewLoginRequired {
+    background: var(--bg-light) !important;
+    border-top-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .star-rating i:not(.active) {
+    color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Fix profile locked achievement cards in dark mode */
+html.dark-mode .achievement-card.locked {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .achievement-card.locked .achievement-title {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .achievement-card.locked .achievement-desc {
+    color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Fix admin metrics and tables in dark mode */
+html.dark-mode .metric-card {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .table-responsive-premium {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .table {
+    background-color: var(--bg-light) !important;
+}
+
+html.dark-mode .admin-sidebar {
+    background: var(--bg-white) !important;
+}
+
+html.dark-mode .admin-nav-link {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .admin-nav-link:hover,
+html.dark-mode .admin-nav-link.active {
+    color: white !important;
+}
+
+html.dark-mode .admin-nav-link.active {
+    background: rgba(46, 179, 102, 0.2) !important;
+}
+
+/* Fix warning badges and steps text-dark visibility */
+html.dark-mode .bg-warning.text-dark,
+html.dark-mode .badge.bg-warning.text-dark,
+html.dark-mode .btn-warning.text-dark,
+html.dark-mode .alert-warning.text-dark,
+html.dark-mode [class*="bg-warning"].text-dark {
+    color: #1A2E22 !important;
+}
+
+/* Enhance section badges contrast in dark mode */
+html.dark-mode .section-badge {
+    background: rgba(46, 179, 102, 0.25) !important;
+    color: #4ade80 !important;
+    border: 1px solid rgba(74, 222, 128, 0.2) !important;
+}
+
+/* Fix Leaflet Popups contrast in dark mode */
+html.dark-mode .leaflet-popup-content-wrapper {
+    background: var(--bg-light) !important;
+    color: var(--text-main) !important;
+    border: 1px solid rgba(46, 179, 102, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark-mode .leaflet-popup-tip {
+    background: var(--bg-light) !important;
+    border: 1px solid rgba(46, 179, 102, 0.3) !important;
+}
+
+html.dark-mode .leaflet-popup-content {
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .leaflet-popup-content h1,
+html.dark-mode .leaflet-popup-content h2,
+html.dark-mode .leaflet-popup-content h3,
+html.dark-mode .leaflet-popup-content h4,
+html.dark-mode .leaflet-popup-content h5,
+html.dark-mode .leaflet-popup-content h6,
+html.dark-mode .leaflet-popup-content strong,
+html.dark-mode .leaflet-popup-content span,
+html.dark-mode .leaflet-popup-content p {
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .leaflet-popup-close-button {
+    color: var(--text-muted) !important;
+}
+
+
+
+/* ==========================================================================
+   DARK MODE & ADDITIONAL PREMIUM OVERRIDES
+   ========================================================================== */
+html.dark-mode {
+    --bg-white: #070D0A;
+    --bg-offwhite: #0A120E;
+    --bg-light: #0F1A14;
+    --bg-card: #0F1A14;                  /* Nền thẻ / modal tối */
+    --text-main: #E2F0E5;
+    --text-muted: #8AA395;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+html.dark-mode body {
+    background-color: var(--bg-offwhite);
+    color: var(--text-main);
+}
+
+html.dark-mode .navbar {
+    background: rgba(13, 22, 17, 0.92) !important;
+    border-bottom-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+html.dark-mode .navbar-nav .nav-link {
+    color: var(--text-muted) !important;
+}
+html.dark-mode .navbar-nav .nav-link.active {
+    color: white !important;
+    background: var(--primary) !important;
+}
+html.dark-mode .navbar-nav .nav-link:hover:not(.active) {
+    color: var(--primary) !important;
+}
+
+html.dark-mode .card,
+html.dark-mode .modal-content,
+html.dark-mode .dropdown-menu {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .text-dark,
+html.dark-mode .card-body h5,
+html.dark-mode .modal-title {
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .text-muted {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .text-secondary {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .dropdown-item {
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .dropdown-item:hover {
+    background: rgba(46, 179, 102, 0.15) !important;
+    color: var(--primary) !important;
+}
+
+html.dark-mode .form-floating label {
+    color: var(--text-muted) !important;
+}
+
+html.dark-mode .blockquote {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: var(--primary) !important;
+}
+
+.text-warning.text-darken {
+    color: #b45309 !important;
+}
+
+html.dark-mode .text-warning.text-darken {
+    color: #f59e0b !important;
+}
+
+html.dark-mode .bg-white {
+    background: var(--bg-white) !important;
+}
+
+html.dark-mode .bg-light {
+    background: var(--bg-light) !important;
+}
+
+html.dark-mode .form-control,
+html.dark-mode .form-select,
+html.dark-mode .input-group,
+html.dark-mode .input-group-text {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.2) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .form-control:focus,
+html.dark-mode .form-select:focus {
+    background: var(--bg-light) !important;
+    color: var(--text-main) !important;
+}
+
+html.dark-mode .list-group-item {
+    background-color: transparent !important;
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.1) !important;
+}
+
+/* Fix U4: Modal herb detail image constraint and vertical alignment */
+.modal-img-col {
+    position: relative;
+    min-height: 350px;
+    overflow: hidden;
+}
+
+#herbDetailImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 24px 24px 0 0 !important; /* Rounded top on mobile */
+    transition: transform 0.5s ease;
+}
+
+@media (min-width: 992px) {
+    .modal-img-col {
+        min-height: 100%;
+        height: auto;
+    }
+    #herbDetailImg {
+        border-radius: 24px 0 0 24px !important; /* Rounded left on desktop */
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-img-col {
+        min-height: 250px;
+    }
+}
+
+/* Scroll Progress Bar Styles */
+#scrollProgressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--primary);
+    z-index: 9999;
+    transition: width 0.1s ease;
+    width: 0%;
+}
+
+/* Skeleton Loading Animation */
+@keyframes skeleton-loading {
+    0% { background-color: #f2f2f2; }
+    50% { background-color: #e0e0e0; }
+    100% { background-color: #f2f2f2; }
+}
+
+html.dark-mode .skeleton-img,
+html.dark-mode .skeleton-title,
+html.dark-mode .skeleton-text,
+html.dark-mode .skeleton-card div {
+    animation: skeleton-loading-dark 1.5s infinite ease-in-out !important;
+}
+
+@keyframes skeleton-loading-dark {
+    0% { background-color: #162019; }
+    50% { background-color: #202b23; }
+    100% { background-color: #162019; }
+}
+
+.skeleton-card {
+    pointer-events: none;
+}
+.skeleton-card-col {
+    transition: all 0.3s ease;
+}
+
+/* Prevent autocomplete white bg */
+.newsletter-group input:-webkit-autofill,
+.newsletter-group input:-webkit-autofill:hover, 
+.newsletter-group input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0px 1000px #0D1611 inset !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* CTA Button Pulse Animation */
+@keyframes ctaPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 179, 102, 0.4); }
+    70% { transform: scale(1.04); box-shadow: 0 0 0 10px rgba(46, 179, 102, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 179, 102, 0); }
+}
+.btn-pulse {
+    animation: ctaPulse 3s infinite ease-in-out;
+}
+
+/* Fix: Newsletter input focus style override (prevent white-on-white text) */
+.newsletter-group .form-control,
+.newsletter-group .form-control.bg-white {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.newsletter-group .form-control::placeholder,
+.newsletter-group .form-control.bg-white::placeholder {
+    color: rgba(255, 255, 255, 0.72) !important;
+    opacity: 1 !important;
+}
+
+.newsletter-group .form-control:focus,
+.newsletter-group .form-control.bg-white:focus {
+    background-color: rgba(255, 255, 255, 0.22) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.25rem rgba(46, 179, 102, 0.25) !important;
+    border-color: var(--primary) !important;
+}
+
+/* ─── CUSTOM SCROLLBAR ───────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-offwhite);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* ─── NOISE TEXTURE UTILITY ─────────────────────────────── */
+.noise-texture {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.015;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ─── GLOW BORDER SYSTEM ────────────────────────────────── */
+.glow-border {
+    position: relative;
+    border: 1px solid rgba(46, 179, 102, 0.15) !important;
+    transition: all var(--transition-normal) !important;
+}
+.glow-border:hover {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 15px rgba(46, 179, 102, 0.3) !important;
+}
+
+/* ─── DISPLAY FONT HEADING ───────────────────────────────── */
+.display-heading {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: -2px !important;
+    line-height: 1.1 !important;
+}
+
+/* ─── DARK MODE CHATBOT OVERRIDES (Purges Monochrome) ───── */
+html.dark-mode .premium-chat-window {
+    background: rgba(13, 22, 17, 0.85) !important;
+    backdrop-filter: blur(25px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(16, 185, 129, 0.1) !important;
+}
+html.dark-mode .premium-chat-body {
+    background: linear-gradient(to bottom, rgba(13, 22, 17, 0.5), rgba(21, 36, 28, 0.5)) !important;
+}
+html.dark-mode .ai-bubble {
+    background: rgba(21, 36, 28, 0.95) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(16, 185, 129, 0.15) !important;
+}
+html.dark-mode .premium-chat-input-group {
+    background: rgba(13, 22, 17, 0.6) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+}
+html.dark-mode .premium-chat-input-group input {
+    color: var(--text-main) !important;
+}
+html.dark-mode .chat-footer {
+    background: rgba(13, 22, 17, 0.9) !important;
+    border-top-color: rgba(16, 185, 129, 0.15) !important;
+}
+html.dark-mode .quick-reply-btn {
+    border-color: rgba(16, 185, 129, 0.4) !important;
+    color: var(--primary-light) !important;
+}
+html.dark-mode .quick-reply-btn:hover {
+    background: rgba(16, 185, 129, 0.15) !important;
+    color: white !important;
+}
+
+/* Dark mode contrast: section titles, headings, auth modal, herb detail */
+html.dark-mode .section-title,
+html.dark-mode .section-title span {
+    color: var(--text-main) !important;
+}
+html.dark-mode .section-badge {
+    background: rgba(46, 179, 102, 0.15) !important;
+    color: var(--primary-light) !important;
+}
+html.dark-mode .auth-glass-panel {
+    background: var(--bg-light) !important;
+}
+html.dark-mode .auth-glass-panel h3,
+html.dark-mode .auth-glass-panel p,
+html.dark-mode .auth-glass-panel label {
+    color: var(--text-main) !important;
+}
+html.dark-mode .auth-glass-panel .nav-link {
+    color: var(--text-muted) !important;
+}
+html.dark-mode .auth-glass-panel .nav-link.active {
+    color: white !important;
+    background: var(--primary) !important;
+}
+html.dark-mode .auth-glass-panel .form-control {
+    background: var(--bg-white) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+}
+html.dark-mode .auth-glass-panel .text-muted {
+    color: var(--text-muted) !important;
+}
+html.dark-mode .auth-glass-panel .form-check-label {
+    color: var(--text-muted) !important;
+}
+html.dark-mode .health-alert-box {
+    background: rgba(46, 179, 102, 0.08) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+}
+html.dark-mode .health-alert-box p {
+    color: var(--text-muted) !important;
+}
+html.dark-mode #herbDetailModal .modal-body h5 {
+    color: var(--text-main) !important;
+}
+html.dark-mode #herbDetailModal .alert-warning {
+    background: rgba(255, 193, 7, 0.08) !important;
+    color: #fbbf24 !important;
+}
+html.dark-mode #herbDetailModal .alert-warning strong {
+    color: #fcd34d !important;
+}
+html.dark-mode .process-step-premium {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+html.dark-mode .guide-card-premium .card-body a {
+    color: var(--text-main) !important;
+}
+html.dark-mode .param-card-temp,
+html.dark-mode .param-card-humidity,
+html.dark-mode .param-card-uv,
+html.dark-mode .param-card-wind {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+}
+html.dark-mode .param-card-temp h3,
+html.dark-mode .param-card-humidity h3,
+html.dark-mode .param-card-uv h3,
+html.dark-mode .param-card-wind h3 {
+    color: var(--text-main) !important;
+}
+html.dark-mode .dashboard-card {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+}
+html.dark-mode .dashboard-header-bg h4 {
+    color: var(--text-main) !important;
+}
+
+
+
+/* ==========================================================================
+   DARK MODE — COMPREHENSIVE CONTRAST FIXES
+   ========================================================================== */
+
+
+
+/* --- Chatbot: ai-local-reply in dark mode --- */
+html.dark-mode .ai-local-reply {
+    background: rgba(16, 185, 129, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+}
+html.dark-mode .ai-local-reply p,
+html.dark-mode .ai-local-reply li,
+html.dark-mode .ai-local-reply strong {
+    color: var(--text-main) !important;
+}
+html.dark-mode .ai-local-reply .text-secondary {
+    color: var(--text-muted) !important;
+}
+
+
+
+/* --- Chatbot v2: Footer dark mode --- */
+html.dark-mode .chat-footer-v2 {
+    background: rgba(13, 22, 17, 0.92) !important;
+    border-top-color: rgba(16, 185, 129, 0.12) !important;
+}
+html.dark-mode .chatbot-quick-pill {
+    border-color: rgba(16, 185, 129, 0.35) !important;
+    color: #6ee7b7 !important;
+    background: rgba(16, 185, 129, 0.06) !important;
+}
+html.dark-mode .chatbot-quick-pill:hover {
+    background: rgba(16, 185, 129, 0.18) !important;
+    color: white !important;
+}
+html.dark-mode .chatbot-input-group {
+    background: rgba(13, 22, 17, 0.6) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+}
+html.dark-mode .chatbot-input-group:focus-within {
+    background: rgba(13, 22, 17, 0.8) !important;
+    border-color: #10b981 !important;
+}
+html.dark-mode .chatbot-input {
+    color: var(--text-main) !important;
+}
+html.dark-mode .chatbot-input::placeholder {
+    color: rgba(165, 188, 176, 0.6) !important;
+}
+html.dark-mode .chatbot-disclaimer {
+    color: #f87171 !important;
+}
+
+
+
+/* --- Badge bg-success bg-opacity-10 in dark mode --- */
+html.dark-mode .badge.bg-success.bg-opacity-10 {
+    background: rgba(16, 185, 129, 0.15) !important;
+}
+
+
+
+/* --- Navbar toggler icon for dark mode --- */
+html.dark-mode .navbar-toggler-icon {
+    filter: invert(1) !important;
+}
+
+
+
+/* --- Auth modal tabs in dark mode bg-light --- */
+html.dark-mode .custom-auth-tabs {
+    background: rgba(13, 22, 17, 0.5) !important;
+}
+
+
+
+/* --- High contrast color overrides for Bootstrap classes in dark mode --- */
+html.dark-mode .text-success {
+    color: #4eed94 !important; /* Lighter bright green for readability */
+}
+html.dark-mode .text-primary {
+    color: #60a5fa !important; /* Lighter blue */
+}
+html.dark-mode .text-danger {
+    color: #f87171 !important; /* Lighter red */
+}
+html.dark-mode .text-warning {
+    color: #fbbf24 !important; /* Lighter yellow */
+}
+html.dark-mode .border-success {
+    border-color: rgba(78, 237, 148, 0.3) !important;
+}
+
+
+
+/* --- Leaflet Dark Mode Map Style Overrides --- */
+html.dark-mode .leaflet-tile-container img {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%) !important;
+}
+html.dark-mode .leaflet-container {
+    background: #0f1a14 !important;
+}
+html.dark-mode .leaflet-control-attribution {
+    background: rgba(13, 22, 17, 0.8) !important;
+    color: var(--text-muted) !important;
+}
+html.dark-mode .leaflet-control-attribution a {
+    color: var(--primary) !important;
+}
+html.dark-mode .leaflet-bar a {
+    background-color: var(--bg-light) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(46, 179, 102, 0.2) !important;
+}
+html.dark-mode .leaflet-bar a:hover {
+    background-color: rgba(46, 179, 102, 0.25) !important;
+    color: var(--primary) !important;
+}
+
+/* Fix article modal background transparency under light mode */
+#articleDetailModal .modal-content,
+#articleDetailModal .modal-body {
+    background-color: #FFFFFF !important;
+    color: #1A2E22 !important;
+}
+
+/* Fix article modal background transparency under dark mode */
+html.dark-mode #articleDetailModal .modal-content,
+html.dark-mode #articleDetailModal .modal-body {
+    background-color: #0F1A14 !important;
+    color: #E2F0E5 !important;
+}
+
+/* Weather preset button style normalization */
+.weather-preset-btn {
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+}
+
+
+
+

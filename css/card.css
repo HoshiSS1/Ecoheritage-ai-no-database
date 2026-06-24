@@ -1,0 +1,1634 @@
+/*
+ * EcoHeritage AI - Modular CSS Component: CARD
+ */
+
+/* ─── BREATHTAKING ECO WEATHER PARAM CARDS ─── */
+.param-card-temp {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.12)) !important;
+    border: 2px solid rgba(239, 68, 68, 0.15) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 24px 20px !important;
+    transition: all var(--transition-normal) !important;
+    height: 100%;
+}
+
+.param-card-temp:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 30px rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+}
+
+.param-card-humidity {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.12)) !important;
+    border: 2px solid rgba(59, 130, 246, 0.15) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 24px 20px !important;
+    transition: all var(--transition-normal) !important;
+    height: 100%;
+}
+
+.param-card-humidity:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15) !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+.param-card-uv {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.12)) !important;
+    border: 2px solid rgba(245, 158, 11, 0.15) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 24px 20px !important;
+    transition: all var(--transition-normal) !important;
+    height: 100%;
+}
+
+.param-card-uv:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15) !important;
+    border-color: rgba(245, 158, 11, 0.4) !important;
+}
+
+.param-card-wind {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.12)) !important;
+    border: 2px solid rgba(16, 185, 129, 0.15) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 24px 20px !important;
+    transition: all var(--transition-normal) !important;
+    height: 100%;
+}
+
+.param-card-wind:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.15) !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+}
+
+
+
+/* ─── DYNAMIC STEP PEDIA ─── */
+.process-step-premium {
+    transition: all var(--transition-normal) !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+.process-step-premium:hover {
+    transform: translateX(8px) !important;
+    background: white !important;
+    box-shadow: var(--shadow-md) !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+
+
+/* ─── ZOOMING CARD OVERLAYS ─── */
+.guide-card-premium {
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+    border-radius: var(--radius-md) !important;
+    transition: all var(--transition-normal) !important;
+    background: white !important;
+}
+
+.guide-card-premium:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+}
+
+.guide-card-premium img {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.guide-card-premium:hover img {
+    transform: scale(1.08) !important;
+}
+
+/* ─── CẢI TIẾN TAB BẢN ĐỒ DI SẢN (SEGMENTED CONTROL PILL) ─── */
+#sidebarTabs {
+    background: rgba(13, 22, 17, 0.04) !important;
+    border-radius: 14px !important;
+    padding: 5px !important;
+    margin: 15px 18px 10px 18px !important;
+    display: flex !important;
+    border: none !important;
+}
+
+#sidebarTabs .nav-item {
+    flex: 1 !important;
+}
+
+#sidebarTabs .nav-link {
+    color: #536C5E !important;
+    /* text-muted HSL */
+    background: transparent !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 8px !important;
+    font-size: 0.92rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#sidebarTabs .nav-link:hover {
+    color: var(--primary) !important;
+    background: rgba(46, 179, 102, 0.06) !important;
+}
+
+#sidebarTabs .nav-link.active {
+    color: #1A2E22 !important;
+    /* text-main HSL */
+    background: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 15px rgba(13, 22, 17, 0.08) !important;
+}
+
+#sidebarTabs .nav-link:disabled,
+#sidebarTabs .nav-link[disabled] {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    color: #8fa096 !important;
+}
+
+
+
+/* ─── 2. ECO-WEATHER DASHBOARD GLASSMORPHISM ─── */
+#aqi-dashboard {
+    background: linear-gradient(to bottom, #ffffff, #f0f7f3 50%, #eefbf4 100%) !important;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(25px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+    border: 1px solid rgba(16, 185, 129, 0.16) !important;
+    box-shadow: 0 25px 65px rgba(13, 22, 17, 0.07) !important;
+    border-radius: var(--radius-lg) !important;
+    overflow: hidden !important;
+    transition: all 0.4s ease !important;
+}
+
+.dashboard-card:hover {
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 35px 80px rgba(13, 22, 17, 0.1) !important;
+}
+
+.dashboard-header-bg {
+    background: linear-gradient(135deg, #0b2214 0%, #059669 100%) !important;
+    border-bottom: 1.5px solid rgba(16, 185, 129, 0.2) !important;
+    color: white !important;
+    padding: 26px 35px !important;
+}
+
+/* Cột phát live data nhấp nháy */
+.badge-realtime {
+    background: rgba(16, 185, 129, 0.2) !important;
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    color: #10b981 !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.8px !important;
+    border-radius: 30px !important;
+    padding: 6px 14px !important;
+    animation: livePulse 2s infinite ease-in-out !important;
+}
+
+@keyframes livePulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+        box-shadow: 0 0 5px rgba(16, 185, 129, 0.2);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    }
+}
+
+/* AQI Panel cầu phát sáng */
+#aqiPanel {
+    background: linear-gradient(135deg, #0f3d23 0%, #157347 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 12px 35px rgba(21, 115, 71, 0.3) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+#aqiPanel::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -50% !important;
+    left: -50% !important;
+    width: 200% !important;
+    height: 200% !important;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 60%) !important;
+    pointer-events: none !important;
+    animation: rotateGlow 12s infinite linear !important;
+}
+
+@keyframes rotateGlow {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.aqi-circle {
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50% !important;
+    border: 4px solid rgba(255, 255, 255, 0.25) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(5px) !important;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.35), inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.5s ease !important;
+}
+
+#aqiPanel:hover .aqi-circle {
+    transform: scale(1.06) rotate(5deg) !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 45px rgba(16, 185, 129, 0.55), inset 0 0 25px rgba(255, 255, 255, 0.15) !important;
+}
+
+.aqi-value-text {
+    font-size: 2.8rem !important;
+    font-weight: 900 !important;
+    letter-spacing: -1px !important;
+    color: white !important;
+    line-height: 1.1 !important;
+}
+
+.aqi-status-text {
+    font-size: 0.82rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    font-weight: 800 !important;
+    color: #a7f3d0 !important;
+}
+
+
+
+/* ─── 3. COLORED GLASSWEATHER PARAM CARDS ─── */
+.param-card-temp {
+    background: rgba(254, 242, 242, 0.65) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(239, 68, 68, 0.18) !important;
+    border-radius: 20px !important;
+    padding: 24px 18px !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.param-card-temp:hover {
+    transform: translateY(-8px) !important;
+    background: #ffffff !important;
+    border-color: rgba(239, 68, 68, 0.42) !important;
+    box-shadow: 0 15px 35px rgba(239, 68, 68, 0.15) !important;
+}
+
+.param-card-humidity {
+    background: rgba(239, 246, 255, 0.65) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(59, 130, 246, 0.18) !important;
+    border-radius: 20px !important;
+    padding: 24px 18px !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.param-card-humidity:hover {
+    transform: translateY(-8px) !important;
+    background: #ffffff !important;
+    border-color: rgba(59, 130, 246, 0.42) !important;
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15) !important;
+}
+
+.param-card-uv {
+    background: rgba(255, 251, 235, 0.65) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(245, 158, 11, 0.18) !important;
+    border-radius: 20px !important;
+    padding: 24px 18px !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.param-card-uv:hover {
+    transform: translateY(-8px) !important;
+    background: #ffffff !important;
+    border-color: rgba(245, 158, 11, 0.42) !important;
+    box-shadow: 0 15px 35px rgba(245, 158, 11, 0.15) !important;
+}
+
+.param-card-wind {
+    background: rgba(236, 253, 245, 0.65) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(16, 185, 129, 0.18) !important;
+    border-radius: 20px !important;
+    padding: 24px 18px !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.param-card-wind:hover {
+    transform: translateY(-8px) !important;
+    background: #ffffff !important;
+    border-color: rgba(16, 185, 129, 0.42) !important;
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* ─── 4. QUY TRÌNH BÀO CHẾ BÀN TAY VÀNG ─── */
+.process-step-premium {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid rgba(13, 22, 17, 0.05) !important;
+    padding: 22px 24px !important;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.process-step-premium:hover {
+    transform: translateX(12px) scale(1.02) !important;
+    background: #ffffff !important;
+    box-shadow: 0 15px 30px rgba(13, 22, 17, 0.05) !important;
+}
+
+.process-step-premium.border-success:hover {
+    border-left-width: 6px !important;
+    border-color: #10b981 !important;
+}
+
+.process-step-premium.border-primary:hover {
+    border-left-width: 6px !important;
+    border-color: #3b82f6 !important;
+}
+
+.process-step-premium.border-warning:hover {
+    border-left-width: 6px !important;
+    border-color: #f59e0b !important;
+}
+
+/* Vòng số quy trình */
+.process-step-premium .badge {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.15rem !important;
+    border: 2px solid white !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ─── 5. CẨM NANG SỨC KHỎE TẠP CHÍ CAO CẤP ─── */
+.guide-card-premium {
+    border-radius: 20px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(13, 22, 17, 0.04) !important;
+    box-shadow: 0 10px 30px rgba(13, 22, 17, 0.04) !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.guide-card-premium:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 25px 50px rgba(13, 22, 17, 0.12) !important;
+    border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+.guide-card-premium img {
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.guide-card-premium:hover img {
+    transform: scale(1.1) rotate(0.5deg) !important;
+}
+
+.guide-card-premium .card-body {
+    padding: 26px 24px !important;
+}
+
+.guide-card-premium h5 a {
+    transition: color 0.3s ease !important;
+}
+
+.guide-card-premium:hover h5 a {
+    color: #059669 !important;
+}
+
+/* Nhãn cẩm nang mờ */
+.guide-card-premium .badge.bg-success {
+    background: rgba(16, 185, 129, 0.1) !important;
+    color: #059669 !important;
+    font-weight: 700 !important;
+    padding: 6px 12px !important;
+    font-size: 0.72rem !important;
+}
+
+.guide-card-premium .badge.bg-primary {
+    background: rgba(59, 130, 246, 0.1) !important;
+    color: #2563eb !important;
+    font-weight: 700 !important;
+    padding: 6px 12px !important;
+    font-size: 0.72rem !important;
+}
+
+.guide-card-premium .badge.bg-warning {
+    background: rgba(245, 158, 11, 0.1) !important;
+    color: #d97706 !important;
+    font-weight: 700 !important;
+    padding: 6px 12px !important;
+    font-size: 0.72rem !important;
+}
+
+/* ─── 6. FOOTER SANG TRỌNG ĐỘNG (SITE FOOTER EXCELLENCY) ─── */
+.site-footer {
+    background: #08110c !important;
+    border-top: 1.5px solid rgba(16, 185, 129, 0.1) !important;
+}
+
+.footer-link-hover {
+    position: relative !important;
+    transition: color 0.3s ease !important;
+}
+
+.footer-link-hover::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 0% !important;
+    height: 1.5px !important;
+    bottom: -3px !important;
+    left: 0 !important;
+    background: #10b981 !important;
+    transition: width 0.3s ease !important;
+}
+
+.footer-link-hover:hover {
+    color: #10b981 !important;
+}
+
+.footer-link-hover:hover::after {
+    width: 100% !important;
+}
+
+/* Nhóm mạng xã hội xoay tròn phát sáng */
+.site-footer .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.site-footer .btn-outline-light:hover {
+    transform: rotate(360deg) scale(1.12) !important;
+    background: #10b981 !important;
+    border-color: #10b981 !important;
+    color: white !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.6) !important;
+}
+
+/* ==========================================================================
+   PHA 8: DROPDOWN MENU, HỒ SƠ CÁ NHÂN, SIÊU CHATBOX & TĂNG CHIỀU CAO BẢN ĐỒ
+   ========================================================================== */
+
+/* ─── 1. MENU DROPDOWN NAVBAR KÍNH MỜ (GLASSMORPHIC DROP-MENU) ─── */
+.glassmorphic-dropdown {
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(25px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(190%) !important;
+    border: 1px solid rgba(16, 185, 129, 0.18) !important;
+    box-shadow: 0 20px 50px rgba(13, 22, 17, 0.12) !important;
+    z-index: 1100 !important;
+}
+
+.glassmorphic-dropdown .dropdown-item {
+    font-weight: 600 !important;
+    color: #1A2E22 !important;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.glassmorphic-dropdown .dropdown-item:hover {
+    background: rgba(16, 185, 129, 0.08) !important;
+    color: #059669 !important;
+    transform: translateX(6px) !important;
+}
+
+.glassmorphic-dropdown .dropdown-item.text-danger:hover {
+    background: rgba(220, 53, 69, 0.08) !important;
+    color: #dc3545 !important;
+}
+
+/* ─── 2. NÂNG CẤP GIAO DIỆN TRANG HỒ SƠ CÁ NHÂN (PROFILE PAGE EXCELLENCY) ─── */
+.profile-cover-section {
+    background-attachment: scroll !important;
+    border-bottom: 2px solid rgba(16, 185, 129, 0.15) !important;
+}
+
+.glass-stat-card {
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.glass-stat-card:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 12px 30px rgba(0, 230, 118, 0.25) !important;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(16, 185, 129, 0.1) !important;
+    box-shadow: 0 15px 45px rgba(13, 22, 17, 0.04) !important;
+    transition: all 0.4s ease !important;
+}
+
+.profile-card:hover {
+    border-color: rgba(16, 185, 129, 0.2) !important;
+    box-shadow: 0 20px 55px rgba(13, 22, 17, 0.07) !important;
+}
+
+/* Thẻ Huy chương thành tựu */
+.achievement-card {
+    background: rgba(248, 249, 250, 0.45) !important;
+    border: 1.5px solid rgba(13, 22, 17, 0.05) !important;
+    padding: 22px 15px !important;
+    border-radius: var(--radius-md) !important;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.achievement-card:hover {
+    transform: translateY(-8px) scale(1.04) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Huy chương đã mở khóa phát sáng riêng biệt */
+.achievement-card:not(.locked) {
+    background: white !important;
+    border-width: 1.5px !important;
+}
+
+#badge-first-save.unlocked {
+    border-color: #2eb366 !important;
+    box-shadow: 0 8px 25px rgba(46, 179, 102, 0.18) !important;
+}
+
+#badge-expert.unlocked {
+    border-color: #0d6efd !important;
+    box-shadow: 0 8px 25px rgba(13, 110, 253, 0.18) !important;
+}
+
+#badge-bot-chat.unlocked {
+    border-color: #ff9800 !important;
+    box-shadow: 0 8px 25px rgba(255, 152, 0, 0.18) !important;
+}
+
+#badge-map-review.unlocked {
+    border-color: #e91e63 !important;
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.18) !important;
+}
+
+#badge-ranger.unlocked {
+    border-color: #9c27b0 !important;
+    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.18) !important;
+}
+
+#badge-system-admin.unlocked {
+    border-color: #ffc107 !important;
+    box-shadow: 0 8px 30px rgba(255, 193, 7, 0.3) !important;
+    background: linear-gradient(to bottom, #fff, #fff9e6) !important;
+}
+
+/* Huy chương bị khóa phủ kính mờ */
+.badge-locked-overlay {
+    background: rgba(255, 255, 255, 0.82) !important;
+    backdrop-filter: blur(5px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.achievement-card:hover .badge-locked-overlay {
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(2px) !important;
+}
+
+.badge-locked-overlay i {
+    font-size: 1.8rem !important;
+    color: #8fa096 !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Ô nhập liệu cao cấp */
+.premium-input {
+    border: 1.5px solid rgba(13, 22, 17, 0.1) !important;
+    transition: all 0.3s ease !important;
+}
+
+.premium-input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.18) !important;
+}
+
+/* ─── 3. SIÊU NÂNG CẤP HOẠT ẢNH CHATBOX (ECOBOT PRESTIGE UI) ─── */
+/* Hoạt ảnh trượt tin nhắn slide-in */
+.chat-message {
+    animation: bubbleSlideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+@keyframes bubbleSlideIn {
+    0% {
+        transform: translateY(22px) scale(0.92);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Bong bóng nổi nhẹ khi di chuột */
+.message-bubble {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.message-bubble:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(13, 22, 17, 0.05) !important;
+}
+
+.user-bubble:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35) !important;
+}
+
+/* Pulsing online status dot */
+.status-dot.online {
+    animation: onlinePulse 2s infinite ease-in-out !important;
+}
+
+@keyframes onlinePulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+    }
+
+    50% {
+        transform: scale(1.12);
+        box-shadow: 0 0 10px 4px rgba(0, 230, 118, 0.3);
+    }
+}
+
+/* Hộp cảnh báo y tế dưới chân chatbox dạng kính mờ đỏ */
+.chat-footer .text-danger.fw-semibold {
+    background: rgba(220, 53, 69, 0.05) !important;
+    border: 1px dashed rgba(220, 53, 69, 0.22) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    margin-top: 10px !important;
+    transition: all 0.3s ease !important;
+}
+
+.chat-footer .text-danger.fw-semibold:hover {
+    background: rgba(220, 53, 69, 0.08) !important;
+    border-color: rgba(220, 53, 69, 0.4) !important;
+}
+
+/* Assistant Shockwave Pulse for Chat Button */
+.premium-chat-btn {
+    position: fixed !important;
+}
+
+.premium-chat-btn::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -4px !important;
+    left: -4px !important;
+    right: -4px !important;
+    bottom: -4px !important;
+    border-radius: 50% !important;
+    border: 2px solid #10b981 !important;
+    opacity: 0;
+    pointer-events: none !important;
+    animation: assistantPulse 2.8s infinite ease-out !important;
+}
+
+@keyframes assistantPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* ─── 4. GIẢI PHÓNG CHIỀU CAO BẢN ĐỒ DI SẢN (MAP HEIGHT FREEDOM) ─── */
+.hero-map-section {
+    min-height: 95px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    border-bottom: 2px solid rgba(16, 185, 129, 0.15) !important;
+}
+
+.hero-map-section h1 {
+    font-size: 1.4rem !important;
+    margin-bottom: 3px !important;
+}
+
+.hero-map-section p {
+    font-size: 0.82rem !important;
+    line-height: 1.4 !important;
+    opacity: 0.88 !important;
+}
+
+/* ─── TĂNG KHÔNG GIAN BẢN ĐỒ & BIỂU MẪU ĐÁNH GIÁ TRÊN DESKTOP ─── */
+@media (min-width: 769px) {
+
+    #dynamicRegionList,
+    #activeLocationReviewsList {
+        flex: 1 1 0% !important;
+        min-height: 380px !important;
+        /* Giải phóng không gian hiển thị rộng rãi, không bị xíu */
+        overflow-y: auto !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-map-section {
+        min-height: 60px !important;
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+    }
+
+    .hero-map-section h1 {
+        font-size: 1.15rem !important;
+    }
+
+    .hero-map-section p {
+        display: none !important;
+    }
+
+    .map-fullscreen-container {
+        min-height: calc(100vh - 145px) !important;
+        /* 100vh - 85px navbar - 60px hero */
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FIX LỖI MAP - THỐNG NHẤT HEIGHT VÀ LAYOUT RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+
+/* 1. Thống nhất chiều cao bản đồ - xóa xung đột */
+.map-fullscreen-container {
+    height: calc(1000px - 195px) !important;
+    min-height: 500px !important;
+    display: flex !important;
+    overflow: hidden !important;
+    flex-direction: row !important;
+}
+
+/* 2. Sidebar responsive - không cố định 620px */
+.map-floating-sidebar {
+    width: 380px !important;
+    min-width: 320px !important;
+    max-width: 45vw !important;
+    height: 100% !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* 3. Danh sách địa điểm không bị cắt - xóa max-height sai */
+.sidebar-list {
+    max-height: none !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* 4. Map wrapper chiếm phần còn lại */
+.map-full-wrapper {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    position: relative !important;
+}
+
+/* 5. Mobile: fullscreen toggle view instead of stacking/overlapping */
+@media (max-width: 768px) {
+    .map-fullscreen-container.mobile-list-active .map-floating-sidebar {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: calc(100vh - 190px) !important;
+        min-height: auto !important;
+    }
+
+    .map-fullscreen-container.mobile-list-active .map-full-wrapper {
+        display: none !important;
+    }
+
+    .map-fullscreen-container.mobile-map-active .map-floating-sidebar {
+        display: none !important;
+    }
+
+    .map-fullscreen-container.mobile-map-active .map-full-wrapper {
+        display: block !important;
+        width: 100% !important;
+        height: calc(100vh - 190px) !important;
+    }
+
+    .map-fullscreen-container {
+        flex-direction: column !important;
+        height: calc(100vh - 190px) !important;
+        min-height: auto !important;
+        overflow: hidden !important;
+    }
+
+    .sidebar-list {
+        max-height: none !important;
+    }
+
+    .map-floating-sidebar #reviews-pane.active {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        overflow: hidden !important;
+    }
+
+    #reviewsPaneContent {
+        flex-grow: 1 !important;
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+
+    #regionDetailArea {
+        flex-grow: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    #activeLocationReviewsList {
+        overflow: visible !important;
+        flex-grow: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    #writeReviewSection {
+        padding: 10px 15px !important;
+    }
+
+    #reviewStarRating i {
+        font-size: 1.15rem !important;
+    }
+
+    #activeLocationReviewsList .review-card-premium {
+        padding: 8px 12px !important;
+        margin-bottom: 8px !important;
+    }
+}
+
+/* 6. Fix tablet layout (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .map-floating-sidebar {
+        width: 340px !important;
+        max-width: 40vw !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ECOHERITAGE AI - PHASE 2 ADDITIONS (ANIMATION SYSTEM)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Scroll Progress Bar CSS */
+.premium-scroll-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent-orange) 100%) !important;
+    box-shadow: 0 2px 10px rgba(46, 179, 102, 0.4) !important;
+}
+
+/* Text Scramble CSS */
+.scramble-text {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Shimmer Badge */
+.shimmer-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-badge::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 60% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35) 50%, transparent) !important;
+    transform: skewX(-25deg) !important;
+    animation: shimmerBadgeAnim 2.5s infinite linear !important;
+}
+
+@keyframes shimmerBadgeAnim {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* Tilt Card Wrapper */
+.tilt-card-wrapper {
+    transform-style: preserve-3d !important;
+    transform: perspective(1000px);
+}
+
+.tilt-card-wrapper .card {
+    transform: translateZ(10px) !important;
+    transition: transform 0.1s ease !important;
+}
+
+/* Wave Dividers */
+.wave-divider {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    z-index: 2;
+}
+
+.wave-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 40px;
+}
+
+.wave-divider .shape-fill {
+    fill: var(--bg-offwhite) !important;
+}
+
+html.dark-mode .wave-divider .shape-fill {
+    fill: var(--bg-offwhite) !important;
+}
+
+.wave-divider-top {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 2;
+}
+
+.wave-divider-top svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 40px;
+}
+
+.wave-divider-top .shape-fill {
+    fill: var(--bg-offwhite) !important;
+}
+
+html.dark-mode .wave-divider-top .shape-fill {
+    fill: var(--bg-offwhite) !important;
+}
+
+/* Typing Dots */
+.typing-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+}
+
+.typing-dots span {
+    width: 6px;
+    height: 6px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes typingBounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0.2);
+        opacity: 0.5;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Toast Custom Override */
+.custom-toast {
+    background: rgba(13, 22, 17, 0.85) !important;
+    backdrop-filter: blur(15px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+    border: 1px solid rgba(46, 179, 102, 0.25) !important;
+    color: white !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+.custom-toast .toast-body {
+    color: #E8F5E9 !important;
+    font-weight: 500;
+}
+
+/* Fix unlocked achievement card badge-locked-overlay override */
+.achievement-card.unlocked .badge-locked-overlay {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================================================
+   Redesigned 4-card Weather Grid (v7.5 Mockup Redesign)
+   ========================================================================== */
+.weather-param-card {
+    background: rgba(240, 253, 244, 0.65) !important;
+    /* Light mode: translucent light green */
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1.5px solid rgba(46, 179, 102, 0.15) !important;
+    border-radius: 24px !important;
+    padding: 24px 20px !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    height: 100%;
+    box-shadow: 0 8px 25px rgba(46, 179, 102, 0.04) !important;
+}
+
+.weather-param-card:hover {
+    transform: translateY(-8px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(46, 179, 102, 0.35) !important;
+    box-shadow: 0 15px 35px rgba(46, 179, 102, 0.1) !important;
+}
+
+/* Icons styling */
+.icon-wrapper {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+}
+
+.aqi-icon {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.uv-icon {
+    background: rgba(245, 158, 11, 0.1);
+    color: #eab308;
+}
+
+.humidity-icon {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.wind-icon {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+/* Badge status pills */
+.status-badge-pill {
+    padding: 5px 12px !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px;
+    display: inline-block;
+}
+
+.status-badge-pill.success {
+    background: rgba(16, 185, 129, 0.12) !important;
+    color: #10b981 !important;
+}
+
+.status-badge-pill.warning {
+    background: rgba(245, 158, 11, 0.12) !important;
+    color: #d97706 !important;
+}
+
+.status-badge-pill.danger {
+    background: rgba(239, 68, 68, 0.12) !important;
+    color: #ef4444 !important;
+}
+
+/* Card labels and values */
+.card-label-text {
+    display: block;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    color: #718096 !important;
+    letter-spacing: 1.2px;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+.card-value-text {
+    font-size: 2.3rem !important;
+    font-weight: 850 !important;
+    color: #1a202c !important;
+    letter-spacing: -0.5px;
+}
+
+/* Action link */
+.card-action-link {
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: #10b981 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+}
+
+.card-action-link:hover {
+    color: #059669 !important;
+    padding-left: 3px;
+}
+
+/* Dark mode overrides */
+html.dark-mode .weather-param-card {
+    background: rgba(10, 25, 17, 0.75) !important;
+    border: 1.5px solid rgba(16, 185, 129, 0.15) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark-mode .weather-param-card:hover {
+    background: rgba(13, 33, 22, 0.95) !important;
+    border-color: rgba(16, 185, 129, 0.38) !important;
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.15) !important;
+}
+
+html.dark-mode .card-label-text {
+    color: rgba(255, 255, 255, 0.55) !important;
+}
+
+html.dark-mode .card-value-text {
+    color: #ffffff !important;
+}
+
+html.dark-mode .status-badge-pill.warning {
+    background: rgba(245, 158, 11, 0.2) !important;
+    color: #fbbf24 !important;
+}
+
+html.dark-mode .status-badge-pill.danger {
+    background: rgba(239, 68, 68, 0.2) !important;
+    color: #f87171 !important;
+}
+
+/* Highlight flashing animation */
+@keyframes flashHighlight {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(46, 179, 102, 0.5);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px 10px rgba(46, 179, 102, 0.2);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(46, 179, 102, 0);
+    }
+}
+
+.flash-highlight {
+    animation: flashHighlight 1.2s ease-in-out 2;
+}
+
+
+
+/* ─── WEATHER ADAPTIVE CARD ────────────────────────────────── */
+#weatherAdaptiveCard {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 30px rgba(46, 179, 102, 0.04) !important;
+}
+
+#weatherAdaptiveCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(46, 179, 102, 0.15) !important;
+    border-color: rgba(46, 179, 102, 0.45) !important;
+}
+
+html.dark-mode #weatherAdaptiveCard {
+    background: linear-gradient(135deg, rgba(46, 179, 102, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%) !important;
+    border-color: rgba(46, 179, 102, 0.35) !important;
+}
+
+html.dark-mode #weatherAdaptiveCard p {
+    color: var(--text-light) !important;
+}
+
+/* Custom Weather Adaptive classes */
+.weather-adaptive-card {
+    background: linear-gradient(135deg, rgba(46, 179, 102, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
+    border: 1.5px solid rgba(46, 179, 102, 0.25) !important;
+}
+
+.weather-adaptive-icon-container {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background: rgba(46, 179, 102, 0.15) !important;
+    color: #2eb366 !important;
+}
+
+/* Custom Health Alert Box class */
+.health-alert-box-custom {
+    border: 2px dashed rgba(46, 179, 102, 0.3) !important;
+    background: rgba(46, 179, 102, 0.03) !important;
+    backdrop-filter: blur(10px) !important;
+    transition: all 0.4s ease;
+}
+
+/* ─── 3D CARD TILT INTERACTIVE TRANSITIONS ─── */
+.tilt-card {
+    transition: box-shadow 0.3s ease, transform 0.1s ease !important;
+    transform-style: preserve-3d !important;
+}
+
+.tilt-card:hover {
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15), 0 0 30px rgba(16, 185, 129, 0.08) !important;
+}
+
+html.dark-mode .tilt-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 230, 118, 0.15), 0 0 35px rgba(0, 230, 118, 0.1) !important;
+}
+
+
+
+/* ─── UNIFORM FILTER BUTTONS (ROW 1 & ROW 2 DICTIONARY COHESION) ─── */
+.btn-filter,
+#symptomFilter button {
+    background: white !important;
+    color: var(--text-main) !important;
+    border: 1.5px solid rgba(16, 185, 129, 0.16) !important;
+    padding: 8px 20px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    transition: all var(--transition-bounce) !important;
+    box-shadow: var(--shadow-sm) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.btn-filter:hover,
+.btn-filter.active,
+#symptomFilter button:hover,
+#symptomFilter button.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 15px var(--primary-glow) !important;
+}
+
+/* Dark mode overrides for both filters */
+html.dark-mode .btn-filter,
+html.dark-mode #symptomFilter button {
+    background: var(--bg-light) !important;
+    color: var(--text-main) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+html.dark-mode .btn-filter:hover,
+html.dark-mode .btn-filter.active,
+html.dark-mode #symptomFilter button:hover,
+html.dark-mode #symptomFilter button.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 6px 15px var(--primary-glow) !important;
+}
+
+/* ─── PREMIUM FLOATING MAP SIDEBAR FOR DESKTOP (min-width: 992px) ─── */
+@media (min-width: 992px) {
+    .map-fullscreen-container {
+        display: block !important;
+        position: relative !important;
+        height: 750px !important;
+        overflow: hidden !important;
+        border-radius: 24px !important;
+        border: 1px solid rgba(16, 185, 129, 0.18) !important;
+        box-shadow: var(--shadow-md) !important;
+    }
+
+    .map-full-wrapper {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 1 !important;
+    }
+
+    .map-floating-sidebar {
+        position: absolute !important;
+        top: 20px !important;
+        left: 20px !important;
+        width: 380px !important;
+        height: calc(100% - 40px) !important;
+        z-index: 10 !important;
+        border-radius: 20px !important;
+        background: rgba(255, 255, 255, 0.86) !important;
+        backdrop-filter: blur(25px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+        border: 1px solid rgba(16, 185, 129, 0.22) !important;
+        box-shadow: 0 15px 45px rgba(13, 22, 17, 0.15) !important;
+        overflow: hidden !important;
+    }
+
+    html.dark-mode .map-floating-sidebar {
+        background: rgba(13, 22, 17, 0.86) !important;
+        border-color: rgba(16, 185, 129, 0.35) !important;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    /* Shift Leaflet zoom controls to top-right to avoid clashing with the floating sidebar */
+    .leaflet-top.leaflet-left {
+        left: auto !important;
+        right: 15px !important;
+        top: 15px !important;
+    }
+
+    .leaflet-control-zoom {
+        margin-right: 0 !important;
+        border: 1.5px solid rgba(16, 185, 129, 0.2) !important;
+        box-shadow: var(--shadow-md) !important;
+    }
+
+    .leaflet-bar a {
+        background-color: white !important;
+        color: var(--text-main) !important;
+        transition: all 0.2s ease !important;
+    }
+
+    html.dark-mode .leaflet-bar a {
+        background-color: var(--bg-light) !important;
+        color: var(--text-main) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .leaflet-bar a:hover {
+        background-color: var(--primary) !important;
+        color: white !important;
+    }
+}
+
+/* Small filter buttons for map page */
+.btn-filter-sm {
+    padding: 6px 14px !important;
+    font-size: 0.78rem !important;
+    gap: 4px !important;
+}
+
+/* Premium reviews pane active layout globally */
+.map-floating-sidebar #reviews-pane.active {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+#reviewsPaneContent {
+    flex-grow: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+}
+
+/* Premium detail card inside map sidebar */
+#regionDetailArea {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(16, 185, 129, 0.15) !important;
+    border-radius: 16px !important;
+    margin: 10px 15px 15px !important;
+    padding: 15px !important;
+    box-shadow: var(--shadow-sm) !important;
+    flex-grow: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+html.dark-mode #regionDetailArea {
+    background: rgba(13, 22, 17, 0.6) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Chatbot Professional Disclaimer Bubble Box */
+.medical-disclaimer-box {
+    background: rgba(245, 158, 11, 0.08) !important;
+    border: 1px solid rgba(245, 158, 11, 0.2) !important;
+    color: #b45309 !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    font-size: 0.72rem !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    line-height: 1.35 !important;
+}
+
+html.dark-mode .medical-disclaimer-box {
+    background: rgba(245, 158, 11, 0.12) !important;
+    border-color: rgba(245, 158, 11, 0.3) !important;
+    color: #f59e0b !important;
+}
+
+@media (min-width: 992px) {
+    .border-start-lg {
+        border-left: 1px solid rgba(16, 185, 129, 0.15) !important;
+    }
+}
+
+/* --- Profile & Achievement Card dark mode overrides --- */
+html.dark-mode .profile-card {
+    background: rgba(13, 22, 17, 0.72) !important;
+    border-color: rgba(46, 179, 102, 0.25) !important;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark-mode .profile-card:hover {
+    border-color: rgba(46, 179, 102, 0.4) !important;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark-mode .achievement-card {
+    background: rgba(15, 26, 20, 0.45) !important;
+    border-color: rgba(46, 179, 102, 0.15) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .particles-container {
+        display: none !important;
+    }
+
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* FIX 1: Biểu đồ Sản lượng - Ngăn chồng chéo nhãn trục X */
+#yieldChart {
+    max-height: 380px !important;
+}
+
+#yieldChart canvas {
+    max-height: 340px !important;
+}
+
+/* Rotate nhãn khi mobile */
+@media (max-width: 768px) {
+    .chart-x-label {
+        transform: rotate(-45deg) !important;
+        text-anchor: end !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+/* FIX 2: Review card hiển thị đầy đủ nội dung */
+.review-card-premium {
+    min-height: auto !important;
+    max-height: none !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    padding: 14px 16px !important;
+}
+
+.review-card-premium p {
+    line-height: 1.55 !important;
+    font-size: 0.83rem !important;
+    max-height: none !important;
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+}
+
+/* Avatar tên người dùng không bị truncate quá mạnh */
+.review-card-premium .text-truncate {
+    max-width: 160px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* --- Dashboard inner health advice cards (bg-white bg-opacity-75) --- */
+html.dark-mode .health-alert-box .bg-white,
+html.dark-mode .health-alert-box [class*="bg-white"] {
+    background: rgba(22, 32, 25, 0.8) !important;
+}
+html.dark-mode .health-alert-box .text-dark,
+html.dark-mode .health-alert-box .small.text-secondary,
+html.dark-mode .health-alert-box .small.text-dark {
+    color: var(--text-main) !important;
+}
+
+
+
+/* --- Charts section bg-white panels --- */
+html.dark-mode #analytics-section .bg-white {
+    background: var(--bg-light) !important;
+    border-color: rgba(46, 179, 102, 0.12) !important;
+}
+html.dark-mode #analytics-section h5 {
+    color: var(--text-main) !important;
+}
+html.dark-mode #analytics-section .text-muted,
+html.dark-mode #analytics-section small {
+    color: var(--text-muted) !important;
+}
+
+
+
+/* --- Guide cards link text --- */
+html.dark-mode .guide-card-premium .text-dark,
+html.dark-mode .guide-card-premium a.text-dark,
+html.dark-mode .guide-card-premium .card-body h5 a {
+    color: var(--text-main) !important;
+}
+html.dark-mode .guide-card-premium .text-muted {
+    color: var(--text-muted) !important;
+}
+

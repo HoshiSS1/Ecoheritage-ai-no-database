@@ -1,0 +1,47 @@
+/*
+ * EcoHeritage AI - Modular CSS Component: ANIMATIONS
+ */
+
+/* ─── MICRO-ANIMATIONS ────────────────────────────────────── */
+.hover-elevate {
+    transition: all var(--transition-normal);
+}
+
+.hover-elevate:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-premium-primary {
+    background: linear-gradient(135deg, var(--accent-purple), #8e2de2) !important;
+    border: none !important;
+    border-radius: 16px !important;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 20px rgba(111, 66, 193, 0.3) !important;
+    transition: all var(--transition-normal);
+}
+
+.btn-premium-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(111, 66, 193, 0.4) !important;
+}
+
+.btn-premium-success {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+    border: none !important;
+    border-radius: 30px !important;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 20px var(--primary-glow) !important;
+    transition: all var(--transition-normal);
+}
+
+.btn-premium-success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(46, 179, 102, 0.4) !important;
+    color: white !important;
+}
+
