@@ -734,7 +734,7 @@ $(document).ready(function () {
             setTimeout(() => $form.removeClass('form-shake'), 600);
         }
 
-        if (!isValidEmail(email)) { showLoginError('Vui lòng nhập email hợp lệ!', ['loginEmail']); showToast('Vui lòng nhập email hợp lệ!', 'error'); return; }
+        if (!isValidEmail(email)) { showLoginError('Vui lòng nhập email hợp lệ!', ['loginEmail']); return; }
 
         const hashedPassword = await hashPassword(password);
         const adminHashed = await hashPassword('admin123');
@@ -766,17 +766,14 @@ $(document).ready(function () {
 
         if (!user) {
             showLoginError('Tài khoản không tồn tại! Vui lòng Đăng ký.', ['loginEmail']);
-            showToast('Tài khoản không tồn tại! Vui lòng Đăng ký.', 'error');
             return;
         }
         if (user.status === 'disabled') {
             showLoginError('Tài khoản của bạn đã bị khóa bởi quản trị viên!', ['loginEmail']);
-            showToast('Tài khoản của bạn đã bị khóa bởi quản trị viên!', 'error');
             return;
         }
         if (user.password !== hashedPassword) {
             showLoginError('Mật khẩu không chính xác!', ['loginPassword']);
-            showToast('Mật khẩu không chính xác!', 'error');
             return;
         }
 
